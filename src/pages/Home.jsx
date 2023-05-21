@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import Header from "../components/header/Header";
-import CustomButton from "../components/customButton/CustomButton";
+import CustomButton from "../components/CustomButton/CustomButton";
 import './Home.css';
 
 const Home = () => {
@@ -18,7 +18,9 @@ const Home = () => {
     return (
         <>
             <Header />
+
             {/* <div className="background-image"></div> */}
+
             <div className="home-intro">
                 <div className="home-intro-text">
                     <h1 className="home-intro-header">Connect <br /> Engage & Thrive <br /> With <span className="home-intro-header-special">Clubbera</span></h1>
@@ -28,7 +30,7 @@ const Home = () => {
                 
             </div>
 
-            
+            <div className="home-"></div>
 
         </>
     )
