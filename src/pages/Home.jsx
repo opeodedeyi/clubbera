@@ -21,17 +21,17 @@ const Home = () => {
 
     const ETUCardsContent = [
         {
-            image: {explore},
+            image: explore,
             title: 'Explore and Discover',
             content: 'Discover engaging social experiences on Soclo. Sign up to explore diverse non-profit clubs matching your interests, find activities and hobbies you love, and foster a vibrant community spirit.'
         },
         {
-            image: {connect},
+            image: connect,
             title: 'Connect and Engage',
             content: 'Connect with like-minded individuals by joining resonating clubs. Share experiences, ideas, and passions in a user-friendly space. Engage in meaningful conversations, collaborate, and build genuine connections based on shared interests.'
         },
         {
-            image: {customize},
+            image: customize,
             title: 'Customize and Grow',
             content: "Bring your vision to life as a club creator on Soclo. Customize your club's dynamics, add moderators, and shape the environment to match your vision. Foster ownership and enhance user satisfaction as your community grows and thrives."
         }

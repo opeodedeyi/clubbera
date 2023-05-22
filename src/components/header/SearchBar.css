@@ -12,7 +12,8 @@
 }
 
 .search-bar {
-    max-width: 600px;
+    max-width: 900px;
+    margin: 0 50px;
 }
 
 .search-bar .search-icon,
@@ -41,9 +42,8 @@
     background-color: transparent;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .search-bar {
         display: none;
     }
-
 }
