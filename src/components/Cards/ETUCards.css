@@ -1,0 +1,28 @@
+.etu-card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 350px;
+}
+
+.etu-card-image {
+    margin-bottom: 15px;
+}
+
+.etu-card-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 45px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.etu-card-content {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    text-align: center;
+}
