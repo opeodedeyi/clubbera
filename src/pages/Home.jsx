@@ -68,6 +68,7 @@ const Home = () => {
                         />
                     ))}
                 </div>
+                <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
             </div>
 
         </>
