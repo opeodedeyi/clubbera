@@ -14,9 +14,6 @@ const MobileNav = (props) => {
             <nav className="mobile-nav-menu">
                 <ul className="mobile-nav-menu-list">
                     <li>
-                        <NavLink to="/" onClick={onCancel}>Home</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/about" onClick={onCancel}>About</NavLink>
                     </li>
                     <li>
