@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
+import MobileNav from "../MobileNav/MobileNav";
 import search from '../../assets/svg/search.svg';
 import cancel from '../../assets/svg/cancel.svg';
 import bars from '../../assets/svg/bars.svg';
@@ -55,48 +56,51 @@ const Header = () => {
     };
 
     return (
-        <header className={`header ${isHomePage && !hasScrolled ? '' : 'header-scrolled'}`}>
-            {!searchActive ? (
-                <div className="header-content">
-                    <div className="header-together">
-                        <button className="nav-toggle" onClick={toggleNav}>
-                            <img src={bars} alt="menu" className="bar-icon" />
-                        </button>
+        <>
+            <header className={`header ${isHomePage && !hasScrolled ? '' : 'header-scrolled'}`}>
+                {!searchActive ? (
+                    <div className="header-content">
+                        <div className="header-together">
+                            <button className="nav-toggle" onClick={toggleNav}>
+                                <img src={bars} alt="menu" className="bar-icon" />
+                            </button>
 
-                        <h1 className="header-website-name">Clubbera</h1>
+                            <NavLink to="/" className="header-website-name">Clubbera</NavLink>
+                        </div>
+
+                        <form className="search-bar" onSubmit={handleSubmit}>
+                            <img src={search} alt="search" className="search-icon" />
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                value={searchTerm}
+                                onChange={handleChange}
+                            />
+                        </form>
+
+                        <div className="search-icon-button" onClick={changeHeader}>
+                            <img src={search} alt="Open search" className="search-icon" />
+                        </div>
+                        
+                        <CustomButton screentype="desk" onClick={signinButtonClick}>Sign In</CustomButton>
                     </div>
-
-                    <form className="search-bar" onSubmit={handleSubmit}>
-                        <img src={search} alt="search" className="search-icon" />
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchTerm}
-                            onChange={handleChange}
-                        />
-                    </form>
-
-                    <div className="search-icon-button" onClick={changeHeader}>
-                        <img src={search} alt="Open search" className="search-icon" />
+                ) : (
+                    <div className="header-content">
+                        <form className="search-bar-mobile" onSubmit={handleSubmit}>
+                            <img src={search} alt="search" className="search-icon" />
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                value={searchTerm}
+                                onChange={handleChange}
+                            />
+                            <img src={cancel} alt="cancel" className="cancel-icon" onClick={changeHeader}/>
+                        </form>
                     </div>
-                    
-                    <CustomButton screentype="desk" onClick={signinButtonClick}>Sign In</CustomButton>
-                </div>
-            ) : (
-                <div className="header-content">
-                    <form className="search-bar-mobile" onSubmit={handleSubmit}>
-                        <img src={search} alt="search" className="search-icon" />
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            value={searchTerm}
-                            onChange={handleChange}
-                        />
-                        <img src={cancel} alt="cancel" className="cancel-icon" onClick={changeHeader}/>
-                    </form>
-                </div>
-            )}
-        </header>
+                )}
+            </header>
+            <MobileNav isOpen={navOpen} onCancel={toggleNav}></MobileNav>
+        </>
     )
 }
 

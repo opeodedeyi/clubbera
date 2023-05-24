@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import Header from "../components/header/Header";
 import CustomButton from "../components/CustomButton/CustomButton";
 import ETUCards from "../components/Cards/ETUCards";
@@ -23,7 +23,7 @@ const Home = () => {
         {
             image: explore,
             title: 'Explore and Discover',
-            content: 'Discover engaging social experiences on Soclo. Sign up to explore diverse non-profit clubs matching your interests, find activities and hobbies you love, and foster a vibrant community spirit.'
+            content: 'Discover engaging social experiences on Clubbera. Sign up to explore diverse non-profit clubs matching your interests, find activities and hobbies you love, and foster a vibrant community spirit.'
         },
         {
             image: connect,
