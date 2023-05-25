@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
+import PasswordInput from "../../components/FormInput/PasswordInput";
 import './Signup.css';
 
 const Signup = () => {
@@ -54,7 +55,10 @@ const Signup = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}/>
 
-                        
+                        <PasswordInput
+                            placeholder="Password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}/>
                     </form>
                 </div>
             </div>

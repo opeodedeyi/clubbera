@@ -1,8 +1,8 @@
-.form-input-normal {
+.form-input-normal,
+.form-input-password {
     position: relative;
     height: 48px;
     width: 100%;
-    padding: 5px 15px 5px 15px;
     max-width: 450px;
     display: flex;
     flex-direction: row;
@@ -10,6 +10,20 @@
     background-color: #f0f0f0; /* light gray */
     border-radius: 24px;
     margin-bottom: 15px;
+}
+
+.form-input-normal {
+    padding: 5px 15px 5px 15px;
+}
+
+.form-input-password {
+    padding: 5px 45px 5px 15px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
 }
 
 .form-input.form-textarea {
@@ -22,6 +36,7 @@
 }
 
 .form-input-normal input,
+.form-input-password input,
 .form-input.form-textarea {
     width: 100%;
     border: none;
@@ -30,7 +45,8 @@
     box-sizing: border-box;
 }
 
-.form-input-normal input {
+.form-input-normal input,
+.form-input-password input {
     background-color: transparent;
     height: 100%;
 }
@@ -40,7 +56,8 @@
 } */
 
 @media screen and  (max-width: 1000px) {
-    .form-input-normal {
+    .form-input-normal,
+    .form-input-password {
         height: 44px;
         border-radius: 22px;
     }
