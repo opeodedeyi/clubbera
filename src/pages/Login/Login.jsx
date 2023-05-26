@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
+import CustomButton from "../../components/CustomButton/CustomButton";
 import './Login.css';
 
 const Login = () => {
@@ -21,6 +22,11 @@ const Login = () => {
         // At least one, At least one lowercase, At least one uppercase, At least one special, A total of at least 8 characters
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
         return passwordRegex.test(password);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(email, password);
     };
 
     const isDisabled = !email || !password || !isEmailValid(email) || !isPasswordValid(password);
@@ -46,6 +52,8 @@ const Login = () => {
                             placeholder="Password" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
+
+                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
                     </form>
                 </div>
             </div>
