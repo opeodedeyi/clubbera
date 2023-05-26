@@ -3,15 +3,16 @@
     padding: 230px 120px 0;
 }
 
-.contact-body-content {
+.signup-container-content {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.contact-body-content-main {
-    width: 100%;
-    flex: 1;
-    max-width: 700px;
+.signup-container-main {
+    max-width: 450px;
+    justify-content: center;
+    text-align: center;
 }
 
 .signup-container-main-title {

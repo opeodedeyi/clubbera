@@ -12,6 +12,16 @@
     /* transition: background-color 0.3s ease; */
 }
 
+.auth-header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    height: 120px;
+}
+
 .header-scrolled {
     background-color: var(--white-color);
 }
@@ -75,6 +85,10 @@
 @media (max-width: 1000px) {
     .header {
         padding: 0 20px;
+        height: 100px;
+    }
+
+    .auth-header-content {
         height: 100px;
     }
 

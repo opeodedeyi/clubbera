@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../components/header/Header";
+import AuthHeader from "../../components/header/AuthHeader";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
 import './Signup.css';
@@ -33,7 +33,7 @@ const Signup = () => {
     
     return (
         <>
-            <Header />
+            <AuthHeader />
 
             <div className="signup-container">
                 <div className="signup-container-content">

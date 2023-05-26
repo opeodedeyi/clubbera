@@ -1,0 +1,54 @@
+.login-container {
+    width: 100%;
+    padding: 230px 120px 0;
+}
+
+.login-container-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-container-main {
+    max-width: 450px;
+    justify-content: center;
+    text-align: center;
+}
+
+.login-container-main-title {
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 57px;
+    color: var(--special-color);
+    font-family: 'Raleway', sans-serif;
+}
+
+.login-container-main-subtitle {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 180.02%;
+    margin-bottom: 50px;
+}
+
+.login-toolkit {
+    height: 100%;
+    width: 300px;
+    margin-left: 100px;
+}
+
+@media screen and  (max-width: 1000px) {
+    .login-container {
+        padding: 175px 20px 0;
+    }
+
+    .login-container-main-title {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 135.52%;
+        letter-spacing: -0.02em;
+    }
+
+    .login-container-main-subtitle {
+        font-size: 16px;
+    }
+}
