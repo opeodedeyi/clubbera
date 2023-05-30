@@ -1,0 +1,26 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    height: 120px;
+    padding: 0 120px;
+    background-color: var(--white-color);
+}
+
+.footer-create-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .footer {
+        padding: 0 20px;
+        height: 100px;
+    }
+}

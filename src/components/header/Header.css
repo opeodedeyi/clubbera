@@ -1,6 +1,7 @@
 @import '../../variables.css';
 
-.header {
+.header,
+.create-header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,17 +10,7 @@
     z-index: 1;
     height: 120px;
     padding: 0 120px;
-    /* transition: background-color 0.3s ease; */
-}
-
-.auth-header-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-    height: 120px;
+    transition: background-color 0.3s ease;
 }
 
 .header-scrolled {
@@ -39,6 +30,15 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.header-btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 20px;
 }
 
 .nav-toggle {
@@ -83,12 +83,9 @@
 }
 
 @media (max-width: 1000px) {
-    .header {
+    .header,
+    .create-header-content {
         padding: 0 20px;
-        height: 100px;
-    }
-
-    .auth-header-content {
         height: 100px;
     }
 
@@ -112,6 +109,18 @@
 
     .nav-toggle {
         display: flex;
+    }
+}
+
+@media (max-width: 745px) {
+    .name-desk {
+        display: none;
+    }
+
+    .header-btns {
+        width: 100%;
+        flex-direction: row-reverse;
+        justify-content: space-between;
     }
 }
   

@@ -2,8 +2,9 @@
     --dark-color: #1c1c1e;
     --white-color: #ffffff;
     --light-gray-color: #f0f0f0;
+    --medium-gray-color: #747474;
+    --dark-gray-color: #66676e;
     --special-color: #9400AC;
     --special-color-light: #B343C5;
-    --special-color-dark: #270E2C;
-    --special-color-disabled: #66676e;
+    --special-color-dark: #700083;
 }

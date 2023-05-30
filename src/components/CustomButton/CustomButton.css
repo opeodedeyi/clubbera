@@ -1,13 +1,8 @@
 .custom-button {
-    background-color: var(--special-color);
-    color: var(--white-color);
-    border: none;
     border-radius: 24px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-    width: 100%;
-    max-width: 170px;
     height: 48px;
     display: inline-flex;
     justify-content: center;
@@ -15,32 +10,77 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.normal {
-    max-width: 170px;
+.default-style {
+    border: none;
+    background-color: var(--special-color);
+    color: var(--white-color);
 }
 
-.form {
-    max-width: 450px;
+.inverted-style {
+    border: 0.5px solid var(--medium-gray-color);
+    background-color: var(--white-color);
+    color: var(--medium-gray-color);
+}
+
+.no-style {
+    border: none;
+    background: none;
+    color: var(--medium-gray-color);
+    text-decoration: underline;
+    letter-spacing: .5px;
 }
   
-/* .custom-button:hover {
-    background-color: var(--special-color-hover);
-} */
+.default-style:hover {
+    background-color: var(--special-color-dark);
+}
 
-.custom-button:disabled {
-    background-color: var(--special-color-disabled);
+.inverted-style:hover {
+    border: 0.5px solid var(--dark-color);
+    color: var(--dark-color);
+}
+
+.no-style:hover {
+    background: var(--light-gray-color);
+    color: var(--dark-color);
+}
+
+.default-style:disabled {
+    background-color: var(--dark-gray-color);
     color: var(--text-color);
     cursor: not-allowed;
     opacity: 0.6;
 }
 
+.normal {
+    width: 100%;
+    max-width: 170px;
+}
+
+.form {
+    width: 100%;
+    max-width: 450px;
+}
+
+.small {
+    width: 100%;
+    width: 140px;
+}
+
+.mob {
+    display: none;
+}
+
 @media screen and  (max-width: 1000px) {
     .custom-button {
-        border-radius: 22px;
-        height: 44px;
+        border-radius: 20px;
+        height: 40px;
     }
     
     .desk {
         display: none;
+    }
+
+    .mob {
+        display: flex;
     }
 }

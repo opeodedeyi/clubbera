@@ -1,0 +1,10 @@
+.create-club-container {
+    width: 100%;
+    padding: 200px 120px 120px;
+}
+
+@media screen and  (max-width: 1000px) {
+    .create-club-container {
+        padding: 150px 20px 100px;
+    }
+}
