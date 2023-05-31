@@ -2,12 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 0 120px;
+}
+
+.fcc {
     position: fixed;
     bottom: 0;
-    width: 100%;
     z-index: 1;
     height: 120px;
-    padding: 0 120px;
     background-color: var(--white-color);
 }
 
@@ -16,6 +19,10 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.fccontent {
+    gap: 20px;
 }
 
 @media (max-width: 1000px) {

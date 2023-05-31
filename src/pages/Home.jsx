@@ -6,6 +6,7 @@ import ETUCards from "../components/Cards/ETUCards";
 import connect from '../assets/images/connect.png';
 import customize from '../assets/images/customize.png';
 import explore from '../assets/images/explore.png';
+import homepageBackground from '../assets/images/homepage-background-two.png';
 import './Home.css';
 
 const Home = () => {
@@ -41,8 +42,6 @@ const Home = () => {
         <>
             <Header />
 
-            {/* <div className="background-image"></div> */}
-
             <div className="home-intro">
                 <div className="home-intro-text">
                     <h2 className="home-intro-header">Discover <br />  Connect & Thrive <br /> <span className="home-intro-header-special">Clubbera</span></h2>
@@ -50,10 +49,8 @@ const Home = () => {
                     <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
                 </div>
 
-                {/* image might be here */}
+                {/* <img src={homepageBackground} alt="homepage" className="homepage-background-image"/> */}
             </div>
-
-            {/* <div className="home-">we need a CTA to create a group</div> */}
 
             <div className="home-easyuse">
                 <h2 className="home-easyuse-title">Easy to <span className="home-intro-header-special">Use</span></h2>
@@ -68,6 +65,7 @@ const Home = () => {
                         />
                     ))}
                 </div>
+
                 <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
             </div>
 

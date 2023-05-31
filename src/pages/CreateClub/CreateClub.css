@@ -1,10 +1,115 @@
 .create-club-container {
     width: 100%;
-    padding: 200px 120px 120px;
+    padding: 120px 120px 120px;
+}
+
+.create-club-intro {
+    min-height: calc(100vh);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.create-club-intro-texts {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 700px;
+}
+
+.create-club-form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+}
+
+.create-club-form-content-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 700px;
+}
+
+.create-club-form-content-main {
+    height: 100%;
+}
+
+.create-club-image {
+    width: 50%;
+    max-width: 550px;
+}
+
+.create-club-image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.create-club-steptitle {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 180.02%;
+    color: var(--dark-color);
+    margin-bottom: 25px;
+}
+
+.create-club-formtitle {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 180.02%;
+    color: var(--dark-color);
+    margin-bottom: 25px;
+}
+
+.create-club-header {
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 57px;
+    margin-bottom: 25px;
+    color: var(--special-color);
+}
+
+.create-club-text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 180.02%;
+    color: var(--dark-color);
 }
 
 @media screen and  (max-width: 1000px) {
     .create-club-container {
         padding: 150px 20px 100px;
+    }
+
+    .create-club-intro-texts {
+        width: 100%;
+    }
+
+    .create-club-steptitle  {
+        font-size: 16px;
+    }
+
+    .create-club-formtitle {
+        font-size: 22px;
+    }
+
+    .create-club-header {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 135.52%;
+        letter-spacing: -0.02em;
+    }
+
+    .create-club-text {
+        font-size: 16px;
+    }
+
+    .create-club-image {
+        display: none;
     }
 }

@@ -6,8 +6,8 @@ const CreateFooter = (props) => {
 
     return (
         <>
-            <footer className="footer">
-                <div className="footer-create-content">
+            <footer className="footer fcc">
+                <div className="footer-create-content fccontent">
                     { children }
                 </div>
             </footer>

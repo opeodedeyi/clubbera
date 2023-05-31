@@ -16,6 +16,18 @@ input, textarea {
   font-family: 'Raleway', sans-serif;
 }
 
+.mb-one {
+  margin-bottom: 25px;
+}
+
+.mb-two {
+  margin-bottom: 50px;
+}
+
+.mb-three {
+  margin-bottom: 75px;
+}
+
 /* For Chrome and Edge */
 ::-webkit-scrollbar {
   width: 6px;
