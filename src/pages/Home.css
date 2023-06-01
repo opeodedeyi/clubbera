@@ -90,6 +90,17 @@
 @media screen and  (max-width: 1000px) {
     .home-intro {
         padding: 100px 20px 100px;
+        flex-direction: column-reverse;
+    }
+
+    .home-intro-text {
+        width: 100%;
+        max-width: 705px;
+    }
+
+    .homepage-background-image {
+        width: 100%;
+        max-width: 750px;
     }
 
     .home-easyuse {
@@ -114,22 +125,5 @@
         align-items: center;
         gap: 50px;
         margin-bottom: 40px;
-    }
-}
-
-@media (max-width: 745px) {
-    .home-intro {
-        padding: 100px 20px 100px;
-        flex-direction: column-reverse;
-    }
-
-    .home-intro-text {
-        width: 100%;
-        max-width: 705px;
-    }
-
-    .homepage-background-image {
-        width: 100%;
-        max-width: 750px;
     }
 }
