@@ -48,6 +48,10 @@ const CreateClub = () => {
 
     const handleNext = () => setStep(step + 1);
     const handleBack = () => setStep(step - 1);
+    const handleSubmit = () => {
+        // Logic to handle form submission
+        console.log('Form submitted');
+    }
 
     return (
         <>
@@ -60,8 +64,18 @@ const CreateClub = () => {
             </form>
 
             <CreateFooter>
-                <CustomButton style="no-style" size="small" onClick={handleBack}>Back</CustomButton>
-                <CustomButton style="default-style" size="small" onClick={handleNext}>Next</CustomButton>
+                {step !== 6 ? (
+                    <CustomButton style="default-style" size="small" onClick={handleNext}>
+                        Next
+                    </CustomButton>
+                ) : (
+                    <CustomButton style="default-style" size="small" onClick={handleSubmit}>
+                        Submit
+                    </CustomButton>
+                )}
+                {step !== 1 && (
+                    <CustomButton style="no-style" size="small" onClick={handleBack}>Back</CustomButton>
+                )}
             </CreateFooter>
         </>
     )

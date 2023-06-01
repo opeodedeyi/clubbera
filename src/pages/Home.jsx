@@ -6,7 +6,7 @@ import ETUCards from "../components/Cards/ETUCards";
 import connect from '../assets/images/connect.png';
 import customize from '../assets/images/customize.png';
 import explore from '../assets/images/explore.png';
-import homepageBackground from '../assets/images/homepage-background-two.png';
+import HangingOut from '../assets/images/hangingout.png';
 import './Home.css';
 
 const Home = () => {
@@ -49,7 +49,9 @@ const Home = () => {
                     <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
                 </div>
 
-                {/* <img src={homepageBackground} alt="homepage" className="homepage-background-image"/> */}
+                <div className="homepage-background-image">
+                    <img src={HangingOut} alt="homepage"/>
+                </div>
             </div>
 
             <div className="home-easyuse">
