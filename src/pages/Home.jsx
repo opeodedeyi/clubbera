@@ -45,7 +45,7 @@ const Home = () => {
             <div className="home-intro">
                 <div className="home-intro-text">
                     <h2 className="home-intro-header">Discover <br />  Connect & Thrive <br /> <span className="home-intro-header-special">Clubbera</span></h2>
-                    <p className="home-intro-subtitle">We are an online platform that connects individuals with local communities and clubs</p>
+                    <p className="home-intro-subtitle">We connect individuals with local communities and clubs</p>
                     <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
                 </div>
 
