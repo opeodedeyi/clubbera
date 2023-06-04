@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateHeader from "../../components/header/CreateHeader";
 import CreateFooter from "../../components/Footer/CreateFooter";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import FormInput from "../../components/FormInput/FormInput";
 import buildingblockImage from '../../assets/images/buildingblock.png';
 import './CreateClub.css';
 
@@ -28,29 +29,42 @@ const StepTwo = () => {
             <div className="create-club-form-content-two">
                 <p className="create-club-formtitle">Public or private group?</p>
                 <p className="create-club-text mb-one">Public or private group?</p>
+                
             </div>
         </>
     );
 }
 
-const StepThree = () => {
+const StepThree = ({ clubName, setClubName }) => {
     return (
         <>
             <div className="create-club-form-content">
                 <p className="create-club-formtitle">What best describes what yourclub is about?</p>
+
+                <FormInput
+                    type="text"
+                    placeholder="Club Name" 
+                    input="club name"
+                    value={clubName}
+                    onChange={(e) => setClubName(e.target.value)}/>
             </div>
         </>
     );
 }
 
 const CreateClub = () => {
-    const [step, setStep] = useState(1);
+    useEffect(() => {
+        document.title = "Create Community | Clubbera";
+    }, []);
+
+    const [step, setStep] = useState(3);
+    const [clubName, setClubName] = useState('');
 
     const handleNext = () => setStep(step + 1);
     const handleBack = () => setStep(step - 1);
     const handleSubmit = () => {
         // Logic to handle form submission
-        console.log('Form submitted');
+        console.log('Form submitted with clubname: ', clubName);
     }
 
     return (
@@ -60,18 +74,14 @@ const CreateClub = () => {
             <form className="create-club-container create-club-intro">
                 {step === 1 && <StepOne />}
                 {step === 2 && <StepTwo />}
-                {step === 3 && <StepThree />}
+                {step === 3 && <StepThree  clubName={clubName} setClubName={setClubName}/>}
             </form>
 
             <CreateFooter>
                 {step !== 6 ? (
-                    <CustomButton style="default-style" size="small" onClick={handleNext}>
-                        Next
-                    </CustomButton>
+                    <CustomButton style="default-style" size="small" onClick={handleNext}>Next</CustomButton>
                 ) : (
-                    <CustomButton style="default-style" size="small" onClick={handleSubmit}>
-                        Submit
-                    </CustomButton>
+                    <CustomButton style="default-style" size="small" onClick={handleSubmit}>Submit</CustomButton>
                 )}
                 {step !== 1 && (
                     <CustomButton style="no-style" size="small" onClick={handleBack}>Back</CustomButton>
