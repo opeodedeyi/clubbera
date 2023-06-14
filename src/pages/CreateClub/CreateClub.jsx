@@ -57,7 +57,7 @@ const CreateClub = () => {
         document.title = "Create Community | Clubbera";
     }, []);
 
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     const [clubName, setClubName] = useState('');
 
     const handleNext = () => setStep(step + 1);
