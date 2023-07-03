@@ -181,6 +181,24 @@ const StepFour = () => {
     );
 }
 
+const StepFive = () => {
+    return (
+        <>
+            <div className="create-club-intro-texts">
+                {/* image box */}
+            </div>
+
+            <div className="create-club-tip">
+                <p className="create-club-tip-header"> 
+                    <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
+                    <span>Tips</span>
+                </p>
+                <p className="create-club-tip-point">Clubbera groups meet locally, in person or online. The location helps us to connect with people in your area</p>
+            </div>
+        </>
+    );
+}
+
 const StepPost = () => {
     const navigate = useNavigate();
 
@@ -248,6 +266,7 @@ const CreateClub = () => {
                         {step === 2 && <StepTwo />}
                         {step === 3 && <StepThree />}
                         {step === 4 && <StepFour />}
+                        {step === 5 && <StepFive />}
                         {step === 6 && <StepPost />}
                     </div>
 
