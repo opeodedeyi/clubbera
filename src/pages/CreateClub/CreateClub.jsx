@@ -7,6 +7,7 @@ import CheckButton from "../../components/CustomButton/CheckButton";
 import CustomTag from "../../components/CustomButton/CustomTag";
 import FormInput from "../../components/FormInput/FormInput";
 import MapInput from "../../components/FormInput/MapInput";
+import MapContainer from "../../components/MapContainer/MapContainer";
 
 import { useSelector, useDispatch } from "react-redux";
 import { createClubActions } from "../../store/createClub";
@@ -34,14 +35,22 @@ const StepPre = () => {
 }
 
 const StepOne = () => {
+    const coordinates = useSelector((state) => state.createClub.coordinates);
+    const [isComponentMounted, setIsComponentMounted] = useState(false);
+
+    useEffect(() => {
+        setIsComponentMounted(true);
+    }, []);
+
     return (
         <>
             <div className="create-club-intro-texts">
                 <h2 className="create-club-header">First, set your location for your group</h2>
-                <MapInput 
-                    type="text"
-                    placeholder="Location of most meetings"
-                    />
+                <MapInput type="text" placeholder="Location of most meetings" />
+                
+                <div className="mb-two"></div>
+
+                { isComponentMounted && Object.keys(coordinates).length > 0  && <MapContainer center={coordinates} />}
             </div>
 
             <div className="create-club-tip">

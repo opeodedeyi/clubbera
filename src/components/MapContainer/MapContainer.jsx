@@ -1,6 +1,9 @@
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from "react";
+import { GoogleMap, Marker, LoadScriptNext } from '@react-google-maps/api';
+import "./MapContainer.css";
 
 const MapContainer = ({ center }) => {
+    const [isScriptLoaded, setIsScriptLoaded] = useState(false);
 
     const mapOptions = {
         disableDefaultUI: true,
@@ -18,16 +21,16 @@ const MapContainer = ({ center }) => {
     }
 
     return (
-        <LoadScript googleMapsApiKey={import.meta.env.VITE_APP_MAPS_API_KEY}>
+        <LoadScriptNext googleMapsApiKey={import.meta.env.VITE_APP_MAPS_API_KEY} onLoad={() => setIsScriptLoaded(true)}>
             <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '400px' }}
+                mapContainerClassName="map-container"
                 center={center}
                 zoom={17}
                 options={mapOptions}
             >
-                <Marker position={center} />
+                {isScriptLoaded && <Marker position={center} />}
             </GoogleMap>
-        </LoadScript>
+        </LoadScriptNext>
     )
 }
 

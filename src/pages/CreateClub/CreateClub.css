@@ -174,7 +174,7 @@
     margin-top: 8px;
 }
 
-ul li:before {
+.create-club-tip-point ul li:before {
     content: '\2014';
     position: absolute;
     margin-left: -20px;

@@ -57,7 +57,7 @@ const MapInput = ( props ) => {
         
         dispatch(createClubActions.setPlaceId(place_id));
         dispatch(createClubActions.setFormattedAddress(formatted_address));
-        dispatch(createClubActions.setCoordinates(geometry.location)); //revisit here
+        dispatch(createClubActions.setCoordinates(geometry.location));
 
         dispatch(createClubActions.setInputValue(formatted_address));
     };
