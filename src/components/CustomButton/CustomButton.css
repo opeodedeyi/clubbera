@@ -1,5 +1,6 @@
 .custom-button {
-    border-radius: 24px;
+    /* border-radius: 24px; */
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
@@ -7,7 +8,25 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
+}
+
+.custom-tag {
+    padding: 12px 14px;
+    border-radius: 5px;
+    border: 1px solid var(--special-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-tagged {
+    background-color: var(--special-color);
+    color: var(--white-color);
+}
+
+.not-tagged {
+    background-color: transparent;
+    color: var(--special-color);
 }
 
 .default-style {
@@ -20,6 +39,24 @@
     border: 0.5px solid var(--medium-gray-color);
     background-color: var(--white-color);
     color: var(--medium-gray-color);
+}
+
+.checked-style {
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.not-checked {
+    border: 3px solid var(--light-gray-color-two);
+    background-color: var(--white-color);
+    color: var(--medium-gray-color);
+}
+
+.is-checked,
+.not-checked:hover {
+    border: 3px solid var(--special-color);
+    background-color: var(--light-gray-color);
+    color: var(--special-color-dark);
 }
 
 .no-style {
@@ -66,13 +103,17 @@
     width: 140px;
 }
 
+.padded {
+    padding: 20px 30px;
+}
+
 .mob {
     display: none;
 }
 
 @media screen and  (max-width: 1000px) {
     .custom-button {
-        border-radius: 20px;
+        /* border-radius: 20px; */
         height: 40px;
     }
     

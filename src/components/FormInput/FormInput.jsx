@@ -4,12 +4,15 @@ import "./FormInput.css";
 const FormInput = ( props ) => {
     if (props.type === 'textarea') {
         return (
-            <textarea
-                className="form-input form-textarea"
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={props.onChange}
-            ></textarea>
+            <div className="form-input-textarea">
+                <textarea
+                    className="form-input form-textarea"
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onFocus={props.onFocus}
+                    onChange={props.onChange}
+                ></textarea>
+            </div>
         )
     } else {
         return (
@@ -18,6 +21,7 @@ const FormInput = ( props ) => {
                     type={props.type}
                     placeholder={props.placeholder}
                     value={props.value}
+                    onFocus={props.onFocus}
                     onChange={props.onChange}
                 />
             </div>

@@ -82,6 +82,10 @@
     display: none;
 }
 
+.mob-only {
+    display: none;
+}
+
 @media (max-width: 1000px) {
     .header,
     .create-header-content {
@@ -110,17 +114,15 @@
     .nav-toggle {
         display: flex;
     }
+
+    .mob-only {
+        display: flex;
+    }
 }
 
 @media (max-width: 745px) {
-    .name-desk {
-        display: none;
-    }
-
     .header-btns {
-        width: 100%;
-        flex-direction: row-reverse;
-        justify-content: space-between;
+        flex-direction: row;
     }
 }
   
