@@ -8,7 +8,7 @@
     position: fixed;
     width: 100%;
     z-index: 1;
-    height: 120px;
+    height: 100px;
     padding: 0 120px;
     transition: background-color 0.3s ease;
 }

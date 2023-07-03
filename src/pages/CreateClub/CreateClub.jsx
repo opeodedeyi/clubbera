@@ -48,7 +48,7 @@ const StepOne = () => {
                 <h2 className="create-club-header">First, set your location for your group</h2>
                 <MapInput type="text" placeholder="Location of most meetings" />
                 
-                <div className="mb-two"></div>
+                <div className="mb-one"></div>
 
                 { isComponentMounted && Object.keys(coordinates).length > 0  && <MapContainer center={coordinates} />}
             </div>
