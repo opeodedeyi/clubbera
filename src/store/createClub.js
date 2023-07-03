@@ -6,6 +6,7 @@ const initialCreateClubState = {
     tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8', 'tag9'],
     selectedTags: [],
     permissionRequired: null,
+    inputValue: '',
     placeId: '',
     formattedAddress: '',
     coordinates: []
@@ -37,6 +38,9 @@ const createClubSlice = createSlice({
         },
         setPermissionFalse(state) {
             state.permissionRequired = false;
+        },
+        setInputValue(state, action) {
+            state.inputValue = action.payload;
         },
         setPlaceId(state, action) {
             state.placeId = action.payload;

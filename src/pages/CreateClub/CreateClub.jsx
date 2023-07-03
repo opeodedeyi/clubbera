@@ -33,7 +33,7 @@ const StepPre = () => {
     );
 }
 
-const StepOne = ({ locationObject, setLocationObject }) => {
+const StepOne = () => {
     return (
         <>
             <div className="create-club-intro-texts">
@@ -41,8 +41,7 @@ const StepOne = ({ locationObject, setLocationObject }) => {
                 <MapInput 
                     type="text"
                     placeholder="Location of most meetings"
-                    // value={clubName}
-                    onSelect={setLocationObject}/>
+                    />
             </div>
 
             <div className="create-club-tip">
@@ -201,7 +200,6 @@ const CreateClub = () => {
     }, []);
 
     const [step, setStep] = useState(0);
-    const [locationObject, setLocationObject] = useState(null);
 
     const handleNext = (event) => {
         event.preventDefault();
@@ -237,7 +235,7 @@ const CreateClub = () => {
 
                     <div className="create-club-sub">
                         {step === 0 && <StepPre />}
-                        {step === 1 && <StepOne locationObject={locationObject} setLocationObject={setLocationObject}  />}
+                        {step === 1 && <StepOne />}
                         {step === 2 && <StepTwo />}
                         {step === 3 && <StepThree />}
                         {step === 4 && <StepFour />}

@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
+import _ from 'lodash';
+
+import { useSelector, useDispatch } from "react-redux";
+import { createClubActions } from "../../store/createClub";
+
 import searchIcon from '../../assets/svg/search.svg';
 import "./FormInput.css";
 
 const MapInput = ( props ) => {
+    const dispatch = useDispatch();
+    const inputValue = useSelector((state) => state.createClub.inputValue);
     const [isInputFocused, setIsInputFocused] = useState(false);
-    const [inputValue, setInputValue] = useState(props.locationObject?.formattedAddress || '');
     const [suggestions, setSuggestions] = useState([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
 
@@ -25,9 +31,12 @@ const MapInput = ( props ) => {
         }
     };    
 
-    const handleInputChange = async (event) => {
-        setInputValue(event.target.value);
+    const handleInputChange = (event) => {
+        dispatch(createClubActions.setInputValue(event.target.value));
+        debouncedInput(event.target.value);
+    };
 
+    const debouncedInput = useCallback(_.debounce(async (inputValue) => {
         try {
             const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
@@ -40,19 +49,17 @@ const MapInput = ( props ) => {
         } catch (error) {
             console.error('Failed to fetch address data: ', error);
         }
-    };
+    }, 400), []);
 
     const handleSuggestionClick = (suggestion) => {
-        const { formatted_address, place_id, geometry, plus_code } = suggestion;
+        const { formatted_address, place_id, geometry } = suggestion;
 
-        const location = {
-            formattedAddress: formatted_address,
-            placeId: place_id,
-            coordinates: geometry.location
-        };
+        
+        dispatch(createClubActions.setPlaceId(place_id));
+        dispatch(createClubActions.setFormattedAddress(formatted_address));
+        dispatch(createClubActions.setCoordinates(geometry.location)); //revisit here
 
-        props.onSelect(location);
-        setInputValue(formatted_address);
+        dispatch(createClubActions.setInputValue(formatted_address));
     };
 
     return (
