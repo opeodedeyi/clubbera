@@ -45,8 +45,6 @@ const MapInput = ( props ) => {
                     key: import.meta.env.VITE_APP_GEOCODE_API_KEY,
                 },
             };
-            console.log('Request URL:', requestUrl);
-            console.log('Request params:', requestParams);
             const response = await axios.get(requestUrl, requestParams);
             setSuggestions(response.data.results);
             console.log(response.data.results);
