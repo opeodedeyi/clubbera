@@ -8,6 +8,7 @@ import CustomTag from "../../components/CustomButton/CustomTag";
 import FormInput from "../../components/FormInput/FormInput";
 import MapInput from "../../components/FormInput/MapInput";
 import MapContainer from "../../components/MapContainer/MapContainer";
+import SingleImageUpload from "../../components/ImageUpload/SingleImageUpload";
 
 import { useSelector, useDispatch } from "react-redux";
 import { createClubActions } from "../../store/createClub";
@@ -186,6 +187,7 @@ const StepFive = () => {
         <>
             <div className="create-club-intro-texts">
                 {/* image box */}
+                <SingleImageUpload />
             </div>
 
             <div className="create-club-tip">
