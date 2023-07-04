@@ -176,7 +176,7 @@ const StepFour = () => {
                     <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
                     <span>Tips</span>
                 </p>
-                <p className="create-club-tip-point">Selecting 'Yes' gives you more control on who can join your group, and selecting 'No' allows anyone to join your group.</p>
+                <p className="create-club-tip-point">Selecting 'Private' gives you more control on who can join your group, and selecting 'Public' allows anyone to join your group.</p>
             </div>
         </>
     );
