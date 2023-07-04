@@ -166,8 +166,8 @@ const StepFour = () => {
                 <h2 className="create-club-header">Is this group a Private or Public Group?</h2>
                 <p className="create-club-tip-point mb-two">Do you want your group to be private or public</p>
                 <div className="create-club-choose">
-                    <CheckButton style="checked-style" size="padded" checked={permissionRequired===true ? true : false} onClick={() => dispatch(createClubActions.setPermissionTrue())}>Yes</CheckButton>
-                    <CheckButton style="checked-style" size="padded" checked={permissionRequired===false ? true : false} onClick={() => dispatch(createClubActions.setPermissionFalse())}>No</CheckButton>
+                    <CheckButton style="checked-style" size="padded" checked={permissionRequired===true ? true : false} onClick={() => dispatch(createClubActions.setPermissionTrue())}>Private</CheckButton>
+                    <CheckButton style="checked-style" size="padded" checked={permissionRequired===false ? true : false} onClick={() => dispatch(createClubActions.setPermissionFalse())}>Public</CheckButton>
                 </div>
             </div>
 
