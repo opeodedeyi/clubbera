@@ -38,6 +38,10 @@ const Header = () => {
         navigate('/signin');
     };
 
+    const signupButtonClick = () => {
+        navigate('/signup');
+    };
+
     const handleChange = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -72,7 +76,7 @@ const Header = () => {
                             <img src={search} alt="search" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Football in Leeds"
                                 value={searchTerm}
                                 onChange={handleChange}
                             />
@@ -82,7 +86,15 @@ const Header = () => {
                             <img src={search} alt="Open search" className="search-icon" />
                         </div>
                         
-                        <CustomButton screentype="desk" onClick={signinButtonClick}>Sign In</CustomButton>
+                        <div className="header-not-loggedin">
+                            <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>Login</CustomButton>
+                            <CustomButton screentype="desk" onClick={signupButtonClick}>Sign Up</CustomButton>
+                        </div>
+
+                        {/* <div className="header-is-loggedin">
+                            <CustomButton screentype="desk" onClick={signinButtonClick}>Login</CustomButton>
+                            <CustomButton screentype="desk" onClick={signupButtonClick}>Sign Up</CustomButton>
+                        </div> */}
                     </div>
                 ) : (
                     <div className="header-content">
@@ -99,6 +111,7 @@ const Header = () => {
                     </div>
                 )}
             </header>
+            
             <MobileNav isOpen={navOpen} onCancel={toggleNav}></MobileNav>
         </>
     )

@@ -58,16 +58,15 @@
 }
 
 .header-website-name {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     color: var(--special-color);
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Rubik', sans-serif;
     text-decoration: none;
 }
 
 .header-website-name:hover {
     color: var(--special-color);
-    font-family: 'Raleway', sans-serif;
     text-decoration: none;
 }
 
@@ -86,11 +85,25 @@
     display: none;
 }
 
+.header-not-loggedin {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+@media (max-width: 1250px) {
+    .header,
+    .create-header-content {
+        padding: 0 50px;
+    }
+}
+
 @media (max-width: 1000px) {
     .header,
     .create-header-content {
         padding: 0 20px;
-        height: 100px;
     }
 
     .header-content {
@@ -117,6 +130,10 @@
 
     .mob-only {
         display: flex;
+    }
+
+    .header-not-loggedin {
+        display: none;
     }
 }
 

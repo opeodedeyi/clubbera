@@ -87,9 +87,19 @@
     margin-bottom: 75px;
 }
 
+@media (max-width: 1250px) {
+    .home-intro {
+        padding: 100px 50px;
+    }
+
+    .home-easyuse {
+        padding: 0 50px 100px;
+    }
+}
+
 @media screen and  (max-width: 1000px) {
     .home-intro {
-        padding: 100px 20px 100px;
+        padding: 100px 20px;
         flex-direction: column-reverse;
     }
 

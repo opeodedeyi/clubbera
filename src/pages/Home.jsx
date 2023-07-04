@@ -23,18 +23,18 @@ const Home = () => {
     const ETUCardsContent = [
         {
             image: explore,
-            title: 'Explore and Discover',
-            content: 'Discover engaging social experiences on Clubbera. Sign up to explore diverse non-profit clubs matching your interests, find activities and hobbies you love, and foster a vibrant community spirit.'
+            title: 'Adventure Awaits',
+            content: 'Discover vibrant clubs that tickle your fancy. Dive into your favorite activities with a click'
         },
         {
             image: connect,
-            title: 'Connect and Engage',
-            content: 'Connect with like-minded individuals by joining resonating clubs. Share experiences, ideas, and passions in a user-friendly space. Engage in meaningful conversations, collaborate, and build genuine connections based on shared interests.'
+            title: 'Connect & Create',
+            content: 'Find your tribe in our buzzing clubs. Share, laugh, and bond over shared interests'
         },
         {
             image: customize,
-            title: 'Customize and Grow',
-            content: "Bring your vision to life as a club creator on Soclo. Customize your club's dynamics, add moderators, and shape the environment to match your vision. Foster ownership and enhance user satisfaction as your community grows and thrives."
+            title: 'Be the Maestro',
+            content: "Launch your club on Clubbera, shape its vibe, rally your crew. Witness the magic as your community grows"
         }
     ];
 
@@ -55,8 +55,8 @@ const Home = () => {
             </div>
 
             <div className="home-easyuse">
-                <h2 className="home-easyuse-title">Easy to <span className="home-intro-header-special">Use</span></h2>
-                <p className="home-easyuse-subtext">Form new connections with individuals who have common interests through a wide range of physical clubs. Joining our platform is easy to use and absolutely free.</p>
+                <h2 className="home-easyuse-title">Join the <span className="home-intro-header-special">Fun</span>!</h2>
+                <p className="home-easyuse-subtext">Connect with fellow fanatics in a myriad of clubs. Free and super easy to use.</p>
                 <div className="home-easyuse-cards">
                     {ETUCardsContent.map((card, index) => (
                         <ETUCards
@@ -67,8 +67,6 @@ const Home = () => {
                         />
                     ))}
                 </div>
-
-                <CustomButton screentype="none" onClick={signupButtonClick}>Join Clubbera</CustomButton>
             </div>
 
         </>

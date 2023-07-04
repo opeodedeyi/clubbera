@@ -180,6 +180,12 @@
     margin-left: -20px;
 }
 
+@media (max-width: 1250px) {
+    .create-club-container {
+        padding: 100px 50px;
+    }
+}
+
 @media screen and  (max-width: 1000px) {
     .create-club-container {
         padding: 100px 20px;
