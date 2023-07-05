@@ -23,6 +23,22 @@
     border: .1px solid var(--dark-color);
 }
 
+.form-input-normal input:-webkit-autofill,
+.form-input-normal input:-webkit-autofill:hover, 
+.form-input-normal input:-webkit-autofill:focus, 
+.form-input-normal input:-webkit-autofill:active,
+.form-input-password input:-webkit-autofill,
+.form-input-password input:-webkit-autofill:hover, 
+.form-input-password input:-webkit-autofill:focus, 
+.form-input-password input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: var(--dark-color) !important;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
 input::placeholder,
 textarea::placeholder {
     color: var(--light-gray-color-three);

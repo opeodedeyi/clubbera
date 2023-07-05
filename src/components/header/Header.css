@@ -85,15 +85,17 @@
     display: none;
 }
 
-.header-not-loggedin {
+.header-not-loggedin,
+.header-is-loggedin {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
     flex-grow: 1;
     gap: 20px;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1340px) {
     .header,
     .create-header-content {
         padding: 0 50px;
@@ -132,7 +134,8 @@
         display: flex;
     }
 
-    .header-not-loggedin {
+    .header-not-loggedin,
+    .header-is-loggedin {
         display: none;
     }
 }

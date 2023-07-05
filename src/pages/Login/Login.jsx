@@ -44,14 +44,19 @@ const Login = () => {
                         <FormInput
                             type="email"
                             placeholder="Email" 
-                            input="Your email"
+                            input="Email address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}/>
 
+                        <div className="mb-one"></div>
+
                         <PasswordInput
                             placeholder="Password" 
+                            input="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
+
+                        <div className="mb-one"></div>
 
                         <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
                     </form>

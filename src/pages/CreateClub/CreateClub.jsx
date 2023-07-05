@@ -124,8 +124,7 @@ const StepThree = () => {
                 <h2 className="create-club-header">Name your group</h2>
                 <FormInput
                     type="text"
-                    placeholder="Bradford baking meet group" 
-                    input="clubName"
+                    placeholder="Bradford baking meet group"
                     value={clubName}
                     onFocus={() => setActiveInput('clubName')}
                     onChange={(e) => dispatch(createClubActions.setClubName(e.target.value))}/>
@@ -135,8 +134,7 @@ const StepThree = () => {
                 <h2 className="create-club-header">Describe your group</h2>
                 <FormInput
                     type="textarea"
-                    placeholder="Example: Welcome tech lovers far and wide! We’re an online and in-person tech-enthusiast group hosting live speaking events on a range of tech topics. You can join us in person if possible or on one of our live streams. Look out for our virtual happy hours and other networking events." 
-                    input="clubDescription"
+                    placeholder="Example: Welcome tech lovers far and wide! We’re an online and in-person tech-enthusiast group hosting live speaking events on a range of tech topics. You can join us in person if possible or on one of our live streams. Look out for our virtual happy hours and other networking events."
                     value={clubDescription}
                     onFocus={() => setActiveInput('clubDescription')}
                     onChange={(e) => dispatch(createClubActions.setClubDescription(e.target.value))}/>

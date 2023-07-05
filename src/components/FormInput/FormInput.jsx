@@ -16,15 +16,23 @@ const FormInput = ( props ) => {
         )
     } else {
         return (
-            <div className="form-input-normal">
-                <input
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    value={props.value}
-                    onFocus={props.onFocus}
-                    onChange={props.onChange}
-                />
-            </div>
+            <>
+                {props.input && 
+                    <>
+                        <label className="form-label" htmlFor={props.input}>{ props.input }</label>
+                        <div className="mb-1"></div>
+                    </>
+                }
+                <div className="form-input-normal">
+                    <input
+                        type={props.type}
+                        placeholder={props.placeholder}
+                        value={props.value}
+                        onFocus={props.onFocus}
+                        onChange={props.onChange}
+                    />
+                </div>
+            </>
         );
     }
 }

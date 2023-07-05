@@ -16,6 +16,10 @@ input, textarea {
   font-family: 'Rubik', sans-serif;
 }
 
+.mb-1 {
+  margin-bottom: 10px;
+}
+
 .mb-one {
   margin-bottom: 25px;
 }

@@ -14,15 +14,24 @@ const FormInput = ( props ) => {
     };
 
     return (
-        <div className="form-input-password">
-            <input
-                type={type}
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={props.onChange}
-            />
-            <img src={eye} alt="eye" className="eye-icon" onClick={changeView}/>
-        </div>
+        <>
+            {props.input && 
+                <>
+                    <label className="form-label" htmlFor={props.input}>{ props.input }</label>
+                    <div className="mb-1"></div>
+                </>
+            }
+            <div className="form-input-password">
+                <input
+                    name={props.input}
+                    type={type}
+                    placeholder={props.placeholder}
+                    value={props.value}
+                    onChange={props.onChange}
+                />
+                <img src={eye} alt="eye" className="eye-icon" onClick={changeView}/>
+            </div>
+        </>
     );
 }
 

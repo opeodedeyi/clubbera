@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+
 import CustomButton from "../CustomButton/CustomButton";
 import MobileNav from "../MobileNav/MobileNav";
+import ProfileDropdown from "./ProfileDropdown";
+
 import search from '../../assets/svg/search.svg';
 import cancel from '../../assets/svg/cancel.svg';
 import bars from '../../assets/svg/bars.svg';
+
 import "./Header.css";
 import "./SearchBar.css";
 
@@ -34,9 +38,24 @@ const Header = () => {
         };
     }, [hasScrolled]);
 
+    const dropdownItems = [
+        // {
+        //     text: 'item1',
+        //     action: () => console.log('action for item1')
+        // },
+        {
+            text: 'Log Out',
+            action: () => console.log('action to Log Out')
+        },
+    ];
+
     const signinButtonClick = () => {
         navigate('/signin');
     };
+
+    const createClubButtonClick = () => {
+        navigate('/createclub');
+    }
 
     const signupButtonClick = () => {
         navigate('/signup');
@@ -87,13 +106,24 @@ const Header = () => {
                         </div>
                         
                         <div className="header-not-loggedin">
-                            <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>Login</CustomButton>
-                            <CustomButton screentype="desk" onClick={signupButtonClick}>Sign Up</CustomButton>
+                            {location.pathname !== '/signin' && (
+                                <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>
+                                    Login
+                                </CustomButton>
+                            )}
+                            {location.pathname !== '/signup' && (
+                                <CustomButton screentype="desk" onClick={signupButtonClick}>
+                                    Sign Up
+                                </CustomButton>
+                            )}
                         </div>
 
                         {/* <div className="header-is-loggedin">
-                            <CustomButton screentype="desk" onClick={signinButtonClick}>Login</CustomButton>
-                            <CustomButton screentype="desk" onClick={signupButtonClick}>Sign Up</CustomButton>
+                            <CustomButton screentype="desk" onClick={createClubButtonClick}>
+                                Create Group
+                            </CustomButton>
+
+                            <ProfileDropdown dropdownItems={ dropdownItems }/>
                         </div> */}
                     </div>
                 ) : (

@@ -25,3 +25,9 @@
     line-height: 27px;
     text-align: center;
 }
+
+@media (max-width: 1340px) {
+    .etu-card {
+        max-width: 300px;
+    }
+}
