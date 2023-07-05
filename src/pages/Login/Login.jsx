@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
+
 import './Login.css';
 
 const Login = () => {
@@ -39,7 +42,7 @@ const Login = () => {
                 <div className="login-container-content">
                     <form action="" className="login-container-main">
                         <p className="login-container-main-title">Welcome Back</p>
-                        <p className="login-container-main-subtitle">Ready for another adventure? Log in and let's find your next event</p>
+                        <p className="login-container-main-subtitle">Ready for another adventure? Log in and let's find your next one</p>
 
                         <FormInput
                             type="email"
@@ -53,12 +56,15 @@ const Login = () => {
                         <PasswordInput
                             placeholder="Password" 
                             input="Password"
+                            hasForgotPassword={true}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
 
                         <div className="mb-one"></div>
 
                         <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
+
+                        <div className="login-container-question">Not a member yet? <NavLink to="/signup">Sign up</NavLink></div>
                     </form>
                 </div>
             </div>

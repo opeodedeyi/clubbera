@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import "./FormInput.css";
+
 import eye from '../../assets/svg/eye.svg';
 
 const FormInput = ( props ) => {
@@ -17,7 +20,10 @@ const FormInput = ( props ) => {
         <>
             {props.input && 
                 <>
-                    <label className="form-label" htmlFor={props.input}>{ props.input }</label>
+                    <div className="label-container">
+                        <label className="form-label" htmlFor={props.input}>{ props.input }</label>
+                        <NavLink to="/forgot-password">Forgot Password</NavLink>
+                    </div>
                     <div className="mb-1"></div>
                 </>
             }

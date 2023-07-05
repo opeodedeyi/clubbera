@@ -21,17 +21,16 @@
 .login-container-main-title {
     color: var(--dark-color);
     text-align: center;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 28px;
     line-height: 40px;
-    font-family: 'Raleway', sans-serif;
 }
 
 .login-container-main-subtitle {
     color: var(--dark-color);
     text-align: center;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 180.02%;
     margin-bottom: 40px;
 }
@@ -42,9 +41,23 @@
     margin-left: 100px;
 }
 
+.login-container-question {
+    color: var(--dark-color);
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 180.02%;
+    margin-top: 24px;
+}
+
+.login-container-question a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
 @media screen and  (max-width: 1000px) {
     .login-container {
-        padding: 175px 20px 0;
+        padding: 150px 20px 0;
     }
 
     .login-container-main {
