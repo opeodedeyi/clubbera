@@ -55,7 +55,7 @@ const Home = () => {
             </div>
 
             <div className="home-easyuse">
-                <h2 className="home-easyuse-title">Join the <span className="home-intro-header-special">Fun</span>!</h2>
+                <h2 className="home-easyuse-title">Join the Fun!</h2>
                 <p className="home-easyuse-subtext">Connect with fellow fanatics in a myriad of clubs. Free and super easy to use.</p>
                 <div className="home-easyuse-cards">
                     {ETUCardsContent.map((card, index) => (

@@ -22,7 +22,7 @@ const FormInput = ( props ) => {
                 <>
                     <div className="label-container">
                         <label className="form-label" htmlFor={props.input}>{ props.input }</label>
-                        <NavLink to="/forgot-password">Forgot Password</NavLink>
+                        {props.hasForgotPassword && <NavLink to="/forgot-password">Forgot Password</NavLink>}
                     </div>
                     <div className="mb-1"></div>
                 </>

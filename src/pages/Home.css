@@ -17,7 +17,7 @@
 }
 
 .home-intro-header {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 58px;
     line-height: 135.52%;
     letter-spacing: -0.02em;
@@ -58,8 +58,8 @@
 
 .home-easyuse-title {
     width: 100%;
-    font-weight: 700;
-    font-size: 42px;
+    font-weight: 500;
+    font-size: 32px;
     line-height: 57px;
     text-align: center;
     margin-bottom: 10px;
