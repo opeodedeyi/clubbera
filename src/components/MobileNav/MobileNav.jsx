@@ -17,7 +17,7 @@ const MobileNav = (props) => {
                         <NavLink to="/signup" onClick={onCancel}>Create Account</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/signin" onClick={onCancel}>Log In</NavLink>
+                        <NavLink to="/login" onClick={onCancel}>Log In</NavLink>
                     </li>
                 </ul>
             </nav>

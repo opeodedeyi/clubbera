@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
@@ -9,13 +10,20 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import './Login.css';
 
 const Signup = () => {
-    useEffect(() => {
-        document.title = "Sign up | Clubbera";
-    }, []);
-
+    const user = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
     const [fullname, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        document.title = "Sign up | Clubbera";
+
+        if (user) {
+            navigate('/');  // navigate to homepage if user exists
+        }
+    }, [user, navigate]);
+
 
     const isEmailValid = (email) => {
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -43,7 +51,7 @@ const Signup = () => {
                 <div className="login-container-content">
                     <form action="" className="login-container-main">
                         <p className="login-container-main-title">Sign up</p>
-                        <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/signin">Log in</NavLink></p>
+                        <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/login">Log in</NavLink></p>
                         
                         <FormInput
                             type="text"

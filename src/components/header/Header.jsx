@@ -55,8 +55,8 @@ const Header = () => {
         },
     ];
 
-    const signinButtonClick = () => {
-        navigate('/signin');
+    const loginButtonClick = () => {
+        navigate('/login');
     };
 
     const createClubButtonClick = () => {
@@ -121,8 +121,8 @@ const Header = () => {
                             </div>
                         :
                             <div className="header-not-loggedin">
-                                {location.pathname !== '/signin' && (
-                                    <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>
+                                {location.pathname !== '/login' && (
+                                    <CustomButton screentype="desk" style="inverted-style" onClick={loginButtonClick}>
                                         Login
                                     </CustomButton>
                                 )}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from "../../store/auth";
 
 import Header from "../../components/header/Header";
@@ -13,15 +13,20 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import './Login.css';
 
 const Login = () => {
-    useEffect(() => {
-        document.title = "Log in | Clubbera";
-    }, []);
-
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        document.title = "Log in | Clubbera";
+
+        if (user) {
+            navigate('/');  // navigate to homepage if user exists
+        }
+    }, [user, navigate]);
 
     const isEmailValid = (email) => {
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
