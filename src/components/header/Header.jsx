@@ -5,6 +5,10 @@ import CustomButton from "../CustomButton/CustomButton";
 import MobileNav from "../MobileNav/MobileNav";
 import ProfileDropdown from "./ProfileDropdown";
 
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from "../../store/auth";
+import { logout } from "../../store/auth";
+
 import search from '../../assets/svg/search.svg';
 import cancel from '../../assets/svg/cancel.svg';
 import bars from '../../assets/svg/bars.svg';
@@ -14,6 +18,8 @@ import "./SearchBar.css";
 
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.user);
     const [navOpen, setNavOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -45,7 +51,7 @@ const Header = () => {
         // },
         {
             text: 'Log Out',
-            action: () => console.log('action to Log Out')
+            action: () => dispatch(logout())
         },
     ];
 
@@ -105,26 +111,29 @@ const Header = () => {
                             <img src={search} alt="Open search" className="search-icon" />
                         </div>
                         
-                        <div className="header-not-loggedin">
-                            {location.pathname !== '/signin' && (
-                                <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>
-                                    Login
+                        {user ? 
+                            <div className="header-is-loggedin">
+                                <CustomButton screentype="desk" onClick={createClubButtonClick}>
+                                    Create Group
                                 </CustomButton>
-                            )}
-                            {location.pathname !== '/signup' && (
-                                <CustomButton screentype="desk" onClick={signupButtonClick}>
-                                    Sign Up
-                                </CustomButton>
-                            )}
-                        </div>
 
-                        {/* <div className="header-is-loggedin">
-                            <CustomButton screentype="desk" onClick={createClubButtonClick}>
-                                Create Group
-                            </CustomButton>
-
-                            <ProfileDropdown dropdownItems={ dropdownItems }/>
-                        </div> */}
+                                <ProfileDropdown dropdownItems={ dropdownItems }/>
+                            </div>
+                        :
+                            <div className="header-not-loggedin">
+                                {location.pathname !== '/signin' && (
+                                    <CustomButton screentype="desk" style="inverted-style" onClick={signinButtonClick}>
+                                        Login
+                                    </CustomButton>
+                                )}
+                                {location.pathname !== '/signup' && (
+                                    <CustomButton screentype="desk" onClick={signupButtonClick}>
+                                        Sign Up
+                                    </CustomButton>
+                                )}
+                            </div>
+                        }
+                        
                     </div>
                 ) : (
                     <div className="header-content">

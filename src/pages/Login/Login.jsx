@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { authActions } from "../../store/auth";
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
@@ -13,6 +17,9 @@ const Login = () => {
         document.title = "Log in | Clubbera";
     }, []);
 
+    const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,10 +34,22 @@ const Login = () => {
         return passwordRegex.test(password);
     };
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log(email, password);
-    };
+        
+        axios.post(`${API_URL}/login`, {
+            email: email,
+            password: password,
+        }).then(res => {
+            Cookies.set('authToken', res.data.token, { expires: 60 });
+            localStorage.setItem('user', JSON.stringify(res.data.user)); // store user data in local storage
+            dispatch(authActions.setUser(res.data.user));
+            navigate('/');
+        }).catch(err => {
+            console.error(err);
+            dispatch(authActions.setUser(res.data.user));
+        });
+    }
 
     const isDisabled = !email || !password || !isEmailValid(email) || !isPasswordValid(password);
 
@@ -61,7 +80,7 @@ const Login = () => {
 
                         <div className="mb-one"></div>
 
-                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
+                        <CustomButton size="form" onClick={handleLogin} disabled={isDisabled}>Log in</CustomButton>
 
                         <div className="login-container-question">Not a member yet? <NavLink to="/signup">Sign up</NavLink></div>
                     </form>

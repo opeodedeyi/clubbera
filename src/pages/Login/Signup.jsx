@@ -43,7 +43,7 @@ const Signup = () => {
                 <div className="login-container-content">
                     <form action="" className="login-container-main">
                         <p className="login-container-main-title">Sign up</p>
-                        <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/signup">Log in</NavLink></p>
+                        <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/signin">Log in</NavLink></p>
                         
                         <FormInput
                             type="text"
@@ -70,7 +70,7 @@ const Signup = () => {
 
                         <div className="mb-one"></div>
 
-                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
+                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Sign up</CustomButton>
                     </form>
                 </div>
             </div>
