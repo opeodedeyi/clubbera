@@ -1,5 +1,5 @@
 import Home from './pages/Home';
-import Signup from './pages/Signup/Signup';
+import Signup from './pages/Login/Signup';
 import Login from './pages/Login/Login';
 import CreateClub from './pages/CreateClub/CreateClub';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

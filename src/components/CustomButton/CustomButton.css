@@ -82,8 +82,9 @@
 }
 
 .default-style:disabled {
-    background-color: var(--dark-gray-color);
-    color: var(--text-color);
+    /* background-color: var(--dark-gray-color); */
+    background-color: var(--special-color-light);
+    color: var(--white-color);
     cursor: not-allowed;
     opacity: 0.6;
 }

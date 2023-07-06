@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import './Signup.css';
+
+import './Login.css';
 
 const Signup = () => {
     useEffect(() => {
@@ -36,38 +39,40 @@ const Signup = () => {
         <>
             <Header />
 
-            <div className="signup-container">
-                <div className="signup-container-content">
-                    <form action=""  className="signup-container-main">
-                        <p className="signup-container-main-title">Create an Account</p>
-                        <p className="signup-container-main-subtitle">Events are happening every day — sign up to join the fun</p>
+            <div className="login-container">
+                <div className="login-container-content">
+                    <form action="" className="login-container-main">
+                        <p className="login-container-main-title">Sign up</p>
+                        <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/signup">Log in</NavLink></p>
                         
                         <FormInput
                             type="text"
-                            placeholder="Full name" 
+                            placeholder="John Doe" 
                             input="Your name"
                             value={fullname}
                             onChange={(e) => setFullName(e.target.value)}/>
 
+                        <div className="mb-one"></div>
+
                         <FormInput
                             type="email"
-                            placeholder="Email" 
-                            input="Your email"
+                            placeholder="example@email.com" 
+                            input="Email address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}/>
 
+                        <div className="mb-one"></div>
+
                         <PasswordInput
-                            placeholder="Password" 
+                            input="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}/>
+
+                        <div className="mb-one"></div>
 
                         <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Log in</CustomButton>
                     </form>
                 </div>
-            </div>
-
-            <div className="signup-toolkit">
-
             </div>
         </>
     )

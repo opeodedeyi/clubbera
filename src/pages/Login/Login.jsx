@@ -54,7 +54,6 @@ const Login = () => {
                         <div className="mb-one"></div>
 
                         <PasswordInput
-                            placeholder="Password" 
                             input="Password"
                             hasForgotPassword={true}
                             value={password}

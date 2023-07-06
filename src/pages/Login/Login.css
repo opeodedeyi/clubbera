@@ -10,6 +10,7 @@
 }
 
 .login-container-main {
+    width: 100%;
     max-width: 550px;
     justify-content: center;
     padding: 70px 50px;
@@ -51,6 +52,11 @@
 }
 
 .login-container-question a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.login-link-in-signup a {
     color: var(--link-color);
     text-decoration: none;
 }
