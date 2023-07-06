@@ -79,6 +79,10 @@ const Signup = () => {
                         <div className="mb-one"></div>
 
                         <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Sign up</CustomButton>
+
+                        <div className="mb-one"></div>
+
+                        <p className="login-container-main-subtitle login-link-in-signup">By signing up, you agree to <NavLink to="/terms-of-service">Terms of Service</NavLink>, <NavLink to="/privacy-policy">Privacy Policy</NavLink>, and <NavLink to="/cookie-policy">Cookie Policy</NavLink>.</p>
                     </form>
                 </div>
             </div>

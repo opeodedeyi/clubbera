@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import Home from './pages/Home';
 import Signup from './pages/Login/Signup';
 import Login from './pages/Login/Login';
+import ForgotPassword from './pages/Login/ForgotPassword';
 import CreateClub from './pages/CreateClub/CreateClub';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,6 +55,7 @@ function App() {
             <Route path="/createclub" element={<CreateClub />}/>
             <Route path="/signup" element={<Signup />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/forgot-password" element={<ForgotPassword />}/>
           </Route>
         </Routes>
       </BrowserRouter>
