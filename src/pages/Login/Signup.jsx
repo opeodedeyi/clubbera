@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { authActions } from "../../store/auth";
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
@@ -10,7 +13,9 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import './Login.css';
 
 const Signup = () => {
+    const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [fullname, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,8 +41,23 @@ const Signup = () => {
         return passwordRegex.test(password);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
+        
+        axios.post(`${API_URL}/signup`, {
+            fullname,
+            email,
+            password,
+        }).then(res => {
+            Cookies.set('authToken', res.data.token, { expires: 60 });
+            localStorage.setItem('user', JSON.stringify(res.data.newUser)); // store user data in local storage
+            dispatch(authActions.setUser(res.data.newUser));
+            console.log(res.data.newUser);
+            navigate('/');
+        }).catch(err => {
+            console.error(err);
+            dispatch(authActions.setUser(res.data.user));
+        });
         console.log(fullname, email, password);
     };
 
@@ -78,7 +98,7 @@ const Signup = () => {
 
                         <div className="mb-one"></div>
 
-                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Sign up</CustomButton>
+                        <CustomButton size="form" onClick={handleSignup} disabled={isDisabled}>Sign up</CustomButton>
 
                         <div className="mb-one"></div>
 

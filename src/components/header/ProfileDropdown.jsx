@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 
 import "./ProfileDropdown.css";
 
 const ProfileDropdown = ( props ) => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.user);
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
@@ -20,8 +22,8 @@ const ProfileDropdown = ( props ) => {
                         {/* Replace with your image */}
                         <img src="https://via.placeholder.com/50" alt="profile"/>
                         <div className="dropdown-item-main-profile">
-                            <p className="dropdown-item-name">Opeyemi Odedeyi</p>
-                            <NavLink to="/">Manage your profile</NavLink> 
+                            <p className="dropdown-item-name">{ user.fullname }</p>
+                            <NavLink to="/me">Manage your profile</NavLink> 
                         </div>
                     </li>
                     {props.dropdownItems.map((item, index) => (

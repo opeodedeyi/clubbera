@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
@@ -8,7 +9,8 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 
 import './Login.css';
 
-const Signup = () => {
+const ForgotPassword = () => {
+    const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -26,13 +28,32 @@ const Signup = () => {
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         return emailRegex.test(email);
     };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(email);
-    };
-
+    
     const isDisabled = !email || !isEmailValid(email);
+
+    const resetPassword = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${API_URL}/password-reset`, { 
+                email 
+            });
+            navigate('/login');
+            console.log(response.data); // this is the success message from server
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error('Error data:', error.response.data);
+                console.error('Error status:', error.response.status);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error('No response received:', error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error('Request error:', error.message);
+            }
+        }
+    };
     
     return (
         <>
@@ -53,7 +74,7 @@ const Signup = () => {
 
                         <div className="mb-one"></div>
 
-                        <CustomButton size="form" onClick={handleSubmit} disabled={isDisabled}>Next</CustomButton>
+                        <CustomButton size="form" onClick={resetPassword} disabled={isDisabled}>Next</CustomButton>
 
                         <div className="login-container-question">Go back to <NavLink to="/login">Log in</NavLink></div>
                     </form>
@@ -63,4 +84,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default ForgotPassword
