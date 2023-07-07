@@ -17,6 +17,8 @@ import './App.css';
 
 
 function App() {
+  /* This website was built by Opeyemi Odedeyi, July 2023 */
+
   // Use Redux hooks to get dispatch function and the current user
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
