@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Home from './pages/Home';
 import Signup from './pages/Login/Signup';
@@ -50,17 +51,19 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route path="" element={<Home />}/>
-            <Route path="/createclub" element={<CreateClub />}/>
-            <Route path="/signup" element={<Signup />}/>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/forgot-password" element={<ForgotPassword />}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <GoogleOAuthProvider clientId={ import.meta.env.VITE_APP_GOOGLE_CLIENT_ID }>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route path="" element={<Home />}/>
+              <Route path="/createclub" element={<CreateClub />}/>
+              <Route path="/signup" element={<Signup />}/>
+              <Route path="/login" element={<Login />}/>
+              <Route path="/forgot-password" element={<ForgotPassword />}/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
     </>
   )
 }

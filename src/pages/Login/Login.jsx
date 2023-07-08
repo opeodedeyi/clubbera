@@ -4,11 +4,15 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from "../../store/auth";
+import { useGoogleLogin } from "@react-oauth/google";
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import SocialLogin from "../../components/CustomButton/SocialLogin";
+
+import googleBtn from '../../assets/svg/google.svg';
 
 import './Login.css';
 
@@ -57,6 +61,11 @@ const Login = () => {
         });
     }
 
+    const googleLogin = useGoogleLogin({
+        onSuccess: codeResponse => console.log(codeResponse),
+        flow: 'auth-code',
+    });
+
     const isDisabled = !email || !password || !isEmailValid(email) || !isPasswordValid(password);
 
     return (
@@ -89,6 +98,12 @@ const Login = () => {
                         <CustomButton size="form" onClick={handleLogin} disabled={isDisabled}>Log in</CustomButton>
 
                         <div className="login-container-question">Not a member yet? <NavLink to="/signup">Sign up</NavLink></div>
+
+                        <div className="mb-one"></div>
+
+                        <SocialLogin imgSrc={googleBtn} style="google-style" onClick={googleLogin}>
+                            Continue with Google
+                        </SocialLogin>
                     </form>
                 </div>
             </div>

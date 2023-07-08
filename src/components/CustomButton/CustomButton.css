@@ -10,6 +10,26 @@
     align-items: center;
 }
 
+.social-login-button{
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Rubik', sans-serif;
+    height: 46px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px; /* 80 */
+    justify-content: center;
+    align-items: center;
+    padding: 12px 48px;
+}
+
+.social-login-button img{
+    height: 17px;
+}
+
 .custom-tag {
     padding: 12px 14px;
     border-radius: 5px;
@@ -44,6 +64,12 @@
 .checked-style {
     border-radius: 5px;
     cursor: pointer;
+}
+
+.google-style {
+    border: 1px solid var(--dark-color);
+    background-color: transparent;
+    color: var(--dark-color);
 }
 
 .not-checked {
@@ -113,7 +139,8 @@
 }
 
 @media screen and  (max-width: 1000px) {
-    .custom-button {
+    .custom-button,
+    .social-login-button {
         height: 40px;
     }
     

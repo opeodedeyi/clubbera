@@ -4,11 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { authActions } from "../../store/auth";
+import { useGoogleLogin } from "@react-oauth/google";
 
 import Header from "../../components/header/Header";
 import FormInput from "../../components/FormInput/FormInput";
 import PasswordInput from "../../components/FormInput/PasswordInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import SocialLogin from "../../components/CustomButton/SocialLogin";
+
+import googleBtn from '../../assets/svg/google.svg';
 
 import './Login.css';
 
@@ -60,6 +64,11 @@ const Signup = () => {
         });
         console.log(fullname, email, password);
     };
+    
+    const googleLogin = useGoogleLogin({
+        onSuccess: codeResponse => console.log(codeResponse),
+        flow: 'auth-code',
+    });
 
     const isDisabled = !fullname || !email || !password || !isEmailValid(email) || !isPasswordValid(password);
     
@@ -72,6 +81,14 @@ const Signup = () => {
                     <form action="" className="login-container-main">
                         <p className="login-container-main-title">Sign up</p>
                         <p className="login-container-main-subtitle login-link-in-signup">Already a member? <NavLink to="/login">Log in</NavLink></p>
+
+                        <SocialLogin imgSrc={googleBtn} style="google-style" onClick={googleLogin}>
+                            Continue with Google
+                        </SocialLogin>
+
+                        <div className="mb-one"></div>
+
+                        <p className="login-or-subtitle">OR</p>
                         
                         <FormInput
                             type="text"

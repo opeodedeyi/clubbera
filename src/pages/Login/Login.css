@@ -36,6 +36,15 @@
     margin-bottom: 40px;
 }
 
+.login-or-subtitle {
+    color: var(--dark-color);
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 180.02%;
+    margin-bottom: 25px;
+}
+
 .login-toolkit {
     height: 100%;
     width: 300px;
