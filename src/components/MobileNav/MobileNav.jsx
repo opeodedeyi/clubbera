@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
+
 import cancel from '../../assets/svg/cancel.svg';
+
 import "./MobileNav.css";
 
 const MobileNav = (props) => {
     const { isOpen, onCancel } = props;
+    const user = useSelector(state => state.auth.user);
 
     return (
         <div className={`mobile-nav ${isOpen ? "open" : ""}`}>
@@ -13,12 +17,20 @@ const MobileNav = (props) => {
             </button>
             <nav className="mobile-nav-menu">
                 <ul className="mobile-nav-menu-list">
-                    <li>
-                        <NavLink to="/signup" onClick={onCancel}>Create Account</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/login" onClick={onCancel}>Log In</NavLink>
-                    </li>
+                    {user ? 
+                        <li>
+                            <NavLink to="/createclub" onClick={onCancel}>Create { import.meta.env.VITE_APP_THEME }</NavLink>
+                        </li>
+                    :
+                        <>
+                            <li>
+                                <NavLink to="/signup" onClick={onCancel}>Sign up</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/login" onClick={onCancel}>Log In</NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
             </nav>
         </div>
