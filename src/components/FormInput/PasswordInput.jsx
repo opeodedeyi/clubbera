@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import "./FormInput.css";
 
-import eye from '../../assets/svg/eye.svg';
+import eyeOpen from '../../assets/svg/eyeOpen.svg';
+import eyeClosed from '../../assets/svg/eyeClosed.svg';
 
 const FormInput = ( props ) => {
     const [type, setType] = useState('password');
@@ -35,7 +36,12 @@ const FormInput = ( props ) => {
                     value={props.value}
                     onChange={props.onChange}
                 />
-                <img src={eye} alt="eye" className="eye-icon" onClick={changeView}/>
+                
+                {type==="password" ? 
+                    <img src={eyeOpen} alt="eyeOpen" className="eye-icon" onClick={changeView}/>
+                :
+                    <img src={eyeClosed} alt="eyeClosed" className="eye-icon" onClick={changeView}/>
+                }
             </div>
         </>
     );

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from "../../store/auth";
 
 import cancel from '../../assets/svg/cancel.svg';
 
 import "./MobileNav.css";
 
 const MobileNav = (props) => {
-    const dispatch = useDispatch();
     const { isOpen, onCancel, logoutClick } = props;
     const user = useSelector(state => state.auth.user);
 
