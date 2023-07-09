@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from "../../store/auth";
 
 import cancel from '../../assets/svg/cancel.svg';
 
 import "./MobileNav.css";
 
 const MobileNav = (props) => {
-    const { isOpen, onCancel } = props;
+    const dispatch = useDispatch();
+    const { isOpen, onCancel, logoutClick } = props;
     const user = useSelector(state => state.auth.user);
 
     return (
@@ -18,9 +20,14 @@ const MobileNav = (props) => {
             <nav className="mobile-nav-menu">
                 <ul className="mobile-nav-menu-list">
                     {user ? 
-                        <li>
-                            <NavLink to="/createclub" onClick={onCancel}>Create { import.meta.env.VITE_APP_THEME }</NavLink>
-                        </li>
+                        <>
+                            <li>
+                                <NavLink to="/createclub" onClick={onCancel}>Create { import.meta.env.VITE_APP_THEME }</NavLink>
+                            </li>
+                            <li>
+                                <p onClick={logoutClick}>Log Out</p>
+                            </li>
+                        </>
                     :
                         <>
                             <li>

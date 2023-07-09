@@ -6,7 +6,6 @@ import "./ProfileDropdown.css";
 
 const ProfileDropdown = ( props ) => {
     const [isOpen, setIsOpen] = useState(false);
-    const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
     const toggleDropdown = () => setIsOpen(!isOpen);
 

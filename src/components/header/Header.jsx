@@ -6,7 +6,6 @@ import MobileNav from "../MobileNav/MobileNav";
 import ProfileDropdown from "./ProfileDropdown";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from "../../store/auth";
 import { logout } from "../../store/auth";
 
 import search from '../../assets/svg/search.svg';
@@ -84,6 +83,11 @@ const Header = () => {
         setSearchActive(!searchActive);
     };
 
+    const logoutClick = () => {
+        dispatch(logout());
+        setNavOpen(!navOpen);
+    };
+
     return (
         <>
             <header className={`header ${isHomePage && !hasScrolled ? '' : 'header-scrolled'}`}>
@@ -151,7 +155,7 @@ const Header = () => {
                 )}
             </header>
             
-            <MobileNav isOpen={navOpen} onCancel={toggleNav}></MobileNav>
+            <MobileNav isOpen={navOpen} onCancel={toggleNav} logoutClick={logoutClick}></MobileNav>
         </>
     )
 }
