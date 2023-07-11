@@ -67,14 +67,14 @@ const Signup = () => {
             // dispatch(authActions.setUser(res.data.user));
             if (err.response) {
                 if (err.response.status === 401) {
-                    toast("💔 User already exist");
+                    toast("💔 user with mail already exist");
                 } else {
                     // Other errors
-                    toast("💔 Something went wrong");
+                    toast("💔 something went wrong");
                 }
             } else {
                 // Something happened in setting up the request that triggered an err
-                toast("💔 Error in setting up the request");
+                toast("💔 error in setting up the request");
             }
         });
         console.log(fullname, email, password);
