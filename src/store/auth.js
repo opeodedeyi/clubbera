@@ -27,7 +27,7 @@ export const logout = () => {
                 localStorage.removeItem('user');
                 // Remove the user from the Redux store
                 dispatch(authActions.removeUser());
-                toast.success('🦄 successfully logged out!')
+                toast('🦄 successfully logged out!')
             }).catch(err => {
                 console.error(err);
             });

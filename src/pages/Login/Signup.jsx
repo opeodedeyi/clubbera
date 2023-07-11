@@ -59,7 +59,7 @@ const Signup = () => {
             dispatch(authActions.setUser(res.data.newUser));
             console.log(res.data.newUser);
             navigate('/');
-            toast.success('🦄 Log in successful!')
+            toast('🦄 Log in successful!')
         }).catch(err => {
             console.error(err);
             // dispatch(authActions.setUser(res.data.user));
@@ -67,14 +67,14 @@ const Signup = () => {
             // dispatch(authActions.setUser(res.data.user));
             if (err.response) {
                 if (err.response.status === 401) {
-                    toast("🦄 User already exist");
+                    toast("💔 User already exist");
                 } else {
                     // Other errors
-                    toast("🦄 Something went wrong");
+                    toast("💔 Something went wrong");
                 }
             } else {
                 // Something happened in setting up the request that triggered an err
-                toast("🦄 Error in setting up the request");
+                toast("💔 Error in setting up the request");
             }
         });
         console.log(fullname, email, password);
@@ -92,10 +92,10 @@ const Signup = () => {
                 dispatch(authActions.setUser(res.data.user));
                 console.log(res.data.user);
                 navigate('/');
-                toast.success('🦄 Log in successful!')
+                toast('🦄 Log in successful!')
             }).catch(err => {
                 console.error(err.response.data); // This will log the response from the server
-                toast("🦄 Something went wrong");
+                toast("💔 Something went wrong");
                 dispatch(authActions.setUser(null));
             });
         },

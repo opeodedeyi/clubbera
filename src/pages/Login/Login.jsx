@@ -56,20 +56,20 @@ const Login = () => {
             dispatch(authActions.setUser(res.data.user));
             console.log(res.data.user);
             navigate('/');
-            toast.success('🦄 Log in successful!')
+            toast('🦄 Log in successful!')
         }).catch(err => {
             console.error(err);
             // dispatch(authActions.setUser(res.data.user));
             if (err.response) {
                 if (err.response.status === 401) {
-                    toast("🦄 Invalid email or password");
+                    toast("💔 Invalid email or password");
                 } else {
                     // Other errors
-                    toast("🦄 Something went wrong");
+                    toast("💔 Something went wrong");
                 }
             } else {
                 // Something happened in setting up the request that triggered an err
-                toast("🦄 Error in setting up the request");
+                toast("💔 Error in setting up the request");
             }
         });
     }
@@ -86,10 +86,10 @@ const Login = () => {
                 dispatch(authActions.setUser(res.data.user));
                 console.log(res.data.user);
                 navigate('/');
-                toast.success('🦄 Log in successful!')
+                toast('🦄 Log in successful!')
             }).catch(err => {
                 console.error(err.response.data); // This will log the response from the server
-                toast("🦄 Something went wrong");
+                toast("💔 Something went wrong");
                 dispatch(authActions.setUser(null));
             });
         },
