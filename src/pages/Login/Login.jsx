@@ -60,9 +60,25 @@ const Login = () => {
             dispatch(authActions.setUser(res.data.user));
         });
     }
-
+    
     const googleLogin = useGoogleLogin({
-        onSuccess: codeResponse => console.log(codeResponse),
+        onSuccess: codeResponse => {
+            console.log(codeResponse.code);
+
+            axios.post(`${API_URL}/google-auth`, {
+                code: codeResponse.code,
+            }).then(res => {
+                Cookies.set('authToken', res.data.token, { expires: 60 });
+                localStorage.setItem('user', JSON.stringify(res.data.user)); // store user data in local storage
+                dispatch(authActions.setUser(res.data.user));
+                console.log(res.data.user);
+                navigate('/');
+            }).catch(err => {
+                console.error(err.response.data); // This will log the response from the server
+                console.error(err.message);
+                dispatch(authActions.setUser(null));
+            });
+        },
         flow: 'auth-code',
     });
 

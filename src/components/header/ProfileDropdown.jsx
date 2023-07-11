@@ -12,14 +12,20 @@ const ProfileDropdown = ( props ) => {
     return (
         <div className="header-profile-dropdown">
             <div className={`dropdown-button ${isOpen ? 'dropdown-active' : ''}`} onClick={toggleDropdown}>
-                {/* Replace with your image */}
-                <img src="https://via.placeholder.com/50" alt="profile"/>
+                {user.profilePhoto.location ? (
+                    <img src={user.profilePhoto.location} alt="profile"/>
+                ) :
+                    <img src="https://via.placeholder.com/50" alt="profile"/>
+                }
             </div>
             {isOpen && (
                 <ul className="dropdown-menu">
                     <li className="dropdown-item-main">
-                        {/* Replace with your image */}
-                        <img src="https://via.placeholder.com/50" alt="profile"/>
+                        {user.profilePhoto.location ? (
+                            <img src={user.profilePhoto.location} alt="profile"/>
+                        ) :
+                            <img src="https://via.placeholder.com/50" alt="profile"/>
+                        }
                         <div className="dropdown-item-main-profile">
                             <p className="dropdown-item-name">{ user.fullname }</p>
                             <NavLink to="/me">Manage your profile</NavLink> 
