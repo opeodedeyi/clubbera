@@ -51,3 +51,13 @@ input, textarea {
   scrollbar-width: thin;
   /* scrollbar-color: var(--special-color) var(--header-background-color); */
 }
+
+/* progress bar styling */
+#nprogress .bar {
+  background: var(--special-color); /* change this color */
+}
+
+/* Change the height */
+#nprogress .bar {
+  height: 4px; /* change this height */
+}
