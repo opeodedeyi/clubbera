@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
 
@@ -24,9 +25,9 @@ export const logout = () => {
                 // if successful, remove the token from the cookie
                 Cookies.remove('authToken');
                 localStorage.removeItem('user');
-                
                 // Remove the user from the Redux store
                 dispatch(authActions.removeUser());
+                toast.success('🦄 successfully logged out!')
             }).catch(err => {
                 console.error(err);
             });

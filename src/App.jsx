@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import NProgress from 'nprogress';
+import { ToastContainer } from 'react-toastify';
 
 import Home from './pages/Home';
 import Signup from './pages/Login/Signup';
@@ -14,6 +15,7 @@ import CreateClub from './pages/CreateClub/CreateClub';
 import { useDispatch } from 'react-redux';
 import { authActions } from './store/auth';
 
+import 'react-toastify/dist/ReactToastify.css';
 import 'nprogress/nprogress.css';
 import './reset.css';
 import './App.css';
@@ -44,6 +46,7 @@ function RouterComponent() {
                 <Route path="/signup" element={<Signup />}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/forgot-password" element={<ForgotPassword />}/>
+                
             </Route>
         </Routes>
     );
@@ -82,6 +85,17 @@ function App() {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark" />
             <GoogleOAuthProvider clientId={ import.meta.env.VITE_APP_GOOGLE_CLIENT_ID }>
                 <BrowserRouter>
                     <RouterComponent />
