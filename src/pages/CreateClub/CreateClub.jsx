@@ -24,8 +24,8 @@ const StepPre = () => {
     return (
         <>
             <div className="create-club-intro-texts">
-                <h2 className="create-club-header">Tell us about your club</h2>
-                <p className="create-club-text">In this step, we will ask you about the type of online club you want to create on the website and whether members can join the entire club or just specific sections. Then, please provide the club's focus or theme.</p>
+                <h2 className="create-club-header">Give Your Community the Spotlight!</h2>
+                <p className="create-club-text">Are you leading an amazing community or club that's just waiting to be discovered? We can't wait to meet you! Clubbera is the perfect place to showcase your community, reach passionate individuals, and make your club shine. Don't keep your awesome community a secret; use this form to share the excitement.</p>
             </div>
 
             <div className="create-club-image">
@@ -46,8 +46,10 @@ const StepOne = () => {
     return (
         <>
             <div className="create-club-intro-texts">
-                <h2 className="create-club-header">First, set your location for your group</h2>
-                <MapInput type="text" placeholder="Location of most meetings" />
+                <h2 className="create-club-header">Primary Meeting Location</h2>
+                <MapInput 
+                    type="text" 
+                    placeholder="Enter Your Club's Primary Meeting Location" />
                 
                 <div className="mb-one"></div>
 
@@ -59,7 +61,7 @@ const StepOne = () => {
                     <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
                     <span>Tips</span>
                 </p>
-                <p className="create-club-tip-point">Clubbera groups meet locally, in person or online. The location helps us to connect with people in your area</p>
+                <p className="create-club-tip-point">Enter the main location for your club meetings or events (e.g., 'Main Street Park, Springfield'). This helps potential members know if they can attend regularly</p>
             </div>
         </>
     );
@@ -77,7 +79,7 @@ const StepTwo = () => {
     return (
         <>
             <div className="create-club-intro-texts">
-                <h2 className="create-club-header">What tags best describe your group?</h2>
+                <h2 className="create-club-header">Select Tags That Describe Your Club</h2>
 
                 <div className="create-club-tags">
                     {tags.map((tag, index) => (
@@ -93,7 +95,7 @@ const StepTwo = () => {
                     <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
                     <span>Tips</span>
                 </p>
-                <p className="create-club-tip-point">Be specific! This will help us promote your group to the right people. Try to select at least 3 topics before moving onto the next step.</p>
+                <p className="create-club-tip-point">Choose tags that best describe your club. This helps potential members find your club when they search for specific interests. For example, if your club is about hiking, you might choose tags like 'Outdoor', 'Adventure', 'Hiking', etc.</p>
             </div>
         </>
     );
@@ -107,34 +109,27 @@ const StepThree = () => {
     const [activeInput, setActiveInput] = useState('clubName');
 
     const tips = {
-        clubName: 'Choose a name that will give people a clear idea of what the group is about.',
-        clubDescription: `
-            <p className="mb-one">Questions to consider:</p>
-            <ul class="tip-list">
-                <li>What’s the group goal?</li>
-                <li>Who are you hoping to meet?</li>
-                <li>What activities will people do?</li>
-            </ul>
-        `
+        clubName: 'Choose a name that clearly represents your club. Make it catchy and relevant to the interests or activities of your club.',
+        clubDescription: `Describe what your club is about. Mention your main activities, unique features, and what members can expect. Make it appealing to potential members.`
     };
 
     return (
         <>
             <div className="create-club-intro-texts">
-                <h2 className="create-club-header">Name your group</h2>
+                <h2 className="create-club-header">Enter Your Club Name</h2>
                 <FormInput
                     type="text"
-                    placeholder="Bradford baking meet group"
+                    placeholder="e.g., 'Springfield Hiking Enthusiasts"
                     value={clubName}
                     onFocus={() => setActiveInput('clubName')}
                     onChange={(e) => dispatch(createClubActions.setClubName(e.target.value))}/>
 
                 <div className="mb-two"></div>
 
-                <h2 className="create-club-header">Describe your group</h2>
+                <h2 className="create-club-header">Enter Your Club Description</h2>
                 <FormInput
                     type="textarea"
-                    placeholder="Example: Welcome tech lovers far and wide! We’re an online and in-person tech-enthusiast group hosting live speaking events on a range of tech topics. You can join us in person if possible or on one of our live streams. Look out for our virtual happy hours and other networking events."
+                    placeholder="e.g., 'Our club is for all hiking enthusiasts who love exploring the trails around Springfield. We meet every Saturday morning and occasionally organize weekend camping trips...'"
                     value={clubDescription}
                     onFocus={() => setActiveInput('clubDescription')}
                     onChange={(e) => dispatch(createClubActions.setClubDescription(e.target.value))}/>
@@ -161,8 +156,8 @@ const StepFour = () => {
     return (
         <>
             <div className="create-club-intro-texts">
-                <h2 className="create-club-header">Is this group a Private or Public Group?</h2>
-                <p className="create-club-tip-point mb-two">Do you want your group to be private or public</p>
+                <h2 className="create-club-header">Is Your Club Private or Public?</h2>
+                <p className="create-club-tip-point mb-two">Club Privacy Settings</p>
                 <div className="create-club-choose">
                     <CheckButton style="checked-style" size="padded" checked={permissionRequired===true ? true : false} onClick={() => dispatch(createClubActions.setPermissionTrue())}>Private</CheckButton>
                     <CheckButton style="checked-style" size="padded" checked={permissionRequired===false ? true : false} onClick={() => dispatch(createClubActions.setPermissionFalse())}>Public</CheckButton>
@@ -174,7 +169,7 @@ const StepFour = () => {
                     <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
                     <span>Tips</span>
                 </p>
-                <p className="create-club-tip-point">Selecting 'Private' gives you more control on who can join your group, and selecting 'Public' allows anyone to join your group.</p>
+                <p className="create-club-tip-point">Select whether your club is private or public. A private club allows you to control membership by approving or rejecting join requests. A public club allows anyone to join freely, although you retain the power to ban any misbehaving members.</p>
             </div>
         </>
     );
@@ -184,7 +179,7 @@ const StepFive = () => {
     return (
         <>
             <div className="create-club-intro-texts">
-                {/* image box */}
+                <h2 className="create-club-header">Upload Your Club's Banner Image</h2>
                 <SingleImageUpload />
             </div>
 
@@ -193,7 +188,7 @@ const StepFive = () => {
                     <img src={tipIcon} alt="tip icon" className="create-club-tip-icon" />
                     <span>Tips</span>
                 </p>
-                <p className="create-club-tip-point">Clubbera groups meet locally, in person or online. The location helps us to connect with people in your area</p>
+                <p className="create-club-tip-point">Upload a landscape-oriented image that best represents your club. This image will be your club's banner, so choose a photo that's eye-catching and relevant. Ideal dimensions are 1920 by 1080 pixels for best display quality.</p>
             </div>
         </>
     );
@@ -214,7 +209,7 @@ const StepPost = () => {
                     <img src={checkMark} alt="back arrow" className="create-club-finish-mark" />
                 </div>
                 <h2 className="create-club-header">Steps Completed</h2>
-                <p className="create-club-tip-point tpmw-cc mb-one">Congratulations. You have successfully created a community group. Kindly proceed to your dashboard</p>
+                <p className="create-club-tip-point tpmw-cc mb-one">Awesome! Your club is set to make a splash on Clubbera! Stay tuned for updates and next steps. Get ready for the fun to unfold. Let's start this exciting journey</p>
                 <CustomButton style="default-style" size="normal" onClick={(e) => whatNextClick(e)}>Homepage</CustomButton>
             </div>
         </>
