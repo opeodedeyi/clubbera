@@ -19,7 +19,7 @@ import './reset.css';
 import './App.css';
 
 
-NProgress.configure({ showSpinner: false }); // this line disables the spinner
+NProgress.configure({ showSpinner: false });
 
 
 function RouterComponent() {
