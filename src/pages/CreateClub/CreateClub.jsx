@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 import CreateHeader from "../../components/header/CreateHeader";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -12,6 +13,7 @@ import SingleImageUpload from "../../components/ImageUpload/SingleImageUpload";
 
 import { useSelector, useDispatch } from "react-redux";
 import { createClubActions } from "../../store/createClub";
+import { utilityActions } from "../../store/utility";
 
 import buildingblockImage from '../../assets/images/buildingblockb.png';
 import arrowBack from '../../assets/svg/arrowBack.svg';
@@ -36,6 +38,8 @@ const StepPre = () => {
 }
 
 const StepOne = () => {
+    const dispatch = useDispatch();
+    const inputValue = useSelector((state) => state.createClub.inputValue);
     const coordinates = useSelector((state) => state.createClub.coordinates);
     const [isComponentMounted, setIsComponentMounted] = useState(false);
 
@@ -49,7 +53,22 @@ const StepOne = () => {
                 <h2 className="create-club-header">Primary Meeting Location</h2>
                 <MapInput 
                     type="text" 
-                    placeholder="Enter Your Club's Primary Meeting Location" />
+                    placeholder="Enter Your Club's Primary Meeting Location"
+                    value={inputValue}
+                    onChange={(value) => dispatch(createClubActions.setInputValue(value))}
+                    onSelect={(suggestion) => {
+                        const { formatted_address, place_id, geometry } = suggestion;
+                        dispatch(createClubActions.setPlaceId(place_id));
+                        dispatch(createClubActions.setFormattedAddress(formatted_address));
+                        dispatch(createClubActions.setCoordinates(geometry.location));
+                        dispatch(createClubActions.setInputValue(formatted_address));
+                    }} 
+                    onCurrentLocation={(result) => {
+                        dispatch(createClubActions.setPlaceId(result.place_id));
+                        dispatch(createClubActions.setFormattedAddress(result.formatted_address));
+                        dispatch(createClubActions.setCoordinates(result.geometry.location));
+                        dispatch(createClubActions.setInputValue(result.formatted_address));
+                    }} />
                 
                 <div className="mb-one"></div>
 
@@ -69,7 +88,7 @@ const StepOne = () => {
 
 const StepTwo = () => {
     const dispatch = useDispatch();
-    const tags = useSelector((state) => state.createClub.tags);
+    const tags = useSelector((state) => state.utility.tags);
     const selectedTags = useSelector((state) => state.createClub.selectedTags);
 
     const handleClick = (tag) => {
@@ -176,6 +195,9 @@ const StepFour = () => {
 }
 
 const StepFive = () => {
+    // const dispatch = useDispatch();
+    // const permissionRequired = useSelector((state) => state.createClub.permissionRequired);
+
     return (
         <>
             <div className="create-club-intro-texts">
@@ -217,9 +239,26 @@ const StepPost = () => {
 }
 
 const CreateClub = () => {
+    const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
+    const dispatch = useDispatch();
+    const tags = useSelector((state) => state.utility.tags);
+
     useEffect(() => {
         document.title = "Create Community | Clubbera";
-    }, []);
+
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/category`);
+                dispatch(utilityActions.setTags(response.data))
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+            }
+        };
+
+        if (!tags.length) { // If tags array is empty, fetch categories
+            fetchCategories();
+        }
+    }, [tags]);
 
     const [step, setStep] = useState(0);
 

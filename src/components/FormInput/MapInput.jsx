@@ -2,15 +2,10 @@ import React, { useState, useCallback } from "react";
 import axios from "axios";
 import _ from 'lodash';
 
-import { useSelector, useDispatch } from "react-redux";
-import { createClubActions } from "../../store/createClub";
-
 import searchIcon from '../../assets/svg/search.svg';
 import "./FormInput.css";
 
-const MapInput = ( props ) => {
-    const dispatch = useDispatch();
-    const inputValue = useSelector((state) => state.createClub.inputValue);
+const MapInput = ({ type, placeholder, value, onChange, onSelect, onCurrentLocation }) => {
     const [isInputFocused, setIsInputFocused] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
@@ -33,7 +28,7 @@ const MapInput = ( props ) => {
     };    
 
     const handleInputChange = (event) => {
-        dispatch(createClubActions.setInputValue(event.target.value));
+        onChange(event.target.value);
         setIsLoading(true);
         debouncedInput(event.target.value);
     };
@@ -59,14 +54,7 @@ const MapInput = ( props ) => {
     }, 400), []);
 
     const handleSuggestionClick = (suggestion) => {
-        const { formatted_address, place_id, geometry } = suggestion;
-
-        
-        dispatch(createClubActions.setPlaceId(place_id));
-        dispatch(createClubActions.setFormattedAddress(formatted_address));
-        dispatch(createClubActions.setCoordinates(geometry.location));
-
-        dispatch(createClubActions.setInputValue(formatted_address));
+        onSelect(suggestion);
     };
 
     const getCurrentLocation = () => {
@@ -83,11 +71,7 @@ const MapInput = ( props ) => {
                     const [result] = response.data.results;
                     if (result) {
                         console.log(result);
-                        dispatch(createClubActions.setPlaceId(result.place_id));
-                        dispatch(createClubActions.setFormattedAddress(result.formatted_address));
-                        dispatch(createClubActions.setCoordinates(result.geometry.location));
-
-                        dispatch(createClubActions.setInputValue(result.formatted_address));
+                        onCurrentLocation(result);
                     } else {
                         console.error('Failed to get address data: ', response.data);
                     }
@@ -108,9 +92,9 @@ const MapInput = ( props ) => {
             <div className="map-input-normal">
                 <img src={searchIcon} alt="search icon" className="map-input-normal-search-icon" />
                 <input
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    value={inputValue}
+                    type={type}
+                    placeholder={placeholder}
+                    value={value}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     onFocus={() => setIsInputFocused(true)}

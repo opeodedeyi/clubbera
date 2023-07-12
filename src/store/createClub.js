@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialCreateClubState = {
     clubName: '',
     clubDescription: '',
-    tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8', 'tag9'],
     selectedTags: [],
     permissionRequired: null,
     inputValue: '',
     placeId: '',
     formattedAddress: '',
-    coordinates: []
+    coordinates: [],
+    bannerURL: null
 }
 
 const createClubSlice = createSlice({ 
@@ -21,9 +21,6 @@ const createClubSlice = createSlice({
         },
         setClubDescription(state, action) {
             state.clubDescription = action.payload;
-        },
-        setTags(state, action) {
-            state.tags = action.payload;
         },
         toggleTagSelection: (state, action) => {
             const tag = action.payload;
@@ -50,6 +47,9 @@ const createClubSlice = createSlice({
         },
         setCoordinates(state, action) {
             state.coordinates = action.payload;
+        },
+        setBannerURL(state, action) {
+            state.bannerURL = action.payload;
         }
     }
 });

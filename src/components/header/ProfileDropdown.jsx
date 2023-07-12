@@ -12,7 +12,7 @@ const ProfileDropdown = ( props ) => {
     return (
         <div className="header-profile-dropdown">
             <div className={`dropdown-button ${isOpen ? 'dropdown-active' : ''}`} onClick={toggleDropdown}>
-                {user.profilePhoto.location ? (
+                {user?.profilePhoto?.location ? (
                     <img src={user.profilePhoto.location} alt="profile"/>
                 ) :
                     <img src="https://via.placeholder.com/50" alt="profile"/>
@@ -21,7 +21,7 @@ const ProfileDropdown = ( props ) => {
             {isOpen && (
                 <ul className="dropdown-menu">
                     <li className="dropdown-item-main">
-                        {user.profilePhoto.location ? (
+                        {user?.profilePhoto?.location ? (
                             <img src={user.profilePhoto.location} alt="profile"/>
                         ) :
                             <img src="https://via.placeholder.com/50" alt="profile"/>
