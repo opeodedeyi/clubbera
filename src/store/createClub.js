@@ -1,4 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
 
 const initialCreateClubState = {
     clubName: '',
@@ -8,9 +12,54 @@ const initialCreateClubState = {
     inputValue: '',
     placeId: '',
     formattedAddress: '',
-    coordinates: [],
+    coordinates: { lat: null, lng: null },
     rawPhoto: null,
-    bannerURL: null
+    bannerURL: null,
+    loading: false
+}
+
+// Action to create community
+export const createCommunity = () => {
+    return async function (dispatch, getState) {
+        // get the current auth token
+        const token = Cookies.get('authToken');
+
+        // retrieve the club details from state
+        const { clubName, clubDescription, bannerURL, selectedTags, placeId, formattedAddress, coordinates, permissionRequired } = getState().createClub;
+
+        if (token) {
+            console.log(coordinates);
+            axios.post(`${API_URL}/group`, {
+                name: clubName,
+                description: clubDescription,
+                location: { 
+                    place_id: placeId, 
+                    formatted_address: formattedAddress, 
+                    geo: { 
+                        type: 'Point', 
+                        coordinates: {
+                            lat: coordinates.lat,
+                            lng: coordinates.lng
+                        } 
+                    } 
+                },
+                category: selectedTags,
+                permissionRequired,
+                // bannerURL,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            }).then(res => {
+                console.log(res.data);
+                dispatch(createClubActions.resetState());
+            }).catch(err => {
+                dispatch(createClubActions.setLoadingFalse());
+                console.error(err);
+            });
+        }
+    };
 }
 
 const createClubSlice = createSlice({ 
@@ -54,6 +103,25 @@ const createClubSlice = createSlice({
         },
         setBannerURL(state, action) {
             state.bannerURL = action.payload;
+        },
+        setLoadingTrue(state) {
+            state.loading = true;
+        },
+        setLoadingFalse(state) {
+            state.loading = false;
+        },
+        resetState(state) {
+            state.clubName = '';
+            state.clubDescription = '';
+            state.selectedTags = [];
+            state.permissionRequired = null;
+            state.inputValue = '';
+            state.placeId = '';
+            state.formattedAddress = '';
+            state.coordinates = { lat: null, lng: null };
+            state.rawPhoto = null;
+            state.bannerURL = null;
+            state.loading = false
         },
     }
 });

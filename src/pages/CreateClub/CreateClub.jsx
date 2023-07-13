@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import CreateHeader from "../../components/header/CreateHeader";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -12,7 +13,7 @@ import MapContainer from "../../components/MapContainer/MapContainer";
 import SingleImageUpload from "../../components/ImageUpload/SingleImageUpload";
 
 import { useSelector, useDispatch } from "react-redux";
-import { createClubActions } from "../../store/createClub";
+import { createClubActions, createCommunity } from "../../store/createClub";
 import { utilityActions } from "../../store/utility";
 
 import buildingblockImage from '../../assets/images/buildingblockb.png';
@@ -60,19 +61,19 @@ const StepOne = () => {
                         const { formatted_address, place_id, geometry } = suggestion;
                         dispatch(createClubActions.setPlaceId(place_id));
                         dispatch(createClubActions.setFormattedAddress(formatted_address));
-                        dispatch(createClubActions.setCoordinates(geometry.location));
+                        dispatch(createClubActions.setCoordinates({ lat: geometry.location.lat, lng: geometry.location.lng }));
                         dispatch(createClubActions.setInputValue(formatted_address));
                     }} 
                     onCurrentLocation={(result) => {
                         dispatch(createClubActions.setPlaceId(result.place_id));
                         dispatch(createClubActions.setFormattedAddress(result.formatted_address));
-                        dispatch(createClubActions.setCoordinates(result.geometry.location));
+                        dispatch(createClubActions.setCoordinates({ lat: result.geometry.location.lat, lng: result.geometry.location.lng }));
                         dispatch(createClubActions.setInputValue(result.formatted_address));
                     }} />
                 
                 <div className="mb-one"></div>
 
-                { isComponentMounted && Object.keys(coordinates).length > 0  && <MapContainer center={coordinates} />}
+                { isComponentMounted && coordinates.lat && coordinates.lng && <MapContainer center={coordinates} />}
             </div>
 
             <div className="create-club-tip">
@@ -243,7 +244,9 @@ const StepPost = () => {
 const CreateClub = () => {
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [step, setStep] = useState(0);
+    const user = useSelector((state) => state.auth.user);
     const tags = useSelector((state) => state.utility.tags);
     const formattedAddress = useSelector((state) => state.createClub.formattedAddress);
     const selectedTags = useSelector((state) => state.createClub.selectedTags);
@@ -271,7 +274,11 @@ const CreateClub = () => {
         if (!tags.length) { // If tags array is empty, fetch categories
             fetchCategories();
         }
-    }, [tags]);
+
+        if (user === null) { // check if user is null
+            navigate("/");
+        }
+    }, [tags, user]);
 
     const handleNext = (event) => {
         event.preventDefault();
@@ -281,11 +288,17 @@ const CreateClub = () => {
         event.preventDefault();
         setStep(step - 1);
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Logic to handle form submission
-        console.log('Form submitted with clubname');
-        setStep(step + 1)
+
+        try {
+            await dispatch(createCommunity());
+            setStep(step + 1);
+            toast('🦄 Successfully Created your Community')
+        } catch (error) {
+            toast('🦄 Failed to Create Community')
+            console.error('An error occurred while creating the community:', error);
+        }
     }
 
     return (
