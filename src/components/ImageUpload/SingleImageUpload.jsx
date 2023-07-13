@@ -1,15 +1,19 @@
 import React, { useState, useRef } from 'react';
+import { readAndCompressImage } from 'browser-image-resizer';
+
 import addPhoto from '../../assets/svg/addPhoto.svg';
+
 import './ImageUpload.css';
 
-function SingleImageUpload() {
-    const [selectedImage, setSelectedImage] = useState(null);
+function SingleImageUpload({ selectedImage, setSelectedImage }) {
     const [isDragOver, setIsDragOver] = useState(false);
     const fileInputRef = useRef();
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
-        readImage(file);
+        readImage(file).then(dataUrl => {
+            setSelectedImage(dataUrl);
+        });
     };
 
     const handleImageDelete = () => {
@@ -30,18 +34,37 @@ function SingleImageUpload() {
     const handleDrop = (event) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
-        readImage(file);
+        readImage(file).then(dataUrl => {
+            setSelectedImage(dataUrl);
+        });
         setIsDragOver(false);
     };
 
-    const readImage = (file) => {
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            setSelectedImage(reader.result);
+    const readImage = async (file) => {
+        const config = {
+            quality: 0.7,
+            maxWidth: 1920,
+            maxHeight: 1080,
+            mimeType: 'image/webp',
+            debug: true,
         };
-
-        reader.readAsDataURL(file);
+        
+        try {
+            const resizedImageFile = await readAndCompressImage(file, config);
+            const reader = new FileReader();
+            
+            return new Promise((resolve, reject) => {
+                reader.onloadend = () => {
+                    resolve(reader.result);
+                };
+                
+                reader.onerror = reject;
+    
+                reader.readAsDataURL(resizedImageFile);
+            });
+        } catch (error) {
+            console.log('Failed to resize the image:', error);
+        }
     };
 
     return (

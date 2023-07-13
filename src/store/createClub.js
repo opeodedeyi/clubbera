@@ -9,6 +9,7 @@ const initialCreateClubState = {
     placeId: '',
     formattedAddress: '',
     coordinates: [],
+    rawPhoto: null,
     bannerURL: null
 }
 
@@ -48,9 +49,12 @@ const createClubSlice = createSlice({
         setCoordinates(state, action) {
             state.coordinates = action.payload;
         },
+        setRawPhoto(state, action) {
+            state.rawPhoto = action.payload;
+        },
         setBannerURL(state, action) {
             state.bannerURL = action.payload;
-        }
+        },
     }
 });
 

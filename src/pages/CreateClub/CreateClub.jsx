@@ -195,14 +195,16 @@ const StepFour = () => {
 }
 
 const StepFive = () => {
-    // const dispatch = useDispatch();
-    // const permissionRequired = useSelector((state) => state.createClub.permissionRequired);
+    const dispatch = useDispatch();
+    const rawPhoto = useSelector((state) => state.createClub.rawPhoto);
 
     return (
         <>
             <div className="create-club-intro-texts">
                 <h2 className="create-club-header">Upload Your Club's Banner Image</h2>
-                <SingleImageUpload />
+                <SingleImageUpload 
+                    selectedImage={ rawPhoto }
+                    setSelectedImage={(newImage) => dispatch(createClubActions.setRawPhoto(newImage))}/>
             </div>
 
             <div className="create-club-tip">
@@ -241,7 +243,18 @@ const StepPost = () => {
 const CreateClub = () => {
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const dispatch = useDispatch();
+    const [step, setStep] = useState(0);
     const tags = useSelector((state) => state.utility.tags);
+    const formattedAddress = useSelector((state) => state.createClub.formattedAddress);
+    const selectedTags = useSelector((state) => state.createClub.selectedTags);
+    const clubName = useSelector((state) => state.createClub.clubName);
+    const clubDescription = useSelector((state) => state.createClub.clubDescription);
+    const permissionRequired = useSelector((state) => state.createClub.permissionRequired);
+    const isDisabled = (step==1 && formattedAddress.length==0) 
+        || (step==2 && selectedTags.length==0) 
+        || (step==3 && (clubName.length<1 || clubDescription.length<1)) 
+        || (step==4 && permissionRequired===null)
+  
 
     useEffect(() => {
         document.title = "Create Community | Clubbera";
@@ -259,8 +272,6 @@ const CreateClub = () => {
             fetchCategories();
         }
     }, [tags]);
-
-    const [step, setStep] = useState(0);
 
     const handleNext = (event) => {
         event.preventDefault();
@@ -305,7 +316,7 @@ const CreateClub = () => {
                     </div>
 
                     {step < 5 ? (
-                        <CustomButton style="default-style" size="small" onClick={(e) => handleNext(e)}>Next</CustomButton>
+                        <CustomButton disabled={isDisabled} style="default-style" size="small" onClick={(e) => handleNext(e)}>Next</CustomButton>
                     ) : (
                         step === 5 ? (
                             <CustomButton style="default-style" size="small" onClick={handleSubmit}>Submit</CustomButton>
