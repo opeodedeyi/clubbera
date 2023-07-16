@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -219,11 +219,11 @@ const StepFive = () => {
     );
 }
 
-const StepPost = () => {
+const StepPost = ({ clubId }) => {
     const navigate = useNavigate();
 
     const whatNextClick = () => {
-        navigate('/');
+        navigate(`/community/${clubId}`);
     };
 
     return (
@@ -234,8 +234,8 @@ const StepPost = () => {
                     <img src={checkMark} alt="back arrow" className="create-club-finish-mark" />
                 </div>
                 <h2 className="create-club-header">Steps Completed</h2>
-                <p className="create-club-tip-point tpmw-cc mb-one">Awesome! Your club is set to make a splash on Clubbera! Stay tuned for updates and next steps. Get ready for the fun to unfold. Let's start this exciting journey</p>
-                <CustomButton style="default-style" size="normal" onClick={(e) => whatNextClick(e)}>Homepage</CustomButton>
+                <p className="create-club-tip-point tpmw-cc mb-one">Awesome! Your club is set to make a splash on Clubbera! Stay tuned for updates and next steps. Get ready for the fun to unfold. Click on the button below to see what your community loos like to people</p>
+                <CustomButton style="default-style" size="normal" onClick={(e) => whatNextClick(e)}>View Community</CustomButton>
             </div>
         </>
     );
@@ -244,8 +244,10 @@ const StepPost = () => {
 const CreateClub = () => {
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const dispatch = useDispatch();
+    const hasNavigatedRef = useRef(false);
     const navigate = useNavigate();
     const [step, setStep] = useState(0);
+    const [clubId, setClubId] = useState('');
     const user = useSelector((state) => state.auth.user);
     const tags = useSelector((state) => state.utility.tags);
     const formattedAddress = useSelector((state) => state.createClub.formattedAddress);
@@ -261,7 +263,7 @@ const CreateClub = () => {
 
     useEffect(() => {
         document.title = "Create Community | Clubbera";
-
+    
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(`${API_URL}/category`);
@@ -270,15 +272,19 @@ const CreateClub = () => {
                 console.error('Failed to fetch categories:', error);
             }
         };
-
+    
         if (!tags.length) { // If tags array is empty, fetch categories
             fetchCategories();
         }
-
-        if (user === null) { // check if user is null
-            navigate("/");
+    }, [tags]);
+    
+    useEffect(() => {
+        if (user === null && !hasNavigatedRef.current) { // check if user is null
+            toast('🦄 You need to Login to create a community')
+            navigate("/login");
+            hasNavigatedRef.current = true;
         }
-    }, [tags, user]);
+    }, [user]);
 
     const handleNext = (event) => {
         event.preventDefault();
@@ -291,12 +297,13 @@ const CreateClub = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            await dispatch(createCommunity());
+        try { // Fix here there is a bug
+            const response = await dispatch(createCommunity());
+            setClubId(response.data._id);
             setStep(step + 1);
             toast('🦄 Successfully Created your Community')
         } catch (error) {
-            toast('🦄 Failed to Create Community')
+            toast('🦄 Failed to Create Community. Make sure your account is verified')
             console.error('An error occurred while creating the community:', error);
         }
     }
@@ -325,7 +332,7 @@ const CreateClub = () => {
                         {step === 3 && <StepThree />}
                         {step === 4 && <StepFour />}
                         {step === 5 && <StepFive />}
-                        {step === 6 && <StepPost />}
+                        {step === 6 && <StepPost clubId={clubId} />}
                     </div>
 
                     {step < 5 ? (

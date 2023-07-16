@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+
 import Header from "../components/header/Header";
 import CustomButton from "../components/CustomButton/CustomButton";
 import ETUCards from "../components/Cards/ETUCards";
+
 import connect from '../assets/images/connect.png';
 import customize from '../assets/images/customize.png';
 import explore from '../assets/images/explore.png';
 import HangingOut from '../assets/images/hangingout.png';
+
 import './Home.css';
 
-const Home = () => {
+const NotLoggedIn = () => {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.title = "Home | Clubera";
-    }, []);
 
     const signupButtonClick = () => {
         navigate('/signup');
@@ -40,8 +41,6 @@ const Home = () => {
 
     return (
         <>
-            <Header />
-
             <div className="home-intro">
                 <div className="home-intro-text">
                     <h2 className="home-intro-header">Discover <br />Your Tribe with<br /> <span className="home-intro-header-special">Clubbera</span></h2>
@@ -68,7 +67,43 @@ const Home = () => {
                     ))}
                 </div>
             </div>
+        </>
+    );
+}
 
+const LoggedIn = () => {
+    return (
+        <>
+            <div className="home-intro">
+                <div className="home-intro-text">
+                    <h2 className="home-intro-header">Discover <br />Your Tribe with<br /> <span className="home-intro-header-special">Clubbera</span></h2>
+                    <p className="home-intro-subtitle">Where Interest Meets Community</p>
+                </div>
+
+                <div className="homepage-background-image">
+                    <img src={HangingOut} alt="homepage"/>
+                </div>
+            </div>
+        </>
+    );
+}
+
+const Home = () => {
+    const user = useSelector((state) => state.auth.user);
+
+    useEffect(() => {
+        document.title = "Home | Clubera";
+    }, []);
+
+    return (
+        <>
+            <Header />
+
+            {user ?
+                <LoggedIn />
+            :
+                <NotLoggedIn />
+            }
         </>
     )
 }

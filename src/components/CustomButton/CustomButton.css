@@ -56,6 +56,12 @@
     color: var(--white-color);
 }
 
+.bland-style {
+    border: none;
+    background-color: var(--light-gray-color-three);
+    color: var(--dark-color);
+}
+
 .inverted-style {
     border: 0.5px solid var(--special-color);
     background-color: transparent;
@@ -84,6 +90,12 @@
     border: 3px solid var(--special-color);
     background-color: var(--light-gray-color);
     color: var(--special-color-dark);
+}
+
+.bland-style:hover {
+    border: none;
+    background-color: var(--medium-gray-color);
+    color: var(--dark-color);
 }
 
 .no-style {

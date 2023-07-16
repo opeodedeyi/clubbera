@@ -1,0 +1,122 @@
+.community-image-container {
+    padding-top: 100px;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.community-image-container-img {
+    width: 100%;
+    height: calc(100% - 100px);
+    object-fit: cover;
+    filter: blur(10px);
+    position: absolute;
+}
+
+.community-main-image-container {
+    position: absolute;
+    height: calc(100% - 100px);
+}
+
+.community-main-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.community-body-container {
+    width: 100%;
+    padding: 40px 120px;
+}
+
+.community-title-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.community-title-text {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 180.02%;
+    color: var(--dark-color);
+}
+
+.community-basic-details {
+    font-size: 16px;
+    line-height: 160.02%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.community-basic-details-members,
+.community-basic-details-openess {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.community-description {
+    font-size: 16px;
+    line-height: 160.02%;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+@media (max-width: 1340px) {
+    .community-body-container {
+        padding: 40px 50px;
+    }
+}
+
+@media screen and  (max-width: 1000px) {
+    .community-main-image-container {
+        width: 100%;
+    }
+
+    .community-body-container {
+        padding: 40px 20px;
+    }
+
+    .community-title-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .community-title-text {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 140.02%;
+    }
+
+    .community-basic-details {
+        font-size: 15px;
+        margin-top: 20px;
+        gap: 25px;
+    }
+
+    .community-basic-details-members,
+    .community-basic-details-openess {
+        gap: 5px;
+    }
+
+    .community-description {
+        margin-top: 20px;
+    }
+}

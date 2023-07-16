@@ -23,41 +23,41 @@ export const createCommunity = () => {
     return async function (dispatch, getState) {
         // get the current auth token
         const token = Cookies.get('authToken');
-
-        // retrieve the club details from state
         const { clubName, clubDescription, bannerURL, selectedTags, placeId, formattedAddress, coordinates, permissionRequired } = getState().createClub;
 
         if (token) {
             console.log(coordinates);
-            axios.post(`${API_URL}/group`, {
-                name: clubName,
-                description: clubDescription,
-                location: { 
-                    place_id: placeId, 
-                    formatted_address: formattedAddress, 
-                    geo: { 
-                        type: 'Point', 
-                        coordinates: {
-                            lat: coordinates.lat,
-                            lng: coordinates.lng
+            try {
+                const response = await axios.post(`${API_URL}/group`, {
+                    name: clubName,
+                    description: clubDescription,
+                    location: { 
+                        place_id: placeId, 
+                        formatted_address: formattedAddress, 
+                        geo: { 
+                            type: 'Point', 
+                            coordinates: {
+                                lat: coordinates.lat,
+                                lng: coordinates.lng
+                            } 
                         } 
-                    } 
+                    },
+                    category: selectedTags,
+                    permissionRequired,
+                    // bannerURL,
                 },
-                category: selectedTags,
-                permissionRequired,
-                // bannerURL,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            }).then(res => {
-                console.log(res.data);
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
                 dispatch(createClubActions.resetState());
-            }).catch(err => {
+                return response;
+            } catch (err) {
                 dispatch(createClubActions.setLoadingFalse());
                 console.error(err);
-            });
+                throw err; // This will allow error to be caught in the handleSubmit function
+            }
         }
     };
 }
