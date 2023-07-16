@@ -56,6 +56,11 @@
     align-items: flex-end;
 }
 
+.profile-content-texts {
+    width: 100%;
+    max-width: 600px;
+}
+
 .profile-content-details-name {
     font-size: 24px;
     font-weight: 500;
