@@ -12,6 +12,8 @@ import Login from './pages/Login/Login';
 import ForgotPassword from './pages/Login/ForgotPassword';
 import CreateClub from './pages/CreateClub/CreateClub';
 import CommunityPage from './pages/Community/CommunityPage';
+import Pr from './pages/Profile/Pr';
+import UserProfile from './pages/Profile/UserProfile';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from './store/auth';
@@ -48,6 +50,8 @@ function RouterComponent() {
                 <Route path="/login" element={<Login />}/>
                 <Route path="/forgot-password" element={<ForgotPassword />}/>
                 <Route path="/community/:id" element={<CommunityPage />} />
+                <Route path="/pr" element={<Pr />} />
+                <Route path="/pr/:uniqueURL" element={<UserProfile />} />
             </Route>
         </Routes>
     );

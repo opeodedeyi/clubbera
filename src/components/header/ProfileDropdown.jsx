@@ -28,7 +28,7 @@ const ProfileDropdown = ( props ) => {
                         }
                         <div className="dropdown-item-main-profile">
                             <p className="dropdown-item-name">{ user.fullname }</p>
-                            <NavLink to="/me">Manage your profile</NavLink> 
+                            <NavLink to={`/pr/${user.uniqueURL}`}>Manage your profile</NavLink> 
                         </div>
                     </li>
                     {props.dropdownItems.map((item, index) => (
