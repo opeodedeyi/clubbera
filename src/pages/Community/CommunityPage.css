@@ -77,6 +77,56 @@
     max-width: 800px;
 }
 
+
+
+/* loading animations */
+.community-image-loading {
+    padding-top: 100px;
+    width: 100%;
+    height: 600px;
+}
+
+.community-title-loading,
+.community-button-loading,
+.community-basic-details-loading {
+    height: 36px;
+}
+
+.community-title-loading{
+    width: 70%;
+}
+
+.community-button-loading,
+.community-basic-details-loading {
+    width: 100%;
+    max-width: 170px;
+}
+
+.community-description-loading {
+    margin-top: 20px;
+    height: 100px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.community-image-loading,
+.community-title-loading,
+.community-button-loading,
+.community-basic-details-loading,
+.community-description-loading {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    border-radius: 2px;
+}
+
+
+
 @media (max-width: 1340px) {
     .community-body-container {
         padding: 40px 50px;
@@ -84,6 +134,10 @@
 }
 
 @media screen and  (max-width: 1000px) {
+    .community-image-container {
+        height: 400px;
+    }
+
     .community-main-image-container {
         width: 100%;
     }
@@ -118,5 +172,15 @@
 
     .community-description {
         margin-top: 20px;
+    }
+
+    /* loading animations */
+    .community-image-loading {
+        height: 400px;
+    }
+
+    .community-title-loading,
+    .community-basic-details-loading {
+        height: 26px;
     }
 }

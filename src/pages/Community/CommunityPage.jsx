@@ -17,7 +17,21 @@ import './CommunityPage.css';
 const LoadingCommunity = () => {
     return (
         <>
-            <p>Loading...</p>
+            <div className="community-image-loading">
+            </div>
+
+            <div className="community-body-container">
+                <div className="community-title-container">
+                    <div className="community-title-loading"></div>
+                    
+                    <div className="community-button-loading"></div>
+                </div>
+                <div className="community-basic-details">
+                    <div className="community-basic-details-loading"></div>
+                    <div className="community-basic-details-loading"></div>
+                </div>
+                <div className="community-description-loading"></div>
+            </div>
         </>
     );
 }
