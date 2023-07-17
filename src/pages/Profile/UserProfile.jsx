@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 
 import Header from '../../components/header/Header';
-
+import CustomTag from "../../components/CustomButton/CustomTag";
 import CustomButton from '../../components/CustomButton/CustomButton';
 
 import './UserProfile.css';
@@ -15,16 +15,11 @@ import './UserProfile.css';
 const LoadingUser = () => {
     return (
         <>
-            <div className="user-image-loading">
-            </div>
+            <div className="user-image-loading"> </div>
 
-            <div className="profile-content-details">
-                <div className="profile-content-texts">
-                    <div className="profile-content-details-name-loading"></div>
-                    
-                    <div className="profile-content-details-email-loading"></div>
-                </div>
-            </div>
+            <div className="profile-content-loading"> </div>
+
+            <div className="profile-content-loading"> </div>
         </>
     );
 }
@@ -72,6 +67,9 @@ const UserProfile = () => {
                                 <div className="profile-content-texts">
                                     <p className="profile-content-details-name">{ visitedUser.fullname }</p>
                                     <p className="profile-content-details-email">{ visitedUser.email }</p>
+                                    { visitedUser.bio &&
+                                        <p className="profile-content-details-bio">{visitedUser.bio}</p>
+                                    }
                                 </div>
 
                                 { visitedUser?._id===user?._id ?
@@ -81,8 +79,24 @@ const UserProfile = () => {
                             </div>
                         </div>
 
-                        <div className="profile-content-container-other">
-
+                        <div className="profile-content-container-other flex-btw-end">
+                            { 
+                                visitedUser?.interests?.length > 0 ?
+                                    <div className="profile-interest-tags">
+                                        { 
+                                            visitedUser.interests.map((tag, index) => (
+                                                <CustomTag key={index} tagged={selectedTags.includes(tag) ? 'is-tagged' : 'not-tagged'} onClick={() => handleClick(tag)}>
+                                                    {tag}
+                                                </CustomTag>
+                                            ))
+                                        }
+                                    </div>
+                                : <p className="profile-interest-tags-alt">No intrest indicated by the user</p>
+                            }
+                            { visitedUser?._id===user?._id ?
+                                <CustomButton style="inverted-style">Edit Interests</CustomButton>
+                                : null
+                            }
                         </div>
                     </>
                 }
