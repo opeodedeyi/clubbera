@@ -84,20 +84,20 @@ const Signup = () => {
         onSuccess: codeResponse => {
             console.log(codeResponse.code);
 
-            axios.post(`${API_URL}/google-auth`, {
-                code: codeResponse.code,
-            }).then(res => {
-                Cookies.set('authToken', res.data.token, { expires: 60 });
-                localStorage.setItem('user', JSON.stringify(res.data.user)); // store user data in local storage
-                dispatch(authActions.setUser(res.data.user));
-                console.log(res.data.user);
-                navigate('/');
-                toast('🦄 Log in successful!')
-            }).catch(err => {
-                console.error(err.response.data); // This will log the response from the server
-                toast("💔 Something went wrong");
-                dispatch(authActions.setUser(null));
-            });
+            // axios.post(`${API_URL}/google-auth`, {
+            //     code: codeResponse.code,
+            // }).then(res => {
+            //     Cookies.set('authToken', res.data.token, { expires: 60 });
+            //     localStorage.setItem('user', JSON.stringify(res.data.user)); // store user data in local storage
+            //     dispatch(authActions.setUser(res.data.user));
+            //     console.log(res.data.user);
+            //     navigate('/');
+            //     toast('🦄 Log in successful!')
+            // }).catch(err => {
+            //     console.error(err.response.data); // This will log the response from the server
+            //     toast("💔 Something went wrong");
+            //     dispatch(authActions.setUser(null));
+            // });
         },
         flow: 'auth-code',
     });
