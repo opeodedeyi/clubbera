@@ -58,19 +58,14 @@ function RouterComponent() {
 }
 
 function App() {
-    /* This website was built by Opeyemi Odedeyi, July 2023 */
-
-    // Use Redux hooks to get dispatch function and the current user
     const dispatch = useDispatch();
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
 
-    // Use an effect to fetch the current user from the server when the app loads
     useEffect(() => {
         // Fetch auth token from cookies
         const token = Cookies.get('authToken');
         const user = JSON.parse(localStorage.getItem('user'));
 
-        // If a token is found, make a request to the server for the current user
         if (token && user) {
             dispatch(authActions.setUser(user));
         } else if (token) {
@@ -79,13 +74,14 @@ function App() {
                     Authorization: `Bearer ${token}`
                 },
             }).then(res => {
-                // Upon receiving the user data, dispatch an action to set the current user
                 dispatch(authActions.setUser(res.data));
             }).catch(err => {
                 console.error(err);
+                dispatch(authActions.removeUser());
+                Cookies.remove('authToken');
+                localStorage.removeItem('user');
             });
         }
-        // Passing an empty dependency array so that the effect runs once on component mount
     }, [dispatch]);
 
     return (
