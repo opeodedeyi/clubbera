@@ -1,14 +1,14 @@
 .header-profile-dropdown {
     position: relative;
     display: inline-block;
-    height: 46px;
+    height: 40px;
 }
 
 .dropdown-button {
     cursor: pointer;
-    height: 46px;
-    width: 46px;
-    border-radius: 23px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
 }
 
 .dropdown-button:hover,
