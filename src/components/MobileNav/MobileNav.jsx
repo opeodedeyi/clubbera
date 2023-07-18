@@ -28,7 +28,11 @@ const MobileNav = (props) => {
                             <img src="https://via.placeholder.com/50" alt="profile"/>
                         }
 
-                        <p className="mobile-nav-profile-name">{user.fullname}</p>
+                        <div className="mobile-nav-profile-text">
+                            <p className="mobile-nav-profile-name">{user.fullname}</p>
+                            <p className="mobile-nav-profile-link">Manage your profile</p>
+                        </div>
+                        
                     </NavLink>
             :
                 null
