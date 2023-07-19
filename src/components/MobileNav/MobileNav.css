@@ -43,6 +43,7 @@
 .mobile-nav-cancel-icon {
     height: 24px;
     width: 24px;
+    cursor: pointer;
 }
 
 .mobile-nav-menu {
