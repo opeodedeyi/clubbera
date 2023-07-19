@@ -234,3 +234,10 @@
         margin-bottom: 60px;
     }
 }
+
+@media screen and  (max-width: 650px) {
+    .create-club-intro {
+        padding: 0px 0px 0px;
+        border: none;
+    }
+}
