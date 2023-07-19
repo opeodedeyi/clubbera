@@ -41,11 +41,11 @@ const MobileNav = (props) => {
             <nav className="mobile-nav-menu">
 
                 <ul className="mobile-nav-menu-list">
+                    <li>
+                        <NavLink to="/createclub" onClick={onCancel}>Create a { import.meta.env.VITE_APP_THEME }</NavLink>
+                    </li>
                     {user ? 
                         <>
-                            <li>
-                                <NavLink to="/createclub" onClick={onCancel}>Create a { import.meta.env.VITE_APP_THEME }</NavLink>
-                            </li>
                             <li>
                                 <NavLink to="/managecommunity" onClick={onCancel}>Manage your { import.meta.env.VITE_APP_THEME }</NavLink>
                             </li>
@@ -63,7 +63,8 @@ const MobileNav = (props) => {
                             </li>
                         </>
                     }
-                     <li>
+                    <div className="nav-hor-line"></div>
+                    <li>
                         <NavLink to="/hellp" onClick={onCancel}>Help</NavLink>
                     </li>
                     <li>
@@ -71,6 +72,7 @@ const MobileNav = (props) => {
                     </li>
                     {user ? 
                         <>
+                            <div className="nav-hor-line"></div>
                             <li>
                                 <p onClick={logoutClick}>Log Out</p>
                             </li>
