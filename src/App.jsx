@@ -16,6 +16,7 @@ import Pr from './pages/Profile/Pr';
 import UserProfile from './pages/Profile/UserProfile';
 import CookiePolicy from './pages/Legal/CookiePolicy';
 import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
+import TermsOfService from './pages/Legal/TermsOfService';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from './store/auth';
@@ -56,6 +57,7 @@ function RouterComponent() {
                 <Route path="/pr/:uniqueURL" element={<UserProfile />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
             </Route>
         </Routes>
     );
