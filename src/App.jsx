@@ -14,6 +14,8 @@ import CreateClub from './pages/CreateClub/CreateClub';
 import CommunityPage from './pages/Community/CommunityPage';
 import Pr from './pages/Profile/Pr';
 import UserProfile from './pages/Profile/UserProfile';
+import CookiePolicy from './pages/Legal/CookiePolicy';
+import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from './store/auth';
@@ -52,6 +54,8 @@ function RouterComponent() {
                 <Route path="/community/:id" element={<CommunityPage />} />
                 <Route path="/pr" element={<Pr />} />
                 <Route path="/pr/:uniqueURL" element={<UserProfile />} />
+                <Route path="/cookie-policy" element={<CookiePolicy />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             </Route>
         </Routes>
     );

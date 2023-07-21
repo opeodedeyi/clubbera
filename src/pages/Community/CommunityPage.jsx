@@ -77,6 +77,10 @@ const CommunityPage = () => {
     }, []);
 
     useEffect(() => {
+        document.title = 'Community Details | Clubera';
+    }, []);
+
+    useEffect(() => {
         checkScrollable();
         
         if (listRef.current) {

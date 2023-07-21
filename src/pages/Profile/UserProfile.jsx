@@ -48,6 +48,10 @@ const UserProfile = () => {
         }
     }, [user, navigate]);
 
+    useEffect(() => {
+        document.title = `${user.fullname} | Clubera`;
+    }, []);
+
     return (
         <>
             <Header />

@@ -77,7 +77,7 @@ const MobileNav = (props) => {
                         {user ? 
                             <>
                                 <div className="nav-hor-line"></div>
-                                <li>
+                                <li className="nav-cur-poin">
                                     <p onClick={logoutClick}>Log Out</p>
                                 </li>
                             </>
