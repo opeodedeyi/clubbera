@@ -17,6 +17,7 @@ import UserProfile from './pages/Profile/UserProfile';
 import CookiePolicy from './pages/Legal/CookiePolicy';
 import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
 import TermsOfService from './pages/Legal/TermsOfService';
+import CommunitySearch from './pages/Community/CommunitySearch';
 
 import { useDispatch } from 'react-redux';
 import { authActions } from './store/auth';
@@ -52,12 +53,13 @@ function RouterComponent() {
                 <Route path="/signup" element={<Signup />}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/forgot-password" element={<ForgotPassword />}/>
-                <Route path="/community/:id" element={<CommunityPage />} />
+                <Route path="/community/:uniqueURL" element={<CommunityPage />} />
                 <Route path="/pr" element={<Pr />} />
                 <Route path="/pr/:uniqueURL" element={<UserProfile />} />
                 <Route path="/cookie-policy" element={<CookiePolicy />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
+                <Route path="/search" element={<CommunitySearch />} />
             </Route>
         </Routes>
     );

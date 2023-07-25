@@ -151,7 +151,7 @@ const Signup = () => {
 
                         <div className="mb-one"></div>
 
-                        <p className="login-container-main-subtitle login-link-in-signup">By signing up, you agree to <NavLink to="/terms-of-service">Terms of Service</NavLink>, <NavLink to="/privacy-policy">Privacy Policy</NavLink>, and <NavLink to="/cookie-policy">Cookie Policy</NavLink>.</p>
+                        <p className="login-container-main-subtitle login-link-in-signup">By signing up, you agree to <NavLink to="/terms-of-service">Terms of Service</NavLink>, <NavLink to="/privacy-policy">Privacy Policy</NavLink>, and <NavLink to="/cookie-policy">Cookie Policy</NavLink>, and that you are over 18 years</p>
                     </form>
                 </div>
             </div>

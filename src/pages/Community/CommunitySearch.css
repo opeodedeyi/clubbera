@@ -1,0 +1,24 @@
+.community-search-container {
+    /* position: relative; */
+    padding: 100px 120px 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.community-search-card-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px;
+}
+
+@media (max-width: 745px) {
+    .community-search-card-grid {
+        grid-template-columns: 1fr;
+    }
+}

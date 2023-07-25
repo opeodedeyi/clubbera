@@ -40,7 +40,7 @@ const LoadingCommunity = () => {
 }
 
 const CommunityPage = () => {
-    const { id } = useParams();
+    const { uniqueURL } = useParams();
     const user = useSelector((state) => state.auth.user);
     const defaultImage = 'https://cdn.dribbble.com/userupload/8579132/file/original-671579801ae5f46f8c0b4ed36e9a9d74.png?compress=1';
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
@@ -63,7 +63,7 @@ const CommunityPage = () => {
     useEffect(() => {
         const fetchCommunity = async () => {
             try {
-                const response = await axios.get(`${API_URL}/group/${id}`);
+                const response = await axios.get(`${API_URL}/groups/${uniqueURL}`);
                 setCommunity(response.data);
                 console.log(response.data);
             } catch (error) {

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Header from "../components/header/Header";
 import CustomButton from "../components/CustomButton/CustomButton";
 import ETUCards from "../components/Cards/ETUCards";
+import MainFooter from "../components/Footer/MainFooter";
 
 import connect from '../assets/images/connect.png';
 import customize from '../assets/images/customize.png';
@@ -88,6 +89,16 @@ const LoggedIn = () => {
     );
 }
 
+const IsSearch = () => {
+    return (
+        <>
+            <div className="home-search">
+                
+            </div>
+        </>
+    );
+}
+
 const Home = () => {
     const user = useSelector((state) => state.auth.user);
 
@@ -104,6 +115,8 @@ const Home = () => {
             :
                 <NotLoggedIn />
             }
+
+            <MainFooter />
         </>
     )
 }
