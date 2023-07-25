@@ -4,9 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Header from "../../components/header/Header";
 import MainCard from "../../components/Cards/MainCard";
+import LoadingCard from "../../components/Cards/LoadingCard";
 import { searchActions } from "../../store/search";
 
 import './CommunitySearch.css';
+
+
+// const LoadingCards = () => {
+//     return (
+//         <>
+            
+//         </>
+//     );
+// }
 
 
 const CommunitySearch = () => {
@@ -42,17 +52,22 @@ const CommunitySearch = () => {
                 <div className="community-search-filter"></div>
 
                 <div className="community-search-card-grid">
-                    {searchResult.map((comm, index) => (
-                        <MainCard 
-                            key={comm.uniqueURL}
-                            image={comm.bannerURL}
-                            title={comm.name}
-                            members={comm.members}
-                            description={comm.description}
-                            private={comm.permissionRequired}
-                            location={comm.location}
-                        />
-                    ))}
+                    {!searchResult ? (
+                        <LoadingCard />
+                    ) : (
+                        searchResult.map((comm, index) => (
+                            <MainCard
+                                key={comm._id}
+                                uniqueURL={comm.uniqueURL}
+                                image={comm.bannerURL}
+                                title={comm.name}
+                                members={comm.members}
+                                description={comm.description}
+                                isPrivate={comm.permissionRequired}
+                                location={comm.location}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
         </>

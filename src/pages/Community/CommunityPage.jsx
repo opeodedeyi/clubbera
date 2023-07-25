@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Header from '../../components/header/Header';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
+import noBanner from '../../assets/images/noBanner.jpg';
 import Briefcase from '../../assets/svg/Briefcase.svg'
 import People from '../../assets/svg/People.svg'
 import leftDirection from '../../assets/svg/leftDirection.svg'
@@ -42,7 +43,6 @@ const LoadingCommunity = () => {
 const CommunityPage = () => {
     const { uniqueURL } = useParams();
     const user = useSelector((state) => state.auth.user);
-    const defaultImage = 'https://cdn.dribbble.com/userupload/8579132/file/original-671579801ae5f46f8c0b4ed36e9a9d74.png?compress=1';
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
     const navigate = useNavigate();
     const [community, setCommunity] = useState(null);
@@ -50,6 +50,10 @@ const CommunityPage = () => {
     const [communityEvents, setCommunityEvents] = useState([]);
     const [isScrollableLeft, setIsScrollableLeft] = useState(false);
     const [isScrollableRight, setIsScrollableRight] = useState(false);
+    let imgSrc = noBanner;
+    // if (community) {
+    //     imgSrc = community.bannerURL ? community.bannerURL : noBanner;
+    // }
     const listRef = useRef();
 
     const checkScrollable = () => {
@@ -166,9 +170,9 @@ const CommunityPage = () => {
             :
                 <>
                     <div className="community-image-container">
-                        <img className="community-image-container-img" src={defaultImage} alt="" />
+                        <img className="community-image-container-img" src={imgSrc} alt="" />
                         <div className="community-main-image-container">
-                            <img src={defaultImage} alt="" />
+                            <img src={imgSrc} alt="" />
                         </div>
                     </div>
                     <div className="community-body-container">
