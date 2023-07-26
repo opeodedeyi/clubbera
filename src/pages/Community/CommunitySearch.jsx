@@ -30,6 +30,7 @@ const CommunitySearch = () => {
 
     const fetchData = async () => {
         try {
+            dispatch(searchActions.resetState());
             const response = await axios.get(`${API_URL}/search`, {
                 params: {
                     search: searchQuery,
@@ -55,11 +56,14 @@ const CommunitySearch = () => {
             <div className="community-search-container">
                 <div className="community-search-filter"></div>
 
-                <div className="community-search-card-grid">
-                    {!searchResult ? (
+                
+                {!searchResult ? (
+                    <div className="community-search-card-grid">
                         <LoadingCard />
-                    ) : (
-                        searchResult.map((comm, index) => (
+                    </div>
+                ) : (
+                    <div className="community-search-card-grid">
+                        {searchResult.map((comm, index) => (
                             <MainCard
                                 key={comm._id}
                                 uniqueURL={comm.uniqueURL}
@@ -70,9 +74,9 @@ const CommunitySearch = () => {
                                 isPrivate={comm.permissionRequired}
                                 location={comm.location}
                             />
-                        ))
-                    )}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </>
     )

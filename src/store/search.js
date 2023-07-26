@@ -16,8 +16,7 @@ const searchSlice = createSlice({
             state.searchResult = action.payload;
         },
         resetState(state) {
-            state.query = '';
-            state.searchResult = [];
+            state.searchResult = null;
         },
     }
 });
