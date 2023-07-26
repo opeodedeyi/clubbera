@@ -1,5 +1,6 @@
 .profile-container {
     padding: 100px 120px;
+    min-height: 100vh;
 }
 
 .profile-content-container {

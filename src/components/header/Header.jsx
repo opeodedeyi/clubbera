@@ -6,6 +6,7 @@ import MobileNav from "../MobileNav/MobileNav";
 import ProfileDropdown from "./ProfileDropdown";
 
 import { useSelector, useDispatch } from 'react-redux';
+import { searchActions } from "../../store/search";
 import { logout } from "../../store/auth";
 
 import search from '../../assets/svg/search.svg';
@@ -19,13 +20,15 @@ import "./SearchBar.css";
 const Header = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
+    const query = useSelector(state => state.search.query);
     const [navOpen, setNavOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    // const [searchTerm, setSearchTerm] = useState('');
     const [hasScrolled, setHasScrolled] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const isHomePage = location.pathname === "/";
+    const isSearchPage = location.pathname === "/search"
 
     useEffect(() => {
         const handleScroll = () => {
@@ -67,12 +70,13 @@ const Header = () => {
     };
 
     const handleChange = (event) => {
-        setSearchTerm(event.target.value);
+        dispatch(searchActions.setQuery(event.target.value))
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(searchTerm);
+        console.log(query);
+        navigate(`/search?search=${encodeURIComponent(query)}`);
     };
 
     const toggleNav = () => {
@@ -106,7 +110,7 @@ const Header = () => {
                             <input
                                 type="text"
                                 placeholder="Football in Leeds"
-                                value={searchTerm}
+                                value={query}
                                 onChange={handleChange}
                             />
                         </form>
@@ -146,7 +150,7 @@ const Header = () => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                value={searchTerm}
+                                value={query}
                                 onChange={handleChange}
                             />
                             <img src={cancel} alt="cancel" className="cancel-icon" onClick={changeHeader}/>

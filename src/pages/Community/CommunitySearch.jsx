@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,19 +22,22 @@ import './CommunitySearch.css';
 
 const CommunitySearch = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const searchQuery = queryParams.get("search");
     const API_URL = import.meta.env.VITE_APP_WEBSITE_API;
-    const query = useSelector(state => state.search.query);
     const searchResult = useSelector(state => state.search.searchResult);
 
     const fetchData = async () => {
         try {
             const response = await axios.get(`${API_URL}/search`, {
                 params: {
-                    search: query,
+                    search: searchQuery,
                 },
             });
 
             dispatch(searchActions.setSearchResult(response.data));
+            dispatch(searchActions.setQuery(searchQuery));
             console.log(response.data);
         } catch (error) {
             console.error("Error fetching data: ", error);
@@ -42,7 +46,7 @@ const CommunitySearch = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [searchQuery]);
 
     return (
         <>

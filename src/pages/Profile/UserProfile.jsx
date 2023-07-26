@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
 
 import Header from '../../components/header/Header';
+import MainFooter from '../../components/Footer/MainFooter';
 import CustomTag from "../../components/CustomButton/CustomTag";
 import CustomButton from '../../components/CustomButton/CustomButton';
 
@@ -49,7 +50,7 @@ const UserProfile = () => {
     }, [user, navigate]);
 
     useEffect(() => {
-        // document.title = `${user.fullname} | Clubera`;
+        document.title = `${uniqueURL} | Clubera`;
     }, []);
 
     return (
@@ -105,6 +106,8 @@ const UserProfile = () => {
                     </>
                 }
             </div>
+
+            <MainFooter />
         </>
     );
 };

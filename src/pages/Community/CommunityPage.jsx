@@ -51,9 +51,9 @@ const CommunityPage = () => {
     const [isScrollableLeft, setIsScrollableLeft] = useState(false);
     const [isScrollableRight, setIsScrollableRight] = useState(false);
     let imgSrc = noBanner;
-    // if (community) {
-    //     imgSrc = community.bannerURL ? community.bannerURL : noBanner;
-    // }
+    if (community) {
+        imgSrc = community.bannerURL ? community.bannerURL : noBanner;
+    }
     const listRef = useRef();
 
     const checkScrollable = () => {
