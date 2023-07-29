@@ -53,20 +53,28 @@ const CommunitySearch = () => {
                         <LoadingCard />
                     </div>
                 ) : (
-                    <div className="community-search-card-grid">
-                        {searchResult.map((comm, index) => (
-                            <MainCard
-                                key={comm._id}
-                                uniqueURL={comm.uniqueURL}
-                                image={comm.banner?.location}
-                                title={comm.name}
-                                members={comm.members}
-                                description={comm.description}
-                                isPrivate={comm.permissionRequired}
-                                location={comm.location}
-                            />
-                        ))}
-                    </div>
+                    searchResult.length>0 ? (
+                        <div className="community-search-card-grid">
+                            {searchResult.map((comm, index) => (
+                                <MainCard
+                                    key={comm._id}
+                                    uniqueURL={comm.uniqueURL}
+                                    image={comm.banner?.location}
+                                    title={comm.name}
+                                    members={comm.members}
+                                    description={comm.description}
+                                    isPrivate={comm.permissionRequired}
+                                    location={comm.location}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="community-search-no-result">
+                            <p className="community-search-no-result-header">No results found</p>
+                            <p className="community-search-no-result-body">Try rephrasing your search.</p>
+
+                        </div>
+                    )
                 )}
             </div>
         </>

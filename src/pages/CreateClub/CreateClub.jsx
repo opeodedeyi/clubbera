@@ -309,7 +309,7 @@ const CreateClub = () => {
             setStep(step + 1);
             toast('🦄 Successfully Created your Community')
         } catch (error) {
-            toast('🦄 Failed to Create Community. Make sure your account is verified')
+            toast('Sorry something went wrong')
             console.error('An error occurred while creating the community:', error);
         }
     }
