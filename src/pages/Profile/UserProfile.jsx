@@ -10,6 +10,8 @@ import MainFooter from '../../components/Footer/MainFooter';
 import CustomTag from "../../components/CustomButton/CustomTag";
 import CustomButton from '../../components/CustomButton/CustomButton';
 
+import noProfileImg from '../../assets/images/noProfileImg.png';
+
 import './UserProfile.css';
 
 
@@ -32,6 +34,10 @@ const UserProfile = () => {
     const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const [visitedUser, setVisitedUser] = useState(null);
+    let profileImgSrc = noProfileImg;
+    if (visitedUser) {
+        profileImgSrc = visitedUser.profilePhoto?.location ? visitedUser.profilePhoto.location : noProfileImg;
+    }
     
     useEffect(() => {
         const fetchVisitedUser = async () => {
@@ -65,7 +71,7 @@ const UserProfile = () => {
                         <div className="profile-content-container">
                             <div className="profile-content-picture">
                                 <div className="profile-picture-inner">
-                                    <img src={visitedUser.profilePhoto.location} alt="" />
+                                    <img src={profileImgSrc} alt="" />
                                 </div>
                             </div>
                             <div className="profile-content-details">

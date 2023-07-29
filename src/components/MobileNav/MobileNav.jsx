@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
+import noProfileImg from '../../assets/images/noProfileImg.png';
 import cancel from '../../assets/svg/cancel.svg';
 
 import Overlay from '../Util/Overlay';
@@ -10,6 +11,10 @@ import "./MobileNav.css";
 const MobileNav = (props) => {
     const { isOpen, onCancel, logoutClick } = props;
     const user = useSelector(state => state.auth.user);
+    let profileImgSrc = noProfileImg;
+    if (user) {
+        profileImgSrc = user.profilePhoto?.location ? user.profilePhoto.location : noProfileImg;
+    }
 
     return (
         <>
@@ -26,11 +31,7 @@ const MobileNav = (props) => {
 
                 {user ? 
                         <NavLink to={`/pr/${user.uniqueURL}`} className="mobile-nav-profile-container">
-                            {user?.profilePhoto?.location ? (
-                                <img src={user.profilePhoto.location} alt="profile"/>
-                            ) :
-                                <img src="https://via.placeholder.com/50" alt="profile"/>
-                            }
+                            <img src={profileImgSrc} alt="profile"/>
 
                             <div className="mobile-nav-profile-text">
                                 <p className="mobile-nav-profile-name">{user.fullname}</p>

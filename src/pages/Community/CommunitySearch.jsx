@@ -11,15 +11,6 @@ import { searchActions } from "../../store/search";
 import './CommunitySearch.css';
 
 
-// const LoadingCards = () => {
-//     return (
-//         <>
-            
-//         </>
-//     );
-// }
-
-
 const CommunitySearch = () => {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -67,7 +58,7 @@ const CommunitySearch = () => {
                             <MainCard
                                 key={comm._id}
                                 uniqueURL={comm.uniqueURL}
-                                image={comm.bannerURL}
+                                image={comm.banner?.location}
                                 title={comm.name}
                                 members={comm.members}
                                 description={comm.description}

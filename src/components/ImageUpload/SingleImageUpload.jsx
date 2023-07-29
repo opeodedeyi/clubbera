@@ -5,12 +5,14 @@ import addPhoto from '../../assets/svg/addPhoto.svg';
 
 import './ImageUpload.css';
 
-function SingleImageUpload({ selectedImage, setSelectedImage }) {
+function SingleImageUpload({ selectedImage, setSelectedImage, setSelectedImageName }) {
     const [isDragOver, setIsDragOver] = useState(false);
     const fileInputRef = useRef();
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
+        setSelectedImageName(file.name)
+        // console.log(file.name); // This will log the name of the file
         readImage(file).then(dataUrl => {
             setSelectedImage(dataUrl);
         });
@@ -34,6 +36,8 @@ function SingleImageUpload({ selectedImage, setSelectedImage }) {
     const handleDrop = (event) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
+        setSelectedImageName(file.name)
+        // console.log(file.name); // This will log the name of the file
         readImage(file).then(dataUrl => {
             setSelectedImage(dataUrl);
         });

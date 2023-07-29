@@ -14,7 +14,7 @@ const initialCreateClubState = {
     formattedAddress: '',
     coordinates: { lat: null, lng: null },
     rawPhoto: null,
-    bannerURL: null,
+    bannerFileName: null,
     loading: false
 }
 
@@ -23,10 +23,9 @@ export const createCommunity = () => {
     return async function (dispatch, getState) {
         // get the current auth token
         const token = Cookies.get('authToken');
-        const { clubName, clubDescription, bannerURL, selectedTags, placeId, formattedAddress, coordinates, permissionRequired } = getState().createClub;
+        const { clubName, clubDescription, rawPhoto, bannerFileName, selectedTags, placeId, formattedAddress, coordinates, permissionRequired } = getState().createClub;
 
         if (token) {
-            console.log(coordinates);
             try {
                 const response = await axios.post(`${API_URL}/group`, {
                     name: clubName,
@@ -44,14 +43,18 @@ export const createCommunity = () => {
                     },
                     category: selectedTags,
                     permissionRequired,
-                    // bannerURL,
+                    base64data: rawPhoto,
+                    fileName: bannerFileName,
                 },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
                 });
+                console.log(rawPhoto, bannerFileName);
                 dispatch(createClubActions.resetState());
+                
+                console.log(response);
                 return response;
             } catch (err) {
                 dispatch(createClubActions.setLoadingFalse());
@@ -101,8 +104,8 @@ const createClubSlice = createSlice({
         setRawPhoto(state, action) {
             state.rawPhoto = action.payload;
         },
-        setBannerURL(state, action) {
-            state.bannerURL = action.payload;
+        setBannerFileName(state, action) {
+            state.bannerFileName = action.payload;
         },
         setLoadingTrue(state) {
             state.loading = true;
@@ -120,7 +123,7 @@ const createClubSlice = createSlice({
             state.formattedAddress = '';
             state.coordinates = { lat: null, lng: null };
             state.rawPhoto = null;
-            state.bannerURL = null;
+            state.bannerFileName = null;
             state.loading = false
         },
     }

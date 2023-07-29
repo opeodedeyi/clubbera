@@ -23,7 +23,6 @@ const Header = () => {
     const query = useSelector(state => state.search.query);
     const [navOpen, setNavOpen] = useState(false);
     const [searchActive, setSearchActive] = useState(false);
-    // const [searchTerm, setSearchTerm] = useState('');
     const [hasScrolled, setHasScrolled] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();

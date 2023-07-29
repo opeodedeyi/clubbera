@@ -205,7 +205,8 @@ const StepFive = () => {
                 <h2 className="create-club-header">Upload Your Club's Banner Image</h2>
                 <SingleImageUpload 
                     selectedImage={ rawPhoto }
-                    setSelectedImage={(newImage) => dispatch(createClubActions.setRawPhoto(newImage))}/>
+                    setSelectedImage={(newImage) => dispatch(createClubActions.setRawPhoto(newImage))}
+                    setSelectedImageName={(filename) => dispatch(createClubActions.setBannerFileName(filename))}/>
             </div>
 
             <div className="create-club-tip">
@@ -283,6 +284,11 @@ const CreateClub = () => {
             toast('🦄 You need to Login to create a community')
             navigate("/login");
             hasNavigatedRef.current = true;
+        }
+
+        if (user.isEmailConfirmed===false) {
+            toast('🦄 You need to be Verified to create a community')
+            navigate('/pr');  // navigate to profile if user is not verified
         }
     }, [user]);
 
