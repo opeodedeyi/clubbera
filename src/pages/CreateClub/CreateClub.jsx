@@ -220,11 +220,11 @@ const StepFive = () => {
     );
 }
 
-const StepPost = ({ clubId }) => {
+const StepPost = ({ uniqueURL }) => {
     const navigate = useNavigate();
 
     const whatNextClick = () => {
-        navigate(`/community/${clubId}`);
+        navigate(`/community/${uniqueURL}`);
     };
 
     return (
@@ -248,7 +248,7 @@ const CreateClub = () => {
     const hasNavigatedRef = useRef(false);
     const navigate = useNavigate();
     const [step, setStep] = useState(0);
-    const [clubId, setClubId] = useState('');
+    const [uniqueURL, setUniqueURL] = useState('');
     const user = useSelector((state) => state.auth.user);
     const tags = useSelector((state) => state.utility.tags);
     const formattedAddress = useSelector((state) => state.createClub.formattedAddress);
@@ -305,7 +305,7 @@ const CreateClub = () => {
 
         try { // Fix here there is a bug
             const response = await dispatch(createCommunity());
-            setClubId(response.data._id);
+            setUniqueURL(response.data.uniqueURL);
             setStep(step + 1);
             toast('🦄 Successfully Created your Community')
         } catch (error) {
@@ -338,7 +338,7 @@ const CreateClub = () => {
                         {step === 3 && <StepThree />}
                         {step === 4 && <StepFour />}
                         {step === 5 && <StepFive />}
-                        {step === 6 && <StepPost clubId={clubId} />}
+                        {step === 6 && <StepPost uniqueURL={uniqueURL} />}
                     </div>
 
                     {step < 5 ? (
