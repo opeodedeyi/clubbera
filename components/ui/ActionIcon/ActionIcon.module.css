@@ -1,0 +1,59 @@
+.actionIcon {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    outline: none;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* Focus styles for accessibility */
+.actionIcon:focus-visible {
+    /* outline: 2px solid var(--color-primary); */
+    outline: none;
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+    pointer-events: none;
+}
+
+.actionIcon[aria-disabled="true"] {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+    pointer-events: none;
+}
+
+.actionIcon:hover {
+    transform: scale(1.05);
+}
+
+.actionIcon.withHoverBg {
+    padding: var(--spacing-1);
+    border-radius: var(--radius-sm);
+}
+
+.actionIcon.withHoverBg:hover {
+    background-color: var(--color-border);
+    transform: none;
+}
+
+.actionIcon:visited {
+    color: inherit;
+}
+
+.actionIcon:active {
+    transform: scale(0.95);
+}

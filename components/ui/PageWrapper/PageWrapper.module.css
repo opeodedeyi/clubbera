@@ -1,0 +1,41 @@
+.wrapper {
+    position: relative;
+    min-height: calc(100vh - 101px);
+    background-color: var(--color-background);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex start;
+}
+
+.particlesContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    left: var(--particle-x);
+    top: var(--particle-y);
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex start;
+    align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+    .particle {
+        transform: scale(0.7);
+        transform-origin: center;
+    }
+}

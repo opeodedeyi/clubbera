@@ -1,0 +1,111 @@
+.searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--color-background-light);
+    border: none;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 450px;
+}
+
+.focused {
+    box-shadow: none;
+}
+
+/* Size variants */
+.large {
+    height: 62px;
+    padding: 0 var(--spacing-5);
+    gap: var(--spacing-3);
+}
+
+.small {
+    height: 52px;
+    padding: 0 var(--spacing-5);
+    gap: var(--spacing-3);
+}
+
+/* Mobile override - always 52px */
+.mobile {
+    height: 52px !important;
+    padding: 0 var(--spacing-3) !important;
+    gap: var(--spacing-2) !important;
+}
+
+/* Search icon */
+.searchIcon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.focused .icon {
+    opacity: 1;
+}
+
+/* Input */
+.searchInput {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: var(--font-size-body);
+    color: var(--color-text);
+    outline: none;
+    width: 100%;
+}
+
+.searchInput::placeholder {
+    color: var(--color-text-light);
+}
+
+.searchInput:focus::placeholder {
+    opacity: 0.8;
+}
+
+/* Clear button */
+.clearButton {
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+/* Mobile floating behavior */
+.mobileFloating {
+    position: fixed !important;
+    top: var(--spacing-4) !important;
+    left: var(--spacing-4) !important;
+    right: var(--spacing-4) !important;
+    z-index: 1000 !important;
+    max-width: none !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.mobileOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .searchContainer {
+        max-width: none;
+    }
+}

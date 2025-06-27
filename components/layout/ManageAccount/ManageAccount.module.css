@@ -1,0 +1,71 @@
+.container {
+    width: 100%;
+    padding: var(--spacing-2xl) var(--spacing-20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.containerLeft {
+    max-width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.containerContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+}
+
+.navigation {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--spacing-5);
+    margin-top: var(--spacing-7);
+    border-radius: var(--radius-3xl);
+    background-color: var(--color-background-light);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.navigationItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-2-5);
+    width: 100%;
+    padding: var(--spacing-2-5) var(--spacing-md);
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 160%;
+    font-size: var(--font-size-lead);
+    border: none;
+    border-radius: var(--radius-xl);
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.navigationItem:hover,
+.active {
+    background: var(--color-background-dark);
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 0;
+    }
+
+    .containerLeft {
+        padding: var(--spacing-5) var(--spacing-lg);
+    }
+}

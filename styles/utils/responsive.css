@@ -1,0 +1,184 @@
+/* Desktop-First Approach
+   Breakpoints:
+   - Desktop: 1280px+ (default, no media query needed)
+   - Tablet: 768px - 1279px
+   - Mobile: 0px - 767px
+*/
+
+/* Default: Desktop styles (no media query) */
+.desktop-only {
+    display: block;
+}
+
+.tablet-only {
+    display: none;
+}
+
+.mobile-only {
+    display: none;
+}
+
+/* Tablet: 1279px and below */
+@media (max-width: 1279px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .tablet-up {
+        display: block;
+    }
+
+    .tablet-down {
+        display: block;
+    }
+}
+
+/* Tablet only: 768px - 1279px */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .tablet-only {
+        display: block;
+    }
+}
+
+/* Mobile: 767px and below */
+@media (max-width: 767px) {
+    .mobile-only {
+        display: block;
+    }
+
+    .tablet-only {
+        display: none !important;
+    }
+
+    .tablet-up {
+        display: none !important;
+    }
+
+    .mobile-up {
+        display: block;
+    }
+}
+
+/* Flex variants */
+.desktop-only-flex {
+    display: flex;
+}
+
+.tablet-only-flex {
+    display: none;
+}
+
+.mobile-only-flex {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .desktop-only-flex {
+        display: none !important;
+    }
+
+    .tablet-up-flex {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+    .tablet-only-flex {
+        display: flex;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile-only-flex {
+        display: flex;
+    }
+
+    .tablet-only-flex {
+        display: none !important;
+    }
+
+    .tablet-up-flex {
+        display: none !important;
+    }
+}
+
+/* Grid variants */
+.desktop-only-grid {
+    display: grid;
+}
+
+.tablet-only-grid {
+    display: none;
+}
+
+.mobile-only-grid {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .desktop-only-grid {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+    .tablet-only-grid {
+        display: grid;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile-only-grid {
+        display: grid;
+    }
+}
+
+/* Hide/Show combinations */
+.hide-mobile {
+    display: block;
+}
+
+.hide-tablet {
+    display: block;
+}
+
+.hide-desktop {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .hide-tablet {
+        display: none !important;
+    }
+
+    .hide-desktop {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Range classes */
+.desktop-tablet {
+    display: block;
+}
+
+.tablet-mobile {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .tablet-mobile {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .desktop-tablet {
+        display: none !important;
+    }
+}
