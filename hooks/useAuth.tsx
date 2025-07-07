@@ -1,9 +1,10 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import { getCookie, setCookie, deleteCookie } from 'cookies-next'
-import { api } from '@/lib/api'
-import type { User } from '@/types/header'
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { useRouter, usePathname } from 'next/navigation';
+import { api } from '@/lib/api';
+import type { User } from '@/types/header';
 
 
 // 🎯 Mock user for development
@@ -32,11 +33,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
     const [mounted, setMounted] = useState(false)
+    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
         setMounted(true)
         checkAuthStatus()
     }, [])
+
+    useEffect(() => {
+        if (!mounted || loading) return
+
+        const protectedPaths = ['/home', '/profile', 'manage/communities', 'manage/appearance', '/settings']
+        const authPaths = ['/join', '/login', '/signup', '/forgot-password', '/resetpassword']
+        
+        const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path))
+        const isAuthPath = authPaths.some(path => pathname.startsWith(path))
+
+        // If user logged out and on protected page → redirect to login
+        if (!user && isProtectedPath) {
+            router.push('/login')
+            return
+        }
+
+        // If user logged in and on auth page → redirect to home
+        if (user && isAuthPath) {
+            router.push('/home')
+            return
+        }
+
+        // If user logged in and on root → redirect to home
+        if (user && pathname === '/') {
+            router.push('/home')
+            return
+        }
+
+    }, [user, pathname, mounted, loading, router])
 
     const checkAuthStatus = async () => {
         try {

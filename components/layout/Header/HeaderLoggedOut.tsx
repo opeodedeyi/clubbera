@@ -15,7 +15,7 @@ export default function HeaderLoggedOut({ className = '' }: HeaderProps) {
                 </div>
 
                 <div className={`${styles.actions} desktop-only-flex`}>
-                    <Button as="link" href="/communities/create" variant='plain' size='large'>
+                    <Button as="link" href="/join" variant='plain' size='large'>
                         Join Clubbera
                     </Button>
                 </div>

@@ -106,8 +106,8 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
 
                 <nav className={styles.menuItems}>
                     <Link 
-                        href="/profile" 
-                        className={styles.menuItem}
+                        href="/manage/account" 
+                        className={`${styles.menuItem} desktop-only-flex`}
                         onClick={closeMenu}>
                         <Icon 
                             name="editProfile"
@@ -115,9 +115,23 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
                             color='var(--color-text)'/>
                         <span>Manage Account</span>
                     </Link>
+
+                    <div
+                        className={`${styles.menuItemBtn} tablet-mobile-flex`}
+                        onClick={closeMenu}>
+                        <Icon 
+                            name="editProfile"
+                            size='sm'
+                            color='var(--color-text)'/>
+                        <span>Manage Account</span>
+                        <Icon 
+                            name="arrowDown"
+                            size='xxs'
+                            color='var(--color-text)'/>
+                    </div>
                     
                     <Link
-                        href="/settings" 
+                        href="/profile" 
                         className={styles.menuItem}
                         onClick={closeMenu}>
                         <Icon
@@ -137,6 +151,18 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
                             fillColor="var(--color-text)" 
                             strokeColor="var(--color-background-light)" />
                         <span>Help & Support</span>
+                    </Link>
+
+                    <Link 
+                        href="/help" 
+                        className={styles.menuItem}
+                        onClick={closeMenu}>
+                        <Icon
+                            name="signout"
+                            size='sm'
+                            fillColor="var(--color-text)" 
+                            strokeColor="var(--color-background-light)" />
+                        <span>Sign Out</span>
                     </Link>
                 </nav>
             </div>

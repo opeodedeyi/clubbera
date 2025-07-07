@@ -32,7 +32,7 @@ export const config = {
         '/',
         '/home/:path*',
         '/profile/:path*', 
-        '/communities/:path*',
+        // '/communities/:path*',
         '/settings/:path*',
         '/login',
         '/signup',

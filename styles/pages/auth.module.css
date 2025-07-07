@@ -1,0 +1,56 @@
+.textContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.textContentTitle {
+    font-family: var(--font-nunito);
+    line-height: 120%;
+    letter-spacing: 0%;
+}
+
+.specialText {
+    font-family: var(--font-boris);
+    color: var(--color-default);
+}
+
+.specialTextLink {
+    font-family: var(--font-boris);
+    color: var(--color-default);
+}
+
+.textContentSubtitle {
+    line-height: 160%;
+    letter-spacing: 0%;
+}
+
+.btnContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.btnContentLink {
+    width: 100%;
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.btnContentLink a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 767px) {
+    .textContent {
+        gap: var(--spacing-3);
+    }
+
+    .specialText {
+        color: var(--color-text);
+    }
+}

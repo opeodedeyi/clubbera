@@ -18,6 +18,10 @@
     -ms-user-select: none;
 }
 
+.button span {
+    font-family: var(--font-boris);
+}
+
 .iconLeft,
 .iconText,
 .iconRight {
@@ -40,6 +44,13 @@
     height: 42px;
     padding: 0 20px;
     font-size: var(--font-size-sm);
+}
+
+.full {
+    width: 100%;
+    height: 50px;
+    padding: 0 40px;
+    font-size: var(--font-size-base);
 }
 
 /* Color variants */

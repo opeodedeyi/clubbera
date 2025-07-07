@@ -72,12 +72,28 @@
     display: none;
 }
 
+.desktop-tablet-flex {
+    display: flex;
+}
+
+.tablet-mobile-flex {
+    display: none;
+}
+
 @media (max-width: 1279px) {
     .desktop-only-flex {
         display: none !important;
     }
 
     .tablet-up-flex {
+        display: flex;
+    }
+
+    .desktop-tablet-flex {
+        display: none !important;
+    }
+
+    .tablet-mobile-flex {
         display: flex;
     }
 }
@@ -98,6 +114,10 @@
     }
 
     .tablet-up-flex {
+        display: none !important;
+    }
+
+    .desktop-tablet-flex {
         display: none !important;
     }
 }

@@ -43,8 +43,8 @@ export default function ManageAccount({ children }) {
                     </Link>
 
                     <Link
-                        href="/appearance" 
-                        className={`${styles.navigationItem} ${pathname === '/appearance' ? styles.active : ''}`}>
+                        href="/manage/appearance" 
+                        className={`${styles.navigationItem} ${pathname === '/manage/appearance' ? styles.active : ''}`}>
                         <Icon
                             name="toggle"
                             size='md'

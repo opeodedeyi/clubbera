@@ -63,7 +63,8 @@
     gap: var(--spacing-3);
 }
 
-.menuItem {
+.menuItem,
+.menuItemBtn {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -149,7 +150,8 @@
         gap: var(--spacing-2xl);
     }
 
-    .menuItem {
+    .menuItem,
+    .menuItemBtn {
         padding: 0;
     }
 
