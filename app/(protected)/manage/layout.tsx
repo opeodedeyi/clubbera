@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: "Take Control of your account",
 };
 
-export default function RootLayout({
+export default function ManageLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
