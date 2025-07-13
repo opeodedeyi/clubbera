@@ -1,65 +1,25 @@
-'use client';
+import { Suspense } from 'react';
+import EventsContent from '@/components/events/EventsContent/EventsContent';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import UpcomingEvents from '@/components/event/UpcomingEvents/UpcomingEvents';
-import PreviousEvents from '@/components/event/PreviousEvents/PreviousEvents';
-import PageWrapper from "@/components/ui/PageWrapper/PageWrapper";
-import ToggleButtonGroup from '@/components/ui/ToggleButtonGroup/ToggleButtonGroup';
-import styles from '@/styles/pages/events.module.css';
-
-
-type CommunityView = 'upcoming' | 'previous'
-
-const VIEW_OPTIONS = [
-    { value: 'upcoming', label: 'Upcoming' },
-    { value: 'previous', label: 'Previous' }
-]
-
-export default function Communities() {
-    const searchParams = useSearchParams()
-    const router = useRouter()
-    const [currentView, setCurrentView] = useState<CommunityView>('upcoming');
-
-    useEffect(() => {
-        const view = searchParams.get('view')
-        if (view === 'previous') {
-            setCurrentView('previous')
-        } else {
-            setCurrentView('upcoming')
-        }
-    }, [searchParams])
-
-    const handleViewChange = (view: string) => {
-        const newView = view as CommunityView
-        setCurrentView(newView)
-
-        if (newView === 'previous') {
-            router.push('/events?view=previous')
-        } else {
-            router.push('/events')
-        }
-    }
-
+export default function Events() {
     return (
-        <PageWrapper showParticles={false}>
-            <div className={styles.navigation}>
-                <h1>Events</h1>
+        <Suspense fallback={<EventsLoading />}>
+            <EventsContent />
+        </Suspense>
+    )
+}
 
-                <ToggleButtonGroup
-                    options={VIEW_OPTIONS}
-                    activeValue={currentView}
-                    onChange={handleViewChange}
-                    activeColor="--color-event"/>
+function EventsLoading() {
+    return (
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="animate-pulse">
+                <div className="h-8 bg-gray-300 rounded w-32 mb-6"></div>
+                <div className="flex gap-4 mb-6">
+                    <div className="h-10 bg-gray-300 rounded w-24"></div>
+                    <div className="h-10 bg-gray-300 rounded w-24"></div>
+                </div>
+                <div className="h-96 bg-gray-300 rounded"></div>
             </div>
-
-            <main className={styles.contentContainer}>
-                {currentView === 'upcoming' ? (
-                    <UpcomingEvents />
-                ) : (
-                    <PreviousEvents />
-                )}
-            </main>
-        </PageWrapper>
+        </div>
     )
 }

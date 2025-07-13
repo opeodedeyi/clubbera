@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import CommunitiesContent from '@/components/communities/CommunitiesContent';
+import CommunitiesContent from '@/components/communities/CommunitiesContent/CommunitiesContent';
 
 export default function Communities() {
     return (
