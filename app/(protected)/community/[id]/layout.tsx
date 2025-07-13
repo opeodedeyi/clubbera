@@ -1,1 +1,0 @@
-// will check if the community exists
