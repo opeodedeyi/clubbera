@@ -84,7 +84,7 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
         )
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const { 
         variant: _variant, 
         size: _size, 
@@ -95,6 +95,7 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
         loading: _loading, 
         ...buttonProps 
     } = props
+    /* eslint-enable @typescript-eslint/no-unused-vars */
     
     return (
         <button
