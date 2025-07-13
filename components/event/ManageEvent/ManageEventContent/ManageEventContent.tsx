@@ -12,7 +12,12 @@ interface ManageEventContentProps {
 }
 
 const ManageEventContent: React.FC<ManageEventContentProps> = ({ initialEvent }: ManageEventContentProps) => {
-    // const [event, setEvent] = useState<EventDetails>(initialEvent)
+    const [
+        event,
+        // setEvent
+    ] = useState<EventDetails>(initialEvent)
+
+    console.log(event)
 
     return (
         <div className={styles.container}>

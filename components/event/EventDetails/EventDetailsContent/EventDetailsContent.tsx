@@ -20,9 +20,16 @@ interface EventDetailsContentProps {
 }
 
 const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent }: EventDetailsContentProps) => {
-    const [event, setEvent] = useState<EventDetails>(initialEvent)
-    const [isUpdatingRSVP, setIsUpdatingRSVP] = useState(false)
-    const [userIsAttending, setUserIsAttending] = useState(false) // You'll need to get this from user data
+    const [
+        event,
+        // setEvent
+    ] = useState<EventDetails>(initialEvent)
+    const [isUpdatingRSVP,
+        // setIsUpdatingRSVP
+    ] = useState(false)
+    const [userIsAttending,
+        // setUserIsAttending
+    ] = useState(false) // You'll need to get this from user data
     const router = useRouter()
 
     console.log(isUpdatingRSVP, userIsAttending, router)

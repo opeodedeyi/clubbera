@@ -63,6 +63,7 @@ class ApiClient {
         try {
             return await response.json()
         } catch (error) {
+            console.log(error);
             throw new Error('Failed to parse response as JSON')
         }
     }
