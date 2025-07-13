@@ -3,7 +3,7 @@ import styles from "./communitySteps.module.css";
 import { StepProps } from "@/types/community";
 
 
-const LocationStep: React.FC<StepProps> = ({ nextStep, navigation, ...otherProps }: StepProps) => {
+const LocationStep: React.FC<StepProps> = ({ nextStep, navigation }: StepProps) => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>

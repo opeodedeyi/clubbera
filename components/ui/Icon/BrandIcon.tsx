@@ -38,7 +38,7 @@ const getHoverClass = (hoverEffect?: string) => {
 }
 
 export default function BrandIcon(props: IconProps) {
-    const { name, size = 'md', color, className = '', hover = 'none' } = props
+    const { name, size = 'md', className = '', hover = 'none' } = props
     const iconSize = sizeMap[size]
     
     const iconClasses = [

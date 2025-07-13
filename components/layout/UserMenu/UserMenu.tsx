@@ -5,7 +5,7 @@ import { IMAGES } from '@/lib/images';
 import Icon from '@/components/ui/Icon/Icon';
 import BrandIcon from '@/components/ui/Icon/BrandIcon';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+// import { useAuth } from '@/hooks/useAuth';
 import type { User } from '@/types/header';
 import styles from './UserMenu.module.css';
 
@@ -17,7 +17,7 @@ interface UserMenuProps {
 
 export default function UserMenu({ user, className = '' }: UserMenuProps) {
     const [isOpen, setIsOpen] = useState(false)
-    const { logout } = useAuth()
+    // const { logout } = useAuth()
     const menuRef = useRef<HTMLDivElement>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -69,10 +69,10 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
         setIsOpen(!isOpen)
     }
 
-    const handleLogout = () => {
-        logout()
-        setIsOpen(false)
-    }
+    // const handleLogout = () => {
+    //     logout()
+    //     setIsOpen(false)
+    // }
 
     const closeMenu = () => {
         setIsOpen(false)

@@ -1,8 +1,35 @@
+// lib/api.ts
 import { getCookie } from 'cookies-next'
 
+// Define proper types
+// interface ApiResponse<T = unknown> {
+//     data?: T
+//     message?: string
+//     error?: string
+// }
+
+type RequestData = Record<string, unknown> | FormData | string | null
+
 class ApiClient {
-    async request(endpoint: string, options: RequestInit = {}) {
-        const token = getCookie('authToken')
+    private getAuthToken(): string | undefined {
+        // Check if we're in browser environment
+        if (typeof window === 'undefined') {
+            return undefined
+        }
+        
+        try {
+            return getCookie('authToken')?.toString()
+        } catch (error) {
+            console.warn('Failed to get auth token:', error)
+            return undefined
+        }
+    }
+
+    async request<T = unknown>(
+        endpoint: string, 
+        options: RequestInit = {}
+    ): Promise<T> {
+        const token = this.getAuthToken()
         
         const config: RequestInit = {
             headers: {
@@ -17,37 +44,85 @@ class ApiClient {
         
         if (response.status === 401) {
             // Token invalid - let auth context handle cleanup
-            window.location.href = '/login'
-            return
+            if (typeof window !== 'undefined') {
+                window.location.href = '/login'
+            }
+            throw new Error('Unauthorized')
         }
 
         if (!response.ok) {
-            throw new Error(`API Error: ${response.status}`)
+            const errorText = await response.text().catch(() => 'Unknown error')
+            throw new Error(`API Error: ${response.status} - ${errorText}`)
         }
 
-        return response.json()
+        // Handle empty responses
+        if (response.status === 204 || response.headers.get('content-length') === '0') {
+            return {} as T
+        }
+
+        try {
+            return await response.json()
+        } catch (error) {
+            throw new Error('Failed to parse response as JSON')
+        }
     }
 
-    get(endpoint: string) {
-        return this.request(endpoint)
+    get<T = unknown>(endpoint: string): Promise<T> {
+        return this.request<T>(endpoint)
     }
 
-    post(endpoint: string, data: any) {
-        return this.request(endpoint, {
+    post<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
+        const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
+        
+        return this.request<T>(endpoint, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body,
+            headers,
         })
     }
 
-    put(endpoint: string, data: any) {
-        return this.request(endpoint, {
+    put<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
+        const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
+        
+        return this.request<T>(endpoint, {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body,
+            headers,
         })
     }
 
-    delete(endpoint: string) {
-        return this.request(endpoint, { method: 'DELETE' })
+    patch<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
+        const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
+        
+        return this.request<T>(endpoint, {
+            method: 'PATCH',
+            body,
+            headers,
+        })
+    }
+
+    delete<T = unknown>(endpoint: string): Promise<T> {
+        return this.request<T>(endpoint, { method: 'DELETE' })
+    }
+
+    private prepareBody(data?: RequestData): string | FormData | null {
+        if (!data) return null
+        if (data instanceof FormData) return data
+        if (typeof data === 'string') return data
+        return JSON.stringify(data)
+    }
+
+    private getHeaders(data?: RequestData): Record<string, string> {
+        if (data instanceof FormData) {
+            // Don't set Content-Type for FormData, let browser set it with boundary
+            return {}
+        }
+        return {
+            'Content-Type': 'application/json',
+        }
     }
 }
 

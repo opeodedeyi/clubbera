@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EventDetails } from "@/types/event";
-import { updateRSVP } from '@/lib/api/events';
+// import { updateRSVP } from '@/lib/api/events';
 import EventImage from '../EventImage/EventImage';
 import NextEventCard from '../NextEventCard/NextEventCard';
 import ReservationStatusCard from '../ReservationStatusCard/ReservationStatusCard';
@@ -25,27 +25,29 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent 
     const [userIsAttending, setUserIsAttending] = useState(false) // You'll need to get this from user data
     const router = useRouter()
 
-    const handleRSVPUpdate = async () => {
-        setIsUpdatingRSVP(true)
-        try {
-            const response = await updateRSVP(event.id)
-            setUserIsAttending(response.isAttending)
-            setEvent(prev => ({
-                ...prev,
-                currentAttendees: response.attendeeCount,
-                attendeeCount: response.attendeeCount
-            }))
-        } catch (error) {
-            console.error('Failed to update RSVP:', error)
-            // Handle error (show toast, etc.)
-        } finally {
-            setIsUpdatingRSVP(false)
-        }
-    }
+    console.log(isUpdatingRSVP, userIsAttending, router)
+
+    // const handleRSVPUpdate = async () => {
+    //     setIsUpdatingRSVP(true)
+    //     try {
+    //         const response = await updateRSVP(event.id)
+    //         setUserIsAttending(response.isAttending)
+    //         setEvent(prev => ({
+    //             ...prev,
+    //             currentAttendees: response.attendeeCount,
+    //             attendeeCount: response.attendeeCount
+    //         }))
+    //     } catch (error) {
+    //         console.error('Failed to update RSVP:', error)
+    //         // Handle error (show toast, etc.)
+    //     } finally {
+    //         setIsUpdatingRSVP(false)
+    //     }
+    // }
 
     const manageURL = `/event/${event.uniqueUrl}/manage`
-    const canUpdateRSVP = !event.isPastEvent
-    const canEdit = event.canManage && !event.isPastEvent
+    // const canUpdateRSVP = !event.isPastEvent
+    // const canEdit = event.canManage && !event.isPastEvent
 
     return (
         <div className={styles.container}>

@@ -76,6 +76,8 @@ export default function SearchBar({
         }
     }
 
+    console.log(originalPosition)
+
     // Build CSS classes
     const searchClasses = [
         styles.searchContainer,

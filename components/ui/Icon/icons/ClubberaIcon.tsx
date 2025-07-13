@@ -10,7 +10,6 @@ export default function ClubberaIcon({
     className = '',
 }: ClubberaIconProps) {
     const maskId = `clubbera-mask-${Math.random().toString(36).substr(2, 9)}`
-    const gradientId = `clubbera-gradient-${Math.random().toString(36).substr(2, 9)}`
 
     const useOriginalColors = !color
     const mainColor = useOriginalColors ? "#05C213" : color

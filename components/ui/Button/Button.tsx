@@ -71,7 +71,7 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
     }
 
     if (props.as === 'link') {
-        const { as, ...linkProps } = props
+        const { ...linkProps } = props
         
         return (
             <Link 
@@ -84,13 +84,13 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
     }
 
     const { 
-        variant: _variant, 
-        size: _size, 
-        className: _className, 
-        iconLeft: _iconLeft,
-        iconRight: _iconRight,
-        iconOnly: _iconOnly,
-        loading: _loading, 
+        // variant: _variant, 
+        // size: _size, 
+        // className: _className, 
+        // iconLeft: _iconLeft,
+        // iconRight: _iconRight,
+        // iconOnly: _iconOnly,
+        // loading: _loading, 
         ...buttonProps 
     } = props
     

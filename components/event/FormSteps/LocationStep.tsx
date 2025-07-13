@@ -3,7 +3,7 @@ import styles from "./eventSteps.module.css";
 import { EventStepProps } from "@/types/event";
 
 
-const LocationStep: React.FC<EventStepProps> = ({ nextStep, navigation, ...otherProps }: EventStepProps) => {
+const LocationStep: React.FC<EventStepProps> = ({ nextStep, navigation }: EventStepProps) => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>

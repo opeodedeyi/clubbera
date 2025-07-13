@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { EventDetails } from "@/types/event";
 import Button from '@/components/ui/Button/Button';
 import BackButton from '@/components/ui/BackButton/BackButton';
@@ -13,7 +12,7 @@ interface ManageEventContentProps {
 }
 
 const ManageEventContent: React.FC<ManageEventContentProps> = ({ initialEvent }: ManageEventContentProps) => {
-    const [event, setEvent] = useState<EventDetails>(initialEvent)
+    // const [event, setEvent] = useState<EventDetails>(initialEvent)
 
     return (
         <div className={styles.container}>

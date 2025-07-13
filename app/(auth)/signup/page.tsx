@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon/Icon';
-import BrandIcon from '@/components/ui/Icon/BrandIcon';
 import Button from '@/components/ui/Button/Button';
 import AuthLayout from "@/components/layout/AuthLayout/AuthLayout";
 import styles from '@/styles/pages/auth.module.css';

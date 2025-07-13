@@ -11,8 +11,7 @@ export default function ActionIcon(props: ActionIconProps) {
         icon,
         className = '',
         disabled = false,
-        'aria-label': ariaLabel,
-        ...otherProps
+        'aria-label': ariaLabel
     } = props
 
     const actionClasses = [

@@ -82,7 +82,7 @@ export default function PageWrapper({
             for (let i = 0; i < count; i++) {
                 // Each particle gets a zone, with some randomness within the zone
                 const zoneStart = i * zoneHeight
-                const zoneEnd = (i + 1) * zoneHeight
+                // const zoneEnd = (i + 1) * zoneHeight
                 const padding = zoneHeight * 0.1 // 10% padding within zone
                 
                 const y = Math.random() * (zoneHeight - padding * 2) + zoneStart + padding

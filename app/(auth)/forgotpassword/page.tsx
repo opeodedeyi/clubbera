@@ -24,7 +24,7 @@ export default function forgotpassword() {
                         variant='plain'>
                         Send Email
                     </Button>
-                    <p className={styles.btnContentLink}>Didn't forget password? 
+                    <p className={styles.btnContentLink}>Didn&apos;t forget password? 
                         <Link className={styles.specialTextLink} href='/signup'> Log in</Link>
                     </p>
                 </div>

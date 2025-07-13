@@ -28,7 +28,7 @@ const introductionContent: introductionContentProps[] = [
     },
 ]
 
-const IntroductionStep: React.FC<StepProps> = ({ nextStep, navigation, ...otherProps }) => {
+const IntroductionStep: React.FC<StepProps> = ({ nextStep, navigation }) => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>
