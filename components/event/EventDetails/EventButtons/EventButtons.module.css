@@ -1,0 +1,6 @@
+.contentButtons {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-3);
+}
+

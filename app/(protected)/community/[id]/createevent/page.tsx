@@ -1,53 +1,41 @@
 'use client';
 
-import { FormStep } from "@/types/community";
-import { useCommunityForm } from "@/hooks/useCommunityForm";
-import Button from '@/components/ui/Button/Button'
-import Icon from '@/components/ui/Icon/Icon'
-import IntroductionStep from "@/components/community/FormSteps/IntroductionStep";
-import LocationStep from "@/components/community/FormSteps/LocationStep";
-import NameDescriptionStep from "@/components/community/FormSteps/NameDescriptionStep";
-import ImagesAndTagsStep from "@/components/community/FormSteps/ImagesAndTagsStep";
-import PrivacyStep from "@/components/community/FormSteps/PrivacyStep";
-import PreviewStep from "@/components/community/FormSteps/PreviewStep";
+import { EventFormStep } from "@/types/event";
+import { useEventForm } from "@/hooks/useEventForm";
+import Button from '@/components/ui/Button/Button';
+import Icon from '@/components/ui/Icon/Icon';
+import LocationStep from "@/components/event/FormSteps/LocationStep";
+import DetailStep from "@/components/event/FormSteps/DetailStep";
+import ImagesAndCountStep from "@/components/event/FormSteps/ImagesAndCountStep";
+import PreviewStep from "@/components/event/FormSteps/PreviewStep";
 import PageWrapper from "@/components/ui/PageWrapper/PageWrapper";
 import styles from "@/styles/pages/createcommunity.module.css";
 
 
-const formSteps: FormStep[] = [
+const formSteps: EventFormStep[] = [
     {
         id: 0,
-        navigation: 'Bring Your Vision to Life',
-        component: IntroductionStep,
-    },
-    {
-        id: 1,
         navigation: 'Step 1 of 3',
         component: LocationStep
     },
     {
-        id: 2,
+        id: 1,
         navigation: 'Step 2 of 3',
-        component: NameDescriptionStep
+        component: DetailStep
+    },
+    {
+        id: 2,
+        navigation: 'Step 3 of 3',
+        component: ImagesAndCountStep
     },
     {
         id: 3,
-        navigation: 'Step 3 of 3',
-        component: ImagesAndTagsStep
-    },
-    {
-        id: 4,
-        navigation: null,
-        component: PrivacyStep
-    },
-    {
-        id: 5,
-        navigation: 'Your community is Live ✨',
+        navigation: 'Your event is Live ✨',
         component: PreviewStep
     }
 ]
 
-export default function CreateCommunity() {
+export default function CreateEvent() {
     const {
         currentStep,
         formData,
@@ -57,10 +45,9 @@ export default function CreateCommunity() {
         handleImageUpload,
         nextStep,
         previousStep,
-        goToStep,
         isValid,
         submitForm
-    } = useCommunityForm()
+    } = useEventForm()
 
     const CurrentStepComponent = formSteps[currentStep].component
 
@@ -73,13 +60,12 @@ export default function CreateCommunity() {
         handleImageUpload,
         nextStep,
         previousStep,
-        goToStep,
         isValid,
         submitForm
     }
 
     return (
-        <PageWrapper showParticles={currentStep === 5 ? true : false} particlesHeight={650}>
+        <PageWrapper showParticles={currentStep === 3 ? true : false} particlesHeight={650}>
             <div className={styles.container}>
                 <Button
                     variant='plain'

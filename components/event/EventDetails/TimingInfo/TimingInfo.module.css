@@ -1,0 +1,94 @@
+.timingInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 50px;
+    padding-left: var(--spacing-6);
+}
+
+.timingTexts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.timingItem {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-3-5);
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.calendar {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    background-color: var(--color-light);
+}
+
+.calendarMonth {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: var(--spacing-xl);
+    background-color: var(--color-event);
+    color: var(--color-light);
+}
+
+.calendarMonthText {
+    font-size: var(--font-size-lg);
+}
+
+.calendarDay {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendarDayText {
+    font-size: var(--font-size-2xl);
+}
+
+@media screen and (max-width: 1279px) {
+    .timingInfo {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .timingTexts {
+        gap: var(--spacing-sm);
+    }
+
+    .timingItem {
+        gap: var(--spacing-2);
+    }
+
+    .calendar {
+        width: 68px;
+        height: 68px;
+        border-radius: var(--radius-lg);
+    }
+
+    .calendarMonth {
+        height: var(--spacing-6);
+    }
+
+    .calendarMonthText {
+        font-size: var(--font-size-sm);
+    }
+
+    .calendarDayText {
+        font-size: var(--font-size-lg);
+    }
+}

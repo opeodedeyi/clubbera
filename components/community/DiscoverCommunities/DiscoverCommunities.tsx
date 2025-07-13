@@ -4,7 +4,7 @@ import { useState } from 'react';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import styles from './DiscoverCommunities.module.css';
 
-export default function DiscoverCoomunities() {
+export default function DiscoverCommunities() {
     const [searchQuery, setSearchQuery] = useState('');
 
     return (

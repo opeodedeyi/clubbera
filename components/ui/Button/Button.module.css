@@ -66,7 +66,7 @@
 }
 
 .community {
-    background-color: var(--color-community, #10b981);
+    background-color: var(--color-community);
     color: var(--color-light);
 }
 
@@ -93,8 +93,16 @@
 }
 
 .plain:hover:not(:disabled) {
-    background-color: var(--color-border);
-    border-color: var(--color-text-secondary);
+    background-color: var(--color-gray-light);
+}
+
+.gray {
+    background-color: var(--color-gray-light);
+    color: var(--color-light);
+}
+
+.gray:hover:not(:disabled) {
+    background-color: var(--color-gray);
 }
 
 .disabled {

@@ -13,6 +13,7 @@
     --color-default: #05C213;
     --color-event: #F2B21E;
     --color-community: #A664FD;
+    --color-community-hover: #832DF0;
     --color-danger: #E84C7B;
 
     --color-background: var(--color-white);
@@ -23,11 +24,13 @@
     --color-text-light: var(--color-gray-light);
     --color-text-muted: var(--color-gray-mute);
     --color-border: var(--color-light);
-    --color-plain: var(--color-light);
+    --color-plain: var(--color-light-hover);
     --color-plain-text: var(--color-gray);
     --color-icon-header: var(--color-gray-light);
 
     /* Font Size Scale */
+    --font-size-3xs: 0.5rem;       /* 8px - */
+    --font-size-xxs: 0.625rem;     /* 10px - */
     --font-size-xs: 0.75rem;      /* 12px - Captions, badges, metadata */
     --font-size-sm: 0.875rem;     /* 14px - Form labels, secondary text */
     --font-size-base: 1rem;       /* 16px - Body text, paragraphs */

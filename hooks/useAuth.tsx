@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!mounted || loading) return
 
-        const protectedPaths = ['/home', '/profile', 'manage/communities', 'manage/appearance', '/settings']
+        const protectedPaths = ['/home', '/profile', 'manage/communities', 'manage/appearance', '/community/create']
         const authPaths = ['/join', '/login', '/signup', '/forgot-password', '/resetpassword']
         
         const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path))

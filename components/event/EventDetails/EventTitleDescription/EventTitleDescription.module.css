@@ -1,0 +1,23 @@
+.titleDescription {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.miniTitle {
+    font-size: var(--font-size-xl);
+}
+
+.miniDescription {
+    font-size: var(--spacing-md);
+}
+
+@media screen and (max-width: 767px) {
+    .titleDescription {
+        gap: var(--spacing-3-5);
+    }
+
+    .miniTitle {
+        font-size: var(--spacing-5);
+    }
+}

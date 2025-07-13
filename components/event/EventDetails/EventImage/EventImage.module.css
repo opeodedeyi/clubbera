@@ -1,0 +1,25 @@
+.eventImage {
+    width: 100%;
+    max-width: 500px;
+    height: 280px;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+}
+
+.eventImageSRC {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 1279px) {
+    .eventImage {
+        max-width: 700px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .eventImage {
+        height: 200px;
+    }
+}

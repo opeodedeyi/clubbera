@@ -1,4 +1,4 @@
-export type ButtonVariant = 'default' | 'community' | 'event' | 'disabled' | 'plain';
+export type ButtonVariant = 'default' | 'community' | 'event' | 'disabled' | 'plain' | 'gray';
 export type ButtonSize = 'small' | 'large' | 'full';
 
 export interface BaseButtonProps {

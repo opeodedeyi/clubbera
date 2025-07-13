@@ -61,23 +61,23 @@
 
 /* Flex variants */
 .desktop-only-flex {
-    display: flex;
+    display: flex !important;
 }
 
 .tablet-only-flex {
-    display: none;
+    display: none !important;
 }
 
 .mobile-only-flex {
-    display: none;
+    display: none !important;
 }
 
 .desktop-tablet-flex {
-    display: flex;
+    display: flex !important;
 }
 
 .tablet-mobile-flex {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 1279px) {
@@ -86,7 +86,7 @@
     }
 
     .tablet-up-flex {
-        display: flex;
+        display: flex!important;
     }
 
     .desktop-tablet-flex {
@@ -94,7 +94,7 @@
     }
 
     .tablet-mobile-flex {
-        display: flex;
+        display: flex!important;
     }
 }
 

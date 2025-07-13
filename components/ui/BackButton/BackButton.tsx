@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useRouter } from 'next/navigation'
-import Button from '@/components/ui/Button/Button'
-import Icon from '@/components/ui/Icon/Icon'
+import { useRouter } from 'next/navigation';
+import Button from '@/components/ui/Button/Button';
+import Icon from '@/components/ui/Icon/Icon';
 
 
 interface BackButtonProps {
