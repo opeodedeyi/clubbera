@@ -1,5 +1,5 @@
 import PageWrapper from "@/components/ui/PageWrapper/PageWrapper";
-import styles from "@/styles/pages/home.module.css";
+import styles from "@/styles/pages/landing.module.css";
 
 export default function Landing() {
     return (

@@ -1,9 +1,30 @@
 export interface User {
-    id: string
-    name: string
+    id: number
+    uniqueUrl?: string
+    fullName: string
     email: string
-    avatar?: string
+    bio?: string
+    gender?: string
+    birthday?: string | null
+    preferences?: Record<string, any>
+    isEmailConfirmed: boolean
+    isActive: boolean
     role?: string
+    images?: Array<{
+        imageType: string
+        provider: string
+        key: string
+        position: number
+    }>
+    interests: Array<{
+        id: number
+        name: string
+    }>
+    location?: {
+        lat: number
+        lng: number
+        address: string
+    } | null
 }
 
 export interface HeaderVariant {

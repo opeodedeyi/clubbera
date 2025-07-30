@@ -1,20 +1,14 @@
-// lib/api.ts
-import { getCookie } from 'cookies-next';
+import { cookies } from 'next/headers'
 
 type RequestData = Record<string, unknown> | FormData | string | null | object
 
-class ApiClient {
-    private getAuthToken(): string | undefined {
-        if (typeof window === 'undefined') {
-            return undefined
-        }
-        
+class ServerApiClient {
+    private async getAuthToken(): Promise<string | undefined> {
         try {
-            const token = getCookie('authToken')?.toString()
-            console.log('Client API: Getting token:', !!token) // Debug log
-            return token
+            const cookieStore = await cookies()
+            return cookieStore.get('authToken')?.value
         } catch (error) {
-            console.warn('Failed to get auth token:', error)
+            console.warn('Failed to get auth token on server:', error)
             return undefined
         }
     }
@@ -23,13 +17,7 @@ class ApiClient {
         endpoint: string, 
         options: RequestInit = {}
     ): Promise<T> {
-        const token = this.getAuthToken()
-        
-        console.log('Client API request:', { 
-            endpoint, 
-            hasToken: !!token,
-            method: options.method || 'GET'
-        })
+        const token = await this.getAuthToken()
 
         const config: RequestInit = {
             headers: {
@@ -40,25 +28,13 @@ class ApiClient {
             ...options,
         }
 
-        console.log('Request headers:', config.headers)
-
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, config)
         
-        if (response.status === 401) {
-            console.error('401 Unauthorized - token might be invalid or expired')
-            // Token invalid - let auth context handle cleanup
-            if (typeof window !== 'undefined') {
-                window.location.href = '/login'
-            }
-            throw new Error('Unauthorized')
-        }
-
         if (!response.ok) {
             const errorText = await response.text().catch(() => 'Unknown error')
             throw new Error(`API Error: ${response.status} - ${errorText}`)
         }
 
-        // Handle empty responses
         if (response.status === 204 || response.headers.get('content-length') === '0') {
             return {} as T
         }
@@ -77,28 +53,34 @@ class ApiClient {
 
     post<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
         const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
         
         return this.request<T>(endpoint, {
             method: 'POST',
             body,
+            headers,
         })
     }
 
     put<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
         const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
         
         return this.request<T>(endpoint, {
             method: 'PUT',
             body,
+            headers,
         })
     }
 
     patch<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
         const body = this.prepareBody(data)
+        const headers = this.getHeaders(data)
         
         return this.request<T>(endpoint, {
             method: 'PATCH',
             body,
+            headers,
         })
     }
 
@@ -115,7 +97,6 @@ class ApiClient {
 
     private getHeaders(data?: RequestData): Record<string, string> {
         if (data instanceof FormData) {
-            // Don't set Content-Type for FormData, let browser set it with boundary
             return {}
         }
         return {
@@ -124,4 +105,4 @@ class ApiClient {
     }
 }
 
-export const api = new ApiClient()
+export const serverApi = new ServerApiClient()

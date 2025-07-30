@@ -1,0 +1,80 @@
+.profileImageUpload {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageContainer {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer:hover:not(.disabled) {
+    transform: scale(1.05);
+}
+
+.imageContainer.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.imageContainer:hover .overlay {
+    opacity: 1;
+}
+
+.uploadIcon {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.hiddenInput {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    visibility: hidden;
+}
+
+@media screen and (max-width: 767px) {
+    .imageContainer {
+        width: 90px;
+        height: 90px;
+    }
+
+    .overlay {
+        opacity: 1;
+    }
+}

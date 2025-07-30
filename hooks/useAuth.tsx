@@ -3,18 +3,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 import { useRouter, usePathname } from 'next/navigation';
-import { api } from '@/lib/api';
+import { authApi } from '@/lib/api/auth';
 import type { User } from '@/types/header';
 
-
-// 🎯 Mock user for development
-const MOCK_USER: User = {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    avatar: '/images/temp/profilePlaceholder.png',
-    role: 'user'
-}
 
 interface AuthContextType {
     user: User | null
@@ -23,8 +14,6 @@ interface AuthContextType {
     login: (token: string, userData: User) => void
     logout: () => void
     updateUser: (userData: Partial<User>) => void
-    // 🎯 Development only
-    toggleMockAuth: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -78,17 +67,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 return
             }
 
-            // 🎯 In development, just use mock user
-            if (process.env.NODE_ENV === 'development') {
-                setUser(MOCK_USER)
-                setLoading(false)
-                return
-            }
+            const response = await authApi.getUserProfile()
 
-            // 🎯 In production, this would call the real API
-            // const userData = await api.get('/auth/me')
-            // setUser(userData)
+            if (response.status === 'success') {
+                setUser(response.data)
+            }
         } catch (error) {
+            console.error('Auth check failed:', error)
             deleteCookie('authToken')
             setUser(null)
         } finally {
@@ -97,34 +82,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const login = (token: string, userData: User) => {
-        // Store in cookies with proper options
         setCookie('authToken', token, {
             maxAge: 60 * 60 * 24 * 7, // 7 days
-            httpOnly: false, // Need access in client-side
+            httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax'
         })
+
         setUser(userData)
     }
 
     const logout = () => {
         deleteCookie('authToken')
         setUser(null)
+        router.push('/login')
     }
 
     const updateUser = (userData: Partial<User>) => {
         setUser(prev => prev ? { ...prev, ...userData } : null)
-    }
-
-    // 🎯 Development only - toggle between logged in/out
-    const toggleMockAuth = () => {
-        if (process.env.NODE_ENV === 'development') {
-            if (user) {
-                logout()
-            } else {
-                login('mock-token', MOCK_USER)
-            }
-        }
     }
 
     return (
@@ -134,9 +109,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             mounted,
             login,
             logout,
-            updateUser,
-            toggleMockAuth
-            }}>
+            updateUser }}>
             {children}
         </AuthContext.Provider>
     )

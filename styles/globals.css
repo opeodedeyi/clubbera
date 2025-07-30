@@ -11,9 +11,12 @@
     --color-gray-mute: #888888;
     --color-neutral: #B8B8B8;
     --color-default: #05C213;
+    --color-default-light: #F1FCF1;
     --color-event: #F2B21E;
+    --color-event-light: #FDF9E9;
     --color-community: #A664FD;
     --color-community-hover: #832DF0;
+    --color-community-light: #F9F5FF;
     --color-danger: #E84C7B;
 
     --color-background: var(--color-white);

@@ -1,22 +1,15 @@
-'use client';
-
+import { usersServerApi  } from '@/lib/api/usersServer';
+import EditProfilePage from '@/components/profile/EditProfilePage/EditProfilePage';
 import ManageAccount from '@/components/layout/ManageAccount/ManageAccount';
-import styles from "@/styles/pages/mannageAccount.module.css";
 
-export default function ManageAccountDetails() {
+
+export default async function ManageAccountDetails() {
+    const response = await usersServerApi.getUserProfile();
+    const userData = response.data;
 
     return (
         <ManageAccount>
-            <div className={styles.contentOrder}>
-                <div className={styles.contentText}>
-                    <p>Make your community safer</p>
-                    <h2>Communities</h2>
-                </div>
-
-                <div className={styles.scrollContainer}>
-                    
-                </div>
-            </div>
+            <EditProfilePage initialProfile={userData}/>
         </ManageAccount>
     );
 }

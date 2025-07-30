@@ -1,0 +1,101 @@
+.inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.select {
+    position: relative;
+    width: 100%;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    /* Mobile-friendly touch target */
+    border: none;
+    overflow: hidden;
+    padding: var(--spacing-3-5) var(--spacing-4);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-background-light);
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: left;
+}
+
+.trigger:hover:not(:disabled) {
+    background-color: var(--color-background-dark);
+}
+
+.trigger.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.trigger.placeholder {
+    color: var(--color-text);
+}
+
+.value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trigger.open .chevron {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: var(--color-background-light);
+    border-top: none;
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
+    max-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--spacing-3-5) var(--spacing-4);
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.option:hover:not(:disabled) {
+    background-color: var(--color-background-dark);
+}
+
+.option:focus {
+    outline: none;
+    background-color: var(--color-background-dark);
+}
+
+.option.selected {
+    background-color: var(--color-background-dark);
+    font-weight: 500;
+}
+
+.select.disabled .trigger {
+    cursor: not-allowed;
+}

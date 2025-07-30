@@ -5,7 +5,7 @@ import "@/styles/globals.css";
 
 export const metadata: Metadata = {
     title: "Clubbera | Manage Account",
-    description: "Take Control of your account",
+    description: "Take Control of your account anc communities",
 };
 
 export default function ManageLayout({

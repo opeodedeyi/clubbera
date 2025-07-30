@@ -7,10 +7,10 @@ export const IMAGES = {
             cover: '/images/pages/communities/defaultCommunityCover.png',
             placeholder: '/images/pages/communities/defaultCommunityPlaceholder.svg',
         },
-    //   landing: {
-    //     heroBg: '/images/pages/landing/hero-bg.jpg',
-    //     feature1: '/images/pages/landing/feature-1.png',
-    //   },
+        landing: {
+            heroImage: '/images/pages/landing/heroImage.png',
+            // feature1: '/images/pages/landing/feature-1.png',
+        },
     //   event: {
     //     defaultCover: '/images/pages/communities/default-cover.jpg',
     //     placeholder: '/images/pages/communities/community-placeholder.svg',

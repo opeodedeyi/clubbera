@@ -23,6 +23,8 @@
 }
 
 .navigation {
+    position: sticky;
+    bottom: 20px;
     width: 100%;
     max-width: 300px;
     padding: var(--spacing-5);

@@ -5,7 +5,7 @@ import { IMAGES } from '@/lib/images';
 import Icon from '@/components/ui/Icon/Icon';
 import BrandIcon from '@/components/ui/Icon/BrandIcon';
 import Link from 'next/link';
-// import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import type { User } from '@/types/header';
 import styles from './UserMenu.module.css';
 
@@ -15,9 +15,9 @@ interface UserMenuProps {
     className?: string
 }
 
-export default function UserMenu({ user, className = '' }: UserMenuProps) {
+export default function UserMenu({ className = '' }: UserMenuProps) {
     const [isOpen, setIsOpen] = useState(false)
-    // const { logout } = useAuth()
+    const { user, logout } = useAuth()
     const menuRef = useRef<HTMLDivElement>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -69,10 +69,10 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
         setIsOpen(!isOpen)
     }
 
-    // const handleLogout = () => {
-    //     logout()
-    //     setIsOpen(false)
-    // }
+    const handleLogout = () => {
+        logout()
+        setIsOpen(false)
+    }
 
     const closeMenu = () => {
         setIsOpen(false)
@@ -87,8 +87,11 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
                 aria-label="User menu"
                 aria-expanded={isOpen} >
                 <img
-                    src={user.avatar || IMAGES.placeholders.avatar}
-                    alt={user.name}
+                    src={
+                        // user.profileImage?.key || 
+                        IMAGES.placeholders.avatar
+                    }
+                    alt='User Avatar'
                     className={styles.avatar} />
             </button>
 
@@ -131,7 +134,7 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
                     </div>
                     
                     <Link
-                        href="/profile" 
+                        href={`/profile/${user.uniqueUrl}`} 
                         className={styles.menuItem}
                         onClick={closeMenu}>
                         <Icon
@@ -153,17 +156,16 @@ export default function UserMenu({ user, className = '' }: UserMenuProps) {
                         <span>Help & Support</span>
                     </Link>
 
-                    <Link 
-                        href="/help" 
+                    <div
                         className={styles.menuItem}
-                        onClick={closeMenu}>
+                        onClick={handleLogout}>
                         <Icon
                             name="signout"
                             size='sm'
                             fillColor="var(--color-text)" 
                             strokeColor="var(--color-background-light)" />
                         <span>Sign Out</span>
-                    </Link>
+                    </div>
                 </nav>
             </div>
         </div>

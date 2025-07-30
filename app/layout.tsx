@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AuthProvider } from '@/hooks/useAuth';
-import AuthToggle from '@/components/dev/AuthToggle';
 import Header from "@/components/layout/Header/Header";
 import { ThemeProvider } from 'next-themes';
 import { boris, nunito } from "@/fonts/fonts";
@@ -41,7 +40,6 @@ export default function RootLayout({
                         <AuthProvider>
                             <Header />
                             <main>{children}</main>
-                            <AuthToggle />
                         </AuthProvider>
                 </ThemeProvider>
             </body>
