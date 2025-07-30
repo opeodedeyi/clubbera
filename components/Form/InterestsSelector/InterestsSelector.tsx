@@ -187,7 +187,7 @@ export default function InterestsSelector({
 
                             {isMaxReached && (
                                 <div className={styles.maxWarning}>
-                                    You've reached the maximum of {maxSelections} interests. 
+                                    You&apos;ve reached the maximum of {maxSelections} interests. 
                                     Remove one to select another.
                                 </div>
                             )}
@@ -195,7 +195,7 @@ export default function InterestsSelector({
                             <div className={styles.categoriesContainer}>
                                 {filteredCategories.length === 0 ? (
                                     <div className={styles.noResults}>
-                                        No interests found for "{searchTerm}"
+                                        No interests found for &quot;{searchTerm}&quot;
                                     </div>
                                 ) : (
                                     filteredCategories.map((category) => (

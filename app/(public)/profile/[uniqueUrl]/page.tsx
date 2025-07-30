@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
                 images: profile.profileImage ? [profile.profileImage.url] : [],
             }
         }
-    } catch (error) {
+    } catch {
         return {
             title: 'Profile Not Found | Clubbera',
             description: 'The requested profile could not be found.'
@@ -48,10 +48,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         console.log('Profile data:', response);
         
         profile = response.data
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Profile fetch error:', error)
 
-        if (error.message.includes('API Error: 404')) {
+        if (error instanceof Error && error.message.includes('API Error: 404')) {
             notFound()
         }
 

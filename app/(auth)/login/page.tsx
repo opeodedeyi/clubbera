@@ -10,7 +10,7 @@ import AuthLayout from "@/components/layout/AuthLayout/AuthLayout";
 import styles from '@/styles/pages/auth.module.css';
 
 
-export default function login() {
+export default function Login() {
     const {
         formData,
         isLoading,

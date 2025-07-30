@@ -10,7 +10,7 @@ import { useSignupForm } from '@/hooks/useSignupForm';
 import styles from '@/styles/pages/auth.module.css';
 
 
-export default function signup() {
+export default function Signup() {
     const {
         formData,
         isLoading,

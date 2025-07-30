@@ -20,6 +20,13 @@ export interface LoginRequest {
     password: string
 }
 
+export interface UserLocation {
+    city?: string
+    lat?: number
+    lng?: number
+    address?: string
+}
+
 export interface AuthResponse {
     status: string
     message: string
@@ -34,11 +41,11 @@ export interface AuthResponse {
             isActive: boolean
             createdAt: string
             updatedAt: string
-            location: any
+            location: UserLocation | null
             profileImage: string | null
             bannerImage: string | null
-            interests: any[]
-            skills: any[]
+            interests: string[]
+            skills: string[]
         }
         token: string
     }
@@ -53,7 +60,7 @@ export interface UserProfileResponse {
         bio: string
         gender: string
         birthday: string | null
-        preferences: Record<string, any>
+        preferences: Record<string, unknown>
         isEmailConfirmed: boolean
         isActive: boolean
         role: string

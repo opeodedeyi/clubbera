@@ -9,7 +9,7 @@ export interface UserProfileByUrlResponse {
         email?: string
         isEmailConfirmed?: boolean
         birthday?: string
-        preferences?: Record<string, any>
+        preferences?: Record<string, unknown>
         role?: string
         isActive?: boolean
         bio: string
@@ -56,7 +56,7 @@ export interface UpdateProfileRequest {
     preferences?: {
         theme?: string
         notifications?: boolean
-        [key: string]: any
+        [key: string]: unknown
     }
 }
 
@@ -83,7 +83,7 @@ export interface SaveImageRequest {
     altText?: string
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
     status: string
     message: string
     data: T

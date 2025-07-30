@@ -14,6 +14,8 @@ interface ProfilePageClientProps {
 }
 
 export default function ProfilePageContent({ initialProfile, uniqueUrl }: ProfilePageClientProps) {
+    console.log(uniqueUrl);
+
     return (
         <div className={styles.container}>
             <BackButton className='self-start'/>
