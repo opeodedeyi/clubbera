@@ -28,11 +28,11 @@ export interface UserProfileByUrlResponse {
             provider: string
             url: string
         } | null
-        location: {
-            city: string
-            lat: number
-            lng: number
-            address: string | null
+        location?: {
+            city?: string
+            lat?: number
+            lng?: number
+            address?: string | null
         } | null
         interests: string[]
         skills: string[]

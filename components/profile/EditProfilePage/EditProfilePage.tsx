@@ -22,7 +22,6 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
         // error,
         // success,
         profileImage,
-        // bannerImage,
         hasPersonalDetailsChanged,
         handleInputChange,
         handleSubmit,

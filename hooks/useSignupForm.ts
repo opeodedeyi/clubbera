@@ -57,18 +57,19 @@ export const useSignupForm = (): UseSignupFormReturn => {
             } else {
                 setError('Registration failed. Please try again.')
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Signup error:', err)
             
-            // Handle different types of errors
-            if (err.message.includes('API Error: 400')) {
+            const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.'
+            
+            if (errorMessage.includes('API Error: 400')) {
                 setError('Invalid information provided. Please check your details.')
-            } else if (err.message.includes('API Error: 409')) {
+            } else if (errorMessage.includes('API Error: 409')) {
                 setError('An account with this email already exists.')
-            } else if (err.message.includes('Failed to fetch')) {
+            } else if (errorMessage.includes('Failed to fetch')) {
                 setError('Network error. Please check your connection and try again.')
             } else {
-                setError(err.message || 'An unexpected error occurred. Please try again.')
+                setError(errorMessage)
             }
         } finally {
             setIsLoading(false)

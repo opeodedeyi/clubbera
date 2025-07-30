@@ -20,32 +20,39 @@ export interface LoginRequest {
     password: string
 }
 
-export interface UserLocation {
-    city?: string
-    lat?: number
-    lng?: number
-    address?: string
-}
-
 export interface AuthResponse {
     status: string
     message: string
     data: {
-        user: {
+         user: {
             id: number
-            email: string
+            uniqueUrl?: string
             fullName: string
-            uniqueUrl: string
+            email: string
+            bio?: string
+            gender?: string
+            birthday?: string | null
+            preferences?: Record<string, unknown>
             isEmailConfirmed: boolean
-            role: string
             isActive: boolean
-            createdAt: string
-            updatedAt: string
-            location: UserLocation | null
-            profileImage: string | null
-            bannerImage: string | null
-            interests: string[]
-            skills: string[]
+            role?: string
+            createdAt?: string
+            updatedAt?: string
+            images?: Array<{
+                imageType: string
+                provider: string
+                key: string
+                position: number
+            }>
+            interests?: string[]
+            skills?: string[]
+            location?: {
+                lat: number
+                lng: number
+                address: string
+            } | null
+            profileImage?: string | null
+            bannerImage?: string | null
         }
         token: string
     }
@@ -70,11 +77,10 @@ export interface UserProfileResponse {
             key: string
             position: number
         }>
-        interests: Array<{
-            id: number
-            name: string
-        }>
+        interests: string[]
+        skills: string[]
         location: {
+            city: string
             lat: number
             lng: number
             address: string

@@ -16,10 +16,8 @@ export interface User {
         key: string
         position: number
     }>
-    interests: Array<{
-        id: number
-        name: string
-    }>
+    interests?: string[]
+    skills?: string[]
     location?: {
         lat: number
         lng: number

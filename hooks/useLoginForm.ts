@@ -62,17 +62,19 @@ export const useLoginForm = (): UseLoginFormReturn => {
             } else {
                 setError('Login failed. Please try again.')
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Login error:', err)
 
-            if (err.message.includes('API Error: 401')) {
+             const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.'
+
+            if (errorMessage.includes('API Error: 401')) {
                 setError('Invalid email or password.')
-            } else if (err.message.includes('API Error: 403')) {
+            } else if (errorMessage.includes('API Error: 403')) {
                 setError('Account not verified. Please check your email.')
-            } else if (err.message.includes('Failed to fetch')) {
+            } else if (errorMessage.includes('Failed to fetch')) {
                 setError('Network error. Please check your connection and try again.')
             } else {
-                setError(err.message || 'An unexpected error occurred. Please try again.')
+                setError(errorMessage)
             }
         } finally {
             setIsLoading(false)
