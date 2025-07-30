@@ -28,7 +28,7 @@ class ServerApiClient {
             ...options,
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, config)
+        const response = await fetch(`${process.env.API_URL}${endpoint}`, config)
         
         if (!response.ok) {
             const errorText = await response.text().catch(() => 'Unknown error')
