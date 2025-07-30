@@ -83,6 +83,26 @@ export interface SaveImageRequest {
     altText?: string
 }
 
+export interface SaveImageResponse {
+    status: string
+    message: string
+    data: {
+        image: {
+            id: number
+            key: string
+            url: string
+            altText: string
+            provider: string
+        }
+        profile: {
+            id: number
+            fullName: string
+            email: string
+            // ... other profile fields you need
+        }
+    }
+}
+
 export interface ApiResponse<T = unknown> {
     status: string
     message: string
@@ -106,8 +126,8 @@ export const usersApi = {
         return api.post<UploadUrlResponse>('/users/images/upload-url', data)
     },
 
-    saveImage: async (data: SaveImageRequest): Promise<ApiResponse> => {
-        return api.post<ApiResponse>('/users/images/save', data)
+    saveImage: async (data: SaveImageRequest): Promise<SaveImageResponse> => {
+        return api.post<SaveImageResponse>('/users/images/save', data)
     },
 
     // Account management

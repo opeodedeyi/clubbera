@@ -30,7 +30,27 @@ interface UseAccountManagerReturn {
     clearMessages: () => void
 }
 
-export const useAccountManager = (initialData: any): UseAccountManagerReturn => {
+interface InitialUserData {
+    fullName?: string
+    email?: string
+    bio?: string
+    gender?: 'male' | 'female' | 'other'
+    birthday?: string
+    location?: {
+        city?: string
+        lat?: number
+        lng?: number
+    }
+    interests?: string[]
+    profileImage?: {
+        url: string
+    }
+    bannerImage?: {
+        url: string
+    }
+}
+
+export const useAccountManager = (initialData: InitialUserData): UseAccountManagerReturn => {
     const { updateUser } = useAuth()
     
     const [formData, setFormData] = useState<AccountFormData>({
@@ -130,17 +150,19 @@ export const useAccountManager = (initialData: any): UseAccountManagerReturn => 
             } else {
                 setError('Failed to update profile')
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Profile update error:', err)
             
-            if (err.message.includes('API Error: 400')) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to update profile'
+            
+            if (errorMessage.includes('API Error: 400')) {
                 setError('Invalid information provided. Please check your details.')
-            } else if (err.message.includes('API Error: 422')) {
+            } else if (errorMessage.includes('API Error: 422')) {
                 setError('Email already exists or invalid data format.')
-            } else if (err.message.includes('Failed to fetch')) {
+            } else if (errorMessage.includes('Failed to fetch')) {
                 setError('Network error. Please check your connection.')
             } else {
-                setError(err.message || 'Failed to update profile')
+                setError(errorMessage)
             }
         } finally {
             setIsLoading(false)
@@ -161,8 +183,9 @@ export const useAccountManager = (initialData: any): UseAccountManagerReturn => 
             } else {
                 setError('Failed to update interests')
             }
-        } catch (err: any) {
-            setError(err.message || 'Failed to update interests')
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to update interests'
+            setError(errorMessage)
         } finally {
             setIsLoading(false)
         }
@@ -235,14 +258,15 @@ export const useAccountManager = (initialData: any): UseAccountManagerReturn => 
                 setSuccess(true)
                 updateUser(saveResponse.data.profile)
             }
-        } catch (err: any) {
-            setError(err.message || 'Failed to upload image')
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to upload image'
+            setError(errorMessage)
 
-            if (err.message.includes('API Error: 500')) {
+            if (errorMessage.includes('API Error: 500')) {
                 console.error('Server error - check your API logs');
                 setError('Server error occurred. Please try again later.');
             } else {
-                setError(err.message || 'Failed to upload image')
+                setError(errorMessage)
             }
         } finally {
             setIsLoading(false)
@@ -264,8 +288,9 @@ export const useAccountManager = (initialData: any): UseAccountManagerReturn => 
                 // Logout user and redirect
                 window.location.href = '/login?message=Account deactivated successfully'
             }
-        } catch (err: any) {
-            setError(err.message || 'Failed to deactivate account')
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to deactivate account'
+            setError(errorMessage)
         } finally {
             setIsLoading(false)
         }
