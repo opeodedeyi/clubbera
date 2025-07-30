@@ -51,6 +51,7 @@ const sizeMap = {
     xl: 28,
     xxl: 32,
     xxxl: 36,
+    max: 44,
     cHeader: 28 | 22,
 }
 

@@ -1,0 +1,113 @@
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-4xl) var(--spacing-20);
+    gap: var(--spacing-32);
+}
+
+.containerText {
+    width: 50%;
+    max-width: 480px;
+    font-size: var(--font-size-hero);
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: var(--color-text);
+}
+
+.containerCards {
+    width: 50%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-14);
+}
+
+.containerCardsRow {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-8);
+}
+
+.card {
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-1-5);
+    gap: var(--spacing-8);
+}
+
+.cardBackground {
+    width: 144px;
+    height: 144px;
+    border-radius: 48px;
+    background-color: var(--color-danger-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardTitle {
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: var(--color-text);
+}
+
+@media (max-width: 1279px) {
+    .container {
+        padding: var(--spacing-3xl) var(--spacing-12);
+        gap: var(--spacing-16);
+    }
+
+    .containerText {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: var(--spacing-3xl) var(--spacing-lg);
+        gap: var(--spacing-xl);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .containerText,
+    .containerCards {
+        width: 100%;
+    }
+
+    .containerText {
+        font-size: var(--font-size-2xl);
+    }
+
+    .card {
+        max-width: 160px;
+    }
+
+    .cardBackground {
+        width: 100px;
+        height: 100px;
+        border-radius: 30px;
+    }
+
+    .cardTitle {
+        font-size: var(--font-size-base);
+    }
+}

@@ -19,14 +19,14 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
             title: `${profile.fullName} | Clubbera`,
             description: profile.bio || `Check out ${profile.fullName}'s profile on Clubbera`,
             openGraph: {
-                title: `${profile.fullName} (@${profile.uniqueUrl})`,
+                title: `${profile.fullName} | Clubbera`,
                 description: profile.bio || `Check out ${profile.fullName}'s profile on Clubbera`,
                 images: profile.profileImage ? [profile.profileImage.url] : [],
                 type: 'profile',
             },
             twitter: {
                 card: 'summary_large_image',
-                title: `${profile.fullName}`,
+                title: `${profile.fullName} | Clubbera`,
                 description: profile.bio || `Check out ${profile.fullName}'s profile on Clubbera`,
                 images: profile.profileImage ? [profile.profileImage.url] : [],
             }

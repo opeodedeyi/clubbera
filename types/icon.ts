@@ -51,7 +51,7 @@ export type IconName =
     | 'toggle'
     | 'signout'
 
-export type IconSize = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl' | 'cHeader'
+export type IconSize = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl' | 'max' | 'cHeader'
 
 export type HoverEffect = 'none' | 'opacity' | 'scale' | 'color' | 'close' | 'primary'
 

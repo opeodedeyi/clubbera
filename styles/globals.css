@@ -18,6 +18,7 @@
     --color-community-hover: #832DF0;
     --color-community-light: #F9F5FF;
     --color-danger: #E84C7B;
+    --color-danger-light: #FDF2F6;
 
     --color-background: var(--color-white);
     --color-background-light: var(--color-light);
@@ -186,6 +187,10 @@ h3, h4, h5 {
     font-size: 24px;
     font-weight: 400;
     letter-spacing: 0%;
+}
+
+.font-boris {
+    font-family: var(--font-boris);
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
