@@ -33,6 +33,7 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
     } = useAccountManager(initialProfile);
 
     const genderOptions = [
+        { value: '', label: 'Prefer not to say' },
         { value: 'male', label: 'Male' },
         { value: 'female', label: 'Female' },
         { value: 'other', label: 'Other' },

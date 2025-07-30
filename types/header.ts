@@ -6,7 +6,7 @@ export interface User {
     bio?: string
     gender?: string
     birthday?: string | null
-    preferences?: Record<string, any>
+    preferences?: Record<string, unknown>
     isEmailConfirmed: boolean
     isActive: boolean
     role?: string

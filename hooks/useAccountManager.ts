@@ -6,7 +6,7 @@ interface AccountFormData {
     fullName: string
     email: string
     bio: string
-    gender: 'male' | 'female' | 'other'
+    gender: 'male' | 'female' | 'other' | ''
     birthday: string
     city: string
     lat: number
@@ -34,7 +34,7 @@ interface InitialUserData {
     fullName?: string
     email?: string
     bio?: string
-    gender?: 'male' | 'female' | 'other'
+    gender?: string | null
     birthday?: string
     location?: {
         city?: string
@@ -52,12 +52,18 @@ interface InitialUserData {
 
 export const useAccountManager = (initialData: InitialUserData): UseAccountManagerReturn => {
     const { updateUser } = useAuth()
+
+    const isValidGender = (gender: string): gender is 'male' | 'female' | 'other' => {
+        return ['male', 'female', 'other'].includes(gender);
+    }
     
     const [formData, setFormData] = useState<AccountFormData>({
         fullName: initialData.fullName || '',
         email: initialData.email || '',
         bio: initialData.bio || '',
-        gender: initialData.gender || 'other',
+        gender: (initialData.gender && isValidGender(initialData.gender)) 
+            ? initialData.gender as 'male' | 'female' | 'other' 
+            : '',
         birthday: initialData.birthday || '',
         city: initialData.location?.city || '',
         lat: initialData.location?.lat || 0,
@@ -70,7 +76,9 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         fullName: initialData.fullName || '',
         email: initialData.email || '',
         bio: initialData.bio || '',
-        gender: initialData.gender || 'other',
+        gender: (initialData.gender && isValidGender(initialData.gender)) 
+            ? initialData.gender as 'male' | 'female' | 'other' 
+            : '',
         birthday: initialData.birthday || '',
         city: initialData.location?.city || '',
         lat: initialData.location?.lat || 0,
@@ -120,7 +128,6 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
             const updateData: UpdateProfileRequest = {
                 fullName: formData.fullName,
                 bio: formData.bio,
-                gender: formData.gender,
                 location: formData.city ? {
                     city: formData.city,
                     lat: formData.lat,
@@ -130,6 +137,10 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
 
             if (formData.birthday && formData.birthday.trim() !== '') {
                 updateData.birthday = formData.birthday
+            }
+
+            if (formData.gender && formData.gender !== 'other') {
+                updateData.gender = formData.gender
             }
 
             const response = await usersApi.updateProfile(updateData)

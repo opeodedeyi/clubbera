@@ -48,11 +48,6 @@ export const useSignupForm = (): UseSignupFormReturn => {
                 email: formData.email,
                 password: formData.password,
                 fullName: formData.name,
-                bio: '',
-                gender: 'other',
-                birthday: null,
-                preferences: {},
-                location: null
             }
 
             const response = await authApi.signup(requestData)
