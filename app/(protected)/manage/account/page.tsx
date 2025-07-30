@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { usersServerApi  } from '@/lib/api/usersServer';
 import EditProfilePage from '@/components/profile/EditProfilePage/EditProfilePage';
 import ManageAccount from '@/components/layout/ManageAccount/ManageAccount';
