@@ -8,6 +8,7 @@ export default function Landing() {
             <HeroSection/>
             <MoreHero/>
             <ForWho/>
+            
         </>
     );
 }
