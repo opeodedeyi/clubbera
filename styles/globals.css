@@ -120,7 +120,7 @@
     --radius-input: var(--radius-xl);  /* 12px - Form inputs */
     --radius-card: var(--radius-xl);        /* 12px - Cards, containers */
     --radius-modal: var(--radius-xl);       /* 12px - Modals, dialogs */
-    --radius-image: var(--radius-2xl);       /* 12px - Images */
+    --radius-image: var(--radius-2xl);       /* 16px - Images */
     --radius-avatar: var(--radius-full);       /* 9999px - Avatars */
 
     --max-width: 1280px;

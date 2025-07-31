@@ -9,7 +9,7 @@ export const IMAGES = {
         },
         landing: {
             heroImage: '/images/pages/landing/heroImage.png',
-            // feature1: '/images/pages/landing/feature-1.png',
+            feature1: '/images/pages/landing/feature-1.png',
         },
     //   event: {
     //     defaultCover: '/images/pages/communities/default-cover.jpg',

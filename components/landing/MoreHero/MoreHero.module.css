@@ -93,6 +93,14 @@
         width: 100%;
     }
 
+    .containerCards {
+        gap: var(--spacing-6);
+    }
+
+    .containerCardsRow {
+        gap: var(--spacing-6);
+    }
+
     .containerText {
         font-size: var(--font-size-2xl);
     }

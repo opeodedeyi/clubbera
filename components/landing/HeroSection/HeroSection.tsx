@@ -8,7 +8,7 @@ export default function HeroSection() {
             <div className={styles.heroContent}>
                 <div className={styles.heroText}>
                     <p className={styles.heroTitle}>
-                        Discover,<br className="desktop-only-flex"/>
+                        Discover, <br className="desktop-only-flex"/>
                         Connect <span className="font-boris">&<br className="tablet-mobile-flex"/></span> Thrive <br className="desktop-only-flex"/> 
                         with <span className="font-boris" style={{color: 'var(--color-default)'}}>Clubbera.</span>
                     </p>
