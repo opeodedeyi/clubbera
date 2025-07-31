@@ -19,7 +19,7 @@ export default function ForWho() {
                 <h1 className={styles.containerText}>Clubbera is built for <br />every player.</h1>
 
                 <div className={styles.containerTags}>
-                    <Tag text="Marvel" className="desktop-only-flex" />
+                    <Tag text="Marvel"/>
                     <Tag text="Football" selected/>
                     <Tag text="Yoga" />
                     <Tag text="& Many More" />
