@@ -29,7 +29,21 @@ export default function ExtraFeatures() {
 
             <div className={`${styles.FeaturesCard} ${styles.defaultTheme}`}>
                 <div className={`${styles.innerCard} ${styles.borderDefault} ${styles.otherCard}`}>
+                    <span className={styles.designLine1}/>
+                    <span className={styles.designLine2}/>
+                    <span className={styles.designLine3}/>
 
+                    <div className={styles.otherHeader}>
+                        <Icon name="chat" size="max" color="var(--color-default)"/>
+                    </div>
+
+                    <div className={styles.otherBodyText}>
+                        <p className={styles.eventBodyTextTitle}><span className="font-boris color-default">Meet,</span> Message,<br/>
+                        <span className="font-boris color-default">Connect</span></p>
+
+                        <p className={styles.eventBodyTextSub}>Chat one-on-one to plan events and <br />
+                        build friendships that last.</p>
+                    </div>
                 </div>
             </div>
         </div>

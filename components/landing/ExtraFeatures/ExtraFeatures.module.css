@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: var(--spacing-4xl) var(--spacing-20);
+    padding: var(--spacing-32) var(--spacing-20);
     gap: var(--spacing-24);
 }
 
@@ -52,6 +52,15 @@
     background-color: var(--color-event-light);
 }
 
+.otherHeader {
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .eventBody {
     width: 100%;
     padding: var(--spacing-12) var(--spacing-6) var(--spacing-8);
@@ -86,6 +95,47 @@
 
 .otherCard {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.designLine1,
+.designLine2,
+.designLine3 {
+    position: absolute;
+    border: 10px solid var(--color-default-background);
+    border-radius: var(--radius-3xl);
+}
+
+.designLine1 {
+    width: 203px;
+    height: 337px;
+    top: 160px;
+    right: -120px;
+}
+
+.designLine2 {
+    width: 304px;
+    height: 203px;
+    top: -124px;
+    left: -172px;
+}
+
+.designLine3 {
+    width: 304px;
+    height: 203px;
+    top: -30px;
+    left: 40px;
+}
+
+.otherBodyText {
+    width: 100%;
+    padding: var(--spacing-8) var(--spacing-6) var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    z-index: 1;
 }
 
 @media (max-width: 1279px) {
