@@ -140,7 +140,7 @@
 
 @media (max-width: 1279px) {
     .container {
-        padding: var(--spacing-3xl) var(--spacing-12);
+        padding: var(--spacing-4xl) var(--spacing-12);
         gap: var(--spacing-16);
     }
 
@@ -174,7 +174,7 @@
 
 @media screen and (max-width: 767px) {
     .container {
-        padding: var(--spacing-3xl) var(--spacing-lg);
+        padding: var(--spacing-4xl) var(--spacing-lg);
         gap: var(--spacing-10);
         flex-direction: column;
         justify-content: center;
