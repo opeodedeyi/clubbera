@@ -5,8 +5,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-4xl) var(--spacing-20);
-    gap: var(--spacing-32);
+    padding: var(--spacing-36) var(--spacing-20);
+    gap: var(--spacing-40);
 }
 
 .heroContent {
@@ -51,8 +51,8 @@
 
 @media (max-width: 1279px) {
     .container {
-        padding: var(--spacing-3xl) var(--spacing-12);
-        gap: var(--spacing-16);
+        padding: var(--spacing-4xl) var(--spacing-20);
+        gap: var(--spacing-32);
     }
 
     .heroText {
