@@ -1,0 +1,92 @@
+.bottomNav {
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--color-background);
+    border-top: 1px solid var(--color-border);
+    padding: 25px 0 max(25px, env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding-bottom: max(25px, env(safe-area-inset-bottom))
+}
+
+.bottomNav::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: var(--color-background);
+    z-index: -1;
+}
+
+/* Hide on desktop */
+@media (min-width: 1280px) {
+    .bottomNav {
+        display: none;
+    }
+}
+
+.navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+    min-width: 44px;
+    border-radius: 8px;
+    flex: 1;
+    max-width: 80px;
+}
+
+.navItem:hover,
+.navItem:focus {
+    color: var(--color-text);
+}
+
+.navItem.active {
+    color: var(--color-text);
+}
+
+/* Skeleton styles */
+.skeleton {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.iconSkeleton {
+    width: 24px;
+    height: 24px;
+    background: var(--color-skeleton, #e2e8f0);
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.labelSkeleton {
+    width: 40px;
+    height: 12px;
+    background: var(--color-skeleton, #e2e8f0);
+    border-radius: 2px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}

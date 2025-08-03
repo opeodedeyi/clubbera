@@ -6,7 +6,6 @@ import ExtraFeatures from "@/components/landing/ExtraFeatures/ExtraFeatures";
 import SocialWorld from "@/components/landing/SocialWorld/SocialWorld";
 import FreeCommunity from "@/components/landing/FreeCommunity/FreeCommunity";
 import JoinNow from "@/components/landing/JoinNow/JoinNow";
-import Footer from "@/components/layout/Footer/Footer";
 
 export default function Landing() {
     return (
@@ -19,7 +18,6 @@ export default function Landing() {
             {/* add stuffs here */}
             <SocialWorld/>
             <JoinNow/>
-            <Footer/>
         </CenterContainer>
     );
 }

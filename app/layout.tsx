@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { AuthProvider } from '@/hooks/useAuth';
 import Header from "@/components/layout/Header/Header";
+import ConditionalFooter from "@/components/layout/Footer/ConditionalFooter";
+import ConditionalBottomNav from "@/components/layout/BottomNav/ConditionalBottomNav";
 import { ThemeProvider } from 'next-themes';
 import { boris, nunito } from "@/fonts/fonts";
 import "@/styles/globals.css";
@@ -40,6 +42,8 @@ export default function RootLayout({
                         <AuthProvider>
                             <Header />
                             <main>{children}</main>
+                            <ConditionalFooter />
+                            <ConditionalBottomNav />
                         </AuthProvider>
                 </ThemeProvider>
             </body>

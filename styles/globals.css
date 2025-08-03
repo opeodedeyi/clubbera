@@ -230,6 +230,11 @@ h3, h4, h5 {
 }
 
 @media screen and (max-width: 767px) {
+    body {
+        background-color: var(--color-background);
+        padding-bottom: 80px;
+    }
+
     h1 {
         font-size: 32px;
         letter-spacing: -0.3px;
