@@ -16,15 +16,15 @@ export default function BottomNavLoggedOut() {
 
     return (
         <nav className={styles.bottomNav}>
-            {loggedOutNavItems.map(({ href, icon, label }) => {
-                const isActive = pathname === href;
+            {loggedOutNavItems.map((item) => {
+                const isActive = pathname === item.href;
                 
                 return (
                     <Link 
-                        key={href}
-                        href={href} 
+                        key={item.href}
+                        href={item.href} 
                         className={`${styles.navItem} ${isActive ? styles.active : ''}`}>
-                        <Icon name={icon} size="md" />
+                        <Icon name={item.icon} size="md" />
                     </Link>
                 );
             })}
