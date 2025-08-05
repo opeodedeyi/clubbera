@@ -1,0 +1,193 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-16);
+}
+
+.noPost {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-8);
+}
+
+/* no post card */
+.noPostCard {
+    width: 100%;
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background-color: var(--color-background-light);
+}
+
+.noPostCardHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.noPostCardBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.noPostCardFooter {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.noPostCardRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.shadowProfile {
+    width: 25px;
+    height: 25px;
+    border-radius: 1000px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowCircle {
+    width: 13px;
+    height: 13px;
+    border-radius: 1000px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextFull {
+    width: 100px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextLong {
+    width: 263px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextMid {
+    width: 240px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextShort {
+    width: 23px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowText {
+    width: 50px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.noPostText {
+    font-size: var(--font-size-xl);
+}
+
+.createCommCard {
+    position: relative;
+    width: 100%;
+    max-width: 727px;
+    height: 354px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-3xl);
+    background-color: var(--color-background-light);
+    overflow: hidden;
+}
+
+.createCommCardTitle {
+    z-index: 1;
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+}
+
+.createCommCardBtn {
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+}
+
+.design1 {
+    top: 24px;
+    left: 90px;
+}
+
+.design2 {
+    top: 35px;
+    right: 50px;
+}
+
+.design3 {
+    top: 144px;
+    left: 50px;
+}
+
+.design4 {
+    bottom: 90px;
+    right: 75px;
+}
+
+.design5 {
+    top: 45px;
+    left: 45%;
+}
+
+.design6 {
+    bottom: 50px;
+    right: 45%;
+}
+
+.design7 {
+    bottom: 60px;
+    left: 90px;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        margin-top: var(--spacing-8); /* remove later */
+        margin-bottom: var(--spacing-8); /* remove later */
+    }
+
+    .noPostText {
+        font-size: var(--font-size-md);
+    }
+
+    .createCommCardTitle {
+        font-size: var(--font-size-lg);
+    }
+}
