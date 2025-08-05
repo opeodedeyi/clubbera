@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--spacing-16);
+    margin-bottom: var(--spacing-12);
 }
 
 .noPost {
@@ -180,7 +181,7 @@
 @media screen and (max-width: 767px) {
     .container {
         margin-top: var(--spacing-8); /* remove later */
-        margin-bottom: var(--spacing-8); /* remove later */
+        margin-bottom: var(--spacing-12); /* remove later */
     }
 
     .noPostText {
