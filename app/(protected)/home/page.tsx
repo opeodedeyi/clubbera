@@ -3,6 +3,7 @@
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import CenterContainer from "@/components/layout/CenterContainer/CenterContainer";
 import Feed from '@/components/home/Feed/Feed';
+import DiscoverCommunities from '@/components/home/DiscoverCommunities/DiscoverCommunities';
 // import CommunitiesDiscover from '@/components/pages/home/CommunitiesDiscover/CommunitiesDiscover';
 // import UserCommunities from '@/components/pages/home/UserCommunities/UserCommunities';
 // import CommunitiesDiscoverSkeleton from '@/components/pages/home/CommunitiesDiscover/CommunitiesDiscoverSkeleton';
@@ -17,22 +18,15 @@ export default function HomePage() {
         <CenterContainer>
             <div className={styles.container}>
                 <div className={styles.mainContainer}>
-                    {/* community buttons (will have different communities, and the current community you are viewing) */}
+                    {/* community buttons goes here, and 
+                    (will have different communities, and 
+                    the current community you are viewing) */}
 
-                    <div className={styles.mainContainerCards}>
-                        {/* create post cards */}
-
-                        <Feed/>
-                    </div>
+                    <Feed/>
                 </div>
 
                 {isDesktop && (
-                    <div className={styles.altContainer}>
-                        <h2>Discover Communities</h2>
-
-                        <div className={styles.altContainer}></div>
-
-                    </div>
+                    <DiscoverCommunities/>
                 )}
             </div>
         </CenterContainer>
