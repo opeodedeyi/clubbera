@@ -4,7 +4,7 @@ import Icon from '@/components/ui/Icon/Icon';
 import styles from './CommunityCard.module.css';
 
 interface CommunityCardProps {
-    url: string;
+    url?: string;
     profile?: string;
     cover?: string;
     name: string;
@@ -14,26 +14,38 @@ interface CommunityCardProps {
 }
 
 export default function CommunityCard({ url, profile, cover, name, description, member, className }: CommunityCardProps) {
-    return (
-        <Link href={`/community/${url}`} className={`${styles.cardLink} ${className || ''}`}>
-            <div className={styles.card}>
-                <div className={styles.cardCover}>
-                    <img src={cover || IMAGES.pages.communities.cover} alt='cover image of community'/>
-                </div>
-                <div className={styles.cardProfile}>
-                    <img src={profile || IMAGES.pages.communities.placeholder} alt='profile image of community' />
-                </div>
-                <div className={styles.cardText}>
-                    <div className={styles.cardTextMain}>
-                        <h5 className={styles.cardTextTitle}>{name}</h5>
-                        <p className={styles.cardTextDescription}>{description}</p>
-                    </div>
-                    <div className={styles.cardTextMember}><Icon name='group' size='sm' color='var(--color-text-light)'/><span>{`${member} Member${member > 1 ? 's' : ''}`}</span></div>
-                </div>
-                <div className={styles.cardArrow}>
-                    <Icon name='arrowRight' size='sm' color='var(--color-text-light)'/>
-                </div>
+    const cardContent = (
+        <div className={styles.card}>
+            <div className={styles.cardCover}>
+                <img src={cover || IMAGES.pages.communities.cover} alt='cover image of community'/>
             </div>
-        </Link>
-    )
+            <div className={styles.cardProfile}>
+                <img src={profile || IMAGES.pages.communities.placeholder} alt='profile image of community' />
+            </div>
+            <div className={styles.cardText}>
+                <div className={styles.cardTextMain}>
+                    <h5 className={styles.cardTextTitle}>{name}</h5>
+                    <p className={styles.cardTextDescription}>{description}</p>
+                </div>
+                <div className={styles.cardTextMember}><Icon name='group' size='sm' color='var(--color-text-light)'/><span>{`${member} Member${member > 1 ? 's' : ''}`}</span></div>
+            </div>
+            <div className={styles.cardArrow}>
+                <Icon name='arrowRight' size='sm' color='var(--color-text-light)'/>
+            </div>
+        </div>
+    );
+
+    if (url) {
+        return (
+            <Link href={`/community/${url}`} className={`${styles.cardLink} ${className || ''}`}>
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return (
+        <div className={`${styles.cardLink} ${className || ''}`}>
+            {cardContent}
+        </div>
+    );
 } 

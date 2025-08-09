@@ -1,10 +1,10 @@
 .container {
     width: 100%;
+    min-height: calc(100vh - 80px);
     padding: var(--spacing-xl) var(--spacing-20);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-2xl);
 }
 
 .containerMain {
@@ -76,6 +76,11 @@
     color: var(--color-text-light);
 }
 
+.miniDetailsPlace {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
 .actionButtons {
     display: flex;
     flex-direction: row;
@@ -103,6 +108,25 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-3);
+}
+
+.noContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.noContentIcon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background-light);
+    border-radius: var(--radius-2xl);
 }
 
 .cardList {

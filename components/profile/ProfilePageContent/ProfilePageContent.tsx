@@ -36,28 +36,25 @@ export default function ProfilePageContent({ initialProfile, uniqueUrl }: Profil
                         <h2>{initialProfile.fullName}</h2>
 
                         <div className={styles.profileDetailsText}>
-                            { initialProfile.gender && (
-                                <div className={styles.profileDetailsTextItem}>
-                                    <Icon name='profile' size='sm' color='var(--color-default)' />
-                                    <span className={styles.profileDetailsTextItemValue}>{initialProfile.gender}</span>
-                                </div>
-                            )}
+                            <div className={styles.profileDetailsTextItem}>
+                                <Icon name='profile' size='sm' color='var(--color-default)' />
+                                <span className={styles.profileDetailsTextItemValue}>{initialProfile.gender || 'prefer not to say'}</span>
+                            </div>
 
-                            { initialProfile.location && (
-                                <div className={styles.profileDetailsTextItem}>
-                                    <Icon name='locationMark' size='sm' color='var(--color-default)' />
-                                    <span className={styles.profileDetailsTextItemValue}>{initialProfile.location.city}</span>
-                                </div>
-                            )}
+                            <div className={styles.profileDetailsTextItem}>
+                                <Icon name='locationMark' size='sm' color='var(--color-default)' />
+                                <span className={styles.profileDetailsTextItemValue}>{initialProfile.location?.city || 'Clubbera HQ'}</span>
+                            </div>
                         </div>
                     </div>
 
-                    {initialProfile.bio && (
-                        <div className={styles.TextDetails}>
-                            <p className={styles.miniTitle}>Bio</p>
-                            <p className={styles.miniDetails}>{initialProfile.bio}</p>
-                        </div>
-                    )}
+                    <div className={styles.TextDetails}>
+                        <p className={styles.miniTitle}>Bio</p>
+                        {initialProfile.bio ?
+                            <p className={styles.miniDetails}>{initialProfile.bio}</p> :
+                            <p className={styles.miniDetailsPlace}>No Bio Set</p>
+                        }
+                    </div>
 
                     {initialProfile.isOwner && (
                         <div className={styles.actionButtons}>
@@ -73,30 +70,49 @@ export default function ProfilePageContent({ initialProfile, uniqueUrl }: Profil
                 </div>
 
                 <div className={styles.contentDetails}>
-                    {initialProfile.interests.length > 0 && (
-                        <div className={styles.otherContainer}>
-                            <h2>My Interests</h2>
+                    
+                    <div className={styles.otherContainer}>
+                        <h2>My Interests</h2>
 
+                        {initialProfile.interests.length > 0 ? (
                             <div className={styles.interestsList}>
                                 {initialProfile.interests.map((interest, index) => (
                                     <span key={index} className={styles.interestItem}>
                                         {interest}
                                     </span>
                                 ))}
+                            </div> ) :
+                            <div className={styles.noContent}>
+                                <div className={styles.noContentIcon}>
+                                    <Icon name="caution" size='xxl' color='var(--color-text-muted)'/>
+                                </div>
+                                <p className={styles.miniDetailsPlace}>No Interests Set</p>
                             </div>
-                        </div>
-                    )}
+                        }
+                    </div>
 
                     {/* communitities he has joined */}
                     <div className={styles.otherContainer}>
                         <h2>Communities</h2>
 
                         <div className={styles.cardList}>
-                            {/* {initialProfile.interests.map((interest, index) => (
-                                <span key={index} className={styles.interestItem}>
-                                    {interest}
-                                </span>
-                            ))} */}
+                            {/* replace with call to API to get community list */}
+                            {/* {initialProfile.interests.length > 0 &&  */}
+                                {/* (
+                                <div className={styles.interestsList}>
+                                {initialProfile.interests.map((interest, index) => ( */}
+                                        {/* <span key={index} className={styles.interestItem}>
+                                            {interest}
+                                        </span>
+                                    ))}
+                                </div> ) : */}
+                                <div className={styles.noContent}>
+                                    <div className={styles.noContentIcon}>
+                                        <Icon name="group" size='xxl' color='var(--color-text-muted)'/>
+                                    </div>
+                                    <p className={styles.miniDetailsPlace}>No Communities Joined Yet</p>
+                                </div>
+                            {/* } */}
                         </div>
                     </div>
                 </div>

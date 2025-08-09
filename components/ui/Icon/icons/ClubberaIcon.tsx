@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 interface ClubberaIconProps {
     size?: number
     color?: string
@@ -9,7 +11,8 @@ export default function ClubberaIcon({
     color,
     className = '',
 }: ClubberaIconProps) {
-    const maskId = `clubbera-mask-${Math.random().toString(36).substr(2, 9)}`
+    // const maskId = `clubbera-mask-${Math.random().toString(36).substr(2, 9)}`
+    const maskId = useId();
 
     const useOriginalColors = !color
     const mainColor = useOriginalColors ? "#05C213" : color

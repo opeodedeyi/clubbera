@@ -61,7 +61,6 @@
 
 .side {
     width: 380px;
-    background-color: brown;
 }
 
 @media screen and (max-width: 767px) {

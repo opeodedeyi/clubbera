@@ -1,3 +1,4 @@
+import CommunityCard from '@/components/cards/community/CommunityCard/CommunityCard';
 import Button from "@/components/ui/Button/Button";
 import styles from "./communitySteps.module.css";
 import { StepProps } from "@/types/community";
@@ -23,7 +24,10 @@ const ImagesAndTagsStep: React.FC<StepProps> = ({ nextStep, navigation }: StepPr
             </div>
 
             <div className={`${styles.side} desktop-only-flex`}>
-                {/* card goes here */}
+                <CommunityCard
+                    name='Clubbera'
+                    description='Join the Fight! Welcome to the ultimate Invincible community. Connect with heroes'
+                    member={0}/>
             </div>
         </div>
     )
