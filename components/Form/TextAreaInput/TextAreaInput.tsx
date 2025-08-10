@@ -16,6 +16,7 @@ interface TextAreaInputProps {
     maxRows?: number;
     disabled?: boolean;
     isRequired?: boolean;
+    error?: string;
 }
 
 const TextAreaInput: React.FC<TextAreaInputProps> = (props) => {
@@ -90,6 +91,8 @@ const TextAreaInput: React.FC<TextAreaInputProps> = (props) => {
                     </div>
                 )}
             </div>
+
+            {props.error && <span className={styles.errorText}>{props.error}</span>}
         </div>
     );
 }

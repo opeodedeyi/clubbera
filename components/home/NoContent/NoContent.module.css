@@ -141,41 +141,29 @@
 
 .particle {
     position: absolute;
+    border-width: 15px;
+    border-style: solid;
+    border-radius: var(--radius-3xl);
+    width: 500px;
+    height: 500px;
 }
 
 .design1 {
-    top: 24px;
-    left: 90px;
+    border-color: var(--color-default);
+    top: 35px;
+    left: 130px;
 }
 
 .design2 {
+    border-color: var(--color-event);
     top: 35px;
-    right: 50px;
+    right: -130px;
 }
 
 .design3 {
-    top: 144px;
-    left: 50px;
-}
-
-.design4 {
-    bottom: 90px;
-    right: 75px;
-}
-
-.design5 {
-    top: 45px;
-    left: 45%;
-}
-
-.design6 {
-    bottom: 50px;
-    right: 45%;
-}
-
-.design7 {
-    bottom: 60px;
-    left: 90px;
+    border-color: var(--color-danger);
+    bottom: -440px;
+    left: -50px;
 }
 
 @media screen and (max-width: 767px) {

@@ -43,13 +43,9 @@ function CreateCommunityCard() {
 
             <Button as='link' variant='plain' className={styles.createCommCardBtn} href='/community/create'>Create Community</Button>
 
-            <BrandIcon name='clubberaGame' className={`${styles.particle} ${styles.design1}`}/>
-            <BrandIcon name='clubberaHex' className={`${styles.particle} ${styles.design2}`}/>
-            <BrandIcon name='clubberaOreo' className={`${styles.particle} ${styles.design3}`}/>
-            <BrandIcon name='clubberaPlay' className={`${styles.particle} ${styles.design4}`}/>
-            <BrandIcon name='clubberaTaiwo' className={`${styles.particle} ${styles.design5}`}/>
-            <BrandIcon name='clubberaTriangle' className={`${styles.particle} ${styles.design6}`}/>
-            <BrandIcon name='clubberaKehinde' className={`${styles.particle} ${styles.design7}`}/>
+            <span className={`${styles.particle} ${styles.design1}`}/>
+            <span className={`${styles.particle} ${styles.design2}`}/>
+            <span className={`${styles.particle} ${styles.design3}`}/>
         </div>
     )
 }

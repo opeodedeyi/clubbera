@@ -8,6 +8,7 @@ import { CommunityFormData, UploadUrlResponse } from '@/types/community';
 const initialFormData: CommunityFormData = {
     name: '',
     description: '',
+    tagline: '',
     is_private: true,
     location: {
         city: '',
@@ -15,8 +16,16 @@ const initialFormData: CommunityFormData = {
         lng: null,
     },
     tags: [],
-    profile_image: null,
-    cover_image: null
+    profile_image: {
+        provider: null,
+        key: null,
+        alt_text: null
+    },
+    cover_image: {
+        provider: null,
+        key: null,
+        alt_text: null
+    }
 }
 
 export function useCommunityForm() {
@@ -139,6 +148,9 @@ export function useCommunityForm() {
         case 2: // Name & Description
             if (!formData.name.trim()) {
                 newErrors.name = 'Community name is required'
+            }
+            if (!formData.tagline.trim()) {
+                newErrors.tagline = 'Tagline is required'
             }
             if (!formData.description.trim()) {
                 newErrors.description = 'Description is required'

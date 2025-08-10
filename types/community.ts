@@ -1,25 +1,34 @@
 export interface CommunityFormData {
     name: string
     description: string
+    tagline: string
     is_private: boolean
     location: {
         city: string
-        lng: number | null
-        lat: number | null
+        lng: number | undefined
+        lat: number | undefined
     }
     tags: string[]
-    profile_image: string | null
-    cover_image: string | null
+    profile_image?: {
+        provider: string | undefined,
+        key: string | undefined,
+        alt_text: string | undefined
+    }
+    cover_image?: {
+        provider: string | undefined,
+        key: string | undefined,
+        alt_text: string | undefined
+    }
 }
 
 export interface FormStep {
     id: number
-    navigation: string | null
+    navigation: string | undefined
     component: React.ComponentType<StepProps>
 }
 
 export interface StepProps {
-    navigation: string | null
+    navigation: string | undefined
     currentStep: number
     formData: CommunityFormData
     errors: Record<string, string>

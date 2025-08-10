@@ -9,6 +9,7 @@ interface TextInputProps {
     type?: string;
     isRequired?: boolean;
     disabled?: boolean;
+    error?: string;
 }
 
 const TextInput = ( props: TextInputProps ) => {
@@ -30,6 +31,8 @@ const TextInput = ( props: TextInputProps ) => {
                 onChange={handleChange}
                 required={props.isRequired}
                 disabled={props.disabled} />
+
+            {props.error && <span className={styles.errorText}>{props.error}</span>}
         </div>
     );
 }

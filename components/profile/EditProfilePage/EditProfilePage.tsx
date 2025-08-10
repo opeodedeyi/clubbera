@@ -32,7 +32,7 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
     } = useAccountManager(initialProfile);
 
     const genderOptions = [
-        { value: '', label: 'Prefer not to say' },
+        { value: 'prefer not to say', label: 'Prefer not to say' },
         { value: 'male', label: 'Male' },
         { value: 'female', label: 'Female' },
         { value: 'other', label: 'Other' },
@@ -108,11 +108,11 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
                 </div>
             </div>
 
-            <div className={styles.manageAccount}>
+            {/* <div className={styles.manageAccount}>
                 <h2>Manage Account</h2>
 
-                {/* delete account button */}
-            </div>
+                {/* delete account button 
+            </div> */}
         </div>
     )
 }

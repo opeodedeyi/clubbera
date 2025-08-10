@@ -1,0 +1,163 @@
+.container {
+    width: 100%;
+}
+
+.toggleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    width: 100%;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: none;
+    border-radius: var(--radius-xl);
+    background: var(--color-background-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.option:hover:not(.disabled) {
+    background: var(--color-background-light);
+}
+
+.option.selected {
+    background: var(--color-default);
+}
+
+.option.community.selected {
+    background: var(--color-community);
+}
+
+.option.event.selected {
+    background: var(--color-event);
+}
+
+.option.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.optionContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-3-5);
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-light);
+}
+
+.optionContentText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.optionLabel,
+.optionDescription {
+    font-size: var(--font-size-label);
+    font-weight: 500;
+    color: var(--color-text-light);
+    line-height: 160%;
+}
+
+.selected .optionLabel,
+.selected .optionDescription,
+.selected .icon {
+    color: var(--color-white);
+}
+
+.switchContainer {
+    flex-shrink: 0;
+}
+
+.switch {
+    width: 39px;
+    height: 24px;
+    background: var(--color-background-dark);
+    border-radius: var(--radius-full);
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.switch.switchOn {
+    background: var(--color-default);
+}
+
+.switch.switchOn[data-variant="community"] {
+    background: var(--color-community-hover);
+}
+
+.switch.switchOn[data-variant="event"] {
+    background: var(--color-event-hover);
+}
+
+.switchThumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-white);
+    border-radius: var(--radius-full);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease;
+}
+
+.switchOn .switchThumb {
+    transform: translateX(15px);
+}
+
+.errorText {
+    font-size: var(--font-size-xs);
+    color: var(--color-danger);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .option {
+        padding: var(--spacing-4);
+    }
+
+    .optionContent {
+        gap: var(--spacing-2-5);
+    }
+
+    .icon {
+        width: 10px;
+        height: 10px;
+    }
+
+    .optionLabel {
+        font-size: var(--font-size-xs);
+    }
+
+    .optionDescription {
+        font-size: var(--font-size-xxs);
+    }
+
+    .switch {
+        width: 26px;
+        height: 16px;
+    }
+
+    .switchThumb {
+        width: 14px;
+        height: 14px;
+        top: 1px;
+        left: 1px;
+    }
+
+    .switchOn .switchThumb {
+        transform: translateX(10px);
+    }
+}

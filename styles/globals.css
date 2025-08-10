@@ -11,16 +11,24 @@
     --color-gray-mute: #888888;
     --color-neutral: #B8B8B8;
     --color-default: #05C213;
-    --color-default-background: #E0F9DF;
+    --color-default-hover: #006633;
+    --color-default-background: #92E491;
     --color-default-light: #F1FCF1;
     --color-event: #F2B21E;
-    --color-event-background: #FCF1C5;
+    --color-event-hover: #C3750B;
+    --color-event-background: #FAE28E;
     --color-event-light: #FDF9E9;
     --color-community: #A664FD;
-    --color-community-hover: #832DF0;
+    --color-community-hover: #6F1CD4;
+    --color-community-background: #D2B1FF;
     --color-community-light: #F9F5FF;
     --color-danger: #E84C7B;
+    --color-danger-hover: #D72B56;
+    --color-danger-background: #FAD0E0;
     --color-danger-light: #FDF2F6;
+    --color-plain: #888888;
+    --color-plain-hover: #4F4F4F;
+    --color-plain-background: #D1D1D1;
 
     --color-background: var(--color-white);
     --color-background-light: var(--color-light);

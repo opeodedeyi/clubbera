@@ -63,6 +63,14 @@
     width: 380px;
 }
 
+.form {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
 @media screen and (max-width: 767px) {
     .ul {
         gap: var(--spacing-md);
