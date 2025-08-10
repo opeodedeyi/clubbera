@@ -1,5 +1,4 @@
 import Button from '@/components/ui/Button/Button';
-import BrandIcon from '@/components/ui/Icon/BrandIcon';
 import styles from './NoContent.module.css';
 
 

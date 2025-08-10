@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Button from '@/components/ui/Button/Button';
 import Icon from '@/components/ui/Icon/Icon';
 import styles from './ImageUpload.module.css';
 
