@@ -13,6 +13,15 @@ export function middleware(request: NextRequest) {
     const authPaths = ['/login', '/signup', '/forgot-password', '/reset-password']
     const isAuthPath = authPaths.some(path => pathname.startsWith(path))
 
+    if (pathname === '/') {
+        if (token) {
+            return NextResponse.redirect(new URL('/home', request.url))
+        } else {
+            // Redirect non-authenticated users to login or your landing page
+            return NextResponse.redirect(new URL('/login', request.url)) // or '/landing' if you have one
+        }
+    }
+
     if (isProtectedPath && !token) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
@@ -21,16 +30,13 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/home', request.url))
     }
 
-    // Redirect root to appropriate home page
-    if (pathname === '/' && token) {
-        return NextResponse.redirect(new URL('/home', request.url))
-    }
+    return NextResponse.next()
 }
 
 export const config = {
     matcher: [
         '/',
-        '/home',
+        '/home/:path*',
         '/profile/:path*', 
         // '/communities/:path*',
         '/settings/:path*',

@@ -9,7 +9,6 @@ import LocationStep from "@/components/community/FormSteps/LocationStep";
 import NameDescriptionStep from "@/components/community/FormSteps/NameDescriptionStep";
 import ImagesAndTagsStep from "@/components/community/FormSteps/ImagesAndTagsStep";
 import PrivacyStep from "@/components/community/FormSteps/PrivacyStep";
-import PreviewStep from "@/components/community/FormSteps/PreviewStep";
 import PageWrapper from "@/components/ui/PageWrapper/PageWrapper";
 import styles from "@/styles/pages/createcommunity.module.css";
 
@@ -39,11 +38,6 @@ const formSteps: FormStep[] = [
         id: 4,
         navigation: null,
         component: PrivacyStep
-    },
-    {
-        id: 5,
-        navigation: 'Your community is Live ✨',
-        component: PreviewStep
     }
 ]
 
@@ -79,7 +73,7 @@ export default function CreateCommunity() {
     }
 
     return (
-        <PageWrapper showParticles={currentStep === 5 ? true : false} particlesHeight={650}>
+        <PageWrapper showParticles={false}>
             <div className={styles.container}>
                 <Button
                     variant='plain'
