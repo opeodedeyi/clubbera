@@ -1,6 +1,5 @@
 // lib/api/communities.ts
 import { api } from '../api';
-import { CommunityFormData } from '@/types/community';
 
 export interface TempUploadUrlRequest {
     fileType: string;
@@ -78,7 +77,7 @@ export interface CommunityUserInfo {
     isMember: boolean;
     isAdmin: boolean;
     membershipDetails: CommunityMembershipDetails | null;
-    activeRestrictions: unknown | null; // You might want to define this type based on your API
+    activeRestrictions: unknown | null;
 }
 
 export interface CommunityData {
