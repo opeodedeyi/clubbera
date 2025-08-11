@@ -30,9 +30,9 @@ export function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         '/',
-        '/home',
+        '/home/:path*',
         '/profile/:path*', 
-        // '/communities/:path*',
+        '/communities/:path*',
         '/settings/:path*',
         '/login',
         '/signup',
