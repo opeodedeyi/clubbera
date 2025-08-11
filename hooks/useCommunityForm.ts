@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CommunityFormData, UploadUrlResponse } from '@/types/community';
+import { communityApi, CreateCommunityRequest } from '@/lib/api/communities';
+import { processImage, validateImageFile } from '@/lib/imageProcessing';
 
 
 const initialFormData: CommunityFormData = {
@@ -34,10 +36,13 @@ export function useCommunityForm() {
     const [formData, setFormData] = useState<CommunityFormData>(initialFormData)
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [isUploading, setIsUploading] = useState(false)
+    const [uploadingStates, setUploadingStates] = useState({
+        profile_image: false,
+        cover_image: false
+    })
 
     const updateFormData = (data: Partial<CommunityFormData>) => {
         setFormData(prev => ({ ...prev, ...data }))
-        // Clear errors for updated fields
         const updatedFields = Object.keys(data)
         setErrors(prev => {
             const newErrors = { ...prev }
@@ -46,67 +51,68 @@ export function useCommunityForm() {
         })
     }
 
-    const getUploadUrl = async (fileName: string, fileType: string): Promise<UploadUrlResponse> => {
-        try {
-          // TODO: Replace with actual API call
-          const response = await fetch('/api/upload/get-url', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fileName, fileType })
-          })
-          
-          if (!response.ok) throw new Error('Failed to get upload URL')
-          
-          return await response.json()
-        } catch (error) {
-          console.error('Error getting upload URL:', error)
-          throw error
-        }
-    }
-
-    // Upload file to the provided URL
-    const uploadFileToUrl = async (file: File, uploadUrl: string): Promise<void> => {
-        try {
-            const response = await fetch(uploadUrl, {
-                method: 'PUT',
-                body: file,
-                headers: {
-                    'Content-Type': file.type
-                }
-            })
-            
-            if (!response.ok) throw new Error('Failed to upload file')
-        } catch (error) {
-            console.error('Error uploading file:', error)
-            throw error
-        }
-    }
-
     // Handle image upload (profile or banner)
     const handleImageUpload = async (
         file: File, 
         imageType: 'profile_image' | 'cover_image'
     ): Promise<boolean> => {
-        setIsUploading(true)
+        console.log(`🔄 Starting ${imageType} upload for file:`, {
+            name: file.name,
+            size: file.size,
+            type: file.type
+        });
+
+        setUploadingStates(prev => ({ ...prev, [imageType]: true }));
+        setIsUploading(true);
         
         try {
-            // Get upload URL
-            const { uploadUrl, fileUrl } = await getUploadUrl(file.name, file.type)
+            const validationError = validateImageFile(file, imageType === 'profile_image' ? 5 : 10);
+            if (validationError) {
+                setErrors(prev => ({ ...prev, [imageType]: validationError }));
+                setIsUploading(false);
+                return false;
+            }
+
+            const processedFile = await processImage(
+                file, 
+                imageType === 'profile_image' ? 'profile' : 'cover'
+            );
+
+            const uploadRequest = {
+                fileType: processedFile.type,
+                entityType: 'community' as const,
+                imageType: imageType === 'profile_image' ? 'profile' as const : 'banner' as const
+            };
             
-            // Upload file
-            await uploadFileToUrl(file, uploadUrl)
+            const response = await communityApi.getTempUploadUrl(uploadRequest);
+
+            await communityApi.uploadFile(response.data.uploadUrl, processedFile);
+
+            const imageData = {
+                provider: response.data.provider || 'aws-s3',
+                key: response.data.key,
+                alt_text: `${formData.name || 'Community'} ${imageType === 'profile_image' ? 'profile' : 'cover'} image`
+            };
             
-            // Update form data
             updateFormData({
-                [imageType]: fileUrl,
-            })
-            
-            setIsUploading(false)
-            return true
+                [imageType]: imageData
+            });
+
+            setUploadingStates(prev => ({ ...prev, [imageType]: false }));
+            setIsUploading(false);
+            return true;
         } catch (error) {
-            setIsUploading(false)
-            setErrors(prev => ({ ...prev, [imageType]: 'Failed to upload image' }))
-            return false
+            console.error(`❌ ${imageType} upload failed:`, error);
+
+            setUploadingStates(prev => ({ ...prev, [imageType]: false }));
+            setIsUploading(false);
+
+            const errorMessage = error instanceof Error ? error.message : 'Failed to upload image';
+            setErrors(prev => ({
+                ...prev, 
+                [imageType]: errorMessage
+            }));
+            return false;
         }
     }
 
@@ -136,34 +142,47 @@ export function useCommunityForm() {
         const newErrors: Record<string, string> = {}
 
         switch (currentStep) {
-        case 0: // Introduction - no validation needed
+        case 0:
             break
         
-        case 1: // Location
+        case 1:
             if (!formData.location.city.trim()) {
                 newErrors['location.city'] = 'City is required'
             }
+            if (formData.location.lat === undefined || formData.location.lng === undefined) {
+                newErrors['location.coordinates'] = 'Please select a valid city from the suggestions'
+            }
             break
         
-        case 2: // Name & Description
+        case 2:
             if (!formData.name.trim()) {
                 newErrors.name = 'Community name is required'
+            } else if (formData.name.trim().length < 3) {
+                newErrors.name = 'Community name must be at least 3 characters'
+            } else if (formData.name.trim().length > 50) {
+                newErrors.name = 'Community name must be less than 50 characters'
             }
+            
             if (!formData.tagline.trim()) {
                 newErrors.tagline = 'Tagline is required'
+            } else if (formData.tagline.trim().length > 150) {
+                newErrors.tagline = 'Tagline must be less than 150 characters'
             }
+            
             if (!formData.description.trim()) {
                 newErrors.description = 'Description is required'
+            } else if (formData.description.trim().length < 10) {
+                newErrors.description = 'Description must be at least 10 characters'
             }
             break
         
-        case 3: // Images & Tags - optional, so always valid
+        case 3:
             break
         
-        case 4: // Privacy - always valid (has default)
+        case 4:
             break
             
-        case 5: // Preview - always valid
+        case 5:
             break
         }
 
@@ -173,24 +192,49 @@ export function useCommunityForm() {
 
     const submitForm = async (): Promise<boolean> => {
         try {
-            // Prepare final data for submission
-            const submitData = {
-                name: formData.name,
-                description: formData.description,
-                location: formData.location,
-                profile_image: formData.profile_image,
-                cover_image: formData.cover_image,
-                tags: formData.tags,
-                is_private: formData.is_private
+            // Validate required location data
+            if (!formData.location.lat || !formData.location.lng) {
+                setErrors({ location: 'Valid location coordinates are required' });
+                return false;
             }
-    
-            // TODO: Replace with actual API call
-            console.log('Submitting community:', submitData)
-            
-            return true
+
+            // Prepare final data for submission
+            const submitData: CreateCommunityRequest = {
+                name: formData.name.trim(),
+                tagline: formData.tagline.trim(),
+                description: formData.description.trim(),
+                is_private: formData.is_private,
+                location: {
+                    city: formData.location.city.trim(),
+                    lat: formData.location.lat,
+                    lng: formData.location.lng
+                },
+                tags: formData.tags,
+                ...(formData.profile_image?.key && {
+                    profile_image: {
+                        provider: formData.profile_image.provider || 'aws-s3',
+                        key: formData.profile_image.key,
+                        alt_text: formData.profile_image.alt_text || `${formData.name} profile image`
+                    }
+                }),
+                ...(formData.cover_image?.key && {
+                    cover_image: {
+                        provider: formData.cover_image.provider || 'aws-s3',
+                        key: formData.cover_image.key,
+                        alt_text: formData.cover_image.alt_text || `${formData.name} cover image`
+                    }
+                })
+            };
+
+            const response = await communityApi.createCommunity(submitData);
+            router.push(`/communities/${response.data.unique_url}`);
+            return true;
         } catch (error) {
-            console.error('Error creating community:', error)
-            return false
+            console.error('Error creating community:', error);
+            setErrors({ 
+                submit: error instanceof Error ? error.message : 'Failed to create community. Please try again.'
+            });
+            return false;
         }
     }
 

@@ -1,3 +1,4 @@
+// lib/images.ts
 export const IMAGES = {
     placeholders: {
         avatar: '/images/temp/profilePlaceholder.png',

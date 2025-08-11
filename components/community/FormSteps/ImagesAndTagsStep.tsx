@@ -2,8 +2,9 @@ import CommunityCard from '@/components/cards/community/CommunityCard/CommunityC
 import InterestsSelector from '@/components/Form/InterestsSelector/InterestsSelector';
 import ImageUpload from '@/components/Form/ImageUpload/ImageUpload';
 import Button from "@/components/ui/Button/Button";
-import styles from "./communitySteps.module.css";
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import { StepProps } from "@/types/community";
+import styles from "./communitySteps.module.css";
 
 
 const ImagesAndTagsStep: React.FC<StepProps> = ({ nextStep, navigation, formData, updateFormData, handleImageUpload, isUploading, errors }: StepProps) => {
@@ -62,7 +63,6 @@ const ImagesAndTagsStep: React.FC<StepProps> = ({ nextStep, navigation, formData
                             currentImage={formData.profile_image?.key}
                             isUploading={isUploading}
                             error={errors.profile_image}
-                            maxSize={5}
                             buttonText="Upload Profile Image" />
 
                         <ImageUpload
@@ -73,7 +73,6 @@ const ImagesAndTagsStep: React.FC<StepProps> = ({ nextStep, navigation, formData
                             currentImage={formData.cover_image?.key}
                             isUploading={isUploading}
                             error={errors.cover_image}
-                            maxSize={10}
                             buttonText="Upload Cover Image" />
 
                         <InterestsSelector
@@ -97,8 +96,8 @@ const ImagesAndTagsStep: React.FC<StepProps> = ({ nextStep, navigation, formData
                 <CommunityCard
                     name={formData.name}
                     description={formData.tagline || "you have not set community tagline"}
-                    profile={formData.profile_image?.key}
-                    cover={formData.cover_image?.key}
+                    profile={getS3ImageUrl(formData.profile_image?.key)}
+                    cover={getS3ImageUrl(formData.cover_image?.key)}
                     member={0}/>
             </div>
         </div>

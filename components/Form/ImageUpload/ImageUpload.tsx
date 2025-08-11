@@ -13,7 +13,6 @@ interface ImageUploadProps {
     isUploading?: boolean;
     error?: string;
     accept?: string;
-    maxSize?: number; // in MB
     buttonText?: string;
     changeText?: string;
     disabled?: boolean;
@@ -28,33 +27,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     isUploading = false,
     error,
     accept = 'image/*',
-    maxSize = 5,
     buttonText = 'Select Image',
     changeText = 'Change Image',
     disabled = false
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileSelect = async (file: File) => {
-        // Validate file size
-        if (file.size > maxSize * 1024 * 1024) {
-            alert(`File size must be less than ${maxSize}MB`);
-            return;
-        }
-
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file');
-            return;
-        }
-
-        await onImageUpload(file);
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            handleFileSelect(file);
+            await onImageUpload(file);
         }
         // Reset input value so same file can be selected again
         e.target.value = '';
@@ -80,7 +62,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 accept={accept}
                 onChange={handleInputChange}
                 style={{ display: 'none' }}
-                disabled={disabled || isUploading} />
+                disabled={disabled} />
 
             <div className={styles.content}>
                 <div className={styles.textContent}>
@@ -92,10 +74,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                     <div
                         onClick={openFileDialog}
                         className={styles.selectButton} >
-                        {isUploading ? 'Uploading...' : buttonText}
+                        {buttonText}
                     </div>
                 ) : (
-                    // Image selected - show change text and delete icon
                     <div className={styles.selectedActions}>
                         <button
                             type="button"
@@ -118,17 +99,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                     </div>
                 )}
             </div>
-
-            {/* Image Preview */}
-            {currentImage && (
-                <div className={styles.imagePreview}>
-                    <img 
-                        src={currentImage} 
-                        alt="Selected image" 
-                        className={styles.previewImage}
-                    />
-                </div>
-            )}
 
             {error && <span className={styles.errorText}>{error}</span>}
         </div>
