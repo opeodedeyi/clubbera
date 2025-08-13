@@ -1,0 +1,118 @@
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+}
+
+.profilePictures {
+    position: relative;
+    width: 100%;
+}
+
+.profileCover {
+    width: 100%;
+    height: 260px;
+    border-radius: var(--radius-image);
+    overflow: hidden;
+}
+
+.profileImage {
+    position: absolute;
+    width: 158px;
+    height: 158px;
+    border-radius: var(--radius-image);
+    border: 8px solid var(--color-background);
+    overflow: hidden;
+    bottom: -78px;
+    left: 82px;
+}
+
+.profileCover img,
+.profileImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileAction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 277px;
+}
+
+.profileTitle {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-4);
+    font-size: var(--font-size-2xl);
+}
+
+.profileTag {
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-community);
+    background-color: var(--color-community-light);
+    padding: var(--spacing-1-5) var(--spacing-5);
+    border-radius: var(--radius-full);
+}
+
+.profileButtons {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-3);
+}
+
+/* @media screen and (max-width: 1279px) {
+    .content {
+        flex-direction: column;
+        margin-left: 0;
+        max-width: 700px;
+    }
+} */
+
+@media screen and (max-width: 767px) {
+    .container {
+        gap: var(--spacing-10);
+    }
+
+    .profileCover {
+        height: 150px;
+        border-radius: var(--radius-lg);
+    }
+
+    .profileImage {
+        width: 65px;
+        height: 65px;
+        border-radius: var(--radius-lg);
+        border: 3px solid var(--color-background);
+        bottom: -21px;
+        left: 16px;
+    }
+
+    .profileTitle {
+        /* gap: var(--spacing-4); */
+        justify-content: flex-start;
+        align-items: center;
+        font-size: var(--font-size-xl);
+    }
+
+    .profileTag {
+        height: 31px;
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-1-5) var(--spacing-3);
+    }
+
+    .profileAction {
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: var(--spacing-4);
+        margin-left: 0;
+    }
+
+}

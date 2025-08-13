@@ -53,6 +53,7 @@ export interface CommunityImage {
 export interface CommunityLocation {
     id: number;
     city: string;
+    name: string;
     lat: number;
     lng: number;
     address: string;

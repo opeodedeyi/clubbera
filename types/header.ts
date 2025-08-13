@@ -10,12 +10,26 @@ export interface User {
     isEmailConfirmed: boolean
     isActive: boolean
     role?: string
-    images?: Array<{
+    Image?: Array<{
         imageType: string
         provider: string
         key: string
         position: number
     }>
+    profileImage?: {
+        id: number
+        key: string
+        altText: string
+        provider: string
+        url: string
+    } | null
+    bannerImage?: {
+        id: number
+        key: string
+        altText: string
+        provider: string
+        url: string
+    } | null
     interests?: string[]
     skills?: string[]
     location?: {

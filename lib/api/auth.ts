@@ -20,6 +20,11 @@ export interface LoginRequest {
     password: string
 }
 
+export interface GoogleLoginRequest {
+    code?: string;
+    idToken?: string;
+}
+
 export interface AuthResponse {
     status: string
     message: string
@@ -51,8 +56,20 @@ export interface AuthResponse {
                 lng: number
                 address: string
             } | null
-            profileImage?: string | null
-            bannerImage?: string | null
+            profileImage?: {
+                id: number
+                key: string
+                altText: string
+                provider: string
+                url: string
+            } | null
+            bannerImage?: {
+                id: number
+                key: string
+                altText: string
+                provider: string
+                url: string
+            } | null
         }
         token: string
     }
@@ -116,6 +133,10 @@ export const authApi = {
 
     verifyEmail: async (token: string): Promise<{ status: string; message: string }> => {
         return api.post('/users/verify-email', { token })
+    },
+
+    googleLogin: async (data: GoogleLoginRequest): Promise<AuthResponse> => {
+        return api.post<AuthResponse>('/users/google-login', data);
     },
 
     refreshToken: async (): Promise<AuthResponse> => {

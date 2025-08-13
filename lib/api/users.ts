@@ -14,7 +14,7 @@ export interface UserProfileByUrlResponse {
         isActive?: boolean
         bio: string
         gender: string
-        profileImage: {
+        profileImage?: {
             id: number
             key: string
             altText: string

@@ -1,6 +1,5 @@
 // hooks/useLoginForm.ts
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { authApi, type LoginRequest } from '@/lib/api/auth';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -19,7 +18,6 @@ export interface UseLoginFormReturn {
 }
 
 export const useLoginForm = (): UseLoginFormReturn => {
-    const router = useRouter()
     const { login } = useAuth()
     const [formData, setFormData] = useState<LoginFormData>({
         email: '',
@@ -39,25 +37,20 @@ export const useLoginForm = (): UseLoginFormReturn => {
     const clearError = () => setError(null)
 
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log('handleSubmit called', e.type)
         e.preventDefault()
-        console.log('preventDefault called')
 
         setIsLoading(true)
         setError(null)
 
         try {
-            console.log('Making API call...')
             const requestData: LoginRequest = {
                 email: formData.email,
                 password: formData.password
             }
 
             const response = await authApi.login(requestData)
-            console.log('API response:', response) // Debug log
 
             if (response.status === 'success' && response.data.token) {
-                console.log('Login successful, calling auth context login')
                 login(response.data.token, response.data.user)
             } else {
                 setError('Login failed. Please try again.')
@@ -65,7 +58,7 @@ export const useLoginForm = (): UseLoginFormReturn => {
         } catch (err: unknown) {
             console.error('Login error:', err)
 
-             const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.'
+            const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.'
 
             if (errorMessage.includes('API Error: 401')) {
                 setError('Invalid email or password.')
@@ -78,7 +71,6 @@ export const useLoginForm = (): UseLoginFormReturn => {
             }
         } finally {
             setIsLoading(false)
-            console.log('handleSubmit finished')
         }
     }
 

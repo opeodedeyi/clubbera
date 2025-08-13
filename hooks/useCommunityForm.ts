@@ -227,7 +227,7 @@ export function useCommunityForm() {
             };
 
             const response = await communityApi.createCommunity(submitData);
-            router.push(`/communities/${response.data.unique_url}`);
+            router.push(`/community/${response.data.unique_url}`);
             return true;
         } catch (error) {
             console.error('Error creating community:', error);

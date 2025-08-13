@@ -88,7 +88,7 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
                 aria-expanded={isOpen} >
                 <img
                     src={
-                        // user.profileImage?.key || 
+                        user.profileImage?.key || 
                         IMAGES.placeholders.avatar
                     }
                     alt='User Avatar'
