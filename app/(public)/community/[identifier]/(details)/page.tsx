@@ -33,8 +33,8 @@ export default async function CommunityPage({ params }: CommunityPageProps) {
     }
 
     const isMember = community.user?.isMember || false;
-    const isAdmin = community.user?.isAdmin || false;
-    const isOwner = community.user?.membershipDetails?.role === 'owner';
+    // const isAdmin = community.user?.isAdmin || false;
+    // const isOwner = community.user?.membershipDetails?.role === 'owner';
 
     if (isMember) {
         return (
@@ -70,6 +70,8 @@ export async function generateMetadata({ params }: CommunityPageProps) {
             },
         };
     } catch (error) {
+        console.log(error);
+        
         return {
             title: 'Community Not Found',
             description: 'The community you are looking for does not exist.',
