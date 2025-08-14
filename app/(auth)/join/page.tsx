@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import Icon from '@/components/ui/Icon/Icon';
 import BrandIcon from '@/components/ui/Icon/BrandIcon';
 import Button from '@/components/ui/Button/Button';
-import GoogleAuthScript from '@/components/GoogleAuthScript';
 import { useGoogleLogin } from '@/hooks/useGoogleLogin';
 import AuthLayout from "@/components/layout/AuthLayout/AuthLayout";
 import styles from '@/styles/pages/auth.module.css';
@@ -15,28 +14,18 @@ export default function join() {
     const { 
         isLoading,
         error,
-        initializeGoogleAuth,
+        isGoogleReady,
         handleGoogleLogin,
         clearError
     } = useGoogleLogin();
 
-    useEffect(() => {
-        // Initialize Google Auth when the component mounts
-        const timer = setTimeout(() => {
-            initializeGoogleAuth();
-        }, 100); // Small delay to ensure script is loaded
-
-        return () => clearTimeout(timer);
-    }, [initializeGoogleAuth]);
-
-    const handleGoogleSignup = () => {
+    const handleGoogleClick = () => {
         clearError();
         handleGoogleLogin();
     };
 
     return (
         <>
-            <GoogleAuthScript />
             <AuthLayout particleCount={4}>
                 <>
                     <div className={styles.textContent}>
@@ -53,12 +42,14 @@ export default function join() {
                         )}
 
                         <Button
-                            onClick={handleGoogleSignup}
-                            disabled={isLoading}
-                            iconLeft={<BrandIcon name='google' /> } 
+                            onClick={handleGoogleClick}
+                            disabled={isLoading || !isGoogleReady}
+                            iconLeft={<BrandIcon name='google' />} 
                             size='full' 
                             variant='plain'>
-                            {isLoading ? 'Signing up...' : 'Signup with Google'}
+                            {isLoading ? 'Signing up...' : 
+                            !isGoogleReady ? 'Loading...' : 
+                            'Signup with Google'}
                         </Button>
                         <Button
                             as="link"
