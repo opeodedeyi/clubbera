@@ -18,11 +18,11 @@ interface UserMenuProps {
 
 export default function UserMenu({ className = '' }: UserMenuProps) {
     const [isOpen, setIsOpen] = useState(false)
+    const [isExpandedMenuOpen, setIsExpandedMenuOpen] = useState(false)
     const { user, logout } = useAuth()
     const menuRef = useRef<HTMLDivElement>(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
 
-    // Close menu when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
@@ -32,12 +32,12 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
                 !buttonRef.current.contains(event.target as Node)
             ) {
                 setIsOpen(false)
+                setIsExpandedMenuOpen(false)
             }
         }
 
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside)
-            // Prevent body scroll on mobile when menu is open
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflow = 'unset'
@@ -49,11 +49,11 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
         }
     }, [isOpen])
 
-    // Close menu on escape key
     useEffect(() => {
         function handleEscape(event: KeyboardEvent) {
             if (event.key === 'Escape') {
                 setIsOpen(false)
+                setIsExpandedMenuOpen(false)
             }
         }
 
@@ -66,7 +66,9 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
         }
     }, [isOpen])
 
-    const handleToggle = () => {
+    const handleToggle = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
         setIsOpen(!isOpen)
     }
 
@@ -77,6 +79,13 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
 
     const closeMenu = () => {
         setIsOpen(false)
+        setIsExpandedMenuOpen(false)
+    }
+
+    const toggleExpandedMenu = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsExpandedMenuOpen(!isExpandedMenuOpen)
     }
 
     return (
@@ -84,6 +93,7 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
             <button
                 ref={buttonRef}
                 onClick={handleToggle}
+                onTouchStart={(e) => e.stopPropagation()}
                 className={styles.trigger}
                 aria-label="User menu"
                 aria-expanded={isOpen} >
@@ -122,18 +132,58 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
                         <span>Manage Account</span>
                     </Link>
 
-                    <div
-                        className={`${styles.menuItemBtn} tablet-mobile-flex`}
-                        onClick={closeMenu}>
-                        <Icon 
-                            name="editProfile"
-                            size='sm'
-                            color='var(--color-text)'/>
-                        <span>Manage Account</span>
-                        <Icon 
-                            name="arrowDown"
-                            size='xxs'
-                            color='var(--color-text)'/>
+                    <div className={`${styles.expandableSection} tablet-mobile-flex`}>
+                        <div
+                            className={`${styles.menuItemBtn}`}
+                            onClick={toggleExpandedMenu}>
+                            <Icon 
+                                name="editProfile"
+                                size='sm'
+                                color='var(--color-text)'/>
+                            <span>Manage Account</span>
+                            <Icon 
+                                name="arrowDown"
+                                size='xxs'
+                                color='var(--color-text)'
+                                className={`${styles.arrowIcon} ${isExpandedMenuOpen ? styles.rotated : ''}`}/>
+                        </div>
+
+                        {/* Expanded sub-options */}
+                        <div className={`${styles.subMenu} ${isExpandedMenuOpen ? styles.subMenuOpen : ''}`}>
+                            <Link
+                                href="/manage/account" 
+                                className={styles.menuItem}
+                                onClick={closeMenu}>
+                                <Icon
+                                    name="profile"
+                                    size='sm'
+                                    color='var(--color-text)'/>
+                                <span>Account</span>
+                            </Link>
+
+                            <Link
+                                href="/manage/communities" 
+                                className={styles.menuItem}
+                                onClick={closeMenu}>
+                                <Icon
+                                    name="profile"
+                                    size='sm'
+                                    color='var(--color-text)'/>
+                                <span>Communities</span>
+                            </Link>
+
+                            <Link
+                                href="/manage/appearance" 
+                                className={styles.menuItem}
+                                onClick={closeMenu}>
+                                <Icon
+                                    name="toggle"
+                                    size='sm'
+                                    strokeColor='var(--color-background-light)'
+                                    fillColor='var(--color-text)'/>
+                                <span>App Appearance</span>
+                            </Link>
+                        </div>
                     </div>
                     
                     <Link

@@ -16,6 +16,8 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent; /* Remove iOS tap highlight */
+    touch-action: manipulation;
 }
 
 .trigger:focus {
@@ -87,6 +89,35 @@
 
 .menuItem:hover {
     background: var(--color-background-dark);
+}
+
+/* Expandable section styles */
+.expandableSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.arrowIcon {
+    transition: transform 0.2s ease;
+}
+
+.arrowIcon.rotated {
+    transform: rotate(180deg);
+}
+
+.subMenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-5);
+}
+
+.subMenuOpen {
+    max-height: 200px;
 }
 
 /* Desktop: Dropdown Style */
