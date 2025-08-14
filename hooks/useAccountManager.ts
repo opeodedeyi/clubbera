@@ -1,12 +1,13 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useState, useCallback, useMemo } from 'react';
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import { usersApi, type UpdateProfileRequest } from '@/lib/api/users';
 
 interface AccountFormData {
     fullName: string
     email: string
     bio: string
-    gender: 'male' | 'female' | 'other' | ''
+    gender: 'male' | 'female' | 'other' | 'prefer not to say' | ''
     birthday: string
     city: string
     lat: number
@@ -43,18 +44,22 @@ interface InitialUserData {
     }
     interests?: string[]
     profileImage?: {
+        provider: string
         url: string
+        key: string
     }
     bannerImage?: {
+        provider: string
         url: string
+        key: string
     }
 }
 
 export const useAccountManager = (initialData: InitialUserData): UseAccountManagerReturn => {
     const { updateUser } = useAuth()
 
-    const isValidGender = (gender: string): gender is 'male' | 'female' | 'other' => {
-        return ['male', 'female', 'other'].includes(gender);
+    const isValidGender = (gender: string): gender is 'male' | 'female' | 'other' | 'prefer not to say' => {
+        return ['male', 'female', 'prefer not to say', 'other'].includes(gender);
     }
     
     const [formData, setFormData] = useState<AccountFormData>({
@@ -62,7 +67,7 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         email: initialData.email || '',
         bio: initialData.bio || '',
         gender: (initialData.gender && isValidGender(initialData.gender)) 
-            ? initialData.gender as 'male' | 'female' | 'other' 
+            ? initialData.gender as 'male' | 'female' | 'other' | 'prefer not to say' 
             : '',
         birthday: initialData.birthday || '',
         city: initialData.location?.city || '',
@@ -77,7 +82,7 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         email: initialData.email || '',
         bio: initialData.bio || '',
         gender: (initialData.gender && isValidGender(initialData.gender)) 
-            ? initialData.gender as 'male' | 'female' | 'other' 
+            ? initialData.gender as 'male' | 'female' | 'other' | 'prefer not to say' 
             : '',
         birthday: initialData.birthday || '',
         city: initialData.location?.city || '',
@@ -90,7 +95,10 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
     const [profileImage, setProfileImage] = useState<string | null>(
-        initialData.profileImage?.url || null
+        initialData.profileImage?.provider == "aws-s3" ?
+        getS3ImageUrl(initialData.profileImage?.key) :
+        initialData.profileImage?.url || 
+        null
     )
     const [bannerImage, setBannerImage] = useState<string | null>(
         initialData.bannerImage?.url || null
@@ -226,9 +234,6 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
             const uploadResponse = await usersApi.getUploadUrl(requestData)
             const { uploadUrl, key } = uploadResponse.data
 
-            console.log('Uploading to S3 with PUT...');
-
-            // Upload to S3
             const uploadResult = await fetch(uploadUrl, {
                 method: 'PUT',
                 body: file,
@@ -237,28 +242,19 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
                 }
             })
 
-            console.log('S3 upload result:', uploadResult.status);
-
             if (!uploadResult.ok) {
                 console.error('S3 upload failed:', await uploadResult.text());
                 throw new Error('Failed to upload image')
             }
 
-            console.log('Saving image metadata...');
-
-            // Save image metadata
             const saveResponse = await usersApi.saveImage({
                 key,
                 imageType,
                 altText: `${imageType} picture`
             })
 
-            console.log('Save image response:', saveResponse);
-
             if (saveResponse.status === 'success') {
-                const imageUrl = saveResponse.data.image.url
-
-                console.log('Image uploaded successfully:', imageUrl);
+                const imageUrl = getS3ImageUrl(key)
                 
                 if (imageType === 'profile') {
                     setProfileImage(imageUrl)

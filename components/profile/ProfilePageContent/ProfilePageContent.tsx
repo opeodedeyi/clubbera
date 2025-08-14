@@ -1,6 +1,7 @@
 'use client';
 
 import { IMAGES } from '@/lib/images';
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import Button from '@/components/ui/Button/Button';
 import Icon from '@/components/ui/Icon/Icon';
 import BackButton from "@/components/ui/BackButton/BackButton";
@@ -26,7 +27,9 @@ export default function ProfilePageContent({ initialProfile, uniqueUrl }: Profil
                         <div className={styles.avatarContainer}>
                             <img
                                 src={
-                                    initialProfile.profileImage?.url ||
+                                    initialProfile.profileImage?.provider == "aws-s3" ?
+                                    getS3ImageUrl(initialProfile.profileImage?.key) :
+                                    initialProfile.profileImage?.key || 
                                     IMAGES.placeholders.avatar
                                 }
                                 alt="User Avatar"

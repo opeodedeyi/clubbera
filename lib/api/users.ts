@@ -46,7 +46,7 @@ export interface UserProfileByUrlResponse {
 export interface UpdateProfileRequest {
     fullName?: string
     bio?: string
-    gender?: 'male' | 'female' | 'other'
+    gender?: 'male' | 'female' | 'other' | 'prefer not to say'
     birthday?: string
     location?: {
         city: string

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import { IMAGES } from '@/lib/images';
 import Icon from '@/components/ui/Icon/Icon';
 import BrandIcon from '@/components/ui/Icon/BrandIcon';
@@ -88,6 +89,8 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
                 aria-expanded={isOpen} >
                 <img
                     src={
+                        user.profileImage?.provider == "aws-s3" ?
+                        getS3ImageUrl(user.profileImage?.key) :
                         user.profileImage?.key || 
                         IMAGES.placeholders.avatar
                     }
