@@ -33,7 +33,7 @@ const TextAreaInput: React.FC<TextAreaInputProps> = (props) => {
         // iOS-specific: Store more viewport info
         const currentScrollY = window.scrollY;
         const currentScrollX = window.scrollX;
-        const visualViewport = window.visualViewport;
+        // const visualViewport = window.visualViewport;
         
         // Prevent iOS WebKit from interfering
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
