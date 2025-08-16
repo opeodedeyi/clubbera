@@ -24,7 +24,7 @@ const NameDescriptionStep: React.FC<StepProps> = ({ nextStep, navigation, formDa
                 { navigation && <p className={styles.navText}>{navigation}</p>}
     
                 <div className={styles.contentMain}>
-                    <h1>Shape Your <br />Community’s Identity</h1>
+                    <h1>Shape Your <br />Community&apos;s Identity</h1>
     
                     <div className={styles.form}>
                         <TextInput

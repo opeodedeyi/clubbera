@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from '../Input.module.css';
 
 
@@ -22,18 +22,38 @@ interface TextAreaInputProps {
 const TextAreaInput: React.FC<TextAreaInputProps> = (props) => {
     const [charCount, setCharCount] = useState(0);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const isAdjustingHeight = useRef(false);
 
-    const adjustHeight = () => {
+    const adjustHeight = useCallback(() => {
         const textarea = textareaRef.current;
-        if (!textarea) return;
+        if (!textarea || isAdjustingHeight.current) return;
 
+        isAdjustingHeight.current = true;
+
+        // iOS-specific: Store more viewport info
+        const currentScrollY = window.scrollY;
+        const currentScrollX = window.scrollX;
+        const visualViewport = window.visualViewport;
+        
+        // Prevent iOS WebKit from interfering
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        
+        if (isIOS) {
+            // Temporarily lock the viewport position
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${currentScrollY}px`;
+            document.body.style.left = `-${currentScrollX}px`;
+            document.body.style.width = '100%';
+        }
+        
+        // Reset height
         textarea.style.height = 'auto';
-
+        
         const scrollHeight = textarea.scrollHeight;
-
         const minRows = props.minRows || 2;
-        const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
-        const padding = parseInt(getComputedStyle(textarea).paddingTop) * 2;
+        const computedStyle = getComputedStyle(textarea);
+        const lineHeight = parseInt(computedStyle.lineHeight);
+        const padding = parseInt(computedStyle.paddingTop) + parseInt(computedStyle.paddingBottom);
         const minHeight = (lineHeight * minRows) + padding;
 
         let maxHeight = scrollHeight;
@@ -49,7 +69,20 @@ const TextAreaInput: React.FC<TextAreaInputProps> = (props) => {
         } else {
             textarea.style.overflowY = 'hidden';
         }
-    };
+        
+        if (isIOS) {
+            requestAnimationFrame(() => {
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.width = '';
+                window.scrollTo(currentScrollX, currentScrollY);
+                isAdjustingHeight.current = false;
+            });
+        } else {
+            isAdjustingHeight.current = false;
+        }
+    }, [props.minRows, props.maxRows]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         props.onChange(e.target.value);

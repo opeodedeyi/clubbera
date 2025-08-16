@@ -18,6 +18,9 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    /* Prevents double-tap zoom and improves touch responsiveness */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .button span {
@@ -66,7 +69,10 @@
 .default:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+}
+
+.default:active:not(:disabled) {
+    background-color: var(--color-primary);
 }
 
 .community {
@@ -75,20 +81,26 @@
 }
 
 .community:hover:not(:disabled) {
-    background-color: var(--color-community-hover, #059669);
+    background-color: var(--color-community-hover);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+}
+
+.community:active:not(:disabled) {
+    background-color: var(--color-community);
 }
 
 .event {
-    background-color: var(--color-event, #f59e0b);
+    background-color: var(--color-event);
     color: var(--color-light);
 }
 
 .event:hover:not(:disabled) {
-    background-color: var(--color-event-hover, #d97706);
+    background-color: var(--color-event-hover);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+}
+
+.event:active:not(:disabled) {
+    background-color: var(--color-event);
 }
 
 .plain {
@@ -97,7 +109,13 @@
 }
 
 .plain:hover:not(:disabled) {
-    background-color: var(--color-gray-light);
+    background-color: var(--color-plain-hover);
+    color: var(--color-white);
+}
+
+.plain:active:not(:disabled) {
+    background-color: var(--color-plain);
+    color: var(--color-plain-text);
 }
 
 .gray {

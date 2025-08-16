@@ -65,3 +65,24 @@
     font-size: 0.75rem;
     color: var(--color-error);
 }
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .textAreaInput {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: height;
+        font-size: 16px;
+    }
+
+    .textareaWrapper {
+        position: relative;
+        z-index: 0;
+        contain: layout style;
+    }
+
+    .container {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+}
