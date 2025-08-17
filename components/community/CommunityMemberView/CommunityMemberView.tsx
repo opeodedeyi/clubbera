@@ -11,16 +11,12 @@ interface CommunityMemberViewProps {
 export default function CommunityMemberView({ community }: CommunityMemberViewProps) {
     return (
         <div className={styles.container}>
-            <BackButton className='self-start'/>
+            <BackButton className='self-start desktop-only-flex'/>
             
             <div className={styles.content}>
                 <CommunityHeader community={community}/>
 
-                {/* description */}
-
-                {/* upcoming event */}
-
-                {/* guidelines */}
+                <div className={styles.contentMain}></div>
             </div>
         </div>
     )

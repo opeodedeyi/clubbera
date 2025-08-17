@@ -1,0 +1,111 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-3);
+    background: var(--color-background-light);
+    border: 1px solid var(--color-border);
+    border-bottom: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    flex-wrap: wrap;
+}
+
+.toolbarButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--color-text);
+
+    /* iOS optimizations */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.toolbarButton:hover:not(:disabled) {
+    background: var(--color-background-dark);
+    border-color: var(--color-border);
+}
+
+.toolbarButton:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.toolbarButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.markdownTextarea {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+    border-top: none !important;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    line-height: 1.6;
+    resize: none !important;
+    /* Prevent manual resizing */
+    overflow-y: auto;
+    /* Always show scroll when needed */
+
+    /* Fixed height based on rows */
+    height: auto;
+    /* Let rows attribute control height */
+    min-height: unset;
+    max-height: unset;
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+    .toolbar {
+        padding: var(--spacing-1-5) var(--spacing-2);
+        gap: var(--spacing-1);
+    }
+
+    .toolbarButton {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* iOS-specific touch improvements */
+@supports (-webkit-touch-callout: none) {
+    .toolbarButton {
+        position: relative;
+        z-index: 1;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .toolbar {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .markdownTextarea {
+        /* Prevent iOS from auto-zooming */
+        font-size: 16px;
+
+        /* Smooth scrolling on iOS */
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Disable hover on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .toolbarButton:hover:not(:disabled) {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    .toolbarButton:active:not(:disabled) {
+        background: var(--color-background-dark);
+        border-color: var(--color-border);
+    }
+}

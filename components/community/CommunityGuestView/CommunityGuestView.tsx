@@ -1,5 +1,7 @@
 import { CommunityData } from '@/lib/api/communities';
 // import Button from '@/components/ui/Button/Button';
+import { defaultCommunityGuidelines } from '@/lib/data/communityGuidelines';
+import ExpandableTextSection from '../ExpandableTextSection/ExpandableTextSection';
 import BackButton from '@/components/ui/BackButton/BackButton';
 import CommunityHeader from '../CommunityHeader/CommunityHeader';
 import styles from './CommunityGuestView.module.css';
@@ -14,27 +16,24 @@ export default function CommunityGuestView({ community }: CommunityGuestViewProp
             <div className={styles.content}>
                 <BackButton className='self-start'/>
             </div>
-            
+
             <div className={styles.content}>
                 <CommunityHeader community={community}/>
-
-                <div className={styles.contentText}>
-                    <h2 className={styles.contentTextTitle}>
-                        Community Description
-                    </h2>
-                    <p>{community.description}</p>
-                </div>
+            </div>
+            
+            <div className={styles.contentMain}>
+                <ExpandableTextSection 
+                    title="Community Description"
+                    content={community.description}
+                    enableMarkdown={true}
+                    maxLines={5} />
 
                 {/* upcoming event */}
 
-                <div className={styles.contentText}>
-                    <h2 className={styles.contentTextTitle}>
-                        Community Guidelines
-                    </h2>
-                    <p>{community.guidelines}</p>
-                </div>
-
-                {/* featured communities */}
+                <ExpandableTextSection 
+                    title="Community Guidelines"
+                    content={community.guidelines || defaultCommunityGuidelines}
+                    enableMarkdown={true} />
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ export const IMAGES = {
     },
     pages: {
         communities: {
-            cover: '/images/pages/communities/defaultCommunityCover.png',
+            cover: '/images/temp/coverPlaceholder.png',
             placeholder: '/images/pages/communities/defaultCommunityPlaceholder.png',
         },
         landing: {

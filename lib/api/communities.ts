@@ -79,6 +79,9 @@ export interface CommunityUserInfo {
     isAdmin: boolean;
     membershipDetails: CommunityMembershipDetails | null;
     activeRestrictions: unknown | null;
+    joinRequestStatus: string | null;
+    joinRequestId: number;
+    joinRequestDate: string | null;
 }
 
 export interface CommunityData {

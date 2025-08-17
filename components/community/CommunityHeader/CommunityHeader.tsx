@@ -1,11 +1,13 @@
 'use client';
 
-import { CommunityData, communityApi } from '@/lib/api/communities';
-import { IMAGES } from '@/lib/images';
 import { useState } from 'react';
+import { IMAGES } from '@/lib/images';
 import { useRouter } from 'next/navigation';
-import Button from '@/components/ui/Button/Button';
+import Icon from '@/components/ui/Icon/Icon';
 import { getS3ImageUrl } from '@/lib/s3Utils';
+import Button from '@/components/ui/Button/Button';
+import { formatDate } from '@/lib/utils/dateFormatter';
+import { CommunityData, communityApi } from '@/lib/api/communities';
 import styles from './CommunityHeader.module.css';
 
 interface CommunityProfileProps {
@@ -15,9 +17,9 @@ interface CommunityProfileProps {
 export default function CommunityHeader({ community }: CommunityProfileProps) {
     const router = useRouter();
     const [isJoining, setIsJoining] = useState(false);
-    const [requestSent, setRequestSent] = useState(false);
+    const [requestSent, setRequestSent] = useState(community.user.joinRequestStatus=='pending' || false);
+    const [error, setError] = useState<string | null>(null);
 
-    // Determine user status
     const isLoggedIn = community.user !== null;
     const isMember = community.user?.isMember || false;
     const isAdmin = community.user?.isAdmin || false;
@@ -32,10 +34,11 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
         if (isMember) return;
 
         setIsJoining(true);
+        setError(null);
 
         try {
             const requestData = isPrivate ? { 
-                message: "I would like to join this community" 
+                message: `I would like to join ${community.name}`
             } : undefined;
 
             const response = await communityApi.joinCommunity(community.id, requestData);
@@ -48,7 +51,7 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
                 }
             }
         } catch (error) {
-            console.error('Error joining community:', error);
+            setError(error);
         } finally {
             setIsJoining(false);
         }
@@ -61,11 +64,6 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
         if (isPrivate) return 'Request to Join';
         return 'Join Community';
     };
-
-    // const getButtonVariant = () => {
-    //     if (requestSent) return 'secondary';
-    //     return 'primary';
-    // };
 
     return (
         <div className={styles.container}>
@@ -81,25 +79,39 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
             <div className={styles.profileAction}>
                 <span className={`${styles.profileTitle} font-boris`}>{community.name} <span className={styles.profileTag}>{community.isPrivate ? "Private" : "Public"}</span></span>
 
-                <div className={styles.profileButtons}>
-                    {!isMember ? (
+                {!isMember ? (
+                    <div className={styles.profileButtons}>
                         <Button
                             variant='community'
                             onClick={handleJoinAction}
                             disabled={isJoining || requestSent}>
                                 {getButtonText()}
                         </Button>
-                    ) : 
-                        // might add check to see if thay are not banned
-                        <Button variant='community'>Create Post</Button>
-                    }
-                    {isAdmin ? (
-                        <Button variant='plain'>Manage Community</Button>
-                    ):
+
                         <Button variant='plain'>Share link</Button>
-                    }
-                </div>
+                    </div>
+                ) :
+                    <div className={`${styles.profileButtons} desktop-only-flex`}>
+                        <Button variant='community'>Create Post</Button>
+                        {
+                            isAdmin ? (
+                                <Button variant='plain'>Manage Community</Button>
+                            ) : (
+                                <Button variant='plain'>Share link</Button>
+                            )
+                        }
+                    </div>
+                }
             </div>
+
+            {!isMember && (
+                <div className={`${styles.profileText}`}>
+                    <div className={styles.profileTextItem}><Icon name="locationMark" color='var(--color-community)'/> <span>{community.location.name}</span></div>
+                    <div className={styles.profileTextItem}><Icon name="group" color='var(--color-community)'/> <span>{community.memberCount}</span></div>
+                    <div className={styles.profileTextItem}><Icon name="globe" color='var(--color-community)'/> <span>Created {formatDate(community.createdAt, 'medium')}</span></div>
+                    {error && <p>{error}</p>}
+                </div>
+            )}
         </div>
     );
 }
