@@ -14,12 +14,55 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+.contentMain {
+    width: 100%;
+    display: flex;
+    padding-left: 90px;
+    flex-direction: row;
     gap: var(--spacing-20);
 }
 
-@media screen and (max-width: 767px) {
+.contentLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.contentRight {
+    width: 100%;
+    max-width: 414px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+}
+
+
+@media screen and (max-width: 1279px) {
     .container {
         padding: var(--spacing-5) var(--spacing-6);
         gap: var(--spacing-10);
+    }
+
+    .content {
+        gap: var(--spacing-8);
+    }
+
+    .contentMain {
+        flex-direction: column-reverse;
+        gap: var(--spacing-6);
+    }
+
+    .contentLeft, .contentRight {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .contentMain {
+        padding-left: 0;
     }
 }
