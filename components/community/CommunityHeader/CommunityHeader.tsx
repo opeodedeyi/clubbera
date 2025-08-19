@@ -95,11 +95,12 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
                         <Button variant='community'>Create Post</Button>
                         {
                             isAdmin ? (
-                                <Button variant='plain'>Manage Community</Button>
+                                <Button as='link' href={`/community/${community.uniqueUrl}/manage`} variant='plain'>Manage Community</Button>
                             ) : (
                                 <Button variant='plain'>Share link</Button>
                             )
                         }
+                        {/* add share button here */}
                     </div>
                 }
             </div>

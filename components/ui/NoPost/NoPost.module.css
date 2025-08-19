@@ -1,0 +1,109 @@
+.noPost {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-8);
+}
+
+.noPostCard {
+    width: 100%;
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background-color: var(--color-background-light);
+}
+
+.noPostCardHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.noPostCardBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.noPostCardFooter {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.noPostCardRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.shadowProfile {
+    width: 25px;
+    height: 25px;
+    border-radius: 1000px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowCircle {
+    width: 13px;
+    height: 13px;
+    border-radius: 1000px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextFull {
+    width: 100px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextLong {
+    width: 263px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextMid {
+    width: 240px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowTextShort {
+    width: 23px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.shadowText {
+    width: 50px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--color-text-muted);
+}
+
+.noPostText {
+    max-width: 277px;
+    font-size: var(--font-size-xl);
+}
+
+@media screen and (max-width: 767px) {
+    .noPostText {
+        font-size: var(--font-size-md);
+    }
+}

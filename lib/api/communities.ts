@@ -88,6 +88,7 @@ export interface CommunityData {
     id: number;
     name: string;
     unique_url: string;
+    uniqueUrl: string;
     tagline: string;
     description: string;
     guidelines: string | null;

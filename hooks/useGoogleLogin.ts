@@ -100,7 +100,7 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
             
             if (apiResponse.status === 'success' && apiResponse.data.token) {
                 login(apiResponse.data.token, apiResponse.data.user);
-                router.push('/dashboard');
+                router.push('/home');
             } else {
                 setError(apiResponse.message || 'Login failed. Please try again.');
             }
