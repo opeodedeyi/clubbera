@@ -28,6 +28,8 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
                         {/* { community.user.isAdmin && (
                                 upcoming events for admin members
                         )} */}
+
+                        {/* posts for community members */}
                     </div>
 
                     <div className={styles.contentRight}>
@@ -40,7 +42,7 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
                             maxLines={7} />
                         
                         {/* { community.user.isAdmin===false && (
-                                upcoming events for non admin members
+                                upcoming events for normal members
                         )} */}
 
                         <CommunityInfoSection 

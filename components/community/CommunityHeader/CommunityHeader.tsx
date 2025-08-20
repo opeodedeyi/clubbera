@@ -17,7 +17,7 @@ interface CommunityProfileProps {
 export default function CommunityHeader({ community }: CommunityProfileProps) {
     const router = useRouter();
     const [isJoining, setIsJoining] = useState(false);
-    const [requestSent, setRequestSent] = useState(community.user.joinRequestStatus=='pending' || false);
+    const [requestSent, setRequestSent] = useState(community.user?.joinRequestStatus=='pending' || false);
     const [error, setError] = useState<string | null>(null);
 
     const isLoggedIn = community.user !== null;
