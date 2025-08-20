@@ -1,0 +1,14 @@
+.communityNoPosts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-20) 0;
+}
+
+@media screen and (max-width: 767px) {
+    .communityNoPosts {
+        padding: var(--spacing-10) 0;
+    }
+}

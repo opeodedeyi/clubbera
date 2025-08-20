@@ -4,6 +4,8 @@ import { CommunityData } from '@/lib/api/communities';
 import MemberHeader from '../MemberHeader/MemberHeader';
 import BackButton from '@/components/ui/BackButton/BackButton';
 import CommunityHeader from '../CommunityHeader/CommunityHeader';
+import CommunityPosts from '../CommunityPosts/CommunityPosts';
+import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 import { defaultCommunityGuidelines } from '@/lib/data/communityGuidelines';
 import CommunityInfoSection from '../CommunityInfoSection/CommunityInfoSection';
 import styles from './CommunityMemberView.module.css';
@@ -25,11 +27,13 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
 
                 <div className={styles.contentMain}>
                     <div className={styles.contentLeft}>
-                        {/* { community.user.isAdmin && (
-                                upcoming events for admin members
-                        )} */}
+                        { community.user.isAdmin && (
+                            <UpcomingEvents
+                                community={community}
+                                variant='admin'/>
+                        )}
 
-                        {/* posts for community members */}
+                        <CommunityPosts community={community}/>
                     </div>
 
                     <div className={styles.contentRight}>
