@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { CommunityData } from '@/lib/api/communities';
 import styles from './UpcomingEvents.module.css';
+import Icon from '@/components/ui/Icon/Icon';
 
 // to be edited later
 interface Event {
@@ -92,7 +93,17 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                         </div>
                     </div>
                 ) : (
-                    <div></div>
+                    <div className={styles.noEventsMember}>
+                        <h3 className={styles.title}>Upcoming Events</h3>
+
+                        <div className={styles.noEventsMemberMain}>
+                            <div className={styles.noEventsMemberIcon}>
+                                <Icon name="calendar" size='lg' />
+                            </div>
+
+                            <p className={styles.noEventsAdminText}>No Upcoming Events, click create to begin </p>
+                        </div>
+                    </div>
                 )}
             </>
         );
@@ -120,7 +131,15 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                     {/* pagination goes here */}
                 </div>
             ) : (
-                <div></div>
+                <div className={styles.eventsMember}>
+                    <h3 className={styles.title}>Upcoming Events</h3>
+
+                    {/* <div className={styles.eventsMemberMain}>
+                        <p className={styles.noEventsAdminText}>No Upcoming Events, click create to begin </p>
+
+                        <div className={styles.AdminImg}></div>
+                    </div> */}
+                </div>
             )}
         </>
     );

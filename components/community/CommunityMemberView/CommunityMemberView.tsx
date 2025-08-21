@@ -45,9 +45,11 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
                             memberCount={community.memberCount}
                             maxLines={7} />
                         
-                        {/* { community.user.isAdmin===false && (
-                                upcoming events for normal members
-                        )} */}
+                        { community.user.isAdmin===false && (
+                            <UpcomingEvents
+                                community={community}
+                                variant='member'/>
+                        )}
 
                         <CommunityInfoSection 
                             className='desktop-only-flex'
