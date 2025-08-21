@@ -139,28 +139,28 @@
 
 [data-theme="dark"] {
     --color-background: #060E0C;
-    --color-background-light: #021108;
+    --color-background-light: #0D2818; /* #021108 */
     --color-background-dark: #0D2818;
     --color-background-header: #071210;
     --color-text: #F6F6F6;
     --color-text-light: #B0B0B0;
     --color-text-muted: #888888;
     --color-border: #021108;
-    --color-plain: #C2F1C1;
-    --color-plain-text: #006633;
+    /* --color-plain: #C2F1C1; */
+    /* --color-plain-text: #006633; */
     --color-icon-header:#B0B0B0;
 }
 
 [data-theme="colored"] {
     --color-background: #F1FCF1;
     --color-background-light: #E0F9DF;
-    /* --color-background-dark: #0D2818; we need a color for this */
+    --color-background-dark: #E0F9DF; /* We need a color for this */
     --color-background-header: #F1FCF1;
     --color-text: #0D2818;
     --color-text-light: #0D2818;
     --color-text-muted: #0D2818;
     --color-border: #E0F9DF;
-    --color-plain: #C2F1C1;
+    /* --color-plain: #C2F1C1; */
     --color-plain-text: #006633;
     --color-icon-header: #006633;
 }

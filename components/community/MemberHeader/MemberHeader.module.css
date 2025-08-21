@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-5) var(--spacing-20);
-    background-color: var(--color-background-dark);
+    background-color: var(--color-background);
 }
 
 .containerButtons {
