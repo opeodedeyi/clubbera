@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { AuthProvider } from '@/hooks/useAuth';
 import Header from "@/components/layout/Header/Header";
 import ConditionalFooter from "@/components/layout/Footer/ConditionalFooter";
@@ -23,11 +24,16 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const headersList = await headers();
+    const pathname = headersList.get("x-invoke-path") || "";
+
+    const isCommunityManage = /^\/community\/[^/]+$/.test(pathname);
+    
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
@@ -40,7 +46,7 @@ export default function RootLayout({
                     enableSystem={true}
                     disableTransitionOnChange={false}>
                         <AuthProvider>
-                            <Header />
+                            <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
                             <main>{children}</main>
                             <ConditionalFooter />
                             <ConditionalBottomNav />

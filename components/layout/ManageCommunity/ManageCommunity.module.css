@@ -1,0 +1,45 @@
+.container {
+    width: 100%;
+    padding: var(--spacing-2xl) var(--spacing-20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.containerBtn {
+    width: 100%;
+    padding: var(--spacing-2xl) var(--spacing-20) 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.containerLeft {
+    max-width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.containerContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 0;
+    }
+
+    .containerBtn {
+        width: 100%;
+        padding: var(--spacing-5) var(--spacing-6) 0;
+    }
+
+    .containerLeft {
+        padding: var(--spacing-5) var(--spacing-lg);
+    }
+}

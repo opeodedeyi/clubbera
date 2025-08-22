@@ -33,8 +33,6 @@ export default async function CommunityPage({ params }: CommunityPageProps) {
     }
 
     const isMember = community.user?.isMember || false;
-    // const isAdmin = community.user?.isAdmin || false;
-    // const isOwner = community.user?.membershipDetails?.role === 'owner';
 
     if (isMember) {
         return (
