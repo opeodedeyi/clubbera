@@ -15,6 +15,8 @@ interface MainNavigationProps {
 export default function MainNavigation({ communityId, permissions }: MainNavigationProps) {
     const pathname = usePathname()
 
+    console.log(permissions);
+
     return (
         <nav className={`${styles.navigation} self-start desktop-only-flex`}>
             <Link
