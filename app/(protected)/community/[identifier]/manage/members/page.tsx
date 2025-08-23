@@ -46,7 +46,7 @@ export default async function EditCommunityPage({ params }: Props) {
     );
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata() {
      return {
         title: 'Manage Members of Community',
         description: 'Manage members of your community',
