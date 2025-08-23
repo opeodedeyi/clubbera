@@ -1,0 +1,147 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+}
+
+.modal {
+    background: var(--color-background);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    width: 100%;
+    max-width: 450px;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.header {
+    padding: var(--spacing-20) var(--spacing-6) var(--spacing-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    text-align: center;
+}
+
+.title {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+}
+
+.subtitle {
+    max-width: 300px;
+    color: var(--color-text-light);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-6);
+}
+
+.loadingState {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.loadingIcon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+}
+
+.instructions {
+    color: var(--color-text-light);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* .codeInput {
+    /* text-align: center; */
+    /* font-family: 'SF Mono', monospace; 
+} */
+
+.error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.errorIcon {
+    width: 16px;
+    height: 16px;
+    color: #dc2626;
+    flex-shrink: 0;
+}
+
+.error span {
+    color: #dc2626;
+    font-size: 0.875rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.resendButton {
+    font-family: var(--font-nunito);
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.resendButton:hover:not(:disabled) {
+    color: var(--color-text);
+}
+
+.resendButton:disabled {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+    .modal {
+        margin: 1rem;
+        max-width: none;
+    }
+    
+    .header {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+    
+    .content {
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
+    }
+}

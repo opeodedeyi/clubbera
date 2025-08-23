@@ -11,6 +11,7 @@ interface AuthContextType {
     user: User | null
     loading: boolean
     mounted: boolean
+    showEmailVerification: boolean
     login: (token: string, userData: User) => void
     logout: () => void
     updateUser: (userData: Partial<User>) => void
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
     const [mounted, setMounted] = useState(false)
+    const [showEmailVerification, setShowEmailVerification] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
 
@@ -35,9 +37,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const protectedPaths = ['/home', '/profile', 'manage/communities', 'manage/appearance', '/community/create']
         const authPaths = ['/join', '/login', '/signup', '/forgot-password', '/resetpassword']
+        const emailVerificationPaths = ['/profile', '/community/create', '/community/', 'manage/communities']
         
         const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path))
         const isAuthPath = authPaths.some(path => pathname.startsWith(path))
+        const isEmailVerificationPath = emailVerificationPaths.some(path => pathname.startsWith(path))
 
         // If user logged out and on protected page → redirect to login
         if (!user && isProtectedPath) {
@@ -55,6 +59,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (user && pathname === '/') {
             router.push('/home')
             return
+        }
+
+        // Show email verification modal if user's email is not confirmed on certain pages
+        if (user && !user.isEmailConfirmed && isEmailVerificationPath) {
+            setShowEmailVerification(true)
+        } else {
+            setShowEmailVerification(false)
         }
 
     }, [user, pathname, mounted, loading, router])
@@ -100,6 +111,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const updateUser = (userData: Partial<User>) => {
         setUser(prev => prev ? { ...prev, ...userData } : null)
+        
+        // Close email verification modal if email is now confirmed
+        if (userData.isEmailConfirmed === true) {
+            setShowEmailVerification(false)
+        }
     }
 
     return (
@@ -107,6 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             user,
             loading,
             mounted,
+            showEmailVerification,
             login,
             logout,
             updateUser }}>

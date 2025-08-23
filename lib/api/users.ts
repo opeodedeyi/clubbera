@@ -109,6 +109,15 @@ export interface ApiResponse<T = unknown> {
     data: T
 }
 
+export interface VerifyEmailCodeRequestRequest {
+    email: string
+}
+
+export interface VerifyEmailCodeRequest {
+    email: string
+    verificationCode: string
+}
+
 export const usersApi = {
     getProfileByUrl: async (uniqueUrl: string): Promise<UserProfileByUrlResponse> => {
         return api.get<UserProfileByUrlResponse>(`/users/profile/${uniqueUrl}`)
@@ -133,5 +142,14 @@ export const usersApi = {
     // Account management
     deactivateAccount: async (): Promise<ApiResponse> => {
         return api.put<ApiResponse>('/accounts/deactivate')
+    },
+
+    // Email verification
+    verifyEmailCodeRequest: async (data: VerifyEmailCodeRequestRequest): Promise<ApiResponse> => {
+        return api.post<ApiResponse>('/users/verify-email-code-request', data)
+    },
+
+    verifyEmailCode: async (data: VerifyEmailCodeRequest): Promise<ApiResponse> => {
+        return api.post<ApiResponse>('/users/verify-email-code', data)
     },
 }

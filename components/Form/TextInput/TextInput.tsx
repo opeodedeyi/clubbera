@@ -7,6 +7,8 @@ interface TextInputProps {
     value: string;
     onChange: (value: string) => void;
     type?: string;
+    maxLength?: number;
+    className?: string;
     isRequired?: boolean;
     disabled?: boolean;
     error?: string;
@@ -25,10 +27,11 @@ const TextInput = ( props: TextInputProps ) => {
                 id={props.name}
                 name={props.name}
                 type={props.type || 'text'}
-                className={styles.formInput}
+                className={props.className || styles.formInput}
                 placeholder={props.placeholder}
                 value={props.value || ''}
                 onChange={handleChange}
+                maxLength={props.maxLength}
                 required={props.isRequired}
                 disabled={props.disabled} />
 
