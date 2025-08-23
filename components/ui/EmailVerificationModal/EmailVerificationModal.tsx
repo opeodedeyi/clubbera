@@ -31,8 +31,18 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
             await usersApi.verifyEmailCodeRequest({ email: user.email });
             setStep('input');
             setResendCooldown(60);
-        } catch (err: any) {
-            setError(err?.response?.data?.message || 'Failed to send verification code');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error && 'response' in err && 
+                                err.response && 
+                                typeof err.response === 'object' && 
+                                'data' in err.response && 
+                                err.response.data &&
+                                typeof err.response.data === 'object' &&
+                                'message' in err.response.data &&
+                                typeof err.response.data.message === 'string'
+                                ? err.response.data.message 
+                                : 'Failed to send verification code';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
@@ -64,8 +74,18 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
             });
             
             updateUser({ isEmailConfirmed: true });
-        } catch (err: any) {
-            setError(err?.response?.data?.message || 'Invalid verification code');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error && 'response' in err && 
+                                err.response && 
+                                typeof err.response === 'object' && 
+                                'data' in err.response && 
+                                err.response.data &&
+                                typeof err.response.data === 'object' &&
+                                'message' in err.response.data &&
+                                typeof err.response.data.message === 'string'
+                                ? err.response.data.message 
+                                : 'Invalid verification code';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
