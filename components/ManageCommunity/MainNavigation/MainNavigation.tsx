@@ -15,39 +15,43 @@ interface MainNavigationProps {
 export default function MainNavigation({ communityId, permissions }: MainNavigationProps) {
     const pathname = usePathname()
 
-    console.log(permissions);
-
     return (
         <nav className={`${styles.navigation} self-start desktop-only-flex`}>
-            <Link
-                href={`/community/${communityId}/manage`}
-                className={`${styles.navigationItem} ${pathname === `/community/${communityId}/manage` ? styles.active : ''}`}>
-                <Icon
-                    name="globe"
-                    size='sm'
-                    color='var(--color-text)'/>
-                <span>Community Overview</span>
-            </Link>
+            {permissions?.canEditCommunity && (
+                <Link
+                    href={`/community/${communityId}/manage`}
+                    className={`${styles.navigationItem} ${pathname === `/community/${communityId}/manage` ? styles.active : ''}`}>
+                    <Icon
+                        name="globe"
+                        size='sm'
+                        color='var(--color-text)'/>
+                    <span>Community Overview</span>
+                </Link>
+            )}
 
-            <Link
-                href={`/community/${communityId}/analytics`}
-                className={`${styles.navigationItem} ${pathname === `/community/${communityId}/analytics` ? styles.active : ''}`}>
-                <Icon
-                    name="megaphone"
-                    size='sm'
-                    color='var(--color-text)'/>
-                <span>Analytics & Insights</span>
-            </Link>
+            {permissions?.canViewAnalytics && (
+                <Link
+                    href={`/community/${communityId}/manage/analytics`}
+                    className={`${styles.navigationItem} ${pathname === `/community/${communityId}/manage/analytics` ? styles.active : ''}`}>
+                    <Icon
+                        name="megaphone"
+                        size='sm'
+                        color='var(--color-text)'/>
+                    <span>Analytics & Insights</span>
+                </Link>
+            )}
 
-            <Link
-                href={`/community/${communityId}/members`}
-                className={`${styles.navigationItem} ${pathname === `/community/${communityId}/members` ? styles.active : ''}`}>
-                <Icon
-                    name="group"
-                    size='md'
-                    color='var(--color-text)' />
-                <span>Members</span>
-            </Link>
+            {permissions?.canManageMembers && (
+                <Link
+                    href={`/community/${communityId}/manage/members`}
+                    className={`${styles.navigationItem} ${pathname === `/community/${communityId}/manage/members` ? styles.active : ''}`}>
+                    <Icon
+                        name="group"
+                        size='md'
+                        color='var(--color-text)' />
+                    <span>Members</span>
+                </Link>
+            )}
         </nav>
     );
 }

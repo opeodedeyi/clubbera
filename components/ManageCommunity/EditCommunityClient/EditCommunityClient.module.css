@@ -5,6 +5,10 @@
     gap: var(--spacing-32);
 }
 
+.backBtn {
+    margin: var(--spacing-lg) var(--spacing-20);
+}
+
 .section {
     width: 100%;
     display: flex;
@@ -29,6 +33,10 @@
 @media screen and (max-width: 767px) {
     .mainContent {
         gap: var(--spacing-12);
+    }
+
+    .backBtn {
+        margin: var(--spacing-5) var(--spacing-6);
     }
 
     .section {

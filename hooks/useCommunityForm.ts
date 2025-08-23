@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CommunityFormData, UploadUrlResponse } from '@/types/community';
+import { CommunityFormData } from '@/types/community';
 import { communityApi, CreateCommunityRequest } from '@/lib/api/communities';
 import { processImage, validateImageFile } from '@/lib/imageProcessing';
 
@@ -56,12 +56,6 @@ export function useCommunityForm() {
         file: File, 
         imageType: 'profile_image' | 'cover_image'
     ): Promise<boolean> => {
-        console.log(`🔄 Starting ${imageType} upload for file:`, {
-            name: file.name,
-            size: file.size,
-            type: file.type
-        });
-
         setUploadingStates(prev => ({ ...prev, [imageType]: true }));
         setIsUploading(true);
         
@@ -102,8 +96,6 @@ export function useCommunityForm() {
             setIsUploading(false);
             return true;
         } catch (error) {
-            console.error(`❌ ${imageType} upload failed:`, error);
-
             setUploadingStates(prev => ({ ...prev, [imageType]: false }));
             setIsUploading(false);
 

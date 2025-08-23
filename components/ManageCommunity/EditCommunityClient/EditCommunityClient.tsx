@@ -1,11 +1,13 @@
 'use client';
 
-// import { useState } from 'react';
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import EditCommunityTitle from '../EditCommunityTitle/EditCommunityTitle';
 import { useEditCommunityActions } from '@/hooks/useEditCommunityActions';
 import { CommunityData, CommunityPermissions } from '@/lib/api/communities';
+import BackButton from '@/components/ui/BackButton/BackButton';
 import TextInput from '@/components/Form/TextInput/TextInput';
 import CityInput from '@/components/Form/CityInput/CityInput';
+import CommunityImageEdit from '@/components/Form/CommunityImageEdit/CommunityImageEdit';
 import ToggleSwitch from "@/components/Form/ToggleSwitch/ToggleSwitch";
 import TextAreaInput from '@/components/Form/TextAreaInput/TextAreaInput';
 import MarkdownInput from '@/components/Form/MarkdownInput/MarkdownInput';
@@ -19,27 +21,27 @@ interface Props {
     permissions?: CommunityPermissions; 
 }
 
-export default function EditCommunityClient({ community, permissions }: Props) {
+export default function EditCommunityClient({ community: initialCommunity, permissions }: Props) {
     const {
+        community,
         formData,
         hasUnsavedChanges,
-        // isUploading,
-        // uploadingStates,
+        uploadingStates,
         isSaving,
         errors,
         isFormValid,
         updateFormData,
-        // handleImageUpload,
+        handleImageUpload,
         handleTagsUpdate,
         saveChanges
-    } = useEditCommunityActions(community);
+    } = useEditCommunityActions(initialCommunity);
 
-    // const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>, imageType: 'profile_image' | 'cover_image') => {
-    //     const file = event.target.files?.[0];
-    //     if (file) {
-    //         await handleImageUpload(file, imageType);
-    //     }
-    // };
+    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>, imageType: 'profile_image' | 'cover_image') => {
+        const file = event.target.files?.[0];
+        if (file) {
+            await handleImageUpload(file, imageType);
+        }
+    };
 
     const handleLocationChange = (city: string, lat: number | null, lng: number | null) => {
         updateFormData({
@@ -68,7 +70,21 @@ export default function EditCommunityClient({ community, permissions }: Props) {
 
     return (
         <>
-            {/* photo and cover upload */}
+            <BackButton className={`${styles.backBtn} self-start`}/>
+
+            <CommunityImageEdit
+                profileImageValue={
+                    community.profileImage?.provider === 'aws-s3' ?
+                    getS3ImageUrl(community.profileImage?.key) :
+                    community.profileImage?.key
+                }
+                coverImageValue={
+                    community.coverImage?.provider === 'aws-s3' ?
+                    getS3ImageUrl(community.coverImage?.key) :
+                    community.coverImage?.key
+                }
+                uploadingStates={uploadingStates}
+                onImageChange={handleImageChange} />
 
             <ManageCommunity community={community} permissions={permissions}>
                 <div className={styles.mainContent}>
@@ -79,7 +95,8 @@ export default function EditCommunityClient({ community, permissions }: Props) {
                             buttonText="Save Changes"
                             hasUnsavedChanges={hasUnsavedChanges}
                             disabled={!hasUnsavedChanges || isSaving || !isFormValid}
-                            onClick={saveChanges} />
+                            onClick={saveChanges}
+                            isSticky/>
                         
                         <div className={styles.sideBySide}>
                             <div className={styles.form}>
@@ -139,7 +156,7 @@ export default function EditCommunityClient({ community, permissions }: Props) {
                                 
                                 <MarkdownInput
                                     name="guidelines"
-                                    label="Community Guidelines"
+                                    label="Community Rules and Guidelines"
                                     placeholder="Set the rules for your community"
                                     value={formData.guidelines}
                                     onChange={(value) => updateFormData({ guidelines: value })}

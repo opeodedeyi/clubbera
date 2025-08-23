@@ -1,4 +1,3 @@
-// hooks/useEditCommunityActions.ts
 import { useState, useCallback, useEffect } from 'react';
 import { CommunityData, communityApi } from '@/lib/api/communities';
 import { processImage, validateImageFile } from '@/lib/imageProcessing';
