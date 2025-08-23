@@ -21,19 +21,6 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
     const [resendCooldown, setResendCooldown] = useState(0);
     const { user, updateUser } = useAuth();
 
-    useEffect(() => {
-        if (isOpen && user?.email) {
-            sendVerificationCode();
-        }
-    }, [isOpen]);
-
-    useEffect(() => {
-        if (resendCooldown > 0) {
-            const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [resendCooldown]);
-
     const sendVerificationCode = async () => {
         if (!user?.email) return;
         
@@ -51,12 +38,25 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
         }
     };
 
+    useEffect(() => {
+        if (isOpen && user?.email) {
+            sendVerificationCode();
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (resendCooldown > 0) {
+            const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [resendCooldown]);
+
     const verifyCode = async () => {
         if (!user?.email || !verificationCode.trim()) return;
         
         setIsLoading(true);
         setError(null);
-        
+
         try {
             await usersApi.verifyEmailCode({
                 email: user.email,
@@ -108,7 +108,8 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
                                 onChange={(value) => setVerificationCode(value)}
                                 maxLength={6}
                                 disabled={isLoading}
-                                className={styles.codeInput}/>
+                                className={styles.codeInput}
+                                error={error}/>
 
                             <div className={styles.actions}>
                                 <Button
