@@ -164,6 +164,12 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
     }, [handleAuthSuccess, handleOAuthError]);
 
     const handleOneTapPrompt = useCallback((notification: GooglePromptNotification) => {
+        // Don't trigger fallback if auth is no longer in progress (user already logged in)
+        if (!authInProgress.current) {
+            console.log('Auth already completed, skipping fallback');
+            return;
+        }
+
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
             console.log('One Tap not displayed, using OAuth fallback');
             triggerOAuthFallback();
