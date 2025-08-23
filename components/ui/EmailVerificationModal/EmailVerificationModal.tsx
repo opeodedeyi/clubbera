@@ -117,7 +117,7 @@ const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({ isOpen 
                     ) : (
                         <div className={styles.content}>
                             <p className={styles.instructions}>
-                                We've sent a 6-digit verification code to <strong>{user?.email}, please verify to continue</strong>
+                                We&apos;ve sent a 6-digit verification code to <strong>{user?.email}, please verify to continue</strong>
                             </p>
                             
                             <TextInput
