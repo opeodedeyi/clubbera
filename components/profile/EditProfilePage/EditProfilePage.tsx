@@ -20,6 +20,7 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
         formData,
         isLoading,
         // error,
+        getFieldError,
         // success,
         profileImage,
         hasPersonalDetailsChanged,
@@ -28,7 +29,6 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
         handleInterestsUpdate,
         handleImageUpload,
         // handleDeactivateAccount,
-        // clearMessages
     } = useAccountManager(initialProfile);
 
     const genderOptions = [
@@ -72,6 +72,7 @@ export default function EditProfilePage({ initialProfile }: ProfilePageClientPro
                         value={formData.fullName}
                         onChange={(value) => handleInputChange('fullName', value)}
                         disabled={isLoading}
+                        error={getFieldError('fullName')}
                         isRequired />
 
                     <SelectInput

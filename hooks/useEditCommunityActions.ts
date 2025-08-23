@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { CommunityData, communityApi } from '@/lib/api/communities';
 import { processImage, validateImageFile } from '@/lib/imageProcessing';
+import { validateCommunityName } from '@/lib/utils/nameValidation';
 
 interface EditCommunityFormData {
     name: string;
@@ -234,14 +235,15 @@ export function useEditCommunityActions(initialCommunity: CommunityData) {
     const validateForm = useCallback((): boolean => {
         const newErrors: Record<string, string> = {};
 
-        // Name validation
+        // Name validation using the name validation utility
         const name = formData.name?.trim() || '';
         if (!name) {
             newErrors.name = 'Community name is required';
-        } else if (name.length < 3) {
-            newErrors.name = 'Community name must be at least 3 characters';
-        } else if (name.length > 50) {
-            newErrors.name = 'Community name must be less than 50 characters';
+        } else {
+            const nameValidation = validateCommunityName(name);
+            if (!nameValidation.isValid) {
+                newErrors.name = nameValidation.error || 'Invalid community name';
+            }
         }
         
         // Tagline validation

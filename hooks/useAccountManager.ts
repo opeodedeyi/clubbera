@@ -2,6 +2,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useState, useCallback, useMemo } from 'react';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import { usersApi, type UpdateProfileRequest } from '@/lib/api/users';
+import { validateDisplayName } from '@/lib/utils/nameValidation';
 
 interface AccountFormData {
     fullName: string
@@ -19,6 +20,7 @@ interface UseAccountManagerReturn {
     formData: AccountFormData
     isLoading: boolean
     error: string | null
+    errors: Record<string, string>
     success: boolean
     profileImage: string | null
     bannerImage: string | null
@@ -29,6 +31,7 @@ interface UseAccountManagerReturn {
     handleImageUpload: (file: File, imageType: 'profile' | 'banner') => Promise<void>
     handleDeactivateAccount: () => Promise<void>
     clearMessages: () => void
+    getFieldError: (field: keyof AccountFormData) => string | undefined
 }
 
 interface InitialUserData {
@@ -93,6 +96,7 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
 
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [errors, setErrors] = useState<Record<string, string>>({})
     const [success, setSuccess] = useState(false)
     const [profileImage, setProfileImage] = useState<string | null>(
         initialData.profileImage?.provider == "aws-s3" ?
@@ -120,10 +124,19 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
             [name]: value
         }))
         clearMessages()
-    }, [])
+        // Clear field-specific error when user types
+        if (errors[name]) {
+            setErrors(prev => {
+                const newErrors = { ...prev }
+                delete newErrors[name]
+                return newErrors
+            })
+        }
+    }, [errors])
 
     const clearMessages = useCallback(() => {
         setError(null)
+        setErrors({})
         setSuccess(false)
     }, [])
 
@@ -133,6 +146,17 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         setSuccess(false)
 
         try {
+            // Clear previous errors
+            setErrors({})
+            
+            // Validate the display name before submitting
+            const nameValidation = validateDisplayName(formData.fullName)
+            if (!nameValidation.isValid) {
+                setErrors({ fullName: nameValidation.error || 'Invalid name' })
+                setIsLoading(false)
+                return
+            }
+
             const updateData: UpdateProfileRequest = {
                 fullName: formData.fullName,
                 bio: formData.bio,
@@ -303,10 +327,15 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         }
     }, [])
 
+    const getFieldError = (field: keyof AccountFormData) => {
+        return errors[field]
+    }
+
     return {
         formData,
         isLoading,
         error,
+        errors,
         success,
         profileImage,
         bannerImage,
@@ -316,6 +345,7 @@ export const useAccountManager = (initialData: InitialUserData): UseAccountManag
         handleInterestsUpdate,
         handleImageUpload,
         handleDeactivateAccount,
-        clearMessages
+        clearMessages,
+        getFieldError
     }
 }

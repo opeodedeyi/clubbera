@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { CommunityFormData } from '@/types/community';
 import { communityApi, CreateCommunityRequest } from '@/lib/api/communities';
 import { processImage, validateImageFile } from '@/lib/imageProcessing';
+import { validateCommunityName } from '@/lib/utils/nameValidation';
 
 
 const initialFormData: CommunityFormData = {
@@ -149,10 +150,12 @@ export function useCommunityForm() {
         case 2:
             if (!formData.name.trim()) {
                 newErrors.name = 'Community name is required'
-            } else if (formData.name.trim().length < 3) {
-                newErrors.name = 'Community name must be at least 3 characters'
-            } else if (formData.name.trim().length > 50) {
-                newErrors.name = 'Community name must be less than 50 characters'
+            } else {
+                // Validate community name using the name validation utility
+                const nameValidation = validateCommunityName(formData.name)
+                if (!nameValidation.isValid) {
+                    newErrors.name = nameValidation.error || 'Invalid community name'
+                }
             }
             
             if (!formData.tagline.trim()) {

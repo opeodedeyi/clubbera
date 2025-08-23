@@ -11,6 +11,7 @@ interface PasswordInputProps {
     onChange: (value: string) => void;
     isRequired?: boolean;
     disabled?: boolean;
+    error?: string;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = (props) => {
@@ -48,6 +49,8 @@ const PasswordInput: React.FC<PasswordInputProps> = (props) => {
                     )}
                 </span>
             </div>
+
+            {props.error && <span className={styles.errorText}>{props.error}</span>}
         </div>
     );
 }

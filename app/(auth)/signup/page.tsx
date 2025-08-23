@@ -15,6 +15,7 @@ export default function Signup() {
         formData,
         isLoading,
         error,
+        getFieldError,
         handleInputChange,
         handleSubmit,
         clearError
@@ -44,6 +45,7 @@ export default function Signup() {
                         value={formData.name}
                         onChange={(value) => handleInputChange('name', value)}
                         disabled={isLoading}
+                        error={getFieldError('name')}
                         isRequired />
 
                     <TextInput
@@ -54,6 +56,7 @@ export default function Signup() {
                         value={formData.email}
                         onChange={(value) => handleInputChange('email', value)}
                         disabled={isLoading}
+                        error={getFieldError('email')}
                         isRequired />
 
                     <PasswordInput
@@ -62,6 +65,7 @@ export default function Signup() {
                         placeholder='Enter your password'
                         value={formData.password}
                         onChange={(value) => handleInputChange('password', value)}
+                        error={getFieldError('password')}
                         disabled={isLoading}
                         isRequired />
                 </form>
