@@ -1,0 +1,52 @@
+.inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+}
+
+.formInput {
+    width: 100%;
+    height: 60px;
+    border: none;
+    overflow: hidden;
+    padding: var(--spacing-3-5) var(--spacing-14) var(--spacing-3-5) var(--spacing-4);
+    border-radius: 30px;
+    background-color: var(--color-background-light);
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+    transition: border-color 0.2s ease;
+}
+
+.formInput:focus {
+    outline: none;
+}
+
+.copyButton {
+    position: absolute;
+    right: var(--spacing-6);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2);
+}
+
+@media (max-width: 767px) {
+    .formInput {
+        height: 50px;
+        padding: var(--spacing-3-5) var(--spacing-12) var(--spacing-3-5) var(--spacing-4);
+        border-radius: 25px;
+        font-size: var(--font-size-sm);
+    }
+
+    .copyButton {
+        right: var(--spacing-4);
+        padding: var(--spacing-1);
+    }
+}

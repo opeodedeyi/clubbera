@@ -7,8 +7,10 @@ import {
     ClubberaTaiwoIcon,
     ClubberaTriangleIcon,
     ClubberaKehindeIcon,
+    FacebookIcon,
     GoogleIcon,
     InstagramIcon,
+    LinkedInIcon,
     XIcon,
 } from './icons/';
 import type { IconProps, BrandIconProps } from '@/types/icon';
@@ -113,6 +115,14 @@ export default function BrandIcon(props: IconProps) {
                     color={clubberaKehindeProps.color}
                     className={iconClasses} />
             )
+        case 'facebook':
+            const facebookProps = props as BrandIconProps
+            return (
+                <FacebookIcon
+                    size={iconSize}
+                    color={facebookProps.color}
+                    className={iconClasses} />
+            )
         case 'google':
             const googleProps = props as BrandIconProps
             return (
@@ -127,6 +137,14 @@ export default function BrandIcon(props: IconProps) {
                 <InstagramIcon 
                     size={iconSize} 
                     color={instagramProps.color}
+                    className={iconClasses} />
+            )
+        case 'linkedIn':
+            const linkedInProps = props as BrandIconProps
+            return (
+                <LinkedInIcon
+                    size={iconSize}
+                    color={linkedInProps.color}
                     className={iconClasses} />
             )
         case 'x':

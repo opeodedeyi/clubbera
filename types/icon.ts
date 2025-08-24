@@ -8,6 +8,8 @@ export type IconName =
     | 'clubberaTaiwo'
     | 'clubberaTriangle'
     | 'clubberaKehinde'
+    | 'facebook'
+    | 'linkedIn'
     | 'google'
     | 'instagram'
     | 'x'
@@ -75,7 +77,7 @@ export interface ComplexIconProps extends BaseIconProps {
 }
 
 export interface BrandIconProps extends BaseIconProps {
-    name: 'clubbera' | 'clubberaGame' | 'clubberaHex' | 'clubberaOreo' | 'clubberaPlay' | 'clubberaTaiwo' | 'clubberaTriangle' | 'clubberaKehinde' |'google' | 'instagram' | 'x'
+    name: 'clubbera' | 'clubberaGame' | 'clubberaHex' | 'clubberaOreo' | 'clubberaPlay' | 'clubberaTaiwo' | 'clubberaTriangle' | 'clubberaKehinde' | 'facebook' |'google' | 'instagram' | 'linkedIn' | 'x'
     color?: string
 }
   

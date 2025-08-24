@@ -8,8 +8,10 @@ export { default as ClubberaPlayIcon } from './ClubberaPlayIcon';
 export { default as ClubberaTaiwoIcon } from './ClubberaTaiwoIcon';
 export { default as ClubberaTriangleIcon } from './ClubberaTriangleIcon';
 export { default as ClubberaKehindeIcon } from './ClubberaKehindeIcon';
+export { default as FacebookIcon } from './FacebookIcon';
 export { default as GoogleIcon } from './GoogleIcon';
 export { default as InstagramIcon } from './InstagramIcon';
+export { default as LinkedInIcon } from './LinkedInIcon';
 export { default as XIcon } from './XIcon';
 // Simple icons
 export { default as ArrowDownIcon } from './ArrowDownIcon';
@@ -63,8 +65,10 @@ export type IconName =
     | 'clubberaTaiwo'
     | 'clubberaTriangle'
     | 'clubberaKehinde'
+    | 'facebook'
     | 'google'
     | 'instagram'
+    | 'linkedIn'
     | 'x'
     // simple
     | 'arrowDown'

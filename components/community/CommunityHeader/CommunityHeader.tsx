@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Icon from '@/components/ui/Icon/Icon';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import Button from '@/components/ui/Button/Button';
+import ShareModal from '@/components/ui/ShareModal/ShareModal';
 import { formatDate } from '@/lib/utils/dateFormatter';
 import { CommunityData, communityApi } from '@/lib/api/communities';
 import styles from './CommunityHeader.module.css';
@@ -19,6 +20,7 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
     const [isJoining, setIsJoining] = useState(false);
     const [requestSent, setRequestSent] = useState(community.user?.joinRequestStatus=='pending' || false);
     const [error, setError] = useState<string | null>(null);
+    const [showShareModal, setShowShareModal] = useState(false);
 
     const isLoggedIn = community.user !== null;
     const isMember = community.user?.isMember || false;
@@ -66,53 +68,61 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.profilePictures}>
-                <div className={styles.profileCover}>
-                    <img src={getS3ImageUrl(community.coverImage?.key) || IMAGES.pages.communities.cover} alt='cover image for community'/>
+        <>
+            <div className={styles.container}>
+                <div className={styles.profilePictures}>
+                    <div className={styles.profileCover}>
+                        <img src={getS3ImageUrl(community.coverImage?.key) || IMAGES.pages.communities.cover} alt='cover image for community'/>
+                    </div>
+                    <div className={styles.profileImage}>
+                        <img src={getS3ImageUrl(community.profileImage?.key) || IMAGES.pages.communities.placeholder} alt='profile image for community'/>
+                    </div>
                 </div>
-                <div className={styles.profileImage}>
-                    <img src={getS3ImageUrl(community.profileImage?.key) || IMAGES.pages.communities.placeholder} alt='profile image for community'/>
+
+                <div className={styles.profileAction}>
+                    <span className={`${styles.profileTitle} font-boris`}>{community.name} <span className={styles.profileTag}>{community.isPrivate ? "Private" : "Public"}</span></span>
+
+                    {!isMember ? (
+                        <div className={styles.profileButtons}>
+                            <Button
+                                variant='community'
+                                onClick={handleJoinAction}
+                                disabled={isJoining || requestSent}>
+                                    {getButtonText()}
+                            </Button>
+
+                            <Button variant='plain' onClick={() => setShowShareModal(true)}>Share link</Button>
+                        </div>
+                    ) :
+                        <div className={`${styles.profileButtons} desktop-only-flex`}>
+                            <Button variant='community'>Create Post</Button>
+                            {
+                                isAdmin ? (
+                                    <Button as='link' href={`/community/${community.id}/manage`} variant='plain'>Manage Community</Button>
+                                ) : (
+                                    <Button variant='plain' onClick={() => setShowShareModal(true)}>Share link</Button>
+                                )
+                            }
+                            {/* add menu button here */}
+                        </div>
+                    }
                 </div>
+
+                {!isMember && (
+                    <div className={`${styles.profileText}`}>
+                        <div className={styles.profileTextItem}><Icon name="locationMark" color='var(--color-community)'/> <span>{community.location.name}</span></div>
+                        <div className={styles.profileTextItem}><Icon name="group" color='var(--color-community)'/> <span>{community.memberCount}</span></div>
+                        <div className={styles.profileTextItem}><Icon name="globe" color='var(--color-community)'/> <span>Created {formatDate(community.createdAt, 'medium')}</span></div>
+                        {error && <p>{error}</p>}
+                    </div>
+                )}
             </div>
 
-            <div className={styles.profileAction}>
-                <span className={`${styles.profileTitle} font-boris`}>{community.name} <span className={styles.profileTag}>{community.isPrivate ? "Private" : "Public"}</span></span>
-
-                {!isMember ? (
-                    <div className={styles.profileButtons}>
-                        <Button
-                            variant='community'
-                            onClick={handleJoinAction}
-                            disabled={isJoining || requestSent}>
-                                {getButtonText()}
-                        </Button>
-
-                        <Button variant='plain'>Share link</Button>
-                    </div>
-                ) :
-                    <div className={`${styles.profileButtons} desktop-only-flex`}>
-                        <Button variant='community'>Create Post</Button>
-                        {
-                            isAdmin ? (
-                                <Button as='link' href={`/community/${community.id}/manage`} variant='plain'>Manage Community</Button>
-                            ) : (
-                                <Button variant='plain'>Share link</Button>
-                            )
-                        }
-                        {/* add share button here */}
-                    </div>
-                }
-            </div>
-
-            {!isMember && (
-                <div className={`${styles.profileText}`}>
-                    <div className={styles.profileTextItem}><Icon name="locationMark" color='var(--color-community)'/> <span>{community.location.name}</span></div>
-                    <div className={styles.profileTextItem}><Icon name="group" color='var(--color-community)'/> <span>{community.memberCount}</span></div>
-                    <div className={styles.profileTextItem}><Icon name="globe" color='var(--color-community)'/> <span>Created {formatDate(community.createdAt, 'medium')}</span></div>
-                    {error && <p>{error}</p>}
-                </div>
-            )}
-        </div>
+            <ShareModal 
+                type="community"
+                url={typeof window !== 'undefined' ? window.location.href : ''}
+                isOpen={showShareModal}
+                onClose={() => setShowShareModal(false)} />
+        </>
     );
 }
