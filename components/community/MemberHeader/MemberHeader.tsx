@@ -21,14 +21,14 @@ export default function MemberHeader({ community }: CommunityMemberViewProps) {
                     className={styles.buttons}
                     // onClick={handleBack}
                     aria-label="open more options">
-                    <Icon name='like' size='sm' />
+                    <Icon name='like' color='var(--color-text-light)' size='sm' />
                 </button>
 
                 <button
                     className={styles.buttons}
                     // onClick={handleBack}
                     aria-label="open more options">
-                    <Icon name='verticalEllipsis' size='sm' />
+                    <Icon name='verticalEllipsis' color='var(--color-text-light)' size='sm' />
                 </button>
             </div>
         </div>
