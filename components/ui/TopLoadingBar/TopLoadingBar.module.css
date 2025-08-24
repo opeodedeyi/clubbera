@@ -1,0 +1,40 @@
+.topLoadingBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 9999;
+    background-color: transparent;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-default), var(--color-community));
+    animation: progressAnimation 2s ease-in-out infinite;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px rgba(5, 194, 19, 0.5);
+}
+
+@keyframes progressAnimation {
+    0% {
+        width: 0%;
+        opacity: 1;
+    }
+    50% {
+        width: 70%;
+        opacity: 1;
+    }
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+/* Fallback for older browsers without CSS custom properties */
+@supports not (color: var(--color-default)) {
+    .progress {
+        background: linear-gradient(90deg, #05C213, #A664FD);
+        box-shadow: 0 0 10px rgba(5, 194, 19, 0.5);
+    }
+}

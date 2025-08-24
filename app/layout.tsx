@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header/Header";
 import ConditionalFooter from "@/components/layout/Footer/ConditionalFooter";
 import ConditionalBottomNav from "@/components/layout/BottomNav/ConditionalBottomNav";
 import EmailVerificationWrapper from "@/components/ui/EmailVerificationModal/EmailVerificationWrapper";
+import TopLoadingBar from "@/components/ui/TopLoadingBar/TopLoadingBar";
 import { ThemeProvider } from 'next-themes';
 import { boris, nunito } from "@/fonts/fonts";
 import "@/styles/globals.css";
@@ -47,6 +48,7 @@ export default async function RootLayout({
                     enableSystem={true}
                     disableTransitionOnChange={false}>
                         <AuthProvider>
+                            <TopLoadingBar />
                             <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
                             <main>{children}</main>
                             <ConditionalFooter />
