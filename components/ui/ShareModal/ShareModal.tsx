@@ -35,13 +35,13 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, url, title = "
         
         switch (platform) {
             case 'facebook':
-                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedTitle}`;
                 break;
             case 'x':
                 shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
                 break;
             case 'linkedIn':
-                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&title=${encodedTitle}&summary=${encodedTitle}`;
                 break;
             case 'instagram':
                 // Instagram doesn't support URL sharing, so we'll copy to clipboard
