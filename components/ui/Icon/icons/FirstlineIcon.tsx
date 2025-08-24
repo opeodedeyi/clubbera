@@ -10,7 +10,6 @@ export default function FirstlineIcon({
     size = 20,
     color = 'currentColor',
     fillColor,
-    strokeColor,
     className = ''
 }: FirstlineIconProps) {
     const finalFillColor = fillColor || color

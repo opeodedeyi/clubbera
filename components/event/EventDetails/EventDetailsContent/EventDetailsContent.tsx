@@ -62,7 +62,6 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent 
 
             <div className={styles.content}>
                 <div className={styles.contentTop}>
-                    {/* (src) will be passed in here */}
                     <EventImage />
 
                     <div className={styles.contentTopRight}>

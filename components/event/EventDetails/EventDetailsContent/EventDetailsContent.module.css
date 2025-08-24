@@ -41,7 +41,7 @@
 
 .contentTopRight {
     flex-direction: column;
-    gap: 16px;
+    gap: var(--spacing-4);
 }
 
 .contentBottomRight {
@@ -65,15 +65,15 @@
 
 @media screen and (max-width: 767px) {
     .container {
-        padding: var(--spacing-7) var(--spacing-lg);
+        padding: var(--spacing-7) var(--spacing-lg) var(--spacing-20);
         gap: var(--spacing-lg);
     }
 
     .content {
-        gap: var(--spacing-xl);
+        gap: var(--spacing-2xl);
     }
 
     .contentBottomLeft {
-        gap: var(--spacing-lg);
+        gap: var(--spacing-2xl);
     }
 }

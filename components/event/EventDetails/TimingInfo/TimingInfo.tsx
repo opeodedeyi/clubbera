@@ -23,7 +23,7 @@ const TimingInfo: React.FC<TimingInfoProps> = ({
         <div className={`${styles.timingInfo} ${className}`}>
             <div className={styles.timingTexts}>
                 <div className={styles.timingItem}>
-                    <Icon name='info' size='md' color='var(--color-event)' />
+                    <Icon name='clock' size='md' color='var(--color-event)' />
                     <p>{time}</p>
                 </div>
 

@@ -10,7 +10,6 @@ export default function LinkIcon({
     size = 20,
     color = 'currentColor',
     fillColor,
-    strokeColor,
     className = ''
 }: LinkIconProps) {
     const finalFillColor = fillColor || color

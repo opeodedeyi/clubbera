@@ -10,7 +10,6 @@ export default function ClockIcon({
     size = 20,
     color = 'currentColor',
     fillColor,
-    strokeColor,
     className = ''
 }: ClockIconProps) {
     const finalFillColor = fillColor || color
