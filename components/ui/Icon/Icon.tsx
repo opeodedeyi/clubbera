@@ -14,6 +14,7 @@ import {
     GalleryIcon,
     GlobeIcon,
     GroupIcon,
+    HeadingIcon,
     HomeIcon,
     InfoIcon,
     LikeIcon,
@@ -36,6 +37,13 @@ import {
     PlusCustomIcon,
     SignoutIcon,
     ToggleIcon,
+    BoldIcon,
+    ItalicIcon,
+    ListIcon,
+    UnderlineIcon,
+    ClockIcon,
+    FirstlineIcon,
+    LinkIcon,
 } from './icons/';
 import type { IconProps, SimpleIconProps, ComplexIconProps } from '@/types/icon';
 import styles from './Icon.module.css';
@@ -205,6 +213,14 @@ export default function Icon(props: IconProps) {
                     color={groupProps.color}
                     className={iconClasses}/>
             )
+        case 'heading':
+            const headingProps = props as SimpleIconProps
+            return (
+                <HeadingIcon
+                    size={iconSize}
+                    color={headingProps.color}
+                    className={iconClasses}/>
+            )
         case 'home':
             const homeProps = props as SimpleIconProps
             return (
@@ -309,6 +325,38 @@ export default function Icon(props: IconProps) {
                     color={verticalEllipsisProps.color}
                     className={iconClasses}/>
             )
+        case 'bold':
+            const boldProps = props as SimpleIconProps
+            return (
+                <BoldIcon
+                    size={iconSize}
+                    color={boldProps.color}
+                    className={iconClasses}/>
+            )
+        case 'italic':
+            const italicProps = props as SimpleIconProps
+            return (
+                <ItalicIcon
+                    size={iconSize}
+                    color={italicProps.color}
+                    className={iconClasses}/>
+            )
+        case 'list':
+            const listProps = props as SimpleIconProps
+            return (
+                <ListIcon
+                    size={iconSize}
+                    color={listProps.color}
+                    className={iconClasses}/>
+            )
+        case 'underline':
+            const underlineProps = props as SimpleIconProps
+            return (
+                <UnderlineIcon
+                    size={iconSize}
+                    color={underlineProps.color}
+                    className={iconClasses}/>
+            )
         // Complex icons
         case 'balloon':
             const balloonProps = props as ComplexIconProps
@@ -398,6 +446,36 @@ export default function Icon(props: IconProps) {
                     color={toggleProps.color}
                     fillColor={toggleProps.fillColor}
                     strokeColor={toggleProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'clock':
+            const clockProps = props as ComplexIconProps
+            return (
+                <ClockIcon 
+                    size={iconSize}
+                    color={clockProps.color}
+                    fillColor={clockProps.fillColor}
+                    strokeColor={clockProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'firstline':
+            const firstlineProps = props as ComplexIconProps
+            return (
+                <FirstlineIcon 
+                    size={iconSize}
+                    color={firstlineProps.color}
+                    fillColor={firstlineProps.fillColor}
+                    strokeColor={firstlineProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'link':
+            const linkProps = props as ComplexIconProps
+            return (
+                <LinkIcon 
+                    size={iconSize}
+                    color={linkProps.color}
+                    fillColor={linkProps.fillColor}
+                    strokeColor={linkProps.strokeColor}
                     className={iconClasses}/>
             )
         default:

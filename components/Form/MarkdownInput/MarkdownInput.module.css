@@ -15,9 +15,8 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    background: transparent;
+    background: none;
     border: 1px solid transparent;
-    border-radius: var(--radius-md);
     cursor: pointer;
     transition: all 0.2s ease;
     color: var(--color-text);
@@ -29,8 +28,8 @@
 }
 
 .toolbarButton:hover:not(:disabled) {
-    background: var(--color-background-dark);
-    border-color: var(--color-border);
+    background: none;
+    border-color: none;
 }
 
 .toolbarButton:active:not(:disabled) {

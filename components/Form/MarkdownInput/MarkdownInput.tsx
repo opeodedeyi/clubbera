@@ -150,7 +150,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Header"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="heading" size="sm" />
                     </button>
                     
                     <button
@@ -159,7 +159,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Bold (Ctrl+B)"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="bold" size="sm" />
                     </button>
                     
                     <button
@@ -168,7 +168,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Italic (Ctrl+I)"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="italic" size="sm" />
                     </button>
                     
                     <button
@@ -177,7 +177,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Underline (Ctrl+U)"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="underline" size="sm" />
                     </button>
                     
                     <button
@@ -186,7 +186,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Link (Ctrl+K)"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="link" size="sm" />
                     </button>
                     
                     <button
@@ -195,7 +195,7 @@ const MarkdownInput: React.FC<MarkdownInputProps> = (props) => {
                         className={markdownStyles.toolbarButton}
                         title="Unordered List"
                         disabled={props.disabled}>
-                        <Icon name="arrowUp" size="sm" />
+                        <Icon name="list" size="sm" />
                     </button>
                 </div>
 

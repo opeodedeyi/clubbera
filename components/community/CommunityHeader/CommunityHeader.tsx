@@ -103,7 +103,7 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
                                     <Button variant='plain' onClick={() => setShowShareModal(true)}>Share link</Button>
                                 )
                             }
-                            {/* add menu button here */}
+                            {/* add menu button here desktop only */}
                         </div>
                     }
                 </div>

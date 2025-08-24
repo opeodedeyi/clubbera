@@ -29,6 +29,7 @@ export type IconName =
     | 'gallery'
     | 'globe'
     | 'group'
+    | 'heading'
     | 'home'
     | 'info'
     | 'like'
@@ -42,6 +43,10 @@ export type IconName =
     | 'search'
     | 'tickStylish'
     | 'verticalEllipsis'
+    | 'bold'
+    | 'italic'
+    | 'list'
+    | 'underline'
     // complex
     | 'balloon'
     | 'bin'
@@ -52,6 +57,9 @@ export type IconName =
     | 'plusCustom'
     | 'toggle'
     | 'signout'
+    | 'clock'
+    | 'firstline'
+    | 'link'
 
 export type IconSize = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl' | 'max' | 'cHeader'
 
@@ -65,12 +73,12 @@ interface BaseIconProps {
 }
   
 export interface SimpleIconProps extends BaseIconProps {
-    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'home' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'profile' | 'search' | 'tickStylish' | 'verticalEllipsis'
+    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'profile' | 'search' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline'
     color?: string
 }
   
 export interface ComplexIconProps extends BaseIconProps {
-    name: 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle'
+    name: 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle' | 'clock' | 'firstline' | 'link'
     color?: string
     fillColor?: string
     strokeColor?: string
