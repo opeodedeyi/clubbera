@@ -47,6 +47,7 @@ export type IconName =
     | 'italic'
     | 'list'
     | 'underline'
+    | 'leave'
     // complex
     | 'balloon'
     | 'bin'
@@ -73,7 +74,7 @@ interface BaseIconProps {
 }
   
 export interface SimpleIconProps extends BaseIconProps {
-    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'profile' | 'search' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline'
+    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'profile' | 'search' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline' | 'leave'
     color?: string
 }
   

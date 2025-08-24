@@ -47,6 +47,7 @@ export { default as SearchIcon } from './SearchIcon';
 export { default as TickStylishIcon } from './TickStylishIcon';
 export { default as UnderlineIcon } from './UnderlineIcon';
 export { default as VerticalEllipsisIcon } from './VerticalEllipsisIcon';
+export { default as LeaveIcon } from './LeaveIcon';
 // Complex icons
 export { default as BalloonIcon } from './BalloonIcon';
 export { default as BinIcon } from './BinIcon';
@@ -112,6 +113,7 @@ export type IconName =
     | 'tickStylish'
     | 'underline'
     | 'verticalEllipsis'
+    | 'leave'
     // complex
     | 'balloon'
     | 'bin'

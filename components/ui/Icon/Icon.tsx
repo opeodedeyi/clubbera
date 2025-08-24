@@ -44,6 +44,7 @@ import {
     ClockIcon,
     FirstlineIcon,
     LinkIcon,
+    LeaveIcon,
 } from './icons/';
 import type { IconProps, SimpleIconProps, ComplexIconProps } from '@/types/icon';
 import styles from './Icon.module.css';
@@ -476,6 +477,14 @@ export default function Icon(props: IconProps) {
                     color={linkProps.color}
                     fillColor={linkProps.fillColor}
                     strokeColor={linkProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'leave':
+            const leaveProps = props as SimpleIconProps
+            return (
+                <LeaveIcon
+                    size={iconSize}
+                    color={leaveProps.color}
                     className={iconClasses}/>
             )
         default:
