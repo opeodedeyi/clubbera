@@ -39,6 +39,7 @@ export interface CreateCommunityRequest {
         alt_text: string;
     };
 }
+
 export interface CommunityImage {
     id: number;
     imageType: string;
@@ -48,6 +49,12 @@ export interface CommunityImage {
     position: number;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface MemberImage {
+    provider: string;
+    key: string;
+    altText: string | null;
 }
 
 export interface CommunityLocation {
@@ -159,12 +166,13 @@ export interface CommunityPermissionsResponse {
 
 export interface CommunityMember {
     id: number;
+    uniqueUrl: string;
     fullName: string;
     email: string;
     role: string;
     joinedAt: string;
     isActive: boolean;
-    profileImage: string | null;
+    profileImage: MemberImage;
 }
 
 export interface CommunityMembersResponse {
