@@ -1,4 +1,4 @@
-import { CommunityData, CommunityPermissions } from '@/lib/api/communities';
+import { CommunityData } from '@/lib/api/communities';
 import BackButton from '@/components/ui/BackButton/BackButton';
 import MainCommunityNavigation from '@/components/community/MainCommunityNavigation/MainCommunityNavigation';
 import styles from './CommunityLayout.module.css';
