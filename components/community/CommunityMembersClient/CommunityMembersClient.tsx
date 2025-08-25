@@ -77,7 +77,7 @@ export default function CommunityMembersClient({ community }: CommunityMembersCl
                 )}
 
                 {!loading && !error && members.length > 0 && (
-                    <>
+                    <div className={styles.membersList}>
                         <div className={styles.tableWrapper}>
                             <table className={styles.table}>
                                 <thead className={styles.tableHeader}>
@@ -123,15 +123,15 @@ export default function CommunityMembersClient({ community }: CommunityMembersCl
                             </table>
                         </div>
 
-                        {totalPages > 1 && (
+                        {/* {totalPages > 1 && ( */}
                             <Pagination
                                 currentPage={currentPage}
                                 totalPages={totalPages}
                                 onPageChange={handlePageChange}
                                 hasMore={hasMore}
                             />
-                        )}
-                    </>
+                        {/* )} */}
+                    </div>
                 )}
             </div>
         </CommunityLayout>
