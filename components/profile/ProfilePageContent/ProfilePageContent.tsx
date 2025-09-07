@@ -1,11 +1,14 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { IMAGES } from '@/lib/images';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import Button from '@/components/ui/Button/Button';
 import Icon from '@/components/ui/Icon/Icon';
 import BackButton from "@/components/ui/BackButton/BackButton";
+import CommunityCardLong from '@/components/cards/community/CommunityCardLong/CommunityCardLong';
 import { UserProfileByUrlResponse } from '@/lib/api/users';
+import { communityApi, type CommunitySearchResult } from '@/lib/api/communities';
 import styles from './ProfilePageContent.module.css';
 
 
@@ -15,7 +18,52 @@ interface ProfilePageClientProps {
 }
 
 export default function ProfilePageContent({ initialProfile, uniqueUrl }: ProfilePageClientProps) {
-    console.log(uniqueUrl);
+    const [communities, setCommunities] = useState<CommunitySearchResult[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [hasMore, setHasMore] = useState(false);
+    const [loadingMore, setLoadingMore] = useState(false);
+
+    useEffect(() => {
+        loadUserCommunities();
+    }, [initialProfile.id]);
+
+    const loadUserCommunities = async (offset = 0, append = false) => {
+        if (offset === 0) setLoading(true);
+        else setLoadingMore(true);
+
+        try {
+            console.log('Loading user communities for ID:', initialProfile.id);
+            console.log('Request params:', { uniqueIdentifier: initialProfile.id.toString(), limit: 10, offset });
+            
+            const response = await communityApi.getUserCommunities(
+                initialProfile.id.toString(),
+                10, // Load 10 communities at a time
+                offset
+            );
+            
+            console.log('Response received:', response);
+            console.log('Communities data:', response.data);
+            console.log('Pagination info:', response.pagination);
+            
+            if (append) {
+                setCommunities(prev => [...prev, ...response.data]);
+            } else {
+                setCommunities(response.data);
+            }
+            
+            setHasMore(response.pagination.hasMore);
+        } catch (error) {
+            console.error('Failed to load user communities:', error);
+            console.error('Error details:', error);
+        } finally {
+            setLoading(false);
+            setLoadingMore(false);
+        }
+    };
+
+    const handleSeeMore = () => {
+        loadUserCommunities(communities.length, true);
+    };
 
     return (
         <div className={styles.container}>
@@ -94,28 +142,45 @@ export default function ProfilePageContent({ initialProfile, uniqueUrl }: Profil
                         }
                     </div>
 
-                    {/* communitities he has joined */}
                     <div className={styles.otherContainer}>
                         <h2>Communities</h2>
-
                         <div className={styles.cardList}>
-                            {/* replace with call to API to get community list */}
-                            {/* {initialProfile.interests.length > 0 &&  */}
-                                {/* (
-                                <div className={styles.interestsList}>
-                                {initialProfile.interests.map((interest, index) => ( */}
-                                        {/* <span key={index} className={styles.interestItem}>
-                                            {interest}
-                                        </span>
-                                    ))}
-                                </div> ) : */}
+                            {loading ? (
+                                <div className={styles.noContent}>
+                                    <p className={styles.miniDetailsPlace}>Loading communities...</p>
+                                </div>
+                            ) : communities.length > 0 ? (
+                                <>
+                                    <div className={styles.communityList}>
+                                        {communities.map((community) => (
+                                            <CommunityCardLong
+                                                key={community.id}
+                                                url={community.uniqueUrl}
+                                                name={community.name}
+                                                member={community.memberCount}
+                                                profile={community.profileImage?.key}
+                                                cover={community.coverImage?.key} />
+                                        ))}
+                                    </div>
+                                    {hasMore && (
+                                        <div className={styles.seeMoreContainer}>
+                                            <Button
+                                                variant="default"
+                                                onClick={handleSeeMore}
+                                                disabled={loadingMore}>
+                                                {loadingMore ? 'Loading...' : 'See More'}
+                                            </Button>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
                                 <div className={styles.noContent}>
                                     <div className={styles.noContentIcon}>
                                         <Icon name="group" size='xxl' color='var(--color-text-muted)'/>
                                     </div>
                                     <p className={styles.miniDetailsPlace}>No Communities Joined Yet</p>
                                 </div>
-                            {/* } */}
+                            )}
                         </div>
                     </div>
                 </div>

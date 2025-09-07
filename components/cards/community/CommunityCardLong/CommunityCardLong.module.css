@@ -41,8 +41,8 @@
     width: 100%;
     padding: var(--spacing-14) var(--spacing-5) var(--spacing-5);
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
+    flex-direction: row;
+    gap: var(--spacing-8);
     color: var(--color-text);
 }
 
@@ -109,6 +109,7 @@
     }
 
     .cardText {
+        flex-direction: column;
         flex-grow: 1;
         padding: 0;
         gap: var(--spacing-1-5);

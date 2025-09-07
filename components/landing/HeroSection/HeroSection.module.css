@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-36) var(--spacing-20);
+    padding: var(--spacing-20) var(--spacing-20);
     gap: var(--spacing-40);
 }
 

@@ -292,12 +292,18 @@ export const communityApi = {
     searchCommunities: async (
         query: string, 
         limit: number = 20, 
-        offset: number = 0
+        offset: number = 0,
+        lat?: number,
+        lng?: number,
+        radius?: number
     ): Promise<CommunitySearchResponse> => {
         const params = new URLSearchParams({
             query,
             limit: limit.toString(),
-            offset: offset.toString()
+            offset: offset.toString(),
+            ...(lat !== undefined && { lat: lat.toString() }),
+            ...(lng !== undefined && { lng: lng.toString() }),
+            ...(radius !== undefined && { radius: radius.toString() })
         });
         return api.get<CommunitySearchResponse>(`/community-search/search?${params}`);
     },
@@ -385,5 +391,43 @@ export const communityApi = {
 
     deleteCommunity: async (communityId: number): Promise<ApiSuccessResponse> => {
         return api.delete<ApiSuccessResponse>(`/communities/${communityId}`);
+    },
+
+    getUserCommunities: async (
+        uniqueIdentifier: string,
+        limit: number = 20,
+        offset: number = 0
+    ): Promise<CommunitySearchResponse> => {
+        const params = new URLSearchParams({
+            limit: limit.toString(),
+            offset: offset.toString()
+        });
+        return api.get<CommunitySearchResponse>(`/users/${uniqueIdentifier}/communities?${params}`);
+    },
+
+    getMyCommunities: async (
+        limit: number = 20,
+        offset: number = 0
+    ): Promise<CommunitySearchResponse> => {
+        const params = new URLSearchParams({
+            limit: limit.toString(),
+            offset: offset.toString()
+        });
+        return api.get<CommunitySearchResponse>(`/users/my/communities?${params}`);
+    },
+
+    getCommunityRecommendations: async (
+        limit: number = 20,
+        offset: number = 0,
+        lat?: number,
+        lng?: number
+    ): Promise<CommunitySearchResponse> => {
+        const params = new URLSearchParams({
+            limit: limit.toString(),
+            offset: offset.toString(),
+            ...(lat !== undefined && { lat: lat.toString() }),
+            ...(lng !== undefined && { lng: lng.toString() })
+        });
+        return api.get<CommunitySearchResponse>(`/communities/recommendations?${params}`);
     }
 };

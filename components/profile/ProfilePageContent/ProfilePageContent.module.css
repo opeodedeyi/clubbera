@@ -81,6 +81,13 @@
     color: var(--color-text-light);
 }
 
+.communityList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+}
+
 .actionButtons {
     display: flex;
     flex-direction: row;
@@ -169,6 +176,10 @@
     .miniTitle,
     .miniDetails {
         font-size: var(--font-size-base);
+    }
+
+    .communityList {
+        gap: var(--spacing-3);
     }
 
     .contentDetails {

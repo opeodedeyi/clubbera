@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { IMAGES } from '@/lib/images';
+import { getS3ImageUrl } from '@/lib/s3Utils';
 import Icon from '@/components/ui/Icon/Icon';
 import styles from './CommunityCard.module.css';
 
@@ -17,10 +18,10 @@ export default function CommunityCard({ url, profile, cover, name, description, 
     const cardContent = (
         <div className={styles.card}>
             <div className={styles.cardCover}>
-                <img src={cover || IMAGES.pages.communities.cover} alt='cover image of community'/>
+                <img src={getS3ImageUrl(cover) || IMAGES.pages.communities.cover} alt='cover image of community'/>
             </div>
             <div className={styles.cardProfile}>
-                <img src={profile || IMAGES.pages.communities.placeholder} alt='profile image of community' />
+                <img src={getS3ImageUrl(profile) || IMAGES.pages.communities.placeholder} alt='profile image of community' />
             </div>
             <div className={styles.cardText}>
                 <div className={styles.cardTextMain}>
