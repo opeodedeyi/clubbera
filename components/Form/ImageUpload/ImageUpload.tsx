@@ -73,8 +73,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 {!currentImage ? (
                     <div
                         onClick={openFileDialog}
-                        className={styles.selectButton} >
-                        {buttonText}
+                        className={`${styles.selectButton} ${isUploading ? styles.uploading : ''}`}>
+                        {isUploading ? 'Uploading...' : buttonText}
                     </div>
                 ) : (
                     <div className={styles.selectedActions}>
@@ -83,7 +83,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                             onClick={openFileDialog}
                             disabled={disabled || isUploading}
                             className={styles.changeButton}>
-                            {changeText}
+                            {isUploading ? 'Uploading...' : changeText}
                         </button>
                         
                         {onImageRemove && (

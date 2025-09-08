@@ -1,25 +1,40 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import EventDetailsContent from '@/components/event/EventDetails/EventDetailsContent/EventDetailsContent';
-import { getEventByUrl } from '@/lib/api/events';
+import ManageEventContent from '@/components/event/ManageEvent/ManageEventContent/ManageEventContent';
+import { getEventById } from '@/lib/api/eventServer';
 
-interface EventPageProps {
+interface ManageEventPageProps {
     params: Promise<{
-        url: string
+        identifier: string
     }>
 }
 
 
-export default async function EventPage({ params }: EventPageProps) {
+export default async function ManageEventPage({ params }: ManageEventPageProps) {
     try {
-        const { url } = await params
-        console.log('Event URL:', url)
-        const event = await getEventByUrl(url)
+        const { identifier } = await params
+        const eventId = parseInt(identifier);
+        if (isNaN(eventId)) {
+            notFound();
+            return;
+        }
+        
+        const response = await getEventById(eventId)
+        const { event, userContext, canAccess } = response.data;
+        const attendanceStatus = userContext.attendanceStatus;
+        
+        console.log("event details", event);
+        console.log("attendance status", attendanceStatus);
+
+        // Check if user can access this event
+        if (!canAccess) {
+            return <AccessDeniedPage />;
+        }
         
         return (
             <div>
                 <Suspense fallback={<EventLoadingSkeleton />}>
-                    <EventDetailsContent initialEvent={event} />
+                    <ManageEventContent initialEvent={event} />
                 </Suspense>
             </div>
         )

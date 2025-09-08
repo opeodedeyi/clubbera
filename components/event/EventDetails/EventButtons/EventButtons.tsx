@@ -6,7 +6,7 @@ interface EventButtonsProps {
     onShare?: () => void;
     manageURL?: string;
     supportURL?: string
-    showManage?: boolean;
+    showManage?: boolean | string;
     showGetSupport?: boolean;
     className?: string;
 }

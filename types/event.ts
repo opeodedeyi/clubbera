@@ -2,8 +2,8 @@ export interface EventFormData {
     title: string
     description: string
     eventType: "physical" | "online"
-    startTime: string // ISO 8601 date string
-    endTime: string   // ISO 8601 date string
+    startTime: string // Local datetime string (not UTC)
+    endTime: string   // Local datetime string (not UTC)
     locationDetails: string
     location: {
         name: string
@@ -13,8 +13,10 @@ export interface EventFormData {
         address: string
     }
     coverImageKey: string | null
+    coverImageProvider?: string // Added for API integration
+    coverImageUrl?: string // Added for preview
     maxAttendees: number
-    timezone: string
+    timezone: string // IANA timezone identifier
     eventDate: string
     startTimeInput: string // HH:MM format for form input
     endTimeInput: string   // HH:MM format for form input
@@ -76,30 +78,60 @@ export interface EventLocation {
     address?: string
 }
 
-export interface EventDetails {
+export interface EventCommunity {
+    id: number
+    name: string
+    uniqueUrl: string
+}
+
+export interface MembershipShort {
+    role: string
+    is_premium: boolean
+    joined_at: string
+}
+
+// EventDetails is now just an alias for EventData from the API
+// This ensures compatibility between API response and component expectations
+export type EventDetails = {
     id: number
     uniqueUrl: string
     title: string
     description: string
-    eventType: 'physical' | 'virtual'
     startTime: string
     endTime: string
-    timezone: string
-    locationDetails?: string
-    formattedDate: string
-    formattedTime: string
-    communityName: string
-    maxAttendees: number
+    timezone?: string // Made optional to match EventData
+    eventType?: string // Made optional to match EventData
+    attendeeCount?: number // Made optional to match EventData
+    maxAttendees?: number | null // Made optional to match EventData
     currentAttendees: number
-    attendeeCount: number
-    coverImage?: EventImage
-    tags: EventTag[] | [string]
-    startingIn: string
-    isPastEvent: boolean
-    post?: EventPost
-    location?: EventLocation
-    requestedByUserId?: number
-    canManage: boolean
+    hasPassed: boolean
+    isOngoing: boolean
+    createdAt: string
+    coverImage: {
+        id: number;
+        imageType: string;
+        provider: string;
+        key: string;
+        altText: string | null;
+        position: number;
+        createdAt: string;
+        updatedAt: string;
+    } | null
+    location: {
+        id: number;
+        city: string;
+        name: string;
+        lat: number;
+        lng: number;
+        address: string;
+        createdAt: string;
+        updatedAt: string;
+    }
+    community: {
+        id: number;
+        name: string;
+        uniqueUrl: string;
+    }
 }
 
 export interface RSVPResponse {

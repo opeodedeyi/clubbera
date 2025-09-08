@@ -5,6 +5,13 @@
     gap: var(--spacing-3);
 }
 
+.formLabel {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+}
+
 .formInputPassword {
     width: 100%;
     border-radius: var(--radius-xl);
@@ -25,6 +32,17 @@
     color: var(--color-text);
     font-size: var(--font-size-body);
     transition: border-color 0.2s ease;
+}
+
+/* Hide number input spinner controls */
+.formInput[type="number"]::-webkit-outer-spin-button,
+.formInput[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.formInput[type="number"] {
+    -moz-appearance: textfield;
 }
 
 .formInputPassword:hover,

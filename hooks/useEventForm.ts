@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EventFormData, UploadUrlResponse } from '@/types/event';
+import { eventApi } from '@/lib/api/events';
+import { processImage, validateImageFile } from '@/lib/imageProcessing';
+import { validateNameRestrictions } from '@/lib/data/restrictedNames';
+import type { CreateEventRequest } from '@/lib/api/events';
 
 
 const initialFormData: EventFormData = {
@@ -20,6 +24,8 @@ const initialFormData: EventFormData = {
         address: ''
     },
     coverImageKey: null,
+    coverImageProvider: undefined,
+    coverImageUrl: undefined,
     maxAttendees: 50,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, // Auto-detect system timezone
     // Form fields
@@ -39,13 +45,13 @@ export function useEventForm() {
         setFormData(prev => {
             const updated = { ...prev, ...data }
             
-            // Auto-generate ISO strings when date/time inputs change
+            // Auto-generate local time strings when date/time inputs change
             if (data.eventDate || data.startTimeInput || data.endTimeInput) {
                 if (updated.eventDate && updated.startTimeInput) {
-                    updated.startTime = createISOString(updated.eventDate, updated.startTimeInput, updated.timezone)
+                    updated.startTime = createLocalTimeString(updated.eventDate, updated.startTimeInput)
                 }
                 if (updated.eventDate && updated.endTimeInput) {
-                    updated.endTime = createISOString(updated.eventDate, updated.endTimeInput, updated.timezone)
+                    updated.endTime = createLocalTimeString(updated.eventDate, updated.endTimeInput)
                 }
             }
             
@@ -61,11 +67,11 @@ export function useEventForm() {
         })
     }
 
-    // Helper function to create ISO 8601 string
-    const createISOString = (date: string, time: string, timezone: string): string => {
-        const dateTimeString = `${date}T${time}:00`
-        const dateObj = new Date(dateTimeString)
-        return dateObj.toISOString()
+    // Helper function to create local datetime string (not UTC)
+    const createLocalTimeString = (date: string, time: string): string => {
+        // Return local time in YYYY-MM-DDTHH:MM:SS format
+        // API expects local time with separate timezone field
+        return `${date}T${time}:00`
     }
 
     // Handle location selection from Google Maps
@@ -87,56 +93,57 @@ export function useEventForm() {
         })
     }
 
-    // Image upload functionality
-    const getUploadUrl = async (fileName: string, fileType: string): Promise<UploadUrlResponse> => {
-        try {
-            const response = await fetch('/api/upload/get-url', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fileName, fileType })
-            })
-            
-            if (!response.ok) throw new Error('Failed to get upload URL')
-            
-            return await response.json()
-        } catch (error) {
-            console.error('Error getting upload URL:', error)
-            throw error
-        }
-    }
-
-    const uploadFileToUrl = async (file: File, uploadUrl: string): Promise<void> => {
-        try {
-            const response = await fetch(uploadUrl, {
-                method: 'PUT',
-                body: file,
-                headers: { 'Content-Type': file.type }
-            })
-            
-            if (!response.ok) throw new Error('Failed to upload file')
-        } catch (error) {
-            console.error('Error uploading file:', error)
-            throw error
-        }
-    }
-
+    // Image upload functionality using event API
     const handleImageUpload = async (file: File): Promise<boolean> => {
+        console.log('Starting image upload for:', file.name)
         setIsUploading(true)
         
         try {
-            const { uploadUrl, fileUrl } = await getUploadUrl(file.name, file.type)
-            await uploadFileToUrl(file, uploadUrl)
+            // Validate image file
+            const validationError = validateImageFile(file, 10); // 10MB max for event cover images
+            if (validationError) {
+                console.log('Image validation failed:', validationError)
+                setErrors(prev => ({ ...prev, coverImageKey: validationError }))
+                setIsUploading(false)
+                return false
+            }
+
+            console.log('Image validation passed, processing image...')
+            // Process image (compression, WebP conversion, resizing)
+            const processedFile = await processImage(file, 'cover')
+            console.log('Image processed, requesting upload URL...')
             
-            updateFormData({ coverImageKey: fileUrl })
+            // Get temp upload URL using event API
+            const response = await eventApi.getTempUploadUrl({
+                fileType: processedFile.type,
+                entityType: 'event',
+                imageType: 'cover'
+            })
+
+            console.log('Upload URL received, uploading file...')
+            // Upload processed file to the provided URL
+            await eventApi.uploadFile(response.data.uploadUrl, processedFile)
             
+            console.log('File uploaded successfully, updating form data...')
+            // Store the provider, key, and alt_text for API submission
+            updateFormData({ 
+                coverImageKey: response.data.key,
+                coverImageProvider: response.data.provider || 'aws-s3',
+                coverImageUrl: response.data.fileUrl
+            })
+            
+            console.log('Image upload completed successfully')
             setIsUploading(false)
             return true
         } catch (error) {
+            console.error('Image upload failed:', error)
             setIsUploading(false)
-            setErrors(prev => ({ ...prev, coverImageKey: 'Failed to upload image' }))
+            const errorMessage = error instanceof Error ? error.message : 'Failed to upload image'
+            setErrors(prev => ({ ...prev, coverImageKey: errorMessage }))
             return false
         }
     }
+
 
     const nextStep = () => {
         if (validateCurrentStep()) {
@@ -175,6 +182,12 @@ export function useEventForm() {
             case 1: // Date, Time & Details
                 if (!formData.title.trim()) {
                     newErrors.title = 'Event title is required'
+                } else {
+                    // Check for restricted names
+                    const restrictionError = validateNameRestrictions(formData.title, 'event')
+                    if (restrictionError) {
+                        newErrors.title = restrictionError
+                    }
                 }
                 if (!formData.description.trim()) {
                     newErrors.description = 'Event description is required'
@@ -216,31 +229,87 @@ export function useEventForm() {
         return Object.keys(newErrors).length === 0
     }
 
-    const submitForm = async (): Promise<boolean> => {
+    const submitForm = async (communityId: number): Promise<boolean> => {
         try {
-            const submitData = {
-                title: formData.title,
-                description: formData.description,
-                eventType: formData.eventType,
-                startTime: formData.startTime,
-                endTime: formData.endTime,
-                locationDetails: formData.locationDetails,
-                location: formData.location,
-                coverImageKey: formData.coverImageKey || '',
-                maxAttendees: formData.maxAttendees,
-                timezone: formData.timezone
+            // Validate final form
+            if (!validateForm()) {
+                return false
             }
 
-            console.log('Submitting event:', submitData)
+            const submitData: CreateEventRequest = {
+                title: formData.title,
+                description: formData.description,
+                startTime: formData.startTime, // Local time string
+                endTime: formData.endTime, // Local time string
+                timezone: formData.timezone, // IANA timezone identifier
+                location: {
+                    city: formData.location.address?.split(',')[1]?.trim() || '',
+                    name: formData.location.name,
+                    lat: formData.location.lat || 0,
+                    lng: formData.location.lng || 0,
+                    address: formData.location.address
+                },
+                eventType: formData.eventType,
+                maxAttendees: formData.maxAttendees > 0 ? formData.maxAttendees : undefined,
+                content: formData.locationDetails
+            }
+
+            // Add cover image if uploaded
+            if (formData.coverImageKey && formData.coverImageProvider) {
+                submitData.cover_image = {
+                    provider: formData.coverImageProvider,
+                    key: formData.coverImageKey,
+                    alt_text: `Cover image for ${formData.title}`
+                }
+            }
+
+            console.log('Submitting event to API:', submitData)
             
-            // TODO: Replace with actual API call
-            // const response = await api.post('/events', submitData)
+            const response = await eventApi.createEvent(communityId, submitData)
             
-            return true
+            if (response.status === 'success') {
+                router.push(`/event/${response.data.event.id}`)
+                return true
+            }
+            
+            return false
         } catch (error) {
             console.error('Error creating event:', error)
+            setErrors(prev => ({ ...prev, submit: 'Failed to create event. Please try again.' }))
             return false
         }
+    }
+
+    const validateForm = (): boolean => {
+        const newErrors: Record<string, string> = {}
+
+        if (!formData.title.trim()) {
+            newErrors.title = 'Event title is required'
+        } else {
+            // Check for restricted names
+            const restrictionError = validateNameRestrictions(formData.title, 'event')
+            if (restrictionError) {
+                newErrors.title = restrictionError
+            }
+        }
+        
+        if (!formData.description.trim()) newErrors.description = 'Event description is required'
+        if (!formData.startTime) newErrors.startTime = 'Start time is required'
+        if (!formData.endTime) newErrors.endTime = 'End time is required'
+        if (!formData.timezone) newErrors.timezone = 'Timezone is required'
+        if (!formData.location.name && formData.eventType === 'physical') {
+            newErrors.location = 'Location is required for physical events'
+        }
+
+        // Validate timezone format (IANA identifier)
+        try {
+            Intl.DateTimeFormat(undefined, { timeZone: formData.timezone })
+        } catch {
+            newErrors.timezone = 'Invalid timezone format'
+        }
+
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
     }
 
     return {

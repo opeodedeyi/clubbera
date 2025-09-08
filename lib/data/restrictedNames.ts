@@ -107,15 +107,28 @@ export function isRestrictedName(name: string): boolean {
 /**
  * Get a descriptive error message for restricted names
  */
-export function getRestrictedNameError(name: string, type: 'username' | 'community' = 'username'): string {
-    const entityType = type === 'username' ? 'Username' : 'Community name';
+export function getRestrictedNameError(name: string, type: 'username' | 'community' | 'event' = 'username'): string {
+    let entityType: string;
+    switch (type) {
+        case 'username':
+            entityType = 'Username';
+            break;
+        case 'community':
+            entityType = 'Community name';
+            break;
+        case 'event':
+            entityType = 'Event title';
+            break;
+        default:
+            entityType = 'Name';
+    }
     return `${entityType} "${name}" is not allowed. Please choose a different name.`;
 }
 
 /**
  * Validate name and return error if restricted
  */
-export function validateNameRestrictions(name: string, type: 'username' | 'community' = 'username'): string | null {
+export function validateNameRestrictions(name: string, type: 'username' | 'community' | 'event' = 'username'): string | null {
     if (isRestrictedName(name)) {
         return getRestrictedNameError(name, type);
     }
