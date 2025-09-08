@@ -31,9 +31,9 @@ export default function ManageCommunities() {
             console.error('Error details:', {
                 message: err instanceof Error ? err.message : 'Unknown error',
                 stack: err instanceof Error ? err.stack : undefined,
-                status: (err as any)?.status,
-                statusText: (err as any)?.statusText,
-                response: (err as any)?.response
+                status: err && typeof err === 'object' && 'status' in err ? (err as { status: unknown }).status : undefined,
+                statusText: err && typeof err === 'object' && 'statusText' in err ? (err as { statusText: unknown }).statusText : undefined,
+                response: err && typeof err === 'object' && 'response' in err ? (err as { response: unknown }).response : undefined
             });
             setError(`Failed to load communities: ${err instanceof Error ? err.message : 'Unknown error'}`);
         } finally {

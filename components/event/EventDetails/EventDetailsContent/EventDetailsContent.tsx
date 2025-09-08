@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useState } from 'react';
+// import { useRouter } from 'next/navigation';
 import { EventDetails, MembershipShort } from "@/types/event";
 // import { updateRSVP } from '@/lib/api/events';
 import EventImage from '../EventImage/EventImage';
@@ -24,12 +24,12 @@ interface EventDetailsContentProps {
 }
 
 const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent, attendanceStatus, membership }: EventDetailsContentProps) => {
-    const [isUpdatingRSVP, setIsUpdatingRSVP] = useState(false)
-    const [userIsAttending, setUserIsAttending] = useState(attendanceStatus === 'attending') // Initialize from API data
-    const router = useRouter()
+    // const [isUpdatingRSVP, setIsUpdatingRSVP] = useState(false)
+    // const [userIsAttending, setUserIsAttending] = useState(attendanceStatus === 'attending') // Initialize from API data
+    // const router = useRouter()
 
     console.log('EventDetailsContent - attendanceStatus:', attendanceStatus)
-    console.log('EventDetailsContent - userIsAttending:', userIsAttending)
+    // console.log('EventDetailsContent - userIsAttending:', userIsAttending)
 
     // const handleRSVPUpdate = async () => {
     //     setIsUpdatingRSVP(true)

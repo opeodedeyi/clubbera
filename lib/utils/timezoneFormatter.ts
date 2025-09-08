@@ -41,7 +41,7 @@ export function formatDateWithTimezone(
         }
 
         return formattedDate;
-    } catch (error) {
+    } catch {
         // Fallback to regular format if timezone is invalid
         return format(date, formatPattern);
     }

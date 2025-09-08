@@ -110,7 +110,11 @@ export interface EventResponse {
         event: EventData;
         userContext: {
             attendanceStatus: string;
-            membership: any; // TODO: Add proper membership type
+            membership: {
+                role: string;
+                is_premium: boolean;
+                joined_at: string;
+            };
         };
     };
 }

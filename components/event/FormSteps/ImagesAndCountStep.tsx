@@ -11,7 +11,7 @@ const ImagesAndCountStep: React.FC<EventStepProps> = ({
     errors, 
     isUploading,
     handleImageUpload,
-    nextStep, 
+    // nextStep, 
     navigation,
     submitForm 
 }: EventStepProps) => {
@@ -80,7 +80,7 @@ const ImagesAndCountStep: React.FC<EventStepProps> = ({
                 { navigation && <p className={styles.navText}>{navigation}</p>}
 
                 <div className={styles.contentMain}>
-                    <h1>Let's Add <br />Final Touches</h1>
+                    <h1>Let&apos;s Add <br />Final Touches</h1>
 
                     <div className={styles.formSection}>
                         <TextInput

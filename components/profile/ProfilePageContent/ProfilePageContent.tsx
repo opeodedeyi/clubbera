@@ -17,7 +17,7 @@ interface ProfilePageClientProps {
     uniqueUrl: string
 }
 
-export default function ProfilePageContent({ initialProfile, uniqueUrl }: ProfilePageClientProps) {
+export default function ProfilePageContent({ initialProfile /* , uniqueUrl */ }: ProfilePageClientProps) {
     const [communities, setCommunities] = useState<CommunitySearchResult[]>([]);
     const [loading, setLoading] = useState(true);
     const [hasMore, setHasMore] = useState(false);
