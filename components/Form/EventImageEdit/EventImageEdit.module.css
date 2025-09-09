@@ -1,0 +1,84 @@
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.coverImageContainer {
+    position: relative;
+    width: 100%;
+    height: 145px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.coverImageContainer:hover:not(.disabled) {
+    border-color: none;
+    transform: translateY(-1px);
+}
+
+.coverImageContainer.uploading {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.coverImageContainer.disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.coverImageContainer.uploading .overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.coverIcon {
+    transition: transform 0.2s ease;
+}
+
+.coverImageContainer:hover .coverIcon:not(.spinner) {
+    transform: scale(1.1);
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .coverImageContainer {
+        height: 140px;
+    }
+}

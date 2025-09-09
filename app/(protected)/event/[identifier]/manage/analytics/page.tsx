@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import ManageEventContent from '@/components/ManageEvent/ManageEventContent/ManageEventContent';
+import EventAnalytics from '@/components/ManageEvent/EventAnalytics/EventAnalytics';
 import { getEventById } from '@/lib/api/eventServer';
 import { communityServerApi } from '@/lib/api/communitiesServer';
 
@@ -11,7 +11,7 @@ interface ManageEventPageProps {
 }
 
 
-export default async function ManageEventPage({ params }: ManageEventPageProps) {
+export default async function ManageAnalyticsPage({ params }: ManageEventPageProps) {
     try {
         const { identifier } = await params
         const eventId = parseInt(identifier);
@@ -23,16 +23,16 @@ export default async function ManageEventPage({ params }: ManageEventPageProps) 
         const response = await getEventById(eventId)
         const { event } = response.data;
         const communityPermissions = await communityServerApi.getCommunityPermissions(event.community.id);
-        const canManageEvents = communityPermissions.data.canCreateEvents;
+        const canViewAnalytics = communityPermissions.data.canViewAnalytics;
 
-        if (!canManageEvents) {
+        if (!canViewAnalytics) {
             return <AccessDeniedPage />;
         }
         
         return (
             <div>
                 <Suspense fallback={<EventLoadingSkeleton />}>
-                    <ManageEventContent initialEvent={event} />
+                    <EventAnalytics initialEvent={event} />
                 </Suspense>
             </div>
         )

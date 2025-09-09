@@ -57,6 +57,7 @@
 
 .calendarDayText {
     font-size: var(--font-size-2xl);
+    color: var(--color-event);
 }
 
 @media screen and (max-width: 1279px) {

@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    max-width: 934px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: var(--color-background);
+}
+
+.sticky {
+    position: sticky;
+    top: 80px;
+    z-index: 9;
+    padding-top: var(--spacing-3);
+    padding-bottom: var(--spacing-3);
+}
+
+@media screen and (max-width: 767px) {
+    .sectionDescription {
+        display: none;
+    }
+}

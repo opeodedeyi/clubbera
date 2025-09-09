@@ -61,6 +61,8 @@ export interface UpdateEventRequest {
         address: string;
     };
     maxAttendees?: number;
+    locationDetails?: string;
+    eventType?: string;
 }
 
 export interface EventData {
@@ -85,6 +87,7 @@ export interface EventData {
     timezone?: string;
     eventType?: string;
     content?: string | null;
+    locationDetails?: string; // Added to match EventDetails type expectations
     supportersOnly?: boolean;
     maxAttendees?: number | null;
     attendeeCount?: number;

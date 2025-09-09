@@ -1,0 +1,35 @@
+.container {
+    width: 100%;
+    padding: var(--spacing-2xl) var(--spacing-20);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 100px;
+    min-height: calc(100vh - 80px);
+}
+
+.containerLeft {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--spacing-8);
+}
+
+.containerContent {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12);
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 0;
+    }
+
+    .containerLeft {
+        padding: var(--spacing-5) var(--spacing-lg);
+    }
+}

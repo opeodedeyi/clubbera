@@ -103,7 +103,8 @@ export type EventDetails = {
     eventType?: string // Made optional to match EventData
     attendeeCount?: number // Made optional to match EventData
     maxAttendees?: number | null // Made optional to match EventData
-    currentAttendees: number
+    currentAttendees?: number
+    locationDetails?: string
     hasPassed: boolean
     isOngoing: boolean
     createdAt: string

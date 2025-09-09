@@ -9,7 +9,7 @@
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-medium);
     color: var(--color-text);
-    margin-bottom: var(--spacing-2);
+    /* margin-bottom: var(--spacing-2); */
 }
 
 .formInputPassword {
@@ -42,6 +42,7 @@
 }
 
 .formInput[type="number"] {
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
