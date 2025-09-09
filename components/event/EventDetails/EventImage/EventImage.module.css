@@ -1,6 +1,6 @@
 .eventImage {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     height: 280px;
     border-radius: var(--radius-2xl);
     overflow: hidden;

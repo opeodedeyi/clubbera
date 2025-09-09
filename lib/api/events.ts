@@ -177,7 +177,9 @@ export interface EventAttendeesResponse {
 
 export interface JoinEventRequest {
     message?: string;
+    status?: 'attending' | 'not_attending' | 'maybe';
 }
+
 
 export interface TempUploadUrlRequest {
     fileType: string;
@@ -287,16 +289,13 @@ export const eventApi = {
         return api.get<EventSearchResponse>(`/user/my-events?${params}`);
     },
 
-    joinEvent: async (
+    manageRSVP: async (
         eventId: number, 
         data?: JoinEventRequest
     ): Promise<ApiSuccessResponse> => {
-        return api.post<ApiSuccessResponse>(`/events/${eventId}/join`, data);
+        return api.post<ApiSuccessResponse>(`/events/${eventId}/attendance`, data);
     },
 
-    leaveEvent: async (eventId: number): Promise<ApiSuccessResponse> => {
-        return api.delete<ApiSuccessResponse>(`/events/${eventId}/attendees/me`);
-    },
 
     getEventAttendees: async (
         eventId: number,

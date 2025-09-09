@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ManageAccount from '@/components/layout/ManageAccount/ManageAccount';
-import CommunityCardLong from '@/components/cards/community/CommunityCardLong/CommunityCardLong';
 import { communityApi } from '@/lib/api/communities';
 import type { CommunitySearchResult } from '@/lib/api/communities';
+import ManageAccount from '@/components/layout/ManageAccount/ManageAccount';
+import CommunityCardLong from '@/components/cards/community/CommunityCardLong/CommunityCardLong';
 import styles from "@/styles/pages/manageCommunities.module.css";
 
 export default function ManageCommunities() {
@@ -81,23 +81,20 @@ export default function ManageCommunities() {
                                     name={community.name}
                                     member={community.memberCount}
                                     profile={community.profileImage?.key}
-                                    cover={community.coverImage?.key}
-                                />
+                                    cover={community.coverImage?.key} />
                             ))}
                             
                             <div className={styles.paginationControls}>
                                 <button 
                                     onClick={handlePreviousPage}
                                     disabled={currentPage === 0}
-                                    className={styles.paginationButton}
-                                >
+                                    className={styles.paginationButton}>
                                     Previous
                                 </button>
                                 <button 
                                     onClick={handleNextPage}
                                     disabled={!hasMore}
-                                    className={styles.paginationButton}
-                                >
+                                    className={styles.paginationButton}>
                                     Next
                                 </button>
                             </div>
