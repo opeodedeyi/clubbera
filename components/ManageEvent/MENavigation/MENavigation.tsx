@@ -12,7 +12,7 @@ interface MainNavigationProps {
     permissions?: CommunityPermissions;
 }
 
-export default function MENavigation({ eventId, permissions }: MainNavigationProps) {
+export default function MENavigation({ eventId }: MainNavigationProps) {
     const pathname = usePathname()
 
     return (
