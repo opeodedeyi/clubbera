@@ -30,8 +30,6 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
     const [showRSVPModal, setShowRSVPModal] = useState(false);
     const router = useRouter();
 
-    console.log('EventDetailsContent - attendanceStatus:', attendanceStatus)
-
     const handleRSVPUpdate = (newStatus: 'attending' | 'not attending' | 'maybe') => {
         console.log('RSVP updated to:', newStatus);
         // Refresh the server component data to get updated attendance status
@@ -39,7 +37,8 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
     };
 
     const manageURL = `/event/${initialEvent.id}/manage`;
-    const canUpdateRSVP = !initialEvent.hasPassed && !initialEvent.isOngoing && membership.role === "owner" || "organiser";
+    const showManage = membership.role === "owner" || membership.role === "organiser"
+    const canUpdateRSVP = !initialEvent.hasPassed && !initialEvent.isOngoing;
 
     return (
         <>
@@ -56,8 +55,9 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
 
                             <ReservationStatusCard 
                                 title={formatAttendanceStatus(attendanceStatus)} 
-                                buttonText={getAttendanceButtonText(attendanceStatus)}
-                                onUpdateRSVP={() => setShowRSVPModal(true)}
+                                buttonText={canUpdateRSVP ? getAttendanceButtonText(attendanceStatus) : (initialEvent.hasPassed ? "Past Event" : "Is Ongoing")}
+                                onUpdateRSVP={canUpdateRSVP ? () => setShowRSVPModal(true) : undefined}
+                                isLoading={false}
                                 className='desktop-only-flex' />
                         </div>
                     </div>
@@ -65,7 +65,7 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
                     <div className={styles.contentBottom}>
                         <div className={styles.contentBottomLeft}>
                             {/* (supportURL, showGetSupport) buttons */}
-                            <EventButtons manageURL={manageURL} onShare={() => setShowShareModal(true)} showManage={canUpdateRSVP} className='desktop-only-flex' />
+                            <EventButtons manageURL={manageURL} onShare={() => setShowShareModal(true)} showManage={showManage} className='desktop-only-flex' />
 
                             <EventTitleDescription title={initialEvent.title} description={initialEvent.description}/>
 
@@ -81,12 +81,13 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
 
                             <ReservationStatusCard 
                                 title={formatAttendanceStatus(attendanceStatus)} 
-                                buttonText={getAttendanceButtonText(attendanceStatus)}
-                                onUpdateRSVP={() => setShowRSVPModal(true)}
+                                buttonText={canUpdateRSVP ? getAttendanceButtonText(attendanceStatus) : (initialEvent.hasPassed ? "Past Event" : "Is Ongoing")}
+                                onUpdateRSVP={canUpdateRSVP ? () => setShowRSVPModal(true) : undefined}
+                                isLoading={false}
                                 className='tablet-mobile-flex' />
 
                             {/* (supportURL, showGetSupport) buttons */}
-                            <EventButtons manageURL={manageURL} onShare={() => setShowShareModal(true)} showManage={canUpdateRSVP} className='tablet-mobile-flex' />
+                            <EventButtons manageURL={manageURL} onShare={() => setShowShareModal(true)} showManage={showManage} className='tablet-mobile-flex' />
                         </div>
 
                         <div className={styles.contentBottomRight}>

@@ -15,7 +15,7 @@ const EventButtons: React.FC<EventButtonsProps> = ({
     onShare,
     manageURL,
     supportURL,
-    showManage = true,
+    showManage = false,
     showGetSupport = false,
     className = ''
 }) => {

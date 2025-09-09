@@ -23,7 +23,7 @@ const ReservationStatusCard: React.FC<ReservationStatusCardProps> = ({
             <Button 
                 variant='plain' 
                 onClick={onUpdateRSVP}
-                disabled={isLoading} >
+                disabled={isLoading || !onUpdateRSVP} >
                 {isLoading ? 'Updating...' : buttonText}
             </Button>
         </div>
