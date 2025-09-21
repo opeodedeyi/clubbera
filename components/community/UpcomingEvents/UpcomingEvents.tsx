@@ -47,8 +47,8 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 // Handle the actual response structure: {events: Array, pagination: {...}}
                 console.log('API response:', response);
                 // Handle both possible response structures
-                const responseData = response.data as any;
-                const eventsData = responseData?.events || responseData || [];
+                const responseData = response.data as EventSearchResult[] | {events: EventSearchResult[]};
+                const eventsData = (responseData as {events: EventSearchResult[]})?.events || (responseData as EventSearchResult[]) || [];
                 console.log('Events data from API:', eventsData);
                 setEvents(eventsData);
                 
