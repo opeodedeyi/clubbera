@@ -102,10 +102,6 @@
     color: var(--color-danger);
 }
 
-.menuItem.destructive:hover {
-    background: var(--color-danger-hover);
-}
-
 @media (prefers-reduced-motion: reduce) {
     .menu,
     .trigger,
