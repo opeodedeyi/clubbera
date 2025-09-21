@@ -21,7 +21,6 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const isAdmin = variant === 'admin';
 
     console.log(events);
     
@@ -41,7 +40,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 );
                 
                 // Handle the actual response structure: {events: Array, pagination: {...}}
-                const eventsData = (response.data as any)?.events || response.data || [];
+                const eventsData = response.data || [];
                 setEvents(eventsData);
                 
             } catch (err) {

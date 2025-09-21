@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Icon from '@/components/ui/Icon/Icon';
 import { useState, useRef, useEffect } from 'react';
 import { communityApi } from '@/lib/api/communities';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { CommunityData } from '@/lib/api/communities';
 import OverlayPortal from '@/components/ui/OverlayPortal/OverlayPortal';
 import styles from './CommunityDropdown.module.css';
