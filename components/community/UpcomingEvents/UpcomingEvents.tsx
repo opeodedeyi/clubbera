@@ -22,7 +22,12 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
     const [error, setError] = useState<string | null>(null);
 
 
-    console.log(events);
+    console.log('Events data:', events);
+    console.log('Events type:', typeof events);
+    console.log('Is events array?', Array.isArray(events));
+    console.log('Events length:', events?.length);
+    console.log('Is loading:', isLoading);
+    console.log('Error:', error);
     
 
     useEffect(() => {
@@ -40,7 +45,9 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 );
                 
                 // Handle the actual response structure: {events: Array, pagination: {...}}
-                const eventsData = response.data || [];
+                console.log('API response:', response);
+                const eventsData = (response.data as {events: EventSearchResult[]})?.events || [];
+                console.log('Events data from API:', eventsData);
                 setEvents(eventsData);
                 
             } catch (err) {
@@ -59,6 +66,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
             <div className={`${styles.upcomingEvents} ${styles[variant]} ${className || ''}`}>
                 <div className={styles.loadingContainer}>
                     <p className={styles.loadingText}>Loading events...</p>
+                    <div style={{fontSize: '12px', color: 'red'}}>DEBUG: Loading is true</div>
                 </div>
             </div>
         );
@@ -98,9 +106,12 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
         );
     }
 
-    if (events.length === 0) {
+    if (!Array.isArray(events) || events.length === 0) {
         return (
             <>
+                <div style={{fontSize: '12px', color: 'red', border: '1px solid red', padding: '5px'}}>
+                    DEBUG: No events found. Events array length: {events.length}
+                </div>
                 { variant === 'admin' ? (
                     <div className={styles.noEventsAdmin}>
                         <div className={styles.eventsAdminTop}>
@@ -173,34 +184,40 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 <div className={styles.eventsMember}>
                     <h3 className={styles.title}>Upcoming Events</h3>
 
-                    <Link href={`/event/${events[0].id}`} className={styles.eventlink}>
+                    {Array.isArray(events) && events.length > 0 && events[0] && (
+                        <Link href={`/event/${events[0].id}`} className={styles.eventlink}>
                         <div className={styles.eventsMemberMain}>
                             <div className={styles.memberImg}>
                                 {events.length > 0 && (
                                     <img 
-                                        src={getS3ImageUrl(events[0].coverImage?.key) || IMAGES.pages.communities.cover}
-                                        alt={events[0].coverImage?.altText || `Cover image for ${events[0].title}`} />
+                                        src={getS3ImageUrl(events[0]?.coverImage?.key) || IMAGES.pages.communities.cover}
+                                        alt={events[0]?.coverImage?.altText || `Cover image for ${events[0].title}`} />
                                 )}
                             </div>
 
                             <div className={styles.memberBody}>
                                 <div className={styles.sameLine}>
                                     <Icon name='calendar' className='desktop-only-flex' color='var(--color-event)' />
-                                    <p className={styles.memberStartingIn}>Starting {formatSmartDateWithTimezone(events[0].startTime, events[0].timezone)}</p>
+                                    <p className={styles.memberStartingIn}>Starting {formatSmartDateWithTimezone(events[0]?.startTime, events[0]?.timezone)}</p>
                                 </div>
 
                                 <div className={styles.memberBodyText}>
-                                    <h4>{events[0].title}</h4>
-                                    <p>{events[0].description}</p>
+                                    <h4>{events[0]?.title}</h4>
+                                    <p>{events[0]?.description}</p>
                                 </div>
 
                                 <div className={`${styles.sameLine} ${styles.attendees}`}>
                                     <Icon name='group' size='sm' color='var(--color-gray)' />
-                                    <p>{events[0].attendeeCount} <span>Attendees</span></p>
+                                    <p>{events[0]?.attendeeCount} <span>Attendees</span></p>
                                 </div>
                             </div>
                         </div>
-                    </Link>
+                        </Link>
+                    )}
+
+                    {(!Array.isArray(events) || events.length === 0) && !isLoading && (
+                        <p className={styles.noEvents}>No upcoming events</p>
+                    )}
                 </div>
             )}
         </>
