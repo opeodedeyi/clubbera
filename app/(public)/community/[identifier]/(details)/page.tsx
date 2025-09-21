@@ -17,8 +17,6 @@ export default async function CommunityPage({ params }: CommunityPageProps) {
 
     try {
         const response = await communityServerApi.getCommunity(identifier);
-        console.log('API response: ', response);
-        
         community = response.data;
     } catch (err) {
         error = err instanceof Error ? err.message : 'Failed to load community';

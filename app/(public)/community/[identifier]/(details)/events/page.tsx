@@ -46,7 +46,7 @@ export default async function EventsOfCommunityPage({ params }: CommunityPagePro
 
 export async function generateMetadata() {
     return {
-        title: 'Community members',
+        title: 'Community events',
         description: 'Members of Community',
     };
 }

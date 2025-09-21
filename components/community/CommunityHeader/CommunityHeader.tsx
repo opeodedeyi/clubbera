@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button/Button';
 import ShareModal from '@/components/ui/ShareModal/ShareModal';
 import { formatDate } from '@/lib/utils/dateFormatter';
 import { CommunityData, communityApi } from '@/lib/api/communities';
+import CommunityDropdown from '@/components/community/CommunityDropdown/CommunityDropdown';
 import styles from './CommunityHeader.module.css';
 
 interface CommunityProfileProps {
@@ -103,7 +104,16 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
                                     <Button variant='plain' onClick={() => setShowShareModal(true)}>Share link</Button>
                                 )
                             }
-                            {/* add menu button here desktop only */}
+                            
+                            <CommunityDropdown
+                                community={community}
+                                trigger={
+                                    <button
+                                        className={styles.buttons}
+                                        aria-label="community options">
+                                        <Icon name='verticalEllipsis' color='var(--color-text-light)' size='sm' />
+                                    </button>
+                                } />
                         </div>
                     }
                 </div>

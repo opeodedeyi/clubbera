@@ -132,6 +132,7 @@ export interface EventSearchResult {
     timezone: string;
     eventType: string;
     attendeeCount: number;
+    currentAttendees: number;
     maxAttendees: number | null;
     coverImage: EventImage | null;
     location: EventLocation;
@@ -207,7 +208,7 @@ export interface ApiSuccessResponse {
 
 export interface EventFilters {
     upcoming?: boolean;
-    past?: boolean;
+    pastEvents?: boolean;
     startDate?: string;
     endDate?: string;
     timezone?: string;
@@ -265,13 +266,13 @@ export const eventApi = {
             page: page.toString(),
             limit: limit.toString(),
             ...(filters?.upcoming !== undefined && { upcoming: filters.upcoming.toString() }),
-            ...(filters?.past !== undefined && { past: filters.past.toString() }),
+            ...(filters?.pastEvents !== undefined && { pastEvents: filters.pastEvents.toString() }),
             ...(filters?.startDate && { startDate: filters.startDate }),
             ...(filters?.endDate && { endDate: filters.endDate }),
             ...(filters?.timezone && { timezone: filters.timezone }),
             ...(filters?.eventType && { eventType: filters.eventType })
         });
-        return api.get<EventSearchResponse>(`/communities/${communityId}/events?${params}`);
+        return api.get<EventSearchResponse>(`/events/communities/${communityId}/events?${params}`);
     },
 
     getMyEvents: async (
@@ -283,7 +284,7 @@ export const eventApi = {
             page: page.toString(),
             limit: limit.toString(),
             ...(filters?.upcoming !== undefined && { upcoming: filters.upcoming.toString() }),
-            ...(filters?.past !== undefined && { past: filters.past.toString() }),
+            ...(filters?.pastEvents !== undefined && { pastEvents: filters.pastEvents.toString() }),
             ...(filters?.startDate && { startDate: filters.startDate }),
             ...(filters?.endDate && { endDate: filters.endDate }),
             ...(filters?.timezone && { timezone: filters.timezone }),

@@ -65,8 +65,33 @@
     background-color: var(--color-event-light);
 }
 
-.eventsAdminMain {
+.eventlink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.eventsAdminMain,
+.eventsMemberMain {
     background-color: var(--color-event-light);
+    display: flex;
+}
+
+.eventsAdminMain {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.eventsMemberMain {
+    flex-direction: column;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+}
+
+.eventAdminItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3-5);
+    padding: var(--spacing-4) 0;
 }
 
 .noEventsAdminMain {
@@ -78,12 +103,80 @@
     font-size: var(--font-size-lg);
 }
 
+.eventAdminDnT {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-4);
+    align-items: center;
+}
+
 .AdminImg {
     width: 238px;
     height: 176px;
     background-color: var(--color-background-light);
     border-radius: var(--radius-xl);
     overflow: hidden;
+}
+
+.memberImg {
+    width: 100%;
+    height: 165px;
+    border-radius: var(--radius-2xl);
+}
+
+.AdminImg img,
+.memberImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memberBody {
+    width: 100%;
+    padding: var(--spacing-8) var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    color: var(--color-gray);
+}
+
+.sameLine {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-2);
+    align-items: center;
+}
+
+.memberStartingIn {
+    color: var(--color-event);
+    font-size: var(--font-size-sm);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.memberBodyText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.memberBodyText h4 {
+    font-size: var(--font-size-md);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.memberBodyText p {
+    font-size: var(--font-size-base);
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 767px) {
@@ -96,13 +189,62 @@
         text-align: center;
     }
 
+    .eventsMemberMain {
+        padding: var(--spacing-7);
+    }
+
     .AdminImg {
         width: 100%;
         height: 176px;
     }
 
-        .noEventsAdminText {
-            max-width: 255px;
-            font-size: var(--font-size-md);
-        }
+    .memberImg {
+        overflow: hidden;
+        height: 158px;
+    }
+
+    .memberBody {
+        padding: var(--spacing-6) 0 0;
+        gap: var(--spacing-2);
+    }
+
+    .noEventsAdminText {
+        max-width: 255px;
+        font-size: var(--font-size-md);
+    }
+
+    .memberStartingIn {
+        color: var(--color-gray);
+    }
+
+    .memberBodyText h4 {
+        font-size: var(--font-size-xl);
+        overflow: visible;
+        white-space: wrap;
+        text-overflow: clip;
+    }
+
+    .memberBodyText p {
+        display: none;
+    }
+
+    .attendees p {
+        font-size: var(--font-size-xs);
+    }
+
+    .attendees span {
+        display: none;
+    }
+
+    .eventAdminItem {
+        gap: var(--spacing-3);
+        padding: 0;
+    }
+
+    .eventAdminDnT {
+        flex-direction: column;
+        gap: var(--spacing-1);
+        align-items: flex-start;
+        font-size: var(--font-size-sm);
+    }
 }

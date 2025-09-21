@@ -26,6 +26,7 @@ import {
     MetricIcon,
     ProfileIcon,
     SearchIcon,
+    ShareIcon,
     TickStylishIcon,
     VerticalEllipsisIcon,
     BalloonIcon,
@@ -308,6 +309,14 @@ export default function Icon(props: IconProps) {
                 <SearchIcon
                     size={iconSize}
                     color={searchProps.color}
+                    className={iconClasses}/>
+            )
+        case 'share':
+            const shareProps = props as SimpleIconProps
+            return (
+                <ShareIcon
+                    size={iconSize}
+                    color={shareProps.color}
                     className={iconClasses}/>
             )
         case 'tickStylish':

@@ -44,6 +44,7 @@ export { default as MailIcon } from './MailIcon';
 export { default as MetricIcon } from './MetricIcon';
 export { default as ProfileIcon } from './ProfileIcon';
 export { default as SearchIcon } from './SearchIcon';
+export { default as ShareIcon } from './ShareIcon';
 export { default as TickStylishIcon } from './TickStylishIcon';
 export { default as UnderlineIcon } from './UnderlineIcon';
 export { default as VerticalEllipsisIcon } from './VerticalEllipsisIcon';
@@ -110,6 +111,7 @@ export type IconName =
     | 'metric'
     | 'profile'
     | 'search'
+    | 'share'
     | 'tickStylish'
     | 'underline'
     | 'verticalEllipsis'

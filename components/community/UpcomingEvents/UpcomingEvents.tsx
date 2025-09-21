@@ -2,22 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { CommunityData } from '@/lib/api/communities';
-import styles from './UpcomingEvents.module.css';
 import Icon from '@/components/ui/Icon/Icon';
-
-// to be edited later
-interface Event {
-    id: string;
-    title: string;
-    description: string;
-    date: string;
-    time: string;
-    location?: string;
-    attendeesCount: number;
-    maxAttendees?: number;
-    isUserAttending: boolean;
-}
+import { IMAGES } from '@/lib/images';
+import { CommunityData } from '@/lib/api/communities';
+import { eventApi, EventSearchResult } from '@/lib/api/events';
+import { getS3ImageUrl } from '@/lib/s3Utils';
+import { formatSmartDateWithTimezone } from '@/lib/utils/timezoneFormatter';
+import styles from './UpcomingEvents.module.css';
 
 interface UpcomingEventsProps {
     community: CommunityData;
@@ -26,32 +17,32 @@ interface UpcomingEventsProps {
 }
 
 export default function UpcomingEvents({ community, variant, className }: UpcomingEventsProps) {
-    const [events, setEvents] = useState<Event[]>([]);
+    const [events, setEvents] = useState<EventSearchResult[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     const isAdmin = variant === 'admin';
 
+    console.log(events);
+    
+
     useEffect(() => {
-        // Simulate API call
         const fetchEvents = async () => {
             try {
                 setIsLoading(true);
                 setError(null);
                 
-                // TODO: Replace with actual API call
-                // const endpoint = isAdmin 
-                //     ? `/api/communities/${community.id}/events/admin` 
-                //     : `/api/communities/${community.id}/events/upcoming`;
-                // const response = await fetch(endpoint);
-                // const data = await response.json();
-                // setEvents(data.events.slice(0, 3)); // Get at most 3 events
+                // Fetch 1 upcoming event for the community
+                const response = await eventApi.getCommunityEvents(
+                    community.id,
+                    1, // page
+                    1, // limit - get only 1 event
+                    { upcoming: true, pastEvents: false } // filters - only upcoming events
+                );
                 
-                // Simulate loading delay
-                await new Promise(resolve => setTimeout(resolve, 800));
-                
-                // For now, set empty events array
-                setEvents([]);
+                // Handle the actual response structure: {events: Array, pagination: {...}}
+                const eventsData = (response.data as any)?.events || response.data || [];
+                setEvents(eventsData);
                 
             } catch (err) {
                 setError('Failed to load events');
@@ -62,7 +53,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
         };
 
         fetchEvents();
-    }, [community.id, isAdmin]);
+    }, [community.id]);
 
     if (isLoading) {
         return (
@@ -74,8 +65,41 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
         );
     }
 
-    if (events.length === 0 || error) {
-        console.error('No events found or error occurred:', error);
+    if (error) {
+        return (
+            <>
+                { variant === 'admin' ? (
+                    <div className={styles.noEventsAdmin}>
+                        <div className={styles.eventsAdminTop}>
+                            <h3 className={styles.title}>Events</h3>
+
+                            <Link className={styles.createLink} href={`/community/${community.id}/createevent`}>Create Event</Link>
+                        </div>
+
+                        <div className={styles.noEventsAdminMain}>
+                            <p className={styles.noEventsAdminText}>Failed to load events</p>
+
+                            <div className={styles.AdminImg}></div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className={styles.noEventsMember}>
+                        <h3 className={styles.title}>Upcoming Events</h3>
+
+                        <div className={styles.noEventsMemberMain}>
+                            <div className={styles.noEventsMemberIcon}>
+                                <Icon name="calendar" size='lg' />
+                            </div>
+
+                            <p className={styles.noEventsAdminText}>Failed to load events</p>
+                        </div>
+                    </div>
+                )}
+            </>
+        );
+    }
+
+    if (events.length === 0) {
         return (
             <>
                 { variant === 'admin' ? (
@@ -120,13 +144,29 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                         <Link className={styles.createLink} href={`/community/${community.id}/createevent`}>Create Event</Link>
                     </div>
 
-                    <div className={styles.eventsAdminMain}>
-                        <div>
-                            {/* normal events for admin members */}
-                        </div>
+                    <Link href={`/event/${events[0].id}`} className={styles.eventlink}>
+                        <div className={styles.eventsAdminMain}>
+                            <div>
+                                {events.length > 0 && (
+                                    <div className={styles.eventAdminItem}>
+                                        <div className={styles.eventAdminDnT}>
+                                            <p>{formatSmartDateWithTimezone(events[0].startTime, events[0].timezone)}</p>
+                                            <p><Icon name='group' color='var(--color-event)'/> {events[0].currentAttendees}</p>
+                                        </div>
+                                        <h4>{events[0].title}</h4>
+                                    </div>
+                                )}
+                            </div>
 
-                        <div className={styles.AdminImg}></div>
-                    </div>
+                            <div className={styles.AdminImg}>
+                                {events.length > 0 && (
+                                    <img 
+                                        src={getS3ImageUrl(events[0].coverImage?.key) || IMAGES.pages.communities.cover}
+                                        alt={events[0].coverImage?.altText || `Cover image for ${events[0].title}`} />
+                                )}
+                            </div>
+                        </div>
+                    </Link>
 
                     {/* pagination goes here */}
                 </div>
@@ -134,11 +174,34 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 <div className={styles.eventsMember}>
                     <h3 className={styles.title}>Upcoming Events</h3>
 
-                    {/* <div className={styles.eventsMemberMain}>
-                        <p className={styles.noEventsAdminText}>No Upcoming Events, click create to begin </p>
+                    <Link href={`/event/${events[0].id}`} className={styles.eventlink}>
+                        <div className={styles.eventsMemberMain}>
+                            <div className={styles.memberImg}>
+                                {events.length > 0 && (
+                                    <img 
+                                        src={getS3ImageUrl(events[0].coverImage?.key) || IMAGES.pages.communities.cover}
+                                        alt={events[0].coverImage?.altText || `Cover image for ${events[0].title}`} />
+                                )}
+                            </div>
 
-                        <div className={styles.AdminImg}></div>
-                    </div> */}
+                            <div className={styles.memberBody}>
+                                <div className={styles.sameLine}>
+                                    <Icon name='calendar' className='desktop-only-flex' color='var(--color-event)' />
+                                    <p className={styles.memberStartingIn}>Starting {formatSmartDateWithTimezone(events[0].startTime, events[0].timezone)}</p>
+                                </div>
+
+                                <div className={styles.memberBodyText}>
+                                    <h4>{events[0].title}</h4>
+                                    <p>{events[0].description}</p>
+                                </div>
+
+                                <div className={`${styles.sameLine} ${styles.attendees}`}>
+                                    <Icon name='group' size='sm' color='var(--color-gray)' />
+                                    <p>{events[0].attendeeCount} <span>Attendees</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
             )}
         </>

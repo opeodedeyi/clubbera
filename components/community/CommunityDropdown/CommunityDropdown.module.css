@@ -1,0 +1,123 @@
+.dropdown {
+    position: relative;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: var(--spacing-4);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.trigger:hover {
+    background-color: var(--color-background-dark);
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.44);
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards;
+}
+
+.menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: var(--spacing-2);
+    min-width: 200px;
+    background: var(--color-background-light);
+    border: none;
+    border-radius: var(--radius-xl);
+    z-index: 101;
+    overflow: hidden;
+    padding: var(--spacing-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menuPortal {
+    position: absolute;
+    top: 0;
+    right: auto;
+    margin-top: 0;
+}
+
+.menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menuItems {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.menuItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-2-5);
+    width: 100%;
+    padding: var(--spacing-2-5) var(--spacing-1-5);
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 160%;
+    font-size: var(--font-size-body);
+    border: none;
+    border-radius: var(--radius-lg);
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.menuItem span {
+    white-space: none;
+}
+
+.menuItem.destructive {
+    color: var(--color-danger);
+}
+
+.menuItem.destructive:hover {
+    background: var(--color-danger-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu,
+    .trigger,
+    .menuItem,
+    .backdrop {
+        transition: none;
+        animation: none;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
