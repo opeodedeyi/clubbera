@@ -5,10 +5,11 @@ import styles from './ManageCommunity.module.css';
 interface ManageCommunityProps {
     children: React.ReactNode;
     community?: CommunityData;
+    communityId?: number;
     permissions?: CommunityPermissions;
 }
 
-export default function ManageCommunity({ children, community, permissions }: ManageCommunityProps) {
+export default function ManageCommunity({ children, community, communityId, permissions }: ManageCommunityProps) {
     return (
         <>
             <div className={styles.container}>
@@ -19,7 +20,7 @@ export default function ManageCommunity({ children, community, permissions }: Ma
                     </div>
                 </div>
 
-                <MainNavigation communityId={community.id} permissions={permissions} /> {/* pass uniqueurl and id of the community to the community */}
+                <MainNavigation communityId={community?.id || communityId} permissions={permissions} /> {/* pass uniqueurl and id of the community to the community */}
             </div>
         </>
     );

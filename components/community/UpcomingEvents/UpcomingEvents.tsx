@@ -21,15 +21,6 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-
-    console.log('Events data:', events);
-    console.log('Events type:', typeof events);
-    console.log('Is events array?', Array.isArray(events));
-    console.log('Events length:', events?.length);
-    console.log('Is loading:', isLoading);
-    console.log('Error:', error);
-    
-
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -111,9 +102,6 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
     if (!Array.isArray(events) || events.length === 0) {
         return (
             <>
-                <div style={{fontSize: '12px', color: 'red', border: '1px solid red', padding: '5px'}}>
-                    DEBUG: No events found. Events array length: {events.length}
-                </div>
                 { variant === 'admin' ? (
                     <div className={styles.noEventsAdmin}>
                         <div className={styles.eventsAdminTop}>

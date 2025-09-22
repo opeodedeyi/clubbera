@@ -28,7 +28,7 @@ export default function MainCommunityNavigation({ communityURL, communityId, isA
         try {
             setIsLeaving(true)
             await communityApi.leaveCommunity(communityId)
-            router.push('/')
+            router.refresh()
         } catch (error) {
             console.error('Error leaving community:', error)
             alert('Failed to leave community. Please try again.')

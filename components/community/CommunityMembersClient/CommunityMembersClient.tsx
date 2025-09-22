@@ -123,14 +123,14 @@ export default function CommunityMembersClient({ community }: CommunityMembersCl
                             </table>
                         </div>
 
-                        {/* {totalPages > 1 && ( */}
+                        {totalPages > 1 && (
                             <Pagination
                                 currentPage={currentPage}
                                 totalPages={totalPages}
                                 onPageChange={handlePageChange}
                                 hasMore={hasMore}
                             />
-                        {/* )} */}
+                        )}
                     </div>
                 )}
             </div>

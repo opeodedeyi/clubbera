@@ -20,8 +20,19 @@
     object-fit: cover;
 }
 
+.link {
+    text-decoration: none;
+    color: var(--color-text);
+}
+
 @media screen and (max-width: 767px) {
     .container {
         gap: var(--spacing-4);
+    }
+
+    .imageContainer {
+        width: 65px;
+        height: 65px;
+        border-radius: var(--radius-lg);
     }
 }

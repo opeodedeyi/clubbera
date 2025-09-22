@@ -1,0 +1,146 @@
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: var(--spacing-6);
+}
+
+.backBtn {
+    margin-bottom: var(--spacing-4);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.loadingState {
+    text-align: center;
+    padding: var(--spacing-10);
+    color: var(--color-text-muted);
+}
+
+.errorState {
+    text-align: center;
+    padding: var(--spacing-10);
+    color: var(--color-danger);
+    background-color: var(--color-danger-light);
+    border-radius: var(--radius-default);
+    margin-bottom: var(--spacing-5);
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-10);
+    color: var(--color-text-muted);
+}
+
+.membersList {
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    gap: var(--spacing-12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 var(--spacing-8);
+    background-color: transparent;
+}
+
+.tableHeader {
+    display: none;
+}
+
+.tableHeaderCellCenter,
+.tableCellCenter {
+    text-align: center;
+}
+
+.tableRow td {
+    border: none;
+}
+
+.tableCell {
+    color: var(--color-text);
+}
+
+.tableCellMuted {
+    color: var(--color-text-muted);
+}
+
+.memberInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.profileImage {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-xl);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.memberDetails {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.memberName {
+    font-weight: 400;
+    font-size: var(--font-size-lg);
+    font-family: var(--font-boris);
+    color: var(--color-text);
+}
+
+.roleBadgeDefault {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+}
+
+.profileLink {
+    color: var(--color-text);
+    text-decoration: underline;
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+.profileLink:hover {
+    color: var(--color-text-light);
+    text-decoration: none;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 767px) {
+    .container {
+        gap: var(--spacing-4);
+    }
+
+    .joinedColumn {
+        display: none;
+    }
+
+    .memberName {
+        font-size: var(--font-size-base);
+    }
+
+    .roleBadgeDefault {
+        font-size: var(--font-size-xs);
+    }
+
+    .profileLink {
+        font-size: var(--font-size-sm);
+    }
+}

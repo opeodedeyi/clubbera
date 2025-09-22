@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { IMAGES } from '@/lib/images';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import { CommunityData } from '@/lib/api/communities';
@@ -9,17 +10,19 @@ interface ManageCommunityProps {
 
 export default function CommunityHero({ community }: ManageCommunityProps) {
     return (
-        <div className={styles.container}>
-            <div className={styles.imageContainer}>
-                <img
-                    src={community.profileImage.provider === 'aws-s3' ? 
-                        getS3ImageUrl(community.profileImage.key) : 
-                        IMAGES.pages.communities.placeholder
+        <Link className={styles.link} href={`/community/${community.uniqueUrl}`}>
+            <div className={styles.container}>
+                <div className={styles.imageContainer}>
+                    <img
+                        src={community.profileImage.provider === 'aws-s3' ? 
+                            getS3ImageUrl(community.profileImage.key) : 
+                            IMAGES.pages.communities.placeholder
 
-                } alt={community.name} className={styles.image} />
+                    } alt={community.name} className={styles.image} />
+                </div>
+
+                <h2>{community.name}</h2>
             </div>
-
-            <h2>{community.name}</h2>
-        </div>
+        </Link>
     );
 }

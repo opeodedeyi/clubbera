@@ -1,5 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import { communityServerApi } from '@/lib/api/communitiesServer';
+import MembersClient from '@/components/ManageCommunity/MembersClient/MembersClient';
 
 interface Props {
     params: Promise<{ identifier: string }>;
@@ -7,13 +8,11 @@ interface Props {
 
 async function getCommunityData(communityId: number) {
     try {
-        const [communityResponse, permissionsResponse] = await Promise.all([
-            communityServerApi.getCommunity(communityId), // may not be needed
+        const [permissionsResponse] = await Promise.all([
             communityServerApi.getCommunityPermissions(communityId)
         ]);
         
         return {
-            community: communityResponse.data, // may not be needed
             permissions: permissionsResponse.data
         };
     } catch (error) {
@@ -41,8 +40,9 @@ export default async function EditCommunityPage({ params }: Props) {
     }
 
     return (
-        // change to view member page
-        <></>
+        <MembersClient
+            communityId={communityId}
+            permissions={data.permissions}/>
     );
 }
 
