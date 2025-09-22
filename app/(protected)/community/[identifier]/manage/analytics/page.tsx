@@ -48,13 +48,14 @@ export default async function EditCommunityPage({ params }: Props) {
 
 export async function generateMetadata({ params }: Props) {
     try {
+        const { identifier } = await params;
         return {
-            title: `View Community Analytics`,
-            description: `View Community Analytics`,
+            title: `Analytics - Community ${identifier}`,
+            description: `View analytics and insights for community ${identifier}`,
         };
     } catch (error) {
         console.log(error);
-        
+
         return {
             title: 'Community Not Found',
             description: 'The community you are looking for does not exist.',
