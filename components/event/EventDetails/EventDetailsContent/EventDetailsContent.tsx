@@ -37,7 +37,7 @@ const EventDetailsContent: React.FC<EventDetailsContentProps> = ({ initialEvent,
     };
 
     const manageURL = `/event/${initialEvent.id}/manage`;
-    const showManage = membership.role === "owner" || membership.role === "organiser"
+    const showManage = membership?.role === "owner" || membership?.role === "organiser"
     const canUpdateRSVP = !initialEvent.hasPassed && !initialEvent.isOngoing;
 
     return (
