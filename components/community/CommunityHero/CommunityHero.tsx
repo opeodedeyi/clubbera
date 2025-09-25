@@ -14,7 +14,7 @@ export default function CommunityHero({ community }: ManageCommunityProps) {
             <div className={styles.container}>
                 <div className={styles.imageContainer}>
                     <img
-                        src={community.profileImage.provider === 'aws-s3' ? 
+                        src={community?.profileImage?.provider === 'aws-s3' ? 
                             getS3ImageUrl(community.profileImage.key) : 
                             IMAGES.pages.communities.placeholder
 

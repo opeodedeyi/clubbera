@@ -19,20 +19,28 @@ export default function EventsCard({
     title = "No Title",
     startTime = "Hh:Mm"
 }: EventsCardProps) {
-    return (
-        <Link href={`/event/${eventId}`} className={styles.cardLink}>
-            <div className={styles.container}>
-                <div className={styles.containerBody}>
-                    <p className={styles.containerBodyTime}>{startTime}</p>
-                    <h3 className={styles.containerBodyTitle}>{title}</h3>
-                </div>
-
-                <div className={styles.containerImage}>
-                    <img
-                        src={getS3ImageUrl(coverImage) || IMAGES.pages.communities.cover}
-                        alt={`${title} event cover`}/>
-                </div>
+    const cardContent = (
+        <div className={styles.container}>
+            <div className={styles.containerBody}>
+                <p className={styles.containerBodyTime}>{startTime}</p>
+                <h3 className={styles.containerBodyTitle}>{title}</h3>
             </div>
-        </Link>
-    )
+
+            <div className={styles.containerImage}>
+                <img
+                    src={getS3ImageUrl(coverImage) || IMAGES.pages.communities.cover}
+                    alt={`${title} event cover`}/>
+            </div>
+        </div>
+    );
+
+    if (eventId > 0) {
+        return (
+            <Link href={`/event/${eventId}`} className={styles.cardLink}>
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
 }

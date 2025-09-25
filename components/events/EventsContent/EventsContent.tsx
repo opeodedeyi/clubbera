@@ -223,14 +223,17 @@ export default function EventsContent() {
 
             <main className={styles.contentContainer}>
                 {loading && (
-                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                    <div className={styles.noEvent}>
                         Loading events...
                     </div>
                 )}
 
                 {error && (
-                    <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-error)' }}>
-                        {error}
+                    <div className={styles.noEvent}>
+                        <EventsCard
+                            eventId={0}
+                            title={`An error occurred, try again later`}
+                            startTime='5 mins' />
                     </div>
                 )}
 
@@ -240,7 +243,6 @@ export default function EventsContent() {
                             eventId={0}
                             title={`No ${currentView} events found.`}
                             startTime='0 days' />
-                        
                     </div>
                 )}
 

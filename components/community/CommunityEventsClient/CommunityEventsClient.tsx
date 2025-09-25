@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { CommunityData } from '@/lib/api/communities';
 import { eventApi, EventSearchResult } from '@/lib/api/events';
+import EventsCard from '@/components/events/EventsCard/EventsCard';
+import { formatDateWithTimezone } from '@/lib/utils/timezoneFormatter';
 import ToggleButtonGroup from '@/components/ui/ToggleButtonGroup/ToggleButtonGroup';
 import CommunityLayout from "@/components/layout/CommunityLayout/CommunityLayout";
 import styles from './CommunityEventsClient.module.css'
@@ -98,42 +100,23 @@ export default function CommunityEventsClient({ community }: CommunityEventsClie
 
                     {!loading && !error && events.length === 0 && (
                         <div className={styles.noEvents}>
-                            No {currentView} events found for this community.
+                            <EventsCard
+                                eventId={0}
+                                title={`No ${currentView} events found for this community.`}
+                                startTime="0 minutes"/>
                         </div>
                     )}
 
                     {!loading && !error && events.length > 0 && (
                         <div className={styles.eventsList}>
                             {events.map((event) => (
-                                <div key={event.id} className={styles.eventCard}>
-                                    {event.coverImage && (
-                                        <div className={styles.eventImage}>
-                                            <img
-                                                src={`https://cdn.clubbera.com/${event.coverImage.key}`}
-                                                alt={event.coverImage.altText || event.title}
-                                                className={styles.eventCoverImage}
-                                            />
-                                        </div>
-                                    )}
-
-                                    <div className={styles.eventContent}>
-                                        <h3 className={styles.eventTitle}>{event.title}</h3>
-                                        <p className={styles.eventDescription}>{event.description}</p>
-
-                                        <div className={styles.eventMeta}>
-                                            <div className={styles.eventAttendees}>
-                                                {event.currentAttendees} {event.maxAttendees ? `/ ${event.maxAttendees}` : ''} attendees
-                                            </div>
-                                        </div>
-
-                                        <a
-                                            href={`/community/${community.uniqueUrl}/events/${event.uniqueUrl}`}
-                                            className={styles.eventLink}
-                                        >
-                                            View Event
-                                        </a>
-                                    </div>
-                                </div>
+                                <EventsCard
+                                    key={event.id}
+                                    eventId={event.id}
+                                    coverImage={event.coverImage?.key}
+                                    title={event.title}
+                                    // event.maxAttendees
+                                    startTime={formatDateWithTimezone(event.startTime, event.timezone, 'HH:mm')}/>
                             ))}
                         </div>
                     )}
