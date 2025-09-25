@@ -102,7 +102,8 @@ export default function EventsContent() {
                     eventsData = response.data;
                 } else if (response.data && typeof response.data === 'object' && 'events' in response.data) {
                     // Handle nested structure like CommunityEventsResponse
-                    eventsData = (response.data as any).events || [];
+                    const nestedData = response.data as { events?: EventSearchResult[] };
+                    eventsData = nestedData.events || [];
                 } else {
                     console.warn('Unexpected response structure:', response);
                     eventsData = [];
