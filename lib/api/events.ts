@@ -157,6 +157,20 @@ export interface EventSearchResponse {
     };
 }
 
+export interface CommunityEventsResponse {
+    status: string;
+    data: {
+        events: EventSearchResult[];
+        pagination: {
+            total: number;
+            limit: number;
+            offset: number;
+            page: number;
+            hasMore: boolean;
+        };
+    };
+}
+
 export interface EventAttendee {
     id: number;
     fullName: string;
@@ -261,7 +275,7 @@ export const eventApi = {
         page: number = 1,
         limit: number = 20,
         filters?: EventFilters
-    ): Promise<EventSearchResponse> => {
+    ): Promise<CommunityEventsResponse> => {
         const params = new URLSearchParams({
             page: page.toString(),
             limit: limit.toString(),
@@ -272,7 +286,7 @@ export const eventApi = {
             ...(filters?.timezone && { timezone: filters.timezone }),
             ...(filters?.eventType && { eventType: filters.eventType })
         });
-        return api.get<EventSearchResponse>(`/events/communities/${communityId}/events?${params}`);
+        return api.get<CommunityEventsResponse>(`/events/communities/${communityId}/events?${params}`);
     },
 
     getMyEvents: async (
@@ -290,7 +304,7 @@ export const eventApi = {
             ...(filters?.timezone && { timezone: filters.timezone }),
             ...(filters?.eventType && { eventType: filters.eventType })
         });
-        return api.get<EventSearchResponse>(`/user/my-events?${params}`);
+        return api.get<EventSearchResponse>(`/events/user/my-events?${params}`);
     },
 
     manageRSVP: async (
