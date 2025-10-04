@@ -49,6 +49,7 @@ export { default as TickStylishIcon } from './TickStylishIcon';
 export { default as UnderlineIcon } from './UnderlineIcon';
 export { default as VerticalEllipsisIcon } from './VerticalEllipsisIcon';
 export { default as LeaveIcon } from './LeaveIcon';
+export { default as LineArtIcon } from './LineArtIcon';
 // Complex icons
 export { default as BalloonIcon } from './BalloonIcon';
 export { default as BinIcon } from './BinIcon';
@@ -58,6 +59,7 @@ export { default as MegaphoneIcon } from './MegaphoneIcon';
 export { default as HeartIcon } from './HeartIcon';
 export { default as HelpIcon } from './HelpIcon';
 export { default as LinkIcon } from './LinkIcon';
+export { default as MessageIcon } from './MessageIcon';
 export { default as NotificationIcon } from './NotificationIcon';
 export { default as PlusCustomIcon } from './PlusCustomIcon';
 export { default as ToggleIcon } from './ToggleIcon';

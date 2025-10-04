@@ -12,7 +12,8 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
         disabled = false,
         iconLeft,
         iconRight,
-        iconOnly
+        iconOnly,
+        iconOnlyMobile
     } = props
 
     const isLoading = props.as !== 'link' && (props as ButtonAsButtonProps).loading
@@ -24,6 +25,7 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
         disabled && styles.disabled,
         isLoading && styles.loading,
         iconOnly && styles.iconOnly,
+        iconOnlyMobile && styles.iconOnlyMobile,
         className
     ].filter(Boolean).join(' ')
 
@@ -85,15 +87,16 @@ export default function Button(props: ButtonAsButtonProps | ButtonAsLinkProps) {
     }
 
     /* eslint-disable @typescript-eslint/no-unused-vars */
-    const { 
-        variant: _variant, 
-        size: _size, 
-        className: _className, 
+    const {
+        variant: _variant,
+        size: _size,
+        className: _className,
         iconLeft: _iconLeft,
         iconRight: _iconRight,
         iconOnly: _iconOnly,
-        loading: _loading, 
-        ...buttonProps 
+        iconOnlyMobile: _iconOnlyMobile,
+        loading: _loading,
+        ...buttonProps
     } = props
     /* eslint-enable @typescript-eslint/no-unused-vars */
     

@@ -67,12 +67,12 @@
 }
 
 .default:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
+    background-color: var(--color-default-hover);
     transform: translateY(-1px);
 }
 
 .default:active:not(:disabled) {
-    background-color: var(--color-primary);
+    background-color: var(--color-default-background);
 }
 
 .community {
@@ -176,4 +176,31 @@
 
 /* Active states */
 .button:active:not(:disabled) {
-    transform: translateY(0); }
+    transform: translateY(0);
+}
+
+/* Icon only on mobile - hide icon on desktop */
+.iconOnlyMobile .iconRight {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .iconOnlyMobile .buttonText {
+        display: none;
+    }
+
+    .iconOnlyMobile .iconLeft {
+        display: none;
+    }
+
+    .iconOnlyMobile .iconRight {
+        display: flex;
+    }
+
+    .iconOnlyMobile {
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
+        padding: 0;
+    }
+}

@@ -1,0 +1,135 @@
+.container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    height: calc(100vh - 180px);
+    border-radius: var(--radius-xl);
+    background: var(--color-background-light);
+    border: 1px solid var(--color-background-light);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding:var(--spacing-6);
+    background: var(--color-background);
+}
+
+.chatName {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+}
+
+.messagesContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.message {
+    display: flex;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message.received {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 70%;
+    padding: var(--radius-xl) var(--radius-2xl);
+    border-radius: var(--radius-2xl);
+}
+
+.sent .bubble {
+    background: var(--color-default);
+    color: var(--color-white);
+    border-bottom-right-radius: var(--radius-default);
+}
+
+.received .bubble {
+    background: var(--color-light-hover);
+    color: var(--color-gray);
+    border-bottom-left-radius: var(--radius-default);
+}
+
+.bubble p {
+    margin: 0 0 0.25rem 0;
+    word-wrap: break-word;
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.messagesFooter {
+    display: flex;
+    gap: var(--spacing-8);
+    background: var(--color-background);
+    padding: var(--spacing-7) var(--spacing-6);
+}
+
+.input {
+    flex: 1;
+    padding: 0;
+    resize: none;
+    border: none;
+    outline: none;
+    line-height: 1.5;
+    background: transparent;
+    /* overflow-y: hidden; */
+    max-height: calc(1.5em * 7);
+    font-size: var(--font-size-base);
+    font-family: var(--font-nunito);
+}
+
+.input:focus {
+    border-color: none;
+}
+
+.sendButton {
+    padding: 0.75rem 1.5rem;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sendButton:hover {
+    background: #2563eb;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        height: calc(100vh - 80px);
+        border-radius: 0;
+        background: var(--color-background-light);
+        border: none;
+    }
+
+    .header {
+        gap: var(--spacing-3);
+        padding: var(--spacing-4) var(--spacing-6);
+    }
+
+    .chatName {
+        font-size: var(--font-size-md);
+    }
+
+    .messagesFooter {
+        gap: var(--spacing-3);
+    }
+}

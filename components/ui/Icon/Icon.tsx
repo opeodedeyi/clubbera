@@ -46,6 +46,8 @@ import {
     FirstlineIcon,
     LinkIcon,
     LeaveIcon,
+    LineArtIcon,
+    MessageIcon,
 } from './icons/';
 import type { IconProps, SimpleIconProps, ComplexIconProps } from '@/types/icon';
 import styles from './Icon.module.css';
@@ -494,6 +496,24 @@ export default function Icon(props: IconProps) {
                 <LeaveIcon
                     size={iconSize}
                     color={leaveProps.color}
+                    className={iconClasses}/>
+            )
+        case 'lineArt':
+            const lineArtProps = props as SimpleIconProps
+            return (
+                <LineArtIcon
+                    size={iconSize}
+                    color={lineArtProps.color}
+                    className={iconClasses}/>
+            )
+        case 'message':
+            const messageProps = props as ComplexIconProps
+            return (
+                <MessageIcon
+                    size={iconSize}
+                    color={messageProps.color}
+                    fillColor={messageProps.fillColor}
+                    strokeColor={messageProps.strokeColor}
                     className={iconClasses}/>
             )
         default:

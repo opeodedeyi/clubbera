@@ -214,11 +214,6 @@ h3, h4, h5 {
     color: var(--color-default);
 }
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    body {
-        margin-bottom: env(safe-area-inset-bottom);
-    }
-}
 
 /* Desktop-First Approach
    Breakpoints:
@@ -242,7 +237,7 @@ h3, h4, h5 {
 @media screen and (max-width: 767px) {
     body {
         background-color: var(--color-background);
-        padding-bottom: 80px;
+        margin-bottom: env(safe-area-inset-bottom);
     }
 
     h1 {

@@ -1,7 +1,7 @@
 import type { IconProps } from './icon'
 
 export interface RegularIconConfig {
-    name: 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle'
+    name: 'arrowLeft' | 'arrowRight' | 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle'
     size?: IconProps['size']
     color?: string
     fillColor?: string

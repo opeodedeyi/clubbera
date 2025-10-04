@@ -10,6 +10,7 @@ export interface BaseButtonProps {
     iconLeft?: React.ReactNode
     iconRight?: React.ReactNode
     iconOnly?: React.ReactNode
+    iconOnlyMobile?: boolean
 }
 
 export interface ButtonAsButtonProps extends BaseButtonProps {

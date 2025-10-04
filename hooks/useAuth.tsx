@@ -94,7 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const login = (token: string, userData: User) => {
         setCookie('authToken', token, {
-            maxAge: 60 * 60 * 24 * 7, // 7 days
+            maxAge: 60 * 60 * 24 * 60, // 60 days
             httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax'
