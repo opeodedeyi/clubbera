@@ -6,6 +6,7 @@ import { eventApi, EventSearchResult } from '@/lib/api/events';
 import { formatDateWithTimezone } from '@/lib/utils/timezoneFormatter';
 import PageWrapper from "@/components/ui/PageWrapper/PageWrapper";
 import EventsCard from '@/components/events/EventsCard/EventsCard';
+import EventsTimelineSkeleton from './EventsTimelineSkeleton';
 import ToggleButtonGroup from '@/components/ui/ToggleButtonGroup/ToggleButtonGroup';
 import styles from './EventsContent.module.css';
 
@@ -223,9 +224,10 @@ export default function EventsContent() {
 
             <main className={styles.contentContainer}>
                 {loading && (
-                    <div className={styles.noEvent}>
-                        Loading events...
-                    </div>
+                    <>
+                        <EventsTimelineSkeleton cardCount={2} />
+                        <EventsTimelineSkeleton cardCount={1} />
+                    </>
                 )}
 
                 {error && (

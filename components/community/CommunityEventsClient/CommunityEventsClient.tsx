@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { CommunityData } from '@/lib/api/communities';
 import { eventApi, EventSearchResult } from '@/lib/api/events';
 import EventsCard from '@/components/events/EventsCard/EventsCard';
+import EventsCardSkeleton from '@/components/events/EventsCard/EventsCardSkeleton';
 import { formatDateWithTimezone } from '@/lib/utils/timezoneFormatter';
 import ToggleButtonGroup from '@/components/ui/ToggleButtonGroup/ToggleButtonGroup';
 import CommunityLayout from "@/components/layout/CommunityLayout/CommunityLayout";
@@ -94,7 +95,13 @@ export default function CommunityEventsClient({ community }: CommunityEventsClie
                     activeColor="--color-event" />
 
                 <div className={styles.eventsContainer}>
-                    {loading && <div className={styles.loading}>Loading events...</div>}
+                    {loading && (
+                        <div className={styles.eventsList}>
+                            <EventsCardSkeleton />
+                            <EventsCardSkeleton />
+                            <EventsCardSkeleton />
+                        </div>
+                    )}
 
                     {error && <div className={styles.error}>{error}</div>}
 

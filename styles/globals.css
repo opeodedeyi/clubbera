@@ -256,3 +256,19 @@ h3, h4, h5 {
         letter-spacing: 0%;
     }
 }
+
+/* Skeleton loading animation */
+.skeleton {
+    background: var(--color-border);
+    border-radius: var(--radius-md);
+    animation: skeleton-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-pulse {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}

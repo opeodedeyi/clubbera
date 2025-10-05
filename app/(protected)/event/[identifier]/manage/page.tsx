@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import ManageEventContent from '@/components/ManageEvent/ManageEventContent/ManageEventContent';
+import ManageEventContentSkeleton from '@/components/ManageEvent/ManageEventContent/ManageEventContentSkeleton';
 import { getEventById } from '@/lib/api/eventServer';
 import { communityServerApi } from '@/lib/api/communitiesServer';
 
@@ -31,7 +32,7 @@ export default async function ManageEventPage({ params }: ManageEventPageProps) 
         
         return (
             <div>
-                <Suspense fallback={<EventLoadingSkeleton />}>
+                <Suspense fallback={<ManageEventContentSkeleton />}>
                     <ManageEventContent initialEvent={event} />
                 </Suspense>
             </div>
@@ -47,19 +48,6 @@ export default async function ManageEventPage({ params }: ManageEventPageProps) 
         }
         throw error // Let error boundary handle other errors
     }
-}
-
-function EventLoadingSkeleton() {
-    return (
-        <div className="max-w-4xl mx-auto p-6">
-            <div className="animate-pulse">
-                <div className="h-64 bg-gray-300 rounded-lg mb-6"></div>
-                <div className="h-8 bg-gray-300 rounded mb-4"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                <div className="h-4 bg-gray-300 rounded mb-6"></div>
-            </div>
-        </div>
-    )
 }
 
 function AccessDeniedPage() {

@@ -7,6 +7,7 @@ import { getS3ImageUrl } from '@/lib/s3Utils';
 import { CommunityPermissions, CommunityMember, communityApi } from '@/lib/api/communities';
 import BackButton from '@/components/ui/BackButton/BackButton';
 import ManageCommunity from '@/components/layout/ManageCommunity/ManageCommunity';
+import MembersTableSkeleton from '@/components/community/MembersTableSkeleton/MembersTableSkeleton';
 import Pagination from "@/components/ui/Pagination/Pagination";
 import { formatRelativeTime } from '@/lib/utils/dateFormatter';
 import styles from './MembersClient.module.css';
@@ -65,9 +66,7 @@ export default function MembersClient({ communityId, permissions }: Props) {
                     <h2>Members ({total})</h2>
 
                     {loading && (
-                        <div className={styles.loadingState}>
-                            Loading members...
-                        </div>
+                        <MembersTableSkeleton tableStyles={styles} />
                     )}
 
                     {error && (

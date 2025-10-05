@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import EventDetailsContent from '@/components/event/EventDetails/EventDetailsContent/EventDetailsContent';
+import EventDetailsContentSkeleton from '@/components/event/EventDetails/EventDetailsContent/EventDetailsContentSkeleton';
 import { getEventById } from '@/lib/api/eventServer';
 import { type AttendanceStatus } from '@/lib/utils/attendanceFormatter';
 
@@ -29,7 +30,7 @@ export default async function EventPage({ params }: EventPageProps) {
         if (isNaN(eventId)) {
             notFound();
         }
-        
+
         const response = await getEventById(eventId)
         const { event, userContext, canAccess } = response.data;
         const attendanceStatus = toAttendanceStatus(userContext.attendanceStatus);
@@ -40,7 +41,7 @@ export default async function EventPage({ params }: EventPageProps) {
         
         return (
             <div>
-                <Suspense fallback={<EventLoadingSkeleton />}>
+                <Suspense fallback={<EventDetailsContentSkeleton />}>
                     <EventDetailsContent
                         initialEvent={event}
                         attendanceStatus={attendanceStatus}
@@ -65,19 +66,6 @@ export default async function EventPage({ params }: EventPageProps) {
         console.error('Event page error:', error);
         throw error; // Let error boundary handle other errors
     }
-}
-
-function EventLoadingSkeleton() {
-    return (
-        <div className="max-w-4xl mx-auto p-6">
-            <div className="animate-pulse">
-                <div className="h-64 bg-gray-300 rounded-lg mb-6"></div>
-                <div className="h-8 bg-gray-300 rounded mb-4"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                <div className="h-4 bg-gray-300 rounded mb-6"></div>
-            </div>
-        </div>
-    )
 }
 
 function AccessDeniedPage() {

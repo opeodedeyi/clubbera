@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import { notFound, redirect } from 'next/navigation';
 import { communityServerApi } from '@/lib/api/communitiesServer';
 import EditCommunityClient from '@/components/ManageCommunity/EditCommunityClient/EditCommunityClient';
+import EditCommunityClientSkeleton from '@/components/ManageCommunity/EditCommunityClient/EditCommunityClientSkeleton';
 
 interface Props {
     params: Promise<{ identifier: string }>;
@@ -42,9 +44,11 @@ export default async function EditCommunityPage({ params }: Props) {
     }
 
     return (
-        <EditCommunityClient 
-            community={data.community}
-            permissions={data.permissions} />
+        <Suspense fallback={<EditCommunityClientSkeleton />}>
+            <EditCommunityClient
+                community={data.community}
+                permissions={data.permissions} />
+        </Suspense>
     );
 }
 
