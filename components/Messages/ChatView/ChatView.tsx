@@ -23,12 +23,14 @@ const mockMessages = [
 
 interface ChatViewProps {
     chatId: string;
+    chatType: 'user' | 'community';
 }
 
-export default function ChatView({ chatId }: ChatViewProps) {
+export default function ChatView({ chatId, chatType }: ChatViewProps) {
     const isMobile = !useMediaQuery('(min-width: 1024px)');
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    console.log('ChatView rendered with chatId:', chatId, 'and chatType:', chatType);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
