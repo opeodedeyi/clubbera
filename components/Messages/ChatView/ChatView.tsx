@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Button from '@/components/ui/Button/Button';
 import Icon from '@/components/ui/Icon/Icon';
@@ -24,11 +23,9 @@ const mockMessages = [
 
 interface ChatViewProps {
     chatId: string;
-    chatType: 'user' | 'community';
 }
 
-export default function ChatView({ chatId, chatType }: ChatViewProps) {
-    const router = useRouter();
+export default function ChatView({ chatId }: ChatViewProps) {
     const isMobile = !useMediaQuery('(min-width: 1024px)');
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -46,10 +43,6 @@ export default function ChatView({ chatId, chatType }: ChatViewProps) {
     useEffect(() => {
         scrollToBottom();
     }, [chatId]);
-
-    const handleBack = () => {
-        router.push('/messages');
-    };
 
     return (
         <div className={styles.container}>
