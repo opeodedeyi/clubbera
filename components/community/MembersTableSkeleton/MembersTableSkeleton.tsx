@@ -6,7 +6,7 @@ interface MembersTableSkeletonProps {
         tableWrapper: string;
         table: string;
         tableHeader: string;
-        tableHeaderCell: string;
+        tableHeaderCell?: string;
         tableHeaderCellCenter: string;
         tableRow: string;
         tableCell: string;
@@ -26,8 +26,8 @@ export default function MembersTableSkeleton({ tableStyles, rowCount = 5 }: Memb
                 <table className={tableStyles.table}>
                     <thead className={tableStyles.tableHeader}>
                         <tr>
-                            <th className={tableStyles.tableHeaderCell}>Member</th>
-                            <th className={`${tableStyles.tableHeaderCell} ${tableStyles.joinedColumn}`}>Joined</th>
+                            <th className={tableStyles.tableHeaderCell || ''}>Member</th>
+                            <th className={`${tableStyles.tableHeaderCell || ''} ${tableStyles.joinedColumn}`}>Joined</th>
                             <th className={tableStyles.tableHeaderCellCenter}>Profile</th>
                         </tr>
                     </thead>
