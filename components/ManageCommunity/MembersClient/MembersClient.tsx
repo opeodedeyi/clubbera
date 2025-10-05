@@ -66,7 +66,7 @@ export default function MembersClient({ communityId, permissions }: Props) {
                     <h2>Members ({total})</h2>
 
                     {loading && (
-                        <MembersTableSkeleton tableStyles={styles} />
+                        <MembersTableSkeleton tableStyles={styles as any} />
                     )}
 
                     {error && (

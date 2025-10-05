@@ -60,7 +60,7 @@ export default function CommunityMembersClient({ community }: CommunityMembersCl
                 <h2>Members ({total})</h2>
 
                 {loading && (
-                    <MembersTableSkeleton tableStyles={styles} />
+                    <MembersTableSkeleton tableStyles={styles as any} />
                 )}
 
                 {error && (
