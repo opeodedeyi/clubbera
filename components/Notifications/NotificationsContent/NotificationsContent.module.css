@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+    height: calc(100vh - 80px);
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--spacing-20) var(--spacing-20);
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    padding: var(--spacing-12) 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1 {
+    text-align: center;
+}
+
+.notificationsWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-10);
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-light);
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .header {
+        padding: var(--spacing-6) 0;
+        justify-content: flex-start;
+    }
+
+    .header h1 {
+        text-align: start;
+    }
+}

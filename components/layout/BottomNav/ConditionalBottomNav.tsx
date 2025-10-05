@@ -25,7 +25,6 @@ export default function ConditionalBottomNav() {
     // Check if it's a root page that shows bottom nav, but sub-paths don't
     for (const rootPath of PAGES_WITH_BOTTOM_NAV_ONLY_ON_ROOT) {
         if (pathname.startsWith(rootPath)) {
-            // Only show if it's exactly the root path
             if (pathname !== rootPath) {
                 return null;
             }

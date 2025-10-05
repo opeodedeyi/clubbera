@@ -1,0 +1,115 @@
+.container {
+    width: 100%;
+    height: calc(100vh - 80px);
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--spacing-20) var(--spacing-20);
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    padding: var(--spacing-12) 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header h1 {
+    text-align: center;
+}
+
+.notificationsWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-10);
+}
+
+.daySection {
+    width: 100%;
+    display: flex;
+    gap: var(--spacing-6);
+    flex-direction: column;
+}
+
+.dayLabel {
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+}
+
+.notificationsList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+}
+
+.notificationItem {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-4);
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.notificationText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.notificationType {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+}
+
+.notificationContent {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+}
+
+.notificationTime {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-light);
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+
+    .header {
+        padding: var(--spacing-6) 0;
+        justify-content: flex-start;
+    }
+
+    .header h1 {
+        text-align: start;
+    }
+
+    .notificationText {
+        gap: var(--spacing-2);
+    }
+
+    .notificationType {
+        font-size: var(--font-size-md);
+    }
+
+    .notificationContent {
+        font-size: var(--font-size-sm);
+    }
+
+    .notificationTime {
+        font-size: var(--font-size-xs);
+    }
+}
