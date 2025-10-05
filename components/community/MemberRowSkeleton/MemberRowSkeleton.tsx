@@ -1,15 +1,18 @@
 import styles from './MemberRowSkeleton.module.css';
 
+interface TableRowStyles {
+    tableRow: string;
+    tableCell: string;
+    tableCellMuted: string;
+    tableCellCenter: string;
+    joinedColumn: string;
+    memberInfo: string;
+    memberDetails: string;
+    [key: string]: string | undefined;
+}
+
 interface MemberRowSkeletonProps {
-    tableStyles: {
-        tableRow: string;
-        tableCell: string;
-        tableCellMuted: string;
-        tableCellCenter: string;
-        joinedColumn: string;
-        memberInfo: string;
-        memberDetails: string;
-    };
+    tableStyles: TableRowStyles;
 }
 
 export default function MemberRowSkeleton({ tableStyles }: MemberRowSkeletonProps) {

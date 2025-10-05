@@ -1,21 +1,24 @@
 import MemberRowSkeleton from '../MemberRowSkeleton/MemberRowSkeleton';
 
+interface TableStyles {
+    membersList: string;
+    tableWrapper: string;
+    table: string;
+    tableHeader: string;
+    tableHeaderCell?: string;
+    tableHeaderCellCenter: string;
+    tableRow: string;
+    tableCell: string;
+    tableCellMuted: string;
+    tableCellCenter: string;
+    joinedColumn: string;
+    memberInfo: string;
+    memberDetails: string;
+    [key: string]: string | undefined;
+}
+
 interface MembersTableSkeletonProps {
-    tableStyles: {
-        membersList: string;
-        tableWrapper: string;
-        table: string;
-        tableHeader: string;
-        tableHeaderCell?: string;
-        tableHeaderCellCenter: string;
-        tableRow: string;
-        tableCell: string;
-        tableCellMuted: string;
-        tableCellCenter: string;
-        joinedColumn: string;
-        memberInfo: string;
-        memberDetails: string;
-    };
+    tableStyles: TableStyles;
     rowCount?: number;
 }
 
