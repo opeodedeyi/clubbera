@@ -1,50 +1,210 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Button from '@/components/ui/Button/Button';
 import Icon from '@/components/ui/Icon/Icon';
 import ActionIcon from '@/components/ui/ActionIcon/ActionIcon';
+import { messagesApi } from '@/lib/api/messages';
+import { useSocket } from '@/lib/socket/useSocket';
+import type { Message, RecipientType } from '@/lib/types/messages';
+import { format } from 'date-fns';
+import ChatViewSkeleton from './ChatViewSkeleton';
 import styles from './ChatView.module.css';
-
-// Temporary mock data - replace with your actual data fetching
-const mockMessages = [
-    { id: '1', sender: 'them', text: 'Hey! How are you doing?', timestamp: '10:30 AM' },
-    { id: '2', sender: 'me', text: 'I\'m good! How about you?', timestamp: '10:32 AM' },
-    { id: '3', sender: 'them', text: 'Great! Just wanted to check in', timestamp: '10:33 AM' },
-    { id: '4', sender: 'me', text: 'Thanks for checking in!', timestamp: '10:35 AM' },
-    { id: '5', sender: 'them', text: 'No problem! Talk later?', timestamp: '10:36 AM' },
-    { id: '6', sender: 'me', text: 'Sure, bye!', timestamp: '10:37 AM' },
-    { id: '7', sender: 'them', text: 'See you!', timestamp: '10:38 AM' },
-    { id: '8', sender: 'me', text: 'Take care!', timestamp: '10:39 AM' },
-    { id: '9', sender: 'me', text: 'I Love you', timestamp: '10:39 AM' },
-    { id: '10', sender: 'them', text: 'You too!', timestamp: '10:40 AM' }
-];
 
 interface ChatViewProps {
     chatId: string;
     chatType: 'user' | 'community';
+    currentUserId?: number; // Pass from parent if available
 }
 
-export default function ChatView({ chatId, chatType }: ChatViewProps) {
+export default function ChatView({ chatId, chatType, currentUserId }: ChatViewProps) {
     const isMobile = !useMediaQuery('(min-width: 1024px)');
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    console.log('ChatView rendered with chatId:', chatId, 'and chatType:', chatType);
+    const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [messageInput, setMessageInput] = useState('');
+    const [sending, setSending] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+    const [conversationName, setConversationName] = useState('');
+
+    const { on, off } = useSocket();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
     };
 
+    // Fetch messages
+    useEffect(() => {
+        const fetchMessages = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const response = await messagesApi.getConversation(
+                    chatType as RecipientType,
+                    parseInt(chatId)
+                );
+                setMessages(response.data.messages);
+
+                // Set conversation name from recipient info
+                const recipient = response.data.recipient;
+                setConversationName(recipient.full_name || recipient.name || 'Unknown');
+
+                // Mark conversation as read
+                await messagesApi.markConversationAsRead({
+                    recipientType: chatType as RecipientType,
+                    recipientId: parseInt(chatId)
+                });
+            } catch (err) {
+                console.error('Failed to fetch messages:', err);
+
+                // Extract error message from API response
+                let errorMessage = 'Failed to load messages';
+                if (err instanceof Error) {
+                    // Parse the API error message from the error string
+                    const match = err.message.match(/{"status":"error","message":"([^"]+)"}/);
+                    if (match && match[1]) {
+                        errorMessage = match[1];
+                    }
+                }
+
+                setError(errorMessage);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMessages();
+    }, [chatId, chatType]);
+
+    // Scroll to bottom when messages change
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    // Listen for new messages
+    useEffect(() => {
+        const handleNewMessage = (data: { message: Message }) => {
+            const newMessage = data.message;
+
+            // Only add message if it's for this conversation
+            const isForThisConversation =
+                (newMessage.recipient_type === chatType &&
+                 newMessage.recipient_id === parseInt(chatId)) ||
+                (newMessage.sender_id === parseInt(chatId) && chatType === 'user');
+
+            if (isForThisConversation) {
+                setMessages(prev => [...prev, newMessage]);
+
+                // Mark as read
+                messagesApi.markConversationAsRead({
+                    recipientType: chatType as RecipientType,
+                    recipientId: parseInt(chatId)
+                }).catch(err => console.error('Failed to mark as read:', err));
+            }
+        };
+
+        const handleTyping = (data: { userId: number; isTyping: boolean; recipientId: number }) => {
+            if (data.recipientId === parseInt(chatId)) {
+                setIsTyping(data.isTyping);
+            }
+        };
+
+        on('new_message', handleNewMessage);
+        on('new_community_message', handleNewMessage);
+        on('user_typing', handleTyping);
+
+        return () => {
+            off('new_message', handleNewMessage);
+            off('new_community_message', handleNewMessage);
+            off('user_typing', handleTyping);
+        };
+    }, [chatId, chatType, on, off]);
+
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const textarea = e.target;
         textarea.style.height = 'auto';
         textarea.style.height = `${Math.min(textarea.scrollHeight, 1.5 * 16 * 7)}px`;
+
+        setMessageInput(e.target.value);
+
+        // Send typing indicator
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
+
+        messagesApi.sendTypingIndicator({
+            recipientType: chatType as RecipientType,
+            recipientId: parseInt(chatId),
+            isTyping: true
+        }).catch(err => console.error('Failed to send typing indicator:', err));
+
+        // Stop typing indicator after 3 seconds
+        typingTimeoutRef.current = setTimeout(() => {
+            messagesApi.sendTypingIndicator({
+                recipientType: chatType as RecipientType,
+                recipientId: parseInt(chatId),
+                isTyping: false
+            }).catch(err => console.error('Failed to send typing indicator:', err));
+        }, 3000);
     };
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [chatId]);
+    const handleSendMessage = async () => {
+        if (!messageInput.trim() || sending) return;
+
+        try {
+            setSending(true);
+            const response = await messagesApi.sendMessage({
+                recipientType: chatType as RecipientType,
+                recipientId: parseInt(chatId),
+                content: messageInput.trim()
+            });
+
+            // Add the sent message to the list
+            setMessages(prev => [...prev, response.data.message]);
+            setMessageInput('');
+
+            // Reset textarea height
+            if (textareaRef.current) {
+                textareaRef.current.style.height = 'auto';
+            }
+
+            // Stop typing indicator
+            await messagesApi.sendTypingIndicator({
+                recipientType: chatType as RecipientType,
+                recipientId: parseInt(chatId),
+                isTyping: false
+            });
+        } catch (err) {
+            console.error('Failed to send message:', err);
+            alert('Failed to send message. Please try again.');
+        } finally {
+            setSending(false);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage();
+        }
+    };
+
+    if (loading) {
+        return <ChatViewSkeleton />;
+    }
+
+    if (error) {
+        return (
+            <div className={styles.errorContainer}>
+                <p>{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.container}>
@@ -56,20 +216,33 @@ export default function ChatView({ chatId, chatType }: ChatViewProps) {
                         icon={{ name: "arrowLeft", color: "var(--color-text-light)" }}
                         aria-label="Go to messages" />
                 )}
-                <p className={styles.chatName}>Afolabi T.</p>
+                <p className={styles.chatName}>{conversationName || `${chatType} ${chatId}`}</p>
             </div>
 
             <div className={styles.messagesContainer}>
-                {mockMessages.map((message) => (
-                    <div
-                        key={message.id}
-                        className={`${styles.message} ${message.sender === 'me' ? styles.sent : styles.received}`}>
+                {messages.map((message) => {
+                    const isSentByMe = currentUserId ? message.sender_id === currentUserId : false;
+
+                    return (
+                        <div
+                            key={message.id}
+                            className={`${styles.message} ${isSentByMe ? styles.sent : styles.received}`}>
+                            <div className={styles.bubble}>
+                                <p>{message.content}</p>
+                                <span className={styles.timestamp}>
+                                    {format(new Date(message.created_at), 'h:mm a')}
+                                </span>
+                            </div>
+                        </div>
+                    );
+                })}
+                {isTyping && (
+                    <div className={`${styles.message} ${styles.received}`}>
                         <div className={styles.bubble}>
-                            <p>{message.text}</p>
-                            <span className={styles.timestamp}>{message.timestamp}</span>
+                            <p className={styles.typingIndicator}>typing...</p>
                         </div>
                     </div>
-                ))}
+                )}
                 <div ref={messagesEndRef} />
             </div>
 
@@ -79,13 +252,18 @@ export default function ChatView({ chatId, chatType }: ChatViewProps) {
                     placeholder="Type a message"
                     className={styles.input}
                     rows={1}
-                    onChange={handleTextareaChange} />
+                    value={messageInput}
+                    onChange={handleTextareaChange}
+                    onKeyDown={handleKeyDown}
+                    disabled={sending} />
                 <Button
                     variant="default"
                     iconRight={<Icon name="arrowRight" size="sm" />}
                     iconOnlyMobile={true}
-                    className='self-end'>
-                    Send
+                    className='self-end'
+                    onClick={handleSendMessage}
+                    disabled={!messageInput.trim() || sending}>
+                    {sending ? 'Sending...' : 'Send'}
                 </Button>
             </div>
         </div>
