@@ -48,7 +48,8 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
                     chatType as RecipientType,
                     parseInt(chatId)
                 );
-                setMessages(response.data.messages);
+                // Reverse to show oldest first (top) and newest last (bottom)
+                setMessages(response.data.messages.reverse());
 
                 // Set conversation name from recipient info
                 const recipient = response.data.recipient;
@@ -89,6 +90,7 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
     // Listen for new messages
     useEffect(() => {
         const handleNewMessage = (data: { message: Message }) => {
+            console.log('🔔 Socket event received:', data);
             const newMessage = data.message;
 
             // Only add message if it's for this conversation
@@ -97,8 +99,25 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
                  newMessage.recipient_id === parseInt(chatId)) ||
                 (newMessage.sender_id === parseInt(chatId) && chatType === 'user');
 
+            console.log('Is for this conversation?', isForThisConversation, {
+                chatType,
+                chatId,
+                messageRecipientType: newMessage.recipient_type,
+                messageRecipientId: newMessage.recipient_id,
+                messageSenderId: newMessage.sender_id
+            });
+
             if (isForThisConversation) {
-                setMessages(prev => [...prev, newMessage]);
+                setMessages(prev => {
+                    // Avoid duplicates - check if message already exists
+                    const exists = prev.some(m => m.id === newMessage.id);
+                    if (exists) {
+                        console.log('Message already exists, skipping');
+                        return prev;
+                    }
+                    console.log('Adding new message to state');
+                    return [...prev, newMessage];
+                });
 
                 // Mark as read
                 messagesApi.markConversationAsRead({
@@ -114,11 +133,13 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
             }
         };
 
+        console.log('Setting up socket listeners for chat:', chatId, chatType);
         on('new_message', handleNewMessage);
         on('new_community_message', handleNewMessage);
         on('user_typing', handleTyping);
 
         return () => {
+            console.log('Cleaning up socket listeners');
             off('new_message', handleNewMessage);
             off('new_community_message', handleNewMessage);
             off('user_typing', handleTyping);
@@ -164,8 +185,8 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
                 content: messageInput.trim()
             });
 
-            // Add the sent message to the list
-            setMessages(prev => [...prev, response.data.message]);
+            // Add the sent message to the list with is_sent_by_me flag
+            setMessages(prev => [...prev, { ...response.data.message, is_sent_by_me: true }]);
             setMessageInput('');
 
             // Reset textarea height
@@ -221,12 +242,10 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
 
             <div className={styles.messagesContainer}>
                 {messages.map((message) => {
-                    const isSentByMe = currentUserId ? message.sender_id === currentUserId : false;
-
                     return (
                         <div
                             key={message.id}
-                            className={`${styles.message} ${isSentByMe ? styles.sent : styles.received}`}>
+                            className={`${styles.message} ${message.is_sent_by_me ? styles.sent : styles.received}`}>
                             <div className={styles.bubble}>
                                 <p>{message.content}</p>
                                 <span className={styles.timestamp}>

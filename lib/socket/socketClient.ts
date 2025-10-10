@@ -61,6 +61,11 @@ export const getSocket = (): Socket | null => {
         socket.on('error', (error) => {
             console.error('Socket error:', error);
         });
+
+        // Debug: Log ALL socket events
+        socket.onAny((eventName, ...args) => {
+            console.log('📡 Socket event received:', eventName, args);
+        });
     }
 
     return socket;

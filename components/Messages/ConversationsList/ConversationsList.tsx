@@ -94,9 +94,9 @@ export default function ConversationsList() {
                     </div>
                 ) : (
                     conversations.map((conversation) => {
-                        // Determine recipient type and ID from conversation
                         const recipientType = conversation.message_type === 'direct' ? 'user' : 'community';
-                        const recipientId = conversation.recipient_id || conversation.id;
+
+                        const recipientId = conversation.conversation_recipient_id
 
                         const href = `/messages/${recipientType}/${recipientId}`;
                         const isActive = pathname === href;

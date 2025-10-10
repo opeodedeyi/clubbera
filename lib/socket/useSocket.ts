@@ -43,12 +43,15 @@ export const useSocket = (): UseSocketReturn => {
 
     useEffect(() => {
         // Initialize socket connection
+        console.log('useSocket: Initializing socket connection');
         socketRef.current = getSocket();
 
         if (socketRef.current) {
+            console.log('useSocket: Socket initialized:', socketRef.current.id);
             // Update connection status
             const updateConnectionStatus = () => {
                 setIsConnected(isSocketConnected());
+                console.log('useSocket: Connection status updated:', isSocketConnected());
             };
 
             socketRef.current.on('connect', updateConnectionStatus);
@@ -66,31 +69,44 @@ export const useSocket = (): UseSocketReturn => {
                 // Don't disconnect on unmount - keep connection alive
                 // Only disconnect when user logs out
             };
+        } else {
+            console.warn('useSocket: Failed to initialize socket');
         }
     }, []);
 
     // Generic event listener
     const on = useCallback(<T = unknown>(event: string, callback: (data: T) => void) => {
-        if (socketRef.current) {
-            socketRef.current.on(event, callback as (...args: unknown[]) => void);
+        const socket = socketRef.current;
+        console.log('useSocket.on: Registering listener for event:', event, 'Socket exists:', !!socket);
+        if (socket) {
+            socket.on(event, callback as (...args: unknown[]) => void);
+            console.log('useSocket.on: Listener registered for event:', event);
+        } else {
+            console.warn('useSocket.on: No socket available for event:', event);
         }
     }, []);
 
     // Generic event unsubscribe
     const off = useCallback((event: string, callback?: (...args: unknown[]) => void) => {
-        if (socketRef.current) {
+        const socket = socketRef.current;
+        console.log('useSocket.off: Unregistering listener for event:', event);
+        if (socket) {
             if (callback) {
-                socketRef.current.off(event, callback);
+                socket.off(event, callback);
             } else {
-                socketRef.current.off(event);
+                socket.off(event);
             }
         }
     }, []);
 
     // Generic event emitter
     const emit = useCallback(<T = unknown>(event: string, data?: T) => {
-        if (socketRef.current) {
-            socketRef.current.emit(event, data);
+        const socket = socketRef.current;
+        console.log('useSocket.emit: Emitting event:', event, 'Socket exists:', !!socket);
+        if (socket) {
+            socket.emit(event, data);
+        } else {
+            console.warn('useSocket.emit: No socket available for event:', event);
         }
     }, []);
 

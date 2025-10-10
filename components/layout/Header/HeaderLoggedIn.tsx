@@ -7,6 +7,7 @@ import ActionIcon from '@/components/ui/ActionIcon/ActionIcon';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
 import UserMenu from '@/components/layout/UserMenu/UserMenu';
+import { useNotifications } from '@/lib/hooks/useNotifications';
 import type { HeaderProps, User } from '@/types/header';
 import styles from './Header.module.css';
 
@@ -28,7 +29,8 @@ const navItems: NavItem[] = [
 
 export default function HeaderLoggedIn({ user, variant, className = '' }: HeaderLoggedInProps) {
     const [searchQuery, setSearchQuery] = useState('');
-    const pathname = usePathname()
+    const pathname = usePathname();
+    const { unreadCount } = useNotifications();
 
     const isActive = (href: string, exactMatch = false) => {
         if (exactMatch) {
@@ -81,17 +83,22 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                     )}
 
                     {config.showNotifications && (
-                        <ActionIcon
-                            as="link"
-                            href="/notifications"
-                            icon={{
-                                name: 'notification',
-                                size: 'cHeader',
-                                hover: 'opacity',
-                                color: 'var(--color-icon-header)'
-                            }}
-                            className={styles.actionIcon}
-                            aria-label="Notifications" />
+                        <div className={styles.notificationWrapper}>
+                            <ActionIcon
+                                as="link"
+                                href="/notifications"
+                                icon={{
+                                    name: 'notification',
+                                    size: 'cHeader',
+                                    hover: 'opacity',
+                                    color: 'var(--color-icon-header)'
+                                }}
+                                className={styles.actionIcon}
+                                aria-label="Notifications" />
+                            {unreadCount > 0 && (
+                                <span className={styles.notificationDot} />
+                            )}
+                        </div>
                     )}
 
                     <UserMenu user={user} />

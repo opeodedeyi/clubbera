@@ -71,6 +71,25 @@
     max-width: 450px;
 }
 
+.notificationWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.notificationDot {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 10px;
+    height: 10px;
+    background: var(--color-default);
+    border-radius: 50%;
+    /* border: 2px solid var(--color-background-header); */
+    border: none;
+    pointer-events: none;
+}
+
 .skeleton {
     background: var(--color-border);
     border-radius: var(--radius-md);

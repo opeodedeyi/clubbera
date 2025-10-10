@@ -8,6 +8,7 @@ export interface Message {
     sender_id: number;
     recipient_type: RecipientType;
     recipient_id: number;
+    is_sent_by_me: boolean;
     content: string;
     sender_name: string;
     parent_message_id: number | null;
@@ -21,7 +22,9 @@ export interface Conversation {
     content: string;
     conversation_name: string;
     conversation_url: string;
+    conversation_recipient_id: number| string;
     sender_name: string;
+    sender_id: number | string;
     unread_count: number;
     created_at: string;
     recipient_type?: RecipientType;
