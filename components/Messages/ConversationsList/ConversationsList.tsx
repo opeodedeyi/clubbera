@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 import { messagesApi } from '@/lib/api/messages';
 import { useSocket } from '@/lib/socket/useSocket';
 import type { Conversation } from '@/lib/types/messages';
-import { formatDistanceToNow } from 'date-fns';
 import ConversationsListSkeleton from './ConversationsListSkeleton';
 import styles from './ConversationsList.module.css';
 
@@ -101,11 +100,6 @@ export default function ConversationsList() {
 
                         const href = `/messages/${recipientType}/${recipientId}`;
                         const isActive = pathname === href;
-
-                        // Format timestamp
-                        const timestamp = formatDistanceToNow(new Date(conversation.created_at), {
-                            addSuffix: true
-                        });
 
                         return (
                             <Link
