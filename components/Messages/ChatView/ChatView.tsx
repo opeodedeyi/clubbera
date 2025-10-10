@@ -18,8 +18,9 @@ interface ChatViewProps {
     currentUserId?: number; // Pass from parent if available
 }
 
-export default function ChatView({ chatId, chatType, currentUserId }: ChatViewProps) {
+export default function ChatView({ chatId, chatType }: ChatViewProps) {
     const isMobile = !useMediaQuery('(min-width: 1024px)');
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -35,7 +36,9 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
     const { on, off } = useSocket();
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
     };
 
     // Fetch messages
@@ -84,7 +87,9 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
 
     // Scroll to bottom when messages change
     useEffect(() => {
-        scrollToBottom();
+        requestAnimationFrame(() => {
+            scrollToBottom();
+        });
     }, [messages]);
 
     // Listen for new messages
@@ -240,7 +245,7 @@ export default function ChatView({ chatId, chatType, currentUserId }: ChatViewPr
                 <p className={styles.chatName}>{conversationName || `${chatType} ${chatId}`}</p>
             </div>
 
-            <div className={styles.messagesContainer}>
+            <div ref={messagesContainerRef} className={styles.messagesContainer}>
                 {messages.map((message) => {
                     return (
                         <div
