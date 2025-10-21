@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
+import { useHeaderVariant } from '@/components/providers/HeaderVariantProvider';
 import HeaderLoggedOut from './HeaderLoggedOut';
 import HeaderLoggedIn from './HeaderLoggedIn';
 import HeaderSkeleton from './HeaderSkeleton';
@@ -14,8 +15,12 @@ import type { HeaderProps } from '@/types/header';
  * @param {HeaderProps} props - The properties for the header component.
  * @returns {JSX.Element} The rendered header component.
  */
-export default function Header({ variant, className = '' }: HeaderProps) {
+export default function Header({ variant: propVariant, className = '' }: HeaderProps) {
     const { user, loading, mounted } = useAuth()
+    const { variant: contextVariant } = useHeaderVariant()
+
+    // Context variant takes precedence over prop variant
+    const variant = contextVariant || propVariant
 
     if (!mounted) {
         return <HeaderSkeleton className={className} />

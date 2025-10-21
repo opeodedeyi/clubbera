@@ -10,6 +10,10 @@
     max-width: 450px;
 }
 
+.searchForm {
+    flex: 1;
+}
+
 .focused {
     box-shadow: none;
 }

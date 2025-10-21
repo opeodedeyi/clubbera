@@ -1,25 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import PostCard from '@/components/post/PostCard/PostCard';
+import PostInput from '@/components/post/PostInput/PostInput';
 import NoPost from '@/components/ui/NoPost/NoPost';
+import CommunityPostsSkeleton from './CommunityPostsSkeleton';
 import { CommunityData } from '@/lib/api/communities';
+import { postsApi } from '@/lib/api/posts';
+import type { Post } from '@/lib/types/posts';
 import styles from './CommunityPosts.module.css';
-
-// will edit later
-interface Post {
-    id: string;
-    title: string;
-    content: string;
-    author: {
-        id: string;
-        name: string;
-        avatar?: string;
-    };
-    createdAt: string;
-    likesCount: number;
-    commentsCount: number;
-    isLiked: boolean;
-}
 
 interface CommunityPostsProps {
     community: CommunityData;
@@ -29,29 +19,24 @@ interface CommunityPostsProps {
 export default function CommunityPosts({ community, className }: CommunityPostsProps) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
 
+    // Fetch posts for this specific community
     useEffect(() => {
-        // Simulate API call
         const fetchPosts = async () => {
             try {
                 setIsLoading(true);
-                setError(null);
-                
-                // TODO: Replace with actual API call
-                // const response = await fetch(`/api/communities/${community.id}/posts`);
-                // const data = await response.json();
-                // setPosts(data.posts);
-                
-                // Simulate loading delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // For now, set empty posts array
+                const response = await postsApi.getCommunityPosts(community.id, { limit: 20, offset: 0 });
+
+                // Sort by created_at date (newest first)
+                const sortedPosts = response.data.sort((a, b) =>
+                    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                );
+
+                setPosts(sortedPosts);
+            } catch (error) {
+                console.error('Failed to fetch community posts:', error);
                 setPosts([]);
-                
-            } catch (err) {
-                setError('Failed to load posts');
-                console.error('Error fetching posts:', err);
             } finally {
                 setIsLoading(false);
             }
@@ -60,61 +45,64 @@ export default function CommunityPosts({ community, className }: CommunityPostsP
         fetchPosts();
     }, [community.id]);
 
-    const handleRefresh = () => {
-        // TODO: Implement refresh functionality
-        console.log('Refreshing posts...');
+    // Create post mutation
+    const createPostMutation = useMutation({
+        mutationFn: async ({ content }: { content: string }) => {
+            return postsApi.createPost({
+                communityId: community.id,
+                content,
+                isSupportersOnly: false
+            });
+        },
+        onSuccess: (response) => {
+            // Add new post to the top of the feed
+            setPosts(prev => [response.data, ...prev]);
+            queryClient.invalidateQueries({ queryKey: ['community-posts', community.id] });
+        },
+        onError: (error) => {
+            console.error('Failed to create post:', error);
+        }
+    });
+
+    const handlePostSubmit = (communityId: string, content: string) => {
+        if (!content.trim()) return;
+        createPostMutation.mutate({ content });
+    };
+
+    // Transform community data for PostInput (single community)
+    const communityForInput = {
+        id: community.id.toString(),
+        name: community.name
     };
 
     if (isLoading) {
-        return (
-            <div className={`${styles.communityPosts} ${className || ''}`}>
-                <div className={styles.header}>
-                    <h3 className={styles.title}>Community Posts</h3>
-                </div>
-                <div className={styles.loadingContainer}>
-                    <p className={styles.loadingText}>Loading posts...</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className={`${styles.communityPosts} ${className || ''}`}>
-                <div className={styles.header}>
-                    <h3 className={styles.title}>Community Posts</h3>
-                </div>
-                <div className={styles.errorContainer}>
-                    <p className={styles.errorText}>{error}</p>
-                    <button 
-                        className={styles.retryButton}
-                        onClick={handleRefresh}>
-                        Try Again
-                    </button>
-                </div>
-            </div>
-        );
+        return <CommunityPostsSkeleton />;
     }
 
     if (posts.length === 0) {
         return (
-            <div className={`${styles.communityNoPosts} ${className || ''}`}>
-                <NoPost
-                    text="Opps, this community has no posts"/>
+            <div className={`${styles.communityPosts} ${className || ''}`}>
+                <PostInput
+                    communities={[communityForInput]}
+                    onSubmit={handlePostSubmit}
+                />
+                <div className={styles.communityNoPosts}>
+                    <NoPost text="Opps, this community has no posts" />
+                </div>
             </div>
         );
     }
 
-    // This will be used when we have actual posts
     return (
         <div className={`${styles.communityPosts} ${className || ''}`}>
-            <div className={styles.postsContainer}>
-                {posts.map(post => (
-                    <div key={post.id} className={styles.postCard}>
-                        {/* Post content will go here */}
-                    </div>
-                ))}
-            </div>
+            <PostInput
+                communities={[communityForInput]}
+                onSubmit={handlePostSubmit}
+            />
+
+            {posts.map(post => (
+                <PostCard key={post.id} post={post} variant="community" />
+            ))}
         </div>
     );
 }

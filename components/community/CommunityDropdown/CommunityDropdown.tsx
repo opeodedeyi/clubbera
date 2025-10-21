@@ -10,7 +10,7 @@ import OverlayPortal from '@/components/ui/OverlayPortal/OverlayPortal';
 import styles from './CommunityDropdown.module.css';
 
 interface CommunityDropdownProps {
-    community: CommunityData;
+    community: Pick<CommunityData, 'id' | 'uniqueUrl'>;
     className?: string;
     trigger?: React.ReactNode;
 }

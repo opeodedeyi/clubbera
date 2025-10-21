@@ -25,7 +25,7 @@ export default function MemberHeader({ community }: CommunityMemberViewProps) {
                         className={styles.buttons}
                         onClick={() => setShowShareModal(true)}
                         aria-label="share community">
-                        <Icon name='share' color='var(--color-text-light)' size='sm' />
+                        <Icon name='share' color='var(--color-text-light)' size='md' />
                     </button>
 
                     <CommunityDropdown
@@ -34,7 +34,7 @@ export default function MemberHeader({ community }: CommunityMemberViewProps) {
                             <button
                                 className={styles.buttons}
                                 aria-label="community options">
-                                <Icon name='verticalEllipsis' color='var(--color-text-light)' size='sm' />
+                                <Icon name='verticalEllipsis' color='var(--color-text-light)' size='md' />
                             </button>
                         } />
                 </div>

@@ -428,6 +428,6 @@ export const communityApi = {
             ...(lat !== undefined && { lat: lat.toString() }),
             ...(lng !== undefined && { lng: lng.toString() })
         });
-        return api.get<CommunitySearchResponse>(`/communities/recommendations?${params}`);
+        return api.get<CommunitySearchResponse>(`/recommendations/communities?${params}`);
     }
 };

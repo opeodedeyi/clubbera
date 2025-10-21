@@ -7,6 +7,10 @@ import ActionIcon from '@/components/ui/ActionIcon/ActionIcon';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
 import UserMenu from '@/components/layout/UserMenu/UserMenu';
+import Icon from '@/components/ui/Icon/Icon';
+import BackButtonMobile from '@/components/ui/BackButton/BackButtonMobile';
+import CommunityDropdown from '@/components/community/CommunityDropdown/CommunityDropdown';
+import ShareModal from '@/components/ui/ShareModal/ShareModal';
 import { useNotifications } from '@/lib/hooks/useNotifications';
 import type { HeaderProps, User } from '@/types/header';
 import styles from './Header.module.css';
@@ -29,8 +33,10 @@ const navItems: NavItem[] = [
 
 export default function HeaderLoggedIn({ user, variant, className = '' }: HeaderLoggedInProps) {
     const [searchQuery, setSearchQuery] = useState('');
+    const [showShareModal, setShowShareModal] = useState(false);
     const pathname = usePathname();
     const { unreadCount } = useNotifications();
+    // Backend automatically joins users to their Socket.IO rooms on connection
 
     const isActive = (href: string, exactMatch = false) => {
         if (exactMatch) {
@@ -46,10 +52,13 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
         ...variant
     }
 
+    const isCommunityPage = !!variant?.communityData;
+
     return (
         <header className={`${styles.header} ${styles.loggedIn} ${className}`}>
             <div className={styles.container}>
-                <div className={styles.left}>
+                {/* Desktop Content - Always visible on desktop, hidden on mobile for community pages */}
+                <div className={`${styles.left} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
                     <Link href="/home" className={styles.logo}>
                         <ClubberaLogo variant="custom" textColor="var(--color-text)" />
                     </Link>
@@ -70,9 +79,17 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                     )}
                 </div>
 
+                {/* Mobile Community Header - Only visible on mobile for community pages */}
+                {isCommunityPage && variant.communityData && (
+                    <div className={styles.mobileOnly}>
+                        <BackButtonMobile />
+                    </div>
+                )}
+
                 <div className={styles.actions}>
+                    {/* Desktop Actions */}
                     {config.showSearch && (
-                        <div className={styles.search}>
+                        <div className={`${styles.search} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
                             <SearchBar
                                 size="small"
                                 className='desktop-only-flex'
@@ -83,7 +100,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                     )}
 
                     {config.showNotifications && (
-                        <div className={styles.notificationWrapper}>
+                        <div className={`${styles.notificationWrapper} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
                             <ActionIcon
                                 as="link"
                                 href="/notifications"
@@ -101,9 +118,44 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                         </div>
                     )}
 
-                    <UserMenu user={user} />
+                    <div className={isCommunityPage ? styles.hideOnMobileCommunity : ''}>
+                        <UserMenu user={user} />
+                    </div>
+
+                    {/* Mobile Community Actions - Only visible on mobile for community pages */}
+                    {isCommunityPage && variant.communityData && (
+                        <div className={styles.mobileOnly}>
+                            <div className={styles.communityMobileActions}>
+                                <button
+                                    className={styles.communityActionButton}
+                                    onClick={() => setShowShareModal(true)}
+                                    aria-label="share community">
+                                    <Icon name='share' color='var(--color-text-light)' size='sm' />
+                                </button>
+
+                                <CommunityDropdown
+                                    community={variant.communityData}
+                                    trigger={
+                                        <button
+                                            className={styles.communityActionButton}
+                                            aria-label="community options">
+                                            <Icon name='verticalEllipsis' color='var(--color-text-light)' size='sm' />
+                                        </button>
+                                    } />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
+
+            {/* Share Modal */}
+            {isCommunityPage && variant.communityData && (
+                <ShareModal
+                    type="community"
+                    url={typeof window !== 'undefined' ? window.location.href : ''}
+                    isOpen={showShareModal}
+                    onClose={() => setShowShareModal(false)} />
+            )}
         </header>
     )
 }

@@ -1,12 +1,12 @@
 .backButtonMobile {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-4);
-    background-color: var(--color-background);
+    background-color: transparent;
     border: none;
     cursor: pointer;
 }

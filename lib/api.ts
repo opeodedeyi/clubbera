@@ -102,8 +102,13 @@ class ApiClient {
         })
     }
 
-    delete<T = unknown>(endpoint: string): Promise<T> {
-        return this.request<T>(endpoint, { method: 'DELETE' })
+    delete<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
+        const body = this.prepareBody(data)
+
+        return this.request<T>(endpoint, {
+            method: 'DELETE',
+            body,
+        })
     }
 
     private prepareBody(data?: RequestData): string | FormData | null {

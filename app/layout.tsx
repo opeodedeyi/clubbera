@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { AuthProvider } from '@/hooks/useAuth';
+import QueryProvider from '@/components/providers/QueryProvider';
+import { HeaderVariantProvider } from '@/components/providers/HeaderVariantProvider';
 import Header from "@/components/layout/Header/Header";
 import ConditionalFooter from "@/components/layout/Footer/ConditionalFooter";
 import ConditionalBottomNav from "@/components/layout/BottomNav/ConditionalBottomNav";
@@ -43,18 +45,22 @@ export default async function RootLayout({
             </head>
             <body className={`${boris.variable} ${nunito.variable}`}>
                 <ThemeProvider
-                    attribute="data-theme" 
+                    attribute="data-theme"
                     defaultTheme="system"
                     enableSystem={true}
                     disableTransitionOnChange={false}>
-                        <AuthProvider>
-                            <TopLoadingBar />
-                            <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
-                            <main>{children}</main>
-                            <ConditionalFooter />
-                            <ConditionalBottomNav />
-                            <EmailVerificationWrapper />
-                        </AuthProvider>
+                        <QueryProvider>
+                            <AuthProvider>
+                                <HeaderVariantProvider>
+                                    <TopLoadingBar />
+                                    <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
+                                    <main>{children}</main>
+                                    <ConditionalFooter />
+                                    <ConditionalBottomNav />
+                                    <EmailVerificationWrapper />
+                                </HeaderVariantProvider>
+                            </AuthProvider>
+                        </QueryProvider>
                 </ThemeProvider>
             </body>
         </html>

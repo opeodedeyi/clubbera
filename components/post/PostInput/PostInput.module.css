@@ -1,0 +1,201 @@
+/* Floating Button - Hidden on desktop, shown on mobile */
+.floatingButton {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-gray);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 8;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.floatingButton:hover,
+.floatingButton:active {
+    transform: scale(1.05);
+}
+
+/* Post Input Container - Desktop default */
+.postInputContainer {
+    background: var(--color-background-light);
+    border: none;
+    border-radius: var(--radius-card);
+    padding: var(--spacing-6);
+    display: block;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.postInputContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+}
+
+.dropdownWrapper {
+    position: relative;
+    flex: 0 0 140px;
+}
+
+.dropdownButton {
+    width: 160px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-1-5);
+    padding: var(--spacing-2-5) var(--spacing-2);
+    background: var(--color-background);
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.dropdownButton:hover {
+    transform: scale(1.05);
+}
+
+.dropdownText {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-1);
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--color-background-light);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9;
+}
+
+.dropdownItem {
+    width: 100%;
+    padding: var(--spacing-2-5) var(--spacing-3);
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-text);
+    transition: background-color 0.2s;
+}
+
+.dropdownItem:hover {
+    background: var(--color-plain);
+}
+
+.dropdownItem.selected {
+    background: var(--selected-background, #e3f2fd);
+    color: var(--primary-color, #007bff);
+    font-weight: 500;
+}
+
+/* Cancel Button - Hidden on desktop, shown on mobile */
+.cancelButton {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-danger);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Textarea */
+.textarea {
+    width: 100%;
+    border: none;
+    font-family: inherit;
+    background: transparent;
+    font-size: 16px;
+    resize: none;
+    min-height: calc(1.5em * 2); /* Start at 2 lines */
+    max-height: calc(1.5em * 7); /* Max 7 lines */
+    line-height: 1.5em;
+    overflow-y: auto;
+    height: auto;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: none;
+}
+
+.textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Overlay - Only shown when in portal */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: var(--color-background-light);
+}
+
+@media (max-width: 767px) {
+    .floatingButton {
+        display: flex;
+    }
+
+    .postInputContainer {
+        height: 100%;
+        display: none;
+        border-radius: 0;
+    }
+
+    .postInputContainer.open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 500px;
+        max-height: calc(100vh - 40px);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .cancelButton {
+        display: block;
+    }
+}

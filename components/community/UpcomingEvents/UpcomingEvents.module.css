@@ -110,7 +110,8 @@
     align-items: center;
 }
 
-.AdminImg {
+.AdminImg,
+.AdminNoImg {
     width: 238px;
     height: 176px;
     background-color: var(--color-background-light);
@@ -196,6 +197,10 @@
     .AdminImg {
         width: 100%;
         height: 176px;
+    }
+
+    .AdminNoImg {
+        height: 30px;
     }
 
     .memberImg {

@@ -17,7 +17,8 @@ export const getSocket = (): Socket | null => {
         return null;
     }
 
-    if (!socket || !socket.connected) {
+    // Only create socket once - don't recreate on disconnect
+    if (!socket) {
         const token = getCookie('authToken')?.toString();
 
         if (!token) {
@@ -34,6 +35,7 @@ export const getSocket = (): Socket | null => {
         // Remove /api suffix for Socket.IO connection (connects to root)
         const socketUrl = apiUrl.replace(/\/api\/?$/, '');
 
+        console.log('🔌 Creating NEW socket instance');
         socket = io(socketUrl, {
             auth: {
                 token
@@ -62,6 +64,12 @@ export const getSocket = (): Socket | null => {
             console.error('Socket error:', error);
         });
 
+        // Listen for the 'connected' event from backend
+        socket.on('connected', (data: { message: string; timestamp: string; userId?: number }) => {
+            console.log('✅ Connected to Socket.IO server:', data);
+            // Backend automatically joins user to user_${userId} room, no need to emit join_room
+        });
+
         // Debug: Log ALL socket events
         socket.onAny((eventName, ...args) => {
             console.log('📡 Socket event received:', eventName, args);
@@ -88,6 +96,18 @@ export const isSocketConnected = (): boolean => {
 export const reconnectSocket = (): void => {
     if (socket && !socket.connected) {
         socket.connect();
+    }
+};
+
+// Join user's personal room for receiving messages and notifications
+export const joinUserRoom = (userId: number): void => {
+    const socketInstance = getSocket();
+    if (socketInstance && socketInstance.connected) {
+        const roomName = `user_${userId}`;
+        console.log(`🚪 Attempting to join room: ${roomName}`);
+        socketInstance.emit('join_room', { room: roomName });
+    } else {
+        console.warn('Cannot join room - socket not connected');
     }
 };
 

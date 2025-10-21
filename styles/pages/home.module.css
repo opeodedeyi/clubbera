@@ -1,11 +1,11 @@
 .container {
     width: 100%;
-    max-width: var(--max-width);
+    max-width: 1440px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--spacing-20) var(--spacing-20);
+    padding: var(--spacing-10) var(--spacing-20);
     gap: var(--spacing-32);
 }
 

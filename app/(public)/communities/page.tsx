@@ -1,5 +1,8 @@
 import { Suspense } from 'react';
 import CommunitiesContent from '@/components/communities/CommunitiesContent/CommunitiesContent';
+import DiscoverCommunitiesSkeleton from '@/components/community/DiscoverCommunities/DiscoverCommunitiesSkeleton';
+import PageWrapper from '@/components/ui/PageWrapper/PageWrapper';
+import styles from '@/components/communities/CommunitiesContent/CommunitiesContent.module.css';
 
 export default function Communities() {
     return (
@@ -11,11 +14,15 @@ export default function Communities() {
 
 function CommunitiesLoading() {
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="animate-pulse">
-                <div className="h-8 bg-gray-300 rounded w-64 mb-4"></div>
-                <div className="h-96 bg-gray-300 rounded"></div>
+        <PageWrapper showParticles={true} particleCount={6} particlesHeight={300}>
+            <div className={styles.container}>
+                {/* Toggle Button Group Skeleton */}
+                <div className="skeleton" style={{ width: '200px', height: '44px', borderRadius: 'var(--radius-xl)' }}></div>
             </div>
-        </div>
+
+            <main className={styles.contentContainer}>
+                <DiscoverCommunitiesSkeleton />
+            </main>
+        </PageWrapper>
     )
 }

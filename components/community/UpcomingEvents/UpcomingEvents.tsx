@@ -8,6 +8,7 @@ import { CommunityData } from '@/lib/api/communities';
 import { eventApi, EventSearchResult } from '@/lib/api/events';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import { formatSmartDateWithTimezone } from '@/lib/utils/timezoneFormatter';
+import UpcomingEventsSkeleton from './UpcomingEventsSkeleton';
 import styles from './UpcomingEvents.module.css';
 
 interface UpcomingEventsProps {
@@ -55,14 +56,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
     }, [community.id]);
 
     if (isLoading) {
-        return (
-            <div className={`${styles.upcomingEvents} ${styles[variant]} ${className || ''}`}>
-                <div className={styles.loadingContainer}>
-                    <p className={styles.loadingText}>Loading events...</p>
-                    <div style={{fontSize: '12px', color: 'red'}}>DEBUG: Loading is true</div>
-                </div>
-            </div>
-        );
+        return <UpcomingEventsSkeleton variant={variant} className={className} />;
     }
 
     if (error) {
@@ -113,7 +107,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                         <div className={styles.noEventsAdminMain}>
                             <p className={styles.noEventsAdminText}>No Upcoming Events, click create to begin </p>
 
-                            <div className={styles.AdminImg}></div>
+                            <div className={styles.AdminNoImg}></div>
                         </div>
                     </div>
                 ) : (

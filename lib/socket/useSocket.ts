@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Socket } from 'socket.io-client';
-import { getSocket, disconnectSocket, isSocketConnected } from './socketClient';
+import { getSocket, disconnectSocket, isSocketConnected, joinUserRoom } from './socketClient';
 
 interface UseSocketReturn {
     socket: Socket | null;
@@ -11,6 +11,7 @@ interface UseSocketReturn {
     on: <T = unknown>(event: string, callback: (data: T) => void) => void;
     off: (event: string, callback?: (...args: unknown[]) => void) => void;
     emit: <T = unknown>(event: string, data?: T) => void;
+    joinUserRoom: (userId: number) => void;
 }
 
 /**
@@ -115,7 +116,8 @@ export const useSocket = (): UseSocketReturn => {
         isConnected,
         on,
         off,
-        emit
+        emit,
+        joinUserRoom
     };
 };
 

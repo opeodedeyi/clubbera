@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import CommunityCard from '@/components/cards/community/CommunityCard/CommunityCard';
+import CommunityCardSkeleton from '@/components/cards/community/CommunityCard/CommunityCardSkeleton';
 import { useDiscoverCommunities } from '@/hooks/useDiscoverCommunities';
 import styles from './DiscoverCommunities.module.css';
 
@@ -46,19 +47,27 @@ export default function DiscoverCommunities() {
             </div>
 
             <div className={styles.resultsContainer}>
-                {loading && (
-                    <div className={styles.loading}>Searching communities...</div>
+                {/* Show skeleton when loading OR when no data loaded yet */}
+                {(loading || (!loading && communities.length === 0 && !error && !hasSearched)) && (
+                    <div className={styles.grid}>
+                        <CommunityCardSkeleton />
+                        <CommunityCardSkeleton />
+                        <CommunityCardSkeleton />
+                        <CommunityCardSkeleton />
+                        <CommunityCardSkeleton />
+                        <CommunityCardSkeleton />
+                    </div>
                 )}
 
-                {error && (
+                {!loading && error && (
                     <div className={styles.error}>{error}</div>
                 )}
 
-                {hasSearched && !loading && communities.length === 0 && !error && (
+                {!loading && hasSearched && communities.length === 0 && !error && (
                     <div className={styles.noResults}>No communities found</div>
                 )}
 
-                {communities.length > 0 && (
+                {!loading && communities.length > 0 && (
                     <div className={styles.grid}>
                         {communities.map((community) => (
                             <CommunityCard

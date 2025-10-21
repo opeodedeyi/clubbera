@@ -75,6 +75,11 @@
     background-color: var(--color-default-background);
 }
 
+.default:active(:disabled) {
+    background-color: var(--color-default-light) !important;
+    color: var(--color-text-muted) !important;
+}
+
 .community {
     background-color: var(--color-community);
     color: var(--color-light);
@@ -89,6 +94,11 @@
     background-color: var(--color-community);
 }
 
+.community:active(:disabled) {
+    background-color: var(--color-community-light) !important;
+    color: var(--color-text-muted) !important;
+}
+
 .event {
     background-color: var(--color-event);
     color: var(--color-light);
@@ -101,6 +111,11 @@
 
 .event:active:not(:disabled) {
     background-color: var(--color-event);
+}
+
+.event:active(:disabled) {
+    background-color: var(--color-event-light) !important;
+    color: var(--color-text-muted) !important;
 }
 
 .plain {
@@ -128,8 +143,8 @@
 }
 
 .disabled {
-    background-color: var(--color-border) !important;
-    color: var(--color-text-muted) !important;
+    /* background-color: var(--color-border) !important;
+    color: var(--color-text-muted) !important; */
     cursor: not-allowed !important;
     opacity: 0.6;
     transform: none !important;

@@ -122,45 +122,90 @@ function getSmartFormat(date: Date, includeTime: boolean = false): string {
     if (minutesDiff < 1) {
         return 'Just now';
     }
-    
+
     // Less than 60 minutes
     if (minutesDiff < 60) {
         return `${minutesDiff}m ago`;
     }
-    
+
     // Less than 24 hours
     if (hoursDiff < 24) {
         return `${hoursDiff}h ago`;
     }
-    
-    // Today
+
+    // Less than 30 days
+    if (daysDiff < 30) {
+        return `${daysDiff}d ago`;
+    }
+
+    // Less than 365 days (show months)
+    if (daysDiff < 365) {
+        const months = Math.floor(daysDiff / 30);
+        return months === 1 ? '1mo ago' : `${months}mo ago`;
+    }
+
+    // More than 365 days (show years)
+    const years = Math.floor(daysDiff / 365);
+    return years === 1 ? '1yr ago' : `${years}yr ago`;
+}
+
+// Smart formatting for future dates (events)
+function getEventDateFormat(date: Date): string {
+    const now = new Date();
+    const daysDiff = differenceInDays(date, now);
+
     if (isToday(date)) {
-        return includeTime ? format(date, "'Today at' h:mm a") : 'Today';
+        return 'Today';
     }
-    
-    // Yesterday
-    if (isYesterday(date)) {
-        return includeTime ? format(date, "'Yesterday at' h:mm a") : 'Yesterday';
+
+    if (daysDiff === 1) {
+        return 'Tomorrow';
     }
-    
-    // Less than 7 days
-    if (daysDiff < 7) {
-        return includeTime 
-        ? format(date, "EEEE 'at' h:mm a")
-        : format(date, 'EEEE');
+
+    if (daysDiff >= 2 && daysDiff <= 6) {
+        return `In ${daysDiff} days`;
     }
-    
-    // This year
-    if (isThisYear(date)) {
-        return includeTime
-        ? format(date, "MMM d 'at' h:mm a")
-        : format(date, 'MMM d');
+
+    if (daysDiff >= 7 && daysDiff < 14) {
+        return 'In 1 week';
     }
-    
-    // Different year
-    return includeTime
-        ? format(date, "MMM d, yyyy 'at' h:mm a")
-        : format(date, 'MMM d, yyyy');
+
+    if (daysDiff >= 14 && daysDiff < 30) {
+        const weeks = Math.floor(daysDiff / 7);
+        return `In ${weeks} weeks`;
+    }
+
+    if (daysDiff >= 30 && daysDiff < 60) {
+        return 'In 1 month';
+    }
+
+    if (daysDiff >= 60 && daysDiff < 365) {
+        const months = Math.floor(daysDiff / 30);
+        return `In ${months} months`;
+    }
+
+    if (daysDiff >= 365 && daysDiff < 730) {
+        return 'In 1 year';
+    }
+
+    const years = Math.floor(daysDiff / 365);
+    return `In ${years} years`;
+}
+
+export function formatEventDate(dateInput: string | Date | null | undefined): string {
+    if (!dateInput) return '';
+
+    let date: Date;
+
+    if (typeof dateInput === 'string') {
+        date = parseISO(dateInput);
+    } else {
+        date = dateInput;
+    }
+
+    if (!isValid(date)) return 'Invalid date';
+
+    return getEventDateFormat(date);
 }
 
 // Convenience functions for common formats

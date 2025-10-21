@@ -115,7 +115,7 @@ export default function SearchBar({
                         className={styles.searchInput}/>
 
                     {/* Clear button when there's text */}
-                    {value && (
+                    {/* {value && (
                         <button
                             type="button"
                             onClick={() => onChange?.('')}
@@ -126,7 +126,7 @@ export default function SearchBar({
                                 alt="" 
                                 className={styles.icon}/>
                         </button>
-                    )}
+                    )} */}
                 </div>
             </form>
         </>

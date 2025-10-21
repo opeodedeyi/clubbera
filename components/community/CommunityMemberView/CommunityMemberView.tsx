@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { CommunityData } from '@/lib/api/communities';
-import MemberHeader from '../MemberHeader/MemberHeader';
+import { useHeaderVariant } from '@/components/providers/HeaderVariantProvider';
 import BackButton from '@/components/ui/BackButton/BackButton';
 import CommunityHeader from '../CommunityHeader/CommunityHeader';
 import CommunityPosts from '../CommunityPosts/CommunityPosts';
@@ -16,10 +17,26 @@ interface CommunityMemberViewProps {
 
 export default function CommunityMemberView({ community }: CommunityMemberViewProps) {
     console.log('CommunityMemberView', community);
-    
+    const { setVariant } = useHeaderVariant();
+
+    // Set header variant when component mounts
+    useEffect(() => {
+        setVariant({
+            communityData: {
+                id: community.id,
+                name: community.name,
+                uniqueUrl: community.uniqueUrl
+            }
+        });
+
+        // Clear variant when component unmounts
+        return () => {
+            setVariant(undefined);
+        };
+    }, [community.id, community.name, community.uniqueUrl, setVariant]);
+
     return (
         <div className={styles.container}>
-            <MemberHeader community={community}/>
             <BackButton className='self-start desktop-only-flex'/>
             
             <div className={styles.content}>

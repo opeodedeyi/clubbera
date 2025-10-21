@@ -22,11 +22,13 @@
     display: flex;
     padding-left: 90px;
     flex-direction: row;
+    justify-content: center;
     gap: var(--spacing-20);
 }
 
 .contentLeft {
     flex: 1;
+    max-width: 850px;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);

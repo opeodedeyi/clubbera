@@ -45,6 +45,11 @@ export interface HeaderVariant {
     showNavigation?: boolean
     customActions?: React.ReactNode
     className?: string
+    communityData?: {
+        id: number
+        name: string
+        uniqueUrl: string
+    }
 }
 
 export interface HeaderProps {

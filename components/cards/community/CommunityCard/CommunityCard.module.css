@@ -95,6 +95,10 @@
 }
 
 @media screen and (max-width: 767px) {
+    .cardLink {
+        width: 100%;
+    }
+
     .card {
         position: static;
         padding: var(--spacing-6) var(--spacing-5);
