@@ -1,7 +1,6 @@
 // lib/api/posts.ts
 import { api } from '../api';
 import type {
-    Post,
     PostResponse,
     PostsResponse,
     RepliesResponse,

@@ -1,14 +1,13 @@
 // lib/utils/dateFormatter.ts
-import { 
-  format, 
-  formatDistanceToNow, 
-  isValid, 
+import {
+  format,
+  formatDistanceToNow,
+  isValid,
   parseISO,
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
   isToday,
-  isYesterday,
   isThisYear
 } from 'date-fns';
 
@@ -104,7 +103,7 @@ export function formatDate(
             return format(date, short ? 'MMM yyyy' : 'MMMM yyyy');
 
         case 'smart':
-            return getSmartFormat(date, includeTime);
+            return getSmartFormat(date);
 
         default:
             return format(date, 'MMM d, yyyy');
@@ -112,7 +111,7 @@ export function formatDate(
 }
 
 // Smart formatting based on how recent the date is
-function getSmartFormat(date: Date, includeTime: boolean = false): string {
+function getSmartFormat(date: Date): string {
     const now = new Date();
     const minutesDiff = differenceInMinutes(now, date);
     const hoursDiff = differenceInHours(now, date);

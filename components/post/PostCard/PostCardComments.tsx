@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import { getS3ImageUrl } from '@/lib/s3Utils';
 import { IMAGES } from '@/lib/images';
 import { formatSmartDate } from '@/lib/utils/dateFormatter';
-import type { Post } from '@/lib/types/posts';
 import styles from './PostCard.module.css';
 
 interface Reply {
