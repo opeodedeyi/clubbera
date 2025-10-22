@@ -7,6 +7,10 @@
     gap: var(--spacing-10);
 }
 
+.contentContainer {
+    padding: 0 0 var(--spacing-24);
+}
+
 @media screen and (max-width: 767px) {
     .container {
         padding: var(--spacing-lg) var(--spacing-lg);
@@ -15,6 +19,6 @@
 
     .contentContainer {
         width: 100%;
-        padding: 0 var(--spacing-lg);
+        padding: 0 var(--spacing-lg) var(--spacing-24);
     }
 }

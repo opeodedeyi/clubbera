@@ -1,9 +1,10 @@
 .wrapper {
+    width: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: 100%;
+    padding-bottom: var(--spacing-0);
 }
 
 .footer {
@@ -47,6 +48,9 @@
 }
 
 @media screen and (max-width: 767px) {
+    .wrapper {
+        padding-bottom: var(--spacing-20);
+    }
     .footer {
         padding: var(--spacing-10) var(--spacing-6);
         gap: var(--spacing-12);

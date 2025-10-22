@@ -224,20 +224,13 @@ h3, h4, h5 {
 
 @media screen and (max-width: 1279px) {
     .main-content {
-        padding-bottom: calc(60px + env(safe-area-inset-bottom));
-    }
-
-    @supports (-webkit-touch-callout: none) {
-        .navContainer {
-            padding-bottom: max(env(safe-area-inset-bottom), 16px);
-        }
+        padding-bottom: calc(80px + env(safe-area-inset-bottom));
     }
 }
 
 @media screen and (max-width: 767px) {
     body {
         background-color: var(--color-background);
-        margin-bottom: env(safe-area-inset-bottom);
     }
 
     h1 {
