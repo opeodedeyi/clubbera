@@ -1,20 +1,20 @@
 .bottomNav {
-    position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     z-index: 10;
+    position: sticky;
     background: var(--color-background);
     border-top: 1px solid var(--color-border);
-    padding: 25px 0 calc(25px + env(safe-area-inset-bottom));
+    padding-top: 18px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
 }
 
-/* Hide on desktop */
 @media (min-width: 1280px) {
     .bottomNav {
         display: none;

@@ -174,10 +174,20 @@
     margin: 0;
 }
 
+html {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
 body {
-    background-color: var(--color-background);
     color: var(--color-text);
     font-size: 16px;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
+html, body, #__next {
+    background-color: var(--color-background) !important;
 }
 
 h1, h2, h3, h4, h5, button, .button, button span {
@@ -222,17 +232,7 @@ h3, h4, h5 {
    - Mobile: 0px - 767px
 */
 
-@media screen and (max-width: 1279px) {
-    .main-content {
-        padding-bottom: calc(80px + env(safe-area-inset-bottom));
-    }
-}
-
 @media screen and (max-width: 767px) {
-    body {
-        background-color: var(--color-background);
-    }
-
     h1 {
         font-size: 32px;
         letter-spacing: -0.3px;
@@ -250,7 +250,6 @@ h3, h4, h5 {
     }
 }
 
-/* Skeleton loading animation */
 .skeleton {
     background: var(--color-border);
     border-radius: var(--radius-md);

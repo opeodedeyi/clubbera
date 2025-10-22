@@ -24,7 +24,7 @@ export default function BottomNavLoggedOut() {
                         key={item.href}
                         href={item.href} 
                         className={`${styles.navItem} ${isActive ? styles.active : ''}`}>
-                        <Icon name={item.icon} size="md" />
+                        <Icon name={item.icon} size="lg" />
                     </Link>
                 );
             })}

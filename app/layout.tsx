@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { AuthProvider } from '@/hooks/useAuth';
 import QueryProvider from '@/components/providers/QueryProvider';
@@ -12,6 +12,12 @@ import { ThemeProvider } from 'next-themes';
 import { boris, nunito } from "@/fonts/fonts";
 import "@/styles/globals.css";
 
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    viewportFit: 'cover',
+    interactiveWidget: 'resizes-content',
+};
 
 export const metadata: Metadata = {
     title: "Clubbera",
@@ -40,9 +46,6 @@ export default async function RootLayout({
     
     return (
         <html lang="en" suppressHydrationWarning>
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
-            </head>
             <body className={`${boris.variable} ${nunito.variable}`}>
                 <ThemeProvider
                     attribute="data-theme"
