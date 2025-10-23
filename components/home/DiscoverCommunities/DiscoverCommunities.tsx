@@ -53,8 +53,7 @@ export default function DiscoverCommunities() {
                             description={community.tagline}
                             member={community.memberCount}
                             profile={community.profileImage?.key}
-                            cover={community.coverImage?.key}
-                        />
+                            cover={community.coverImage?.key} />
                     ))
                 ) : (
                     <div>No communities found</div>

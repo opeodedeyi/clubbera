@@ -5,7 +5,7 @@ interface ShareIconProps {
 }
 
 export default function ShareIcon({
-    size = 16,
+    size = 20,
     color = 'currentColor',
     className = ''
 }: ShareIconProps) {
@@ -13,16 +13,22 @@ export default function ShareIcon({
         <svg
             width={size}
             height={size}
-            viewBox="0 0 16 16"
+            viewBox="0 0 20 20"
             fill="none"
             className={className}>
-            <path
-                d="M9.6071 2.50099C9.2838 2.21811 8.77784 2.4477 8.77784 2.87727V4.45857C8.77784 4.70489 8.59739 4.91313 8.356 4.96215C3.55846 5.93643 1.74103 10.2794 1.00015 14.2197C0.972701 14.3725 4.80637 10.0162 8.27568 9.58688C8.55133 9.55277 8.77784 9.77947 8.77784 10.0572V11.5623C8.77784 11.9919 9.2838 12.2214 9.6071 11.9386L14.57 7.59607C14.7976 7.39686 14.7976 7.0427 14.57 6.84349L9.6071 2.50099Z"
-                fill={color}
-                stroke={color}
-                strokeWidth="1.16665"
-                strokeLinecap="round"
-                strokeLinejoin="round" />
+            <g clipPath="url(#clip0_2405_3574)">
+                <path
+                    d="M10.8335 3.33203V6.66536C5.35432 7.52203 3.31682 12.322 2.50016 16.6654C2.46932 16.837 6.98682 11.697 10.8335 11.6654V14.9987L17.5002 9.16536L10.8335 3.33203Z"
+                    stroke={color}
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_2405_3574">
+                    <rect width="20" height="20" fill="white" />
+                </clipPath>
+            </defs>
         </svg>
     )
 }

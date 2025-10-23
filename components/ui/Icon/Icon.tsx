@@ -241,14 +241,6 @@ export default function Icon(props: IconProps) {
                     color={infoProps.color}
                     className={iconClasses}/>
             )
-        case 'like':
-            const likeProps = props as SimpleIconProps
-            return (
-                <LikeIcon
-                    size={iconSize}
-                    color={likeProps.color}
-                    className={iconClasses}/>
-            )
         case 'liked':
             const likedProps = props as SimpleIconProps
             return (
@@ -408,6 +400,16 @@ export default function Icon(props: IconProps) {
                     color={helpProps.color}
                     fillColor={helpProps.fillColor}
                     strokeColor={helpProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'like':
+            const likeProps = props as ComplexIconProps
+            return (
+                <LikeIcon
+                    size={iconSize}
+                    color={likeProps.color}
+                    fillColor={likeProps.fillColor}
+                    strokeColor={likeProps.strokeColor}
                     className={iconClasses}/>
             )
         case 'megaphone':

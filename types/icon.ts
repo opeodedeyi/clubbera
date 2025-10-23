@@ -82,7 +82,7 @@ export interface SimpleIconProps extends BaseIconProps {
 }
   
 export interface ComplexIconProps extends BaseIconProps {
-    name: 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle' | 'clock' | 'firstline' | 'link' | 'message'
+    name: 'balloon' | 'bin' | 'megaphone' | 'heart' | 'help' | 'notification' | 'plusCustom' | 'signout' | 'toggle' | 'clock' | 'firstline' | 'link' | 'like' | 'message'
     color?: string
     fillColor?: string
     strokeColor?: string

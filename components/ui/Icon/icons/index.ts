@@ -34,7 +34,6 @@ export { default as HeadingIcon } from './HeadingIcon';
 export { default as HomeIcon } from './HomeIcon';
 export { default as InfoIcon } from './InfoIcon';
 export { default as ItalicIcon } from './ItalicIcon';
-export { default as LikeIcon } from './WillLikeIcon';
 export { default as LikedIcon } from './HasLikedIcon';
 export { default as ListIcon } from './ListIcon';
 export { default as LoadingEllipsisIcon } from './LoadingEllipsisIcon';
@@ -58,6 +57,7 @@ export { default as FirstlineIcon } from './FirstlineIcon';
 export { default as MegaphoneIcon } from './MegaphoneIcon';
 export { default as HeartIcon } from './HeartIcon';
 export { default as HelpIcon } from './HelpIcon';
+export { default as LikeIcon } from './LikeIcon';
 export { default as LinkIcon } from './LinkIcon';
 export { default as MessageIcon } from './MessageIcon';
 export { default as NotificationIcon } from './NotificationIcon';
@@ -103,7 +103,6 @@ export type IconName =
     | 'home'
     | 'info'
     | 'italic'
-    | 'like'
     | 'liked'
     | 'list'
     | 'loadingEllipsis'
@@ -125,8 +124,11 @@ export type IconName =
     | 'firstline'
     | 'heart'
     | 'help'
+    | 'like'
     | 'link'
+    | 'lineArt'
     | 'megaphone'
+    | 'message'
     | 'notification'
     | 'plusCustom'
     | 'signout'

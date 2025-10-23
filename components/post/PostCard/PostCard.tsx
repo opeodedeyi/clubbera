@@ -70,8 +70,8 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
             setPost(prev => ({
                 ...prev,
                 likes_count: userReaction?.hasReacted
-                    ? prev.likes_count - 1
-                    : prev.likes_count + 1,
+                    ? Number(prev.likes_count) - 1
+                    : Number(prev.likes_count) + 1,
                 user_has_liked: !userReaction?.hasReacted
             }));
             queryClient.invalidateQueries({ queryKey: ['user-reaction', post.id] });
@@ -90,7 +90,7 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
             setNewComment('');
             setPost(prev => ({
                 ...prev,
-                replies_count: prev.replies_count + 1
+                replies_count: Number(prev.replies_count) + 1
             }));
             refetchReplies();
         },
