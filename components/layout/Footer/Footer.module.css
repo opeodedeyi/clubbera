@@ -49,10 +49,10 @@
 
 @media screen and (max-width: 767px) {
     .wrapper {
-        padding-bottom: var(--spacing-32);
+        padding-bottom: var(--spacing-10);
     }
     .footer {
-        padding: var(--spacing-10) var(--spacing-6);
+        padding: var(--spacing-10) var(--spacing-md);
         gap: var(--spacing-12);
     }
 

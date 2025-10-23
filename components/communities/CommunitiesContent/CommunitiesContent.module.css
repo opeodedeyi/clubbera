@@ -13,12 +13,12 @@
 
 @media screen and (max-width: 767px) {
     .container {
-        padding: var(--spacing-lg) var(--spacing-lg);
+        padding: var(--spacing-lg) var(--spacing-md);
         gap: var(--spacing-lg);
     }
 
     .contentContainer {
         width: 100%;
-        padding: 0 var(--spacing-lg) var(--spacing-24);
+        padding: 0 var(--spacing-md) var(--spacing-24);
     }
 }

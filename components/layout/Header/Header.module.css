@@ -158,7 +158,7 @@
 @media (max-width: 768px) {
     .container,
     .containerlo {
-        padding: 0 var(--spacing-6);
+        padding: 0 var(--spacing-md);
         height: 80px;
     }
     

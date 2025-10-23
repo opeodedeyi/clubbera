@@ -32,6 +32,6 @@
 
     .containerHeader {
         gap: var(--spacing-14);
-        padding: var(--spacing-6);
+        padding: var(--spacing-5) var(--spacing-md);
     }
 }

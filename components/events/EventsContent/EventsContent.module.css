@@ -70,17 +70,17 @@
 
 @media screen and (max-width: 767px) {
     .navigation {
-        padding: var(--spacing-lg) var(--spacing-lg);
+        padding: var(--spacing-5) var(--spacing-md);
         gap: var(--spacing-3);
     }
 
     .contentContainer {
         gap: var(--spacing-10);
-        padding: 0 var(--spacing-6);
+        padding: 0 var(--spacing-md);
     }
 
     .timeline {
-        gap: var(--spacing-6);
+        gap: var(--spacing-4);
     }
 
     .cardContentExtraSpacing {

@@ -63,6 +63,10 @@
 }
 
 @media screen and (max-width: 767px) {
+    .container {
+        padding: var(--spacing-5) var(--spacing-md);
+    }
+
     .contentMain {
         padding-left: 0;
     }
