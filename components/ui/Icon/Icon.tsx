@@ -6,6 +6,7 @@ import {
     CalendarIcon,
     CautionIcon,
     ChatIcon,
+    CheckIcon,
     CommentIcon,
     CopyIcon,
     EditIcon,
@@ -16,6 +17,7 @@ import {
     GroupIcon,
     HeadingIcon,
     HomeIcon,
+    ImageIcon,
     InfoIcon,
     LikeIcon,
     LikedIcon,
@@ -24,6 +26,7 @@ import {
     LockIcon,
     MailIcon,
     MetricIcon,
+    PollIcon,
     ProfileIcon,
     SearchIcon,
     ShareIcon,
@@ -153,6 +156,14 @@ export default function Icon(props: IconProps) {
                     color={chatProps.color}
                     className={iconClasses}/>
             )
+        case 'check':
+            const checkProps = props as SimpleIconProps
+            return (
+                <CheckIcon
+                    size={iconSize}
+                    color={checkProps.color}
+                    className={iconClasses}/>
+            )
         case 'comment':
             const commentProps = props as SimpleIconProps
             return (
@@ -233,6 +244,14 @@ export default function Icon(props: IconProps) {
                     color={homeProps.color}
                     className={iconClasses}/>
             )
+        case 'image':
+            const imageProps = props as SimpleIconProps
+            return (
+                <ImageIcon
+                    size={iconSize}
+                    color={imageProps.color}
+                    className={iconClasses}/>
+            )
         case 'info':
             const infoProps = props as SimpleIconProps
             return (
@@ -287,6 +306,14 @@ export default function Icon(props: IconProps) {
                 <MetricIcon
                     size={iconSize}
                     color={metricProps.color}
+                    className={iconClasses}/>
+            )
+        case 'poll':
+            const pollProps = props as SimpleIconProps
+            return (
+                <PollIcon
+                    size={iconSize}
+                    color={pollProps.color}
                     className={iconClasses}/>
             )
         case 'profile':

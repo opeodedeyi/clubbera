@@ -22,6 +22,7 @@ interface SelectProps {
     error?: string
     onChange: (value: string | null) => void // Update type to allow null
     className?: string
+    backgroundColor?: string // Custom background color for trigger and dropdown
 }
 
 export default function SelectInput({
@@ -33,7 +34,8 @@ export default function SelectInput({
     disabled = false,
     error,
     onChange,
-    className = ''
+    className = '',
+    backgroundColor
 }: SelectProps) {
     const [isOpen, setIsOpen] = useState(false)
     
@@ -149,12 +151,13 @@ export default function SelectInput({
                     onClick={handleToggle}
                     aria-haspopup="listbox"
                     aria-expanded={isOpen}
-                    aria-describedby={error ? `${name}-error` : undefined}>
-                    
+                    aria-describedby={error ? `${name}-error` : undefined}
+                    style={backgroundColor ? { backgroundColor } : undefined}>
+
                     <span className={styles.value}>
                         {selectedOption ? selectedOption.label : placeholder}
                     </span>
-                    
+
                     <Icon
                         size='xs'
                         name="arrowDown"
@@ -167,7 +170,8 @@ export default function SelectInput({
                     <div
                         ref={dropdownRef}
                         className={styles.dropdown}
-                        role="listbox">
+                        role="listbox"
+                        style={backgroundColor ? { backgroundColor } : undefined}>
                         {options.map((option, index) => (
                             <button
                                 key={option.value ?? `null-option-${index}`} // Handle null keys

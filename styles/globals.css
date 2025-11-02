@@ -190,7 +190,7 @@ html, body, #__next {
     background-color: var(--color-background) !important;
 }
 
-h1, h2, h3, h4, h5, button, .button, button span {
+h1, h2, h3, h4, h5 {
     font-family: var(--font-boris);
 }
 

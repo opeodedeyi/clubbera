@@ -8,10 +8,10 @@ import styles from './BottomNav.module.css';
 
 const loggedInNavItems = [
     { href: '/home', icon: 'home', label: 'Feed' },
-    { href: '/communities', icon: 'group', label: 'Discover' },
-    { href: '/messages', icon: 'chat', label: 'Messages' },
-    { href: '/events', icon: 'calendar', label: 'Events' },
     { href: '/search', icon: 'search', label: 'Explore' },
+    { href: '/communities', icon: 'group', label: 'Discover' },
+    { href: '/events', icon: 'calendar', label: 'Events' },
+    { href: '/messages', icon: 'chat', label: 'Messages' },
 ] as const;
 
 export default function BottomNavLoggedIn() {

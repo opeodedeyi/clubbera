@@ -1,5 +1,5 @@
 import Icon from '@/components/ui/Icon/Icon';
-import styles from './PostInput.module.css';
+import styles from './CommunityDropdown.module.css';
 
 interface Community {
     id: string;

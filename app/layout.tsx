@@ -59,8 +59,8 @@ export default async function RootLayout({
                                     <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
                                     <main>{children}</main>
                                     <ConditionalFooter />
-                                    <ConditionalBottomNav />
                                     <EmailVerificationWrapper />
+                                    <ConditionalBottomNav />
                                 </HeaderVariantProvider>
                             </AuthProvider>
                         </QueryProvider>

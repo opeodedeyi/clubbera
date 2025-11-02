@@ -37,6 +37,7 @@ export function useCommunityForm() {
     const [formData, setFormData] = useState<CommunityFormData>(initialFormData)
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [isUploading, setIsUploading] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [uploadingStates, setUploadingStates] = useState({
         profile_image: false,
         cover_image: false
@@ -186,6 +187,10 @@ export function useCommunityForm() {
     }
 
     const submitForm = async (): Promise<boolean> => {
+        // Prevent double submission
+        if (isSubmitting) return false;
+
+        setIsSubmitting(true);
         try {
             // Validate required location data
             if (!formData.location.lat || !formData.location.lng) {
@@ -226,10 +231,12 @@ export function useCommunityForm() {
             return true;
         } catch (error) {
             console.error('Error creating community:', error);
-            setErrors({ 
+            setErrors({
                 submit: error instanceof Error ? error.message : 'Failed to create community. Please try again.'
             });
             return false;
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -238,6 +245,7 @@ export function useCommunityForm() {
         formData,
         errors,
         isUploading,
+        isSubmitting,
         updateFormData,
         handleImageUpload,
         nextStep,

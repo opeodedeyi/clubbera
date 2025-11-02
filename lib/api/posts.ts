@@ -16,11 +16,46 @@ import type {
     AddReactionRequest,
     RemoveReactionRequest,
     GetCommunityPostsOptions,
+    GetFeedOptions,
     GetRepliesOptions,
     GetReactionsOptions
 } from '../types/posts';
 
+export interface TempUploadUrlRequest {
+    fileType: string;
+    entityType: 'post';
+    imageType: 'content';
+}
+
+export interface TempUploadUrlResponse {
+    status: string;
+    data: {
+        uploadUrl: string;
+        fileUrl: string;
+        provider: string;
+        key: string;
+    };
+}
+
 export const postsApi = {
+    getTempUploadUrl: async (data: TempUploadUrlRequest): Promise<TempUploadUrlResponse> => {
+        return api.post<TempUploadUrlResponse>('/temp-upload/url', data);
+    },
+
+    uploadFile: async (uploadUrl: string, file: File): Promise<void> => {
+        const response = await fetch(uploadUrl, {
+            method: 'PUT',
+            body: file,
+            headers: {
+                'Content-Type': file.type
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to upload file');
+        }
+    },
+    
     createPost: async (data: CreatePostRequest): Promise<PostResponse> => {
         return api.post<PostResponse>('/posts', data);
     },
@@ -40,6 +75,16 @@ export const postsApi = {
             ...(options.supportersOnly !== undefined && { supportersOnly: options.supportersOnly.toString() })
         });
         return api.get<PostsResponse>(`/posts/community/${communityId}?${params}`);
+    },
+
+    getFeed: async (options: GetFeedOptions = {}): Promise<PostsResponse> => {
+        const params = new URLSearchParams({
+            limit: (options.limit || 20).toString(),
+            offset: (options.offset || 0).toString(),
+            ...(options.contentType && { contentType: options.contentType }),
+            ...(options.supportersOnly !== undefined && { supportersOnly: options.supportersOnly.toString() })
+        });
+        return api.get<PostsResponse>(`/posts/feed?${params}`);
     },
 
     deletePost: async (postId: number): Promise<ApiSuccessResponse> => {

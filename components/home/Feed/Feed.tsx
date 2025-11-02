@@ -1,24 +1,33 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import PostCard from '@/components/post/PostCard/PostCard';
-import PostInput from '@/components/post/PostInput/PostInput';
+import PostInput from '@/components/post/PostInput/PostInputComponent/PostInput';
 import NoContent from '../NoContent/NoContent';
 import FeedSkeleton from './FeedSkeleton';
 import styles from './Feed.module.css';
 import { communityApi } from '@/lib/api/communities';
 import { postsApi } from '@/lib/api/posts';
 import type { Post } from '@/lib/types/posts';
+import type { UploadedImage } from '@/hooks/usePostInput';
 
 interface Community {
     id: string;
     name: string;
 }
 
+interface PollOption {
+    text: string;
+}
+
+interface PollData {
+    question: string;
+    options: PollOption[];
+    duration: number | null;
+}
+
 
 export default function Feed() {
-    const [allPosts, setAllPosts] = useState<Post[]>([]);
     const queryClient = useQueryClient();
 
     // Fetch user's communities
@@ -36,62 +45,76 @@ export default function Feed() {
         name: community.name
     })) || [];
 
-    // Fetch posts from all communities
-    useEffect(() => {
-        if (!communitiesData || communitiesData.length === 0) {
-            setAllPosts([]);
-            return;
-        }
-
-        const fetchAllPosts = async () => {
-            try {
-                const postsPromises = communitiesData.map(community =>
-                    postsApi.getCommunityPosts(community.id, { limit: 20, offset: 0 })
-                );
-
-                const postsResponses = await Promise.all(postsPromises);
-                const allFetchedPosts = postsResponses.flatMap(response => response.data);
-
-                // Sort by created_at date (newest first)
-                allFetchedPosts.sort((a, b) =>
-                    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-                );
-
-                setAllPosts(allFetchedPosts);
-            } catch (error) {
-                console.error('Failed to fetch posts:', error);
-                setAllPosts([]);
-            }
-        };
-
-        fetchAllPosts();
-    }, [communitiesData]);
+    // Fetch posts from feed
+    const { data: feedData, isLoading: isLoadingFeed } = useQuery({
+        queryKey: ['feed'],
+        queryFn: async () => {
+            const response = await postsApi.getFeed({ limit: 20, offset: 0 });
+            console.log('Fetched feed posts:', response.data);
+            return response.data;
+        },
+        enabled: !!communitiesData && communitiesData.length > 0
+    });
 
     // Create post mutation
     const createPostMutation = useMutation({
-        mutationFn: async ({ communityId, content }: { communityId: string; content: string }) => {
-            return postsApi.createPost({
-                communityId: parseInt(communityId),
-                content,
-                isSupportersOnly: false
-            });
+        mutationFn: async ({
+            communityId,
+            content,
+            pollData,
+            uploadedImages
+        }: {
+            communityId: string;
+            content: string;
+            pollData?: PollData;
+            uploadedImages?: UploadedImage[];
+        }) => {
+            if (pollData) {
+                // Calculate end date from duration
+                const endDate = pollData.duration
+                    ? new Date(Date.now() + pollData.duration * 60 * 60 * 1000).toISOString()
+                    : null;
+
+                return postsApi.createPoll({
+                    communityId: parseInt(communityId),
+                    content,
+                    isSupportersOnly: false,
+                    pollData: {
+                        question: pollData.question,
+                        options: pollData.options,
+                        settings: {
+                            allowMultipleVotes: false,
+                            endDate
+                        }
+                    }
+                });
+            } else {
+                return postsApi.createPost({
+                    communityId: parseInt(communityId),
+                    content,
+                    isSupportersOnly: false,
+                    images: uploadedImages?.map(img => ({
+                        provider: img.provider,
+                        key: img.key,
+                        altText: img.altText
+                    }))
+                });
+            }
         },
-        onSuccess: (response) => {
-            // Add new post to the top of the feed
-            setAllPosts(prev => [response.data, ...prev]);
-            queryClient.invalidateQueries({ queryKey: ['my-communities'] });
+        onSuccess: async () => {
+            queryClient.invalidateQueries({ queryKey: ['feed'] });
         },
         onError: (error) => {
             console.error('Failed to create post:', error);
         }
     });
 
-    const handlePostSubmit = (communityId: string, content: string) => {
-        if (!content.trim()) return;
-        createPostMutation.mutate({ communityId, content });
+    const handlePostSubmit = (communityId: string, content: string, pollData?: PollData, uploadedImages?: UploadedImage[]) => {
+        if (!pollData && !uploadedImages && !content.trim()) return;
+        createPostMutation.mutate({ communityId, content, pollData, uploadedImages });
     };
 
-    if (isLoadingCommunities) {
+    if (isLoadingCommunities || isLoadingFeed) {
         return <FeedSkeleton />;
     }
 
@@ -103,7 +126,7 @@ export default function Feed() {
         );
     }
 
-    if (allPosts.length === 0) {
+    if (!feedData || feedData.length === 0) {
         return (
             <div className={styles.feed}>
                 <PostInput
@@ -118,9 +141,10 @@ export default function Feed() {
         <div className={styles.feed}>
             <PostInput
                 communities={communities}
-                onSubmit={handlePostSubmit} />
+                onSubmit={handlePostSubmit}
+                className='desktop-only-flex' />
 
-            {allPosts.map(post => (
+            {feedData.map(post => (
                 <PostCard key={post.id} post={post} />
             ))}
         </div>

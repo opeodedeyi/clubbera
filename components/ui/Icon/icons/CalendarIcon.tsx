@@ -4,23 +4,55 @@ interface CalendarIconProps {
     className?: string
 }
 
-export default function CalendarIcon({ 
-    size = 18, 
+export default function CalendarIcon({
+    size = 20,
     color = 'currentColor',
-    className = '' 
+    className = ''
 }: CalendarIconProps) {
     return (
-        <svg 
-            width={size} 
-            height={size} 
-            viewBox="0 0 18 18" 
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 30 30"
             fill="none"
             className={className}>
-            <path 
-                fillRule="evenodd" 
-                clipRule="evenodd" 
-                d="M4.625 0.875C4.79076 0.875 4.94973 0.940848 5.06694 1.05806C5.18415 1.17527 5.25 1.33424 5.25 1.5V2.75H12.75V1.5C12.75 1.33424 12.8158 1.17527 12.9331 1.05806C13.0503 0.940848 13.2092 0.875 13.375 0.875C13.5408 0.875 13.6997 0.940848 13.8169 1.05806C13.9342 1.17527 14 1.33424 14 1.5V2.75H14.625C15.288 2.75 15.9239 3.01339 16.3928 3.48223C16.8616 3.95107 17.125 4.58696 17.125 5.25V14.625C17.125 15.288 16.8616 15.9239 16.3928 16.3928C15.9239 16.8616 15.288 17.125 14.625 17.125H3.375C2.71196 17.125 2.07607 16.8616 1.60723 16.3928C1.13839 15.9239 0.875 15.288 0.875 14.625V5.25C0.875 4.58696 1.13839 3.95107 1.60723 3.48223C2.07607 3.01339 2.71196 2.75 3.375 2.75H4V1.5C4 1.33424 4.06585 1.17527 4.18306 1.05806C4.30027 0.940848 4.45924 0.875 4.625 0.875ZM15.875 8.375C15.875 8.04348 15.7433 7.72554 15.5089 7.49112C15.2745 7.2567 14.9565 7.125 14.625 7.125H3.375C3.04348 7.125 2.72554 7.2567 2.49112 7.49112C2.2567 7.72554 2.125 8.04348 2.125 8.375V14.625C2.125 14.9565 2.2567 15.2745 2.49112 15.5089C2.72554 15.7433 3.04348 15.875 3.375 15.875H14.625C14.9565 15.875 15.2745 15.7433 15.5089 15.5089C15.7433 15.2745 15.875 14.9565 15.875 14.625V8.375Z" 
-                fill={color} />
+            <g clipPath="url(#clip0_2455_2348)">
+                <path
+                    d="M5.00195 8.75391C5.00195 8.09087 5.26535 7.45498 5.73419 6.98614C6.20303 6.5173 6.83891 6.25391 7.50195 6.25391H22.502C23.165 6.25391 23.8009 6.5173 24.2697 6.98614C24.7386 7.45498 25.002 8.09087 25.002 8.75391V23.7539C25.002 24.4169 24.7386 25.0528 24.2697 25.5217C23.8009 25.9905 23.165 26.2539 22.502 26.2539H7.50195C6.83891 26.2539 6.20303 25.9905 5.73419 25.5217C5.26535 25.0528 5.00195 24.4169 5.00195 23.7539V8.75391Z"
+                    stroke={color}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"/>
+                <path
+                    d="M20.002 3.75V8.75"
+                    stroke={color}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"/>
+                <path
+                    d="M9.99805 3.75V8.75"
+                    stroke={color}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"/>
+                <path
+                    d="M5.00195 13.7539H25.002"
+                    stroke={color}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"/>
+                <path
+                    d="M9.99805 18.75H12.498V21.25H9.99805V18.75Z"
+                    stroke={color}
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"/>
+            </g>
+            <defs>
+                <clipPath id="clip0_2455_2348">
+                    <rect width="30" height="30" fill="white"/>
+                </clipPath>
+            </defs>
         </svg>
     )
 }

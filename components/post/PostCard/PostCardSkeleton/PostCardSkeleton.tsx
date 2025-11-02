@@ -1,4 +1,4 @@
-import styles from './PostCard.module.css';
+import styles from './PostCardSkeleton.module.css';
 
 export default function PostCardSkeleton() {
     return (

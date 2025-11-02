@@ -21,6 +21,7 @@ export type IconName =
     | 'calendar'
     | 'caution'
     | 'chat'
+    | 'check'
     | 'comment'
     | 'copy'
     | 'edit'
@@ -31,6 +32,7 @@ export type IconName =
     | 'group'
     | 'heading'
     | 'home'
+    | 'image'
     | 'info'
     | 'like'
     | 'liked'
@@ -39,6 +41,7 @@ export type IconName =
     | 'lock'
     | 'mail'
     | 'metric'
+    | 'poll'
     | 'profile'
     | 'search'
     | 'share'
@@ -77,7 +80,7 @@ interface BaseIconProps {
 }
   
 export interface SimpleIconProps extends BaseIconProps {
-    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'profile' | 'search' | 'share' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline' | 'leave' | 'lineArt'
+    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'check' | 'comment' | 'copy' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'image' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'metric' | 'poll' | 'profile' | 'search' | 'share' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline' | 'leave' | 'lineArt'
     color?: string
 }
   

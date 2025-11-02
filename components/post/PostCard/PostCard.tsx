@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { postsApi } from '@/lib/api/posts';
 import type { Post } from '@/lib/types/posts';
-import PostCardHeader from './PostCardHeader';
-import PostCardContent from './PostCardContent';
-import PostCardFooter from './PostCardFooter';
-import PostCardComments from './PostCardComments';
+import PostCardHeader from './PostCardHeader/PostCardHeader';
+import PostCardContent from './PostCardContent/PostCardContent';
+import PostCardFooter from './PostCardFooter/PostCardFooter';
+import PostCardComments from './PostCardComments/PostCardComments';
 import styles from './PostCard.module.css';
 
 interface coverImage {
@@ -34,7 +34,6 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
     const [showComments, setShowComments] = useState(false);
     const [newComment, setNewComment] = useState('');
     const [post, setPost] = useState(initialPost);
-    const [selectedPollOptions, setSelectedPollOptions] = useState<number[]>([]);
     const queryClient = useQueryClient();
 
     // Fetch user's reaction status
@@ -106,7 +105,6 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
         },
         onSuccess: (response) => {
             setPost(response.data);
-            setSelectedPollOptions([]);
         },
         onError: (error) => {
             console.error('Failed to vote on poll:', error);
@@ -124,22 +122,10 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
     };
 
     const handlePollOptionClick = (index: number) => {
-        if (post.userHasVoted) return;
+        if (post.userHasVoted || votePollMutation.isPending) return;
 
-        if (post.poll_data?.settings.allowMultipleVotes) {
-            setSelectedPollOptions(prev =>
-                prev.includes(index)
-                    ? prev.filter(i => i !== index)
-                    : [...prev, index]
-            );
-        } else {
-            setSelectedPollOptions([index]);
-        }
-    };
-
-    const handlePollSubmit = () => {
-        if (selectedPollOptions.length === 0) return;
-        votePollMutation.mutate(selectedPollOptions);
+        // Immediately vote on the selected option
+        votePollMutation.mutate([index]);
     };
 
     return (
@@ -159,9 +145,7 @@ export default function PostCard({ post: initialPost, variant = 'default' }: Pos
                 pollData={post.poll_data}
                 userHasVoted={post.userHasVoted}
                 userVote={post.userVote}
-                selectedPollOptions={selectedPollOptions}
                 onPollOptionClick={handlePollOptionClick}
-                onPollSubmit={handlePollSubmit}
                 isPollSubmitting={votePollMutation.isPending} />
 
             <PostCardFooter

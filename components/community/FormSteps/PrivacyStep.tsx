@@ -4,7 +4,7 @@ import styles from "./communitySteps.module.css";
 import { StepProps } from "@/types/community";
 
 
-const PrivacyStep: React.FC<StepProps> = ({ submitForm, navigation, formData, updateFormData, errors }: StepProps) => {
+const PrivacyStep: React.FC<StepProps> = ({ submitForm, navigation, formData, updateFormData, errors, isSubmitting }: StepProps) => {
     const handlePrivacyChange = (isPrivate: boolean) => {
         updateFormData({ is_private: isPrivate });
     };
@@ -41,8 +41,12 @@ const PrivacyStep: React.FC<StepProps> = ({ submitForm, navigation, formData, up
                             error={errors.is_private} />
                     </div>
     
-                    <Button variant="community" onClick={submitForm} className="self-start">
-                        Finish
+                    <Button
+                        variant="community"
+                        onClick={submitForm}
+                        className="self-start"
+                        disabled={isSubmitting}>
+                        {isSubmitting ? 'Creating...' : 'Finish'}
                     </Button>
                 </div>
 

@@ -33,6 +33,7 @@ export interface StepProps {
     formData: CommunityFormData
     errors: Record<string, string>
     isUploading: boolean
+    isSubmitting?: boolean
     updateFormData: (data: Partial<CommunityFormData>) => void
     handleImageUpload: (file: File, imageType: 'profile_image' | 'cover_image') => Promise<boolean>
     nextStep: () => void

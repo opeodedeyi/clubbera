@@ -22,6 +22,7 @@ export { default as BoldIcon } from './BoldIcon';
 export { default as CalendarIcon } from './CalendarIcon';
 export { default as CautionIcon } from './CautionIcon';
 export { default as ChatIcon } from './ChatIcon';
+export { default as CheckIcon } from './CheckIcon';
 export { default as CommentIcon } from './CommentIcon';
 export { default as CopyIcon } from './CopyIcon';
 export { default as EditIcon } from './EditIcon';
@@ -29,6 +30,7 @@ export { default as EditProfileIcon } from './EditProfileIcon';
 export { default as EmojiHappyIcon } from './EmojiHappyIcon';
 export { default as GalleryIcon } from './GalleryIcon';
 export { default as GlobeIcon } from './GlobeIcon';
+export { default as ImageIcon } from './ImageIcon';
 export { default as GroupIcon } from './GroupIcon';
 export { default as HeadingIcon } from './HeadingIcon';
 export { default as HomeIcon } from './HomeIcon';
@@ -41,6 +43,7 @@ export { default as LocationMarkIcon } from './LocationMarkIcon';
 export { default as LockIcon } from './LockIcon';
 export { default as MailIcon } from './MailIcon';
 export { default as MetricIcon } from './MetricIcon';
+export { default as PollIcon } from './PollIcon';
 export { default as ProfileIcon } from './ProfileIcon';
 export { default as SearchIcon } from './SearchIcon';
 export { default as ShareIcon } from './ShareIcon';
@@ -91,6 +94,7 @@ export type IconName =
     | 'calendar'
     | 'caution'
     | 'chat'
+    | 'check'
     | 'comment'
     | 'copy'
     | 'edit'
@@ -101,6 +105,7 @@ export type IconName =
     | 'group'
     | 'heading'
     | 'home'
+    | 'image'
     | 'info'
     | 'italic'
     | 'liked'
@@ -110,6 +115,7 @@ export type IconName =
     | 'lock'
     | 'mail'
     | 'metric'
+    | 'poll'
     | 'profile'
     | 'search'
     | 'share'

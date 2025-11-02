@@ -1,4 +1,4 @@
-import PostCardSkeleton from '@/components/post/PostCard/PostCardSkeleton';
+import PostCardSkeleton from '@/components/post/PostCard/PostCardSkeleton/PostCardSkeleton';
 import styles from './CommunityPosts.module.css';
 
 export default function CommunityPostsSkeleton() {

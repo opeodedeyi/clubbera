@@ -1,0 +1,300 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+/* Image Carousel */
+.imageCarousel {
+    position: relative;
+    width: 100%;
+}
+
+.imageContainer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.postImage {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.slideIn {
+    animation-name: slideIn;
+}
+
+.slideOutLeft {
+    animation-name: slideOutLeft;
+}
+
+.slideOutRight {
+    animation-name: slideOutRight;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.carouselButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    z-index: 2;
+    opacity: 0.8;
+}
+
+.carouselButton:hover {
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+}
+
+.carouselButtonLeft {
+    left: 12px;
+}
+
+.carouselButtonRight {
+    right: 12px;
+}
+
+.imageIndicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.3s, width 0.3s;
+}
+
+.indicatorActive {
+    background: rgba(255, 255, 255, 0.9);
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* Poll styles */
+.pollContainer {
+    width: 100%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.pollOptions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.pollOption {
+    padding: 12px;
+    border: 2px dashed var(--color-background-dark);
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.pollOption:hover:not(.pollOptionVoted):not(.pollOptionDisabled) {
+    border-color: var(--color-text-light);
+}
+
+.pollOptionVoted {
+    border: none;
+    background: var(--color-background-dark);
+}
+
+.pollOptionVoted:hover {
+    background: var(--color-background-dark);
+}
+
+.pollOptionDisabled {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+.pollOptionContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pollOptionLeft {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.pollOptionText {
+    font-weight: 500;
+}
+
+.pollOptionVotes {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+}
+
+.pollFooter {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    justify-content: flex-start;
+    color: var(--color-text-light);
+}
+
+.pollVoteCount,
+.pollTimeRemaining {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+/* Event styles */
+.eventCard {
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-4);
+    text-decoration: none;
+    padding: var(--spacing-5);
+    border-radius: var(--radius-xl);
+    background: var(--color-event-light);
+    transition: background-color 0.2s;
+}
+
+.eventTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    flex: 1;
+}
+
+.eventDatenAttendance {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.eventDate {
+    color: var(--color-plain-hover);
+}
+
+.eventAttendance {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-plain-hover);
+}
+
+.eventTitle {
+    color: var(--color-gray);
+    font-family: var(--font-boris);
+    font-size: var(--font-size-xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.eventImageContainer {
+    width: 100%;
+    max-width: 264px;
+    height: 158px;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+}
+
+.eventImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+    /* Event styles */
+    .eventCard {
+        flex-direction: column-reverse;
+        justify-content: center;
+        gap: var(--spacing-6);
+        padding: var(--spacing-4);
+    }
+
+    .eventTextContainer {
+        align-self: flex-start;
+    }
+
+    .eventTextContainer,
+    .eventDatenAttendance,
+    .eventAttendance {
+        gap: var(--spacing-2);
+    }
+
+    .eventTitle {
+        font-size: var(--font-size-base);
+    }
+
+    .eventImageContainer {
+        max-width: 350px;
+    }
+}

@@ -225,6 +225,13 @@ export interface GetCommunityPostsOptions {
     supportersOnly?: boolean;
 }
 
+export interface GetFeedOptions {
+    limit?: number;
+    offset?: number;
+    contentType?: ContentType;
+    supportersOnly?: boolean;
+}
+
 export interface GetRepliesOptions {
     limit?: number;
     offset?: number;
