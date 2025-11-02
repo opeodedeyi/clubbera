@@ -40,7 +40,7 @@
 @media screen and (max-width: 767px) {
     .container {
         padding: var(--spacing-0) var(--spacing-0) var(--spacing-0);
-        height: calc(100vh - 157px);
+        min-height: calc(100vh - 157px);
         gap: var(--spacing-12);
         flex-direction: column;
         justify-content: center;

@@ -6,7 +6,6 @@ export default function BottomNavSkeleton() {
             {[...Array(4)].map((_, index) => (
                 <div key={index} className={`${styles.navItem} ${styles.skeleton}`}>
                     <div className={styles.iconSkeleton} />
-                    <div className={styles.labelSkeleton} />
                 </div>
             ))}
         </nav>
