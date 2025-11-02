@@ -99,7 +99,7 @@ export default function CommunityPosts({ community, className }: CommunityPostsP
                 });
             }
         },
-        onSuccess: async (response) => {
+        onSuccess: async () => {
             // Refetch posts to get complete data with user info
             try {
                 const postsResponse = await postsApi.getCommunityPosts(community.id, { limit: 20, offset: 0 });

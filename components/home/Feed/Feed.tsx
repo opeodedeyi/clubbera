@@ -8,7 +8,6 @@ import FeedSkeleton from './FeedSkeleton';
 import styles from './Feed.module.css';
 import { communityApi } from '@/lib/api/communities';
 import { postsApi } from '@/lib/api/posts';
-import type { Post } from '@/lib/types/posts';
 import type { UploadedImage } from '@/hooks/usePostInput';
 
 interface Community {

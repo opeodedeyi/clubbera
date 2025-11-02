@@ -9,7 +9,6 @@ interface NotificationIconProps {
 export default function NotificationIcon({
     size = 20,
     color = 'currentColor',
-    fillColor,
     strokeColor,
     className = ''
 }: NotificationIconProps) {

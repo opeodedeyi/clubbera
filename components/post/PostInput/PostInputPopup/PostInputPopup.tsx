@@ -1,6 +1,5 @@
 'use client';
 
-import Button from '@/components/ui/Button/Button';
 import OverlayPortal from '@/components/ui/OverlayPortal/OverlayPortal';
 import CommunityDropdown from '../CommunityDropdown/CommunityDropdown';
 import PostInputImagePreview from '../PostInputImagePreview/PostInputImagePreview';
