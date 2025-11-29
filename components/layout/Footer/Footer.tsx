@@ -11,9 +11,10 @@ export default function Footer() {
                 <div className={styles.footerMain}>
                     <div className={styles.footerLink}>
                         <Link href="/"><BrandIcon name="clubbera" size="xl" /></Link>
-                        <Link href="/" className={`${styles.linkItem} font-boris`}>Discover</Link>
-                        <Link href="/" className={`${styles.linkItem} font-boris`}>Contact Us</Link>
-                        <Link href="/" className={`${styles.linkItem} font-boris`}>Policy</Link>
+                        <Link href="/legal/terms" className={`${styles.linkItem} font-boris`}>Terms</Link>
+                        <Link href="/legal/privacy" className={`${styles.linkItem} font-boris`}>Privacy</Link>
+                        <Link href="/legal/moderation" className={`${styles.linkItem} font-boris`}>Guidelines</Link>
+                        <Link href="/legal/cookies" className={`${styles.linkItem} font-boris`}>Cookie</Link>
                     </div>
 
                     <div className={styles.footerSocials}>
