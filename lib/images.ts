@@ -12,9 +12,14 @@ export const IMAGES = {
             heroImage: '/images/pages/landing/heroImage.png',
             feature1: '/images/pages/landing/feature-1.png',
         },
-    //   event: {
-    //     defaultCover: '/images/pages/communities/default-cover.jpg',
-    //     placeholder: '/images/pages/communities/community-placeholder.svg',
-    //   },
+        // event: {
+        //     defaultCover: '/images/pages/communities/default-cover.jpg',
+        //     placeholder: '/images/pages/communities/community-placeholder.svg',
+        // },
+    },
+    vectors: {
+        clubberaPurple: '/images/ui/purpleClubberaVector.svg',
+        clubberaYellow: '/images/ui/yellowClubberaVector.svg',
+        clubberaPink: '/images/ui/pinkClubberaVector.svg',
     },
 } as const

@@ -43,8 +43,8 @@
     --color-icon-header: var(--color-gray-light);
 
     /* Font Size Scale */
-    --font-size-3xs: 0.5rem;       /* 8px - */
-    --font-size-xxs: 0.625rem;     /* 10px - */
+    --font-size-3xs: 0.5rem;      /* 08px - */
+    --font-size-xxs: 0.625rem;    /* 10px - */
     --font-size-xs: 0.75rem;      /* 12px - Captions, badges, metadata */
     --font-size-sm: 0.875rem;     /* 14px - Form labels, secondary text */
     --font-size-base: 1rem;       /* 16px - Body text, paragraphs */
@@ -212,6 +212,14 @@ h3, h4, h5 {
     letter-spacing: 0%;
 }
 
+h6 {
+    font-family: var(--font-nunito);
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    line-height: 120%;
+}
+
 .font-boris {
     font-family: var(--font-boris);
 }
@@ -247,6 +255,10 @@ h3, h4, h5 {
         font-size: 18px;
         font-weight: 400;
         letter-spacing: 0%;
+    }
+
+    h6 {
+        font-size: 36px;
     }
 }
 

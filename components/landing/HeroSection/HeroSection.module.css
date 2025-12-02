@@ -1,12 +1,13 @@
 .container {
     width: 100%;
-    max-width: var(--max-width);
     display: flex;
+    position: relative;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-20) var(--spacing-20);
     gap: var(--spacing-40);
+    justify-content: center;
+    max-width: var(--max-width);
+    padding: var(--spacing-48) var(--spacing-20) var(--spacing-40);
 }
 
 .heroContent {
@@ -14,39 +15,63 @@
     max-width: 480px;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-10);
+    gap: var(--spacing-8);
 }
 
 .heroImage {
-    width: 50%;
-    max-width: 500px;
+    position: absolute;
 }
 
 .heroImage img {
     width: 100%;
 }
 
+.imageOne {
+    top: 55px;
+    left: 80px;
+    width: 140px;
+    z-index: 0;
+}
+
+.imageTwo {
+    bottom: 55px;
+    left: 85px;
+    width: 120px;
+    z-index: 0;
+}
+
+.imageThree {
+    bottom: 35%;
+    right: 80px;
+    width: 140px;
+    z-index: 0;
+}
+
 .heroText {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-6);
 }
 
 .heroTitle {
-    font-size: var(--font-size-hero);
-    font-weight: 500;
+    font-weight: 700;
     line-height: 120%;
     letter-spacing: 0%;
+    text-align: center;
     color: var(--color-text);
+    font-size: var(--font-size-3xl);
 }
 
 .heroSubText {
-    font-size: var(--font-size-title);
+    text-align: center;
     color: var(--color-text-light);
+    font-size: var(--font-size-title);
 }
 
 .heroButton {
-    align-self: flex-start;
+    align-self: center;
 }
 
 @media (max-width: 1279px) {
@@ -70,17 +95,35 @@
 
 @media screen and (max-width: 767px) {
     .container {
-        padding: var(--spacing-3xl) var(--spacing-lg);
+        padding: var(--spacing-40) var(--spacing-lg) var(--spacing-48);
         gap: var(--spacing-xl);
         flex-direction: column-reverse;
         align-items: center;
         justify-content: center;
     }
 
-    .heroImage,
     .heroContent {
         width: 100%;
         text-align: center;
+    }
+
+    .imageOne {
+        top: 44px;
+        left: 66px;
+        width: 105px;
+    }
+
+    .imageTwo {
+        bottom: 35px;
+        left: 34px;
+        width: 90px;
+    }
+
+    .imageThree {
+        bottom: 85px;
+        right: 35px;
+        width: 105px;
+        height: 98px;
     }
 
     .heroText {

@@ -1,0 +1,140 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: var(--max-width);
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-20);
+}
+
+.backgroundBillboard {
+    width: 100%;
+    max-width: 950px;
+    border-radius: var(--radius-3xl);
+    background-color: var(--color-background-light);
+}
+
+.mainBillboard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: var(--spacing-8);
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--spacing-32);
+    border-radius: var(--radius-2xl);
+    background-color: var(--color-background);
+    border: 3px solid var(--color-background-light);
+}
+
+.billboardText {
+    display: flex;
+    max-width: 470px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.billboardTitle {
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: var(--color-text);
+    font-size: var(--font-size-2xl);
+}
+
+.billboardSubText {
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--font-size-md);
+}
+
+.billboardButton {
+    align-self: center;
+}
+
+.billboardImage {
+    position: absolute;
+}
+
+.billboardImage img {
+    width: 100%;
+}
+
+.baloonOne {
+    top: 55px;
+    left: 80px;
+    width: 88px;
+    rotate: 45deg;
+    z-index: 0;
+}
+
+.imageOne {
+    top: 55px;
+    left: 80px;
+    z-index: 0;
+}
+
+.baloonTwo {
+    bottom: 55px;
+    left: 85px;
+    width: 91px;
+    z-index: 0;
+}
+
+.imageTwo {
+    bottom: 75px;
+    left: 179px;
+    z-index: 0;
+}
+
+.baloonThree {
+    bottom: 35%;
+    right: 80px;
+    width: 90px;
+    z-index: 0;
+}
+
+.imageThree {
+    bottom: 105px;
+    right: 140px;
+    z-index: 0;
+}
+
+.imageFour {
+    top: 90px;
+    right: 30%;
+    z-index: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        padding: var(--spacing-12) var(--spacing-4) var(--spacing-12);
+    }
+
+    .mainBillboard {
+        padding: var(--spacing-12) var(--spacing-4) var(--spacing-12);
+    }
+
+    .billboardText {
+        max-width: 303px;
+        gap: var(--spacing-4);
+    }
+
+    .billboardTitle {
+        font-size: var(--font-size-xl);
+    }
+
+    .billboardSubText {
+        font-size: var(--font-size-sm);
+    }
+
+    .billboardImage {
+        display: none;
+    }
+}
