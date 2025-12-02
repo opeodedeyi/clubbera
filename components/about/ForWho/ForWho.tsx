@@ -1,5 +1,4 @@
 import { IMAGES } from "@/lib/images";
-import BrandIcon from "@/components/ui/Icon/BrandIcon";
 import styles from "./ForWho.module.css";
 
 

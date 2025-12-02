@@ -1,7 +1,6 @@
 import CenterContainer from "@/components/layout/CenterContainer/CenterContainer";
 import HeroSection from "@/components/landing/HeroSection/HeroSection";
 import Billboard from "@/components/landing/Billboard/Billboard";
-import ForWho from "@/components/about/ForWho/ForWho";
 import SocialWorld from "@/components/landing/SocialWorld/SocialWorld";
 
 export default function Landing() {
