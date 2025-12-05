@@ -1,5 +1,5 @@
 import CardHeroLayout from "@/components/layout/CardHeroLayout/CardHeroLayout";
-import styles from "./UpcomingEvents.module.css";
+// import styles from "./UpcomingEvents.module.css";
 
 
 export default function UpcomingEvents() {

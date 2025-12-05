@@ -1,5 +1,5 @@
 import CardHeroLayout from "@/components/layout/CardHeroLayout/CardHeroLayout";
-import styles from "./CommunitiesNear.module.css";
+// import styles from "./CommunitiesNear.module.css";
 
 
 export default function CommunitiesNear() {

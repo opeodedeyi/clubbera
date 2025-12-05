@@ -1,5 +1,5 @@
 import CardHeroLayout from "@/components/layout/CardHeroLayout/CardHeroLayout";
-import styles from "./TopCategories.module.css";
+// import styles from "./TopCategories.module.css";
 
 
 export default function TopCategories() {
