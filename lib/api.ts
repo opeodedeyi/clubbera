@@ -20,24 +20,24 @@ class ApiClient {
     }
 
     async request<T = unknown>(
-        endpoint: string, 
+        endpoint: string,
         options: RequestInit = {}
     ): Promise<T> {
         const token = this.getAuthToken()
-        
-        console.log('Client API request:', { 
-            endpoint, 
+
+        console.log('Client API request:', {
+            endpoint,
             hasToken: !!token,
             method: options.method || 'GET'
         })
 
         const config: RequestInit = {
+            ...options,
             headers: {
                 'Content-Type': 'application/json',
                 ...(token && { Authorization: `Bearer ${token}` }),
                 ...options.headers,
             },
-            ...options,
         }
 
         console.log('Request headers:', config.headers)
@@ -75,12 +75,13 @@ class ApiClient {
         return this.request<T>(endpoint)
     }
 
-    post<T = unknown>(endpoint: string, data?: RequestData): Promise<T> {
+    post<T = unknown>(endpoint: string, data?: RequestData, headers?: Record<string, string>): Promise<T> {
         const body = this.prepareBody(data)
-        
+
         return this.request<T>(endpoint, {
             method: 'POST',
             body,
+            headers,
         })
     }
 

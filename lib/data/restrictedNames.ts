@@ -79,28 +79,59 @@ export const RESTRICTED_PATTERNS: RegExp[] = [
  */
 export function isRestrictedName(name: string): boolean {
     if (!name || typeof name !== 'string') return false;
-    
+
     const normalizedName = name.toLowerCase().trim();
-    
-    // Check exact matches
+
+    // Check exact matches (e.g., just "support" or "admin")
     if (RESTRICTED_NAMES.includes(normalizedName)) {
         return true;
     }
-    
-    // Check if any restricted term is contained in the name
-    for (const restrictedTerm of RESTRICTED_NAMES) {
-        if (normalizedName.includes(restrictedTerm)) {
+
+    // Split into words for smarter checking
+    const words = normalizedName.split(/\s+/);
+
+    // For administrative terms, only block if they appear without a brand/org name prefix
+    // This allows "Clubbera Support" but blocks "Support Team" or "Official Support"
+    for (const adminTerm of ADMINISTRATIVE_TERMS) {
+        const wordBoundaryPattern = new RegExp(`\\b${adminTerm}\\b`, 'i');
+        if (wordBoundaryPattern.test(normalizedName)) {
+            // If the administrative term is the first word, block it
+            if (words[0] === adminTerm) {
+                return true;
+            }
+            // If name is only 2 words and contains an admin term, it's likely impersonating
+            // Examples: "Support Team", "Admin Panel", "Official Moderator"
+            // But allow if first word looks like a brand (not a generic descriptor)
+            if (words.length === 2 && words.includes(adminTerm)) {
+                const firstWord = words[0];
+                // Block if first word is also a generic/reserved term
+                const genericTerms = ['official', 'team', 'group', 'main', 'primary', 'customer', 'tech', 'user'];
+                if (genericTerms.includes(firstWord) || ADMINISTRATIVE_TERMS.includes(firstWord)) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    // For offensive terms, hate groups, and harmful content - block if they appear anywhere
+    const nonAdminRestrictedTerms = RESTRICTED_NAMES.filter(
+        term => !ADMINISTRATIVE_TERMS.includes(term)
+    );
+
+    for (const restrictedTerm of nonAdminRestrictedTerms) {
+        const wordBoundaryPattern = new RegExp(`\\b${restrictedTerm}\\b`, 'i');
+        if (wordBoundaryPattern.test(normalizedName)) {
             return true;
         }
     }
-    
+
     // Check against patterns
     for (const pattern of RESTRICTED_PATTERNS) {
         if (pattern.test(normalizedName)) {
             return true;
         }
     }
-    
+
     return false;
 }
 

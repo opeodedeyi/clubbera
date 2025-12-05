@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 import { CommunityFormData } from '@/types/community';
 import { communityApi, CreateCommunityRequest } from '@/lib/api/communities';
 import { processImage, validateImageFile } from '@/lib/imageProcessing';
@@ -42,6 +43,8 @@ export function useCommunityForm() {
         profile_image: false,
         cover_image: false
     })
+    // Generate idempotency key once when hook initializes (not on every submit)
+    const [idempotencyKey] = useState(() => uuidv4())
 
     const updateFormData = (data: Partial<CommunityFormData>) => {
         setFormData(prev => ({ ...prev, ...data }))
@@ -226,7 +229,7 @@ export function useCommunityForm() {
                 })
             };
 
-            const response = await communityApi.createCommunity(submitData);
+            const response = await communityApi.createCommunity(submitData, idempotencyKey);
             router.push(`/community/${response.data.unique_url}`);
             return true;
         } catch (error) {

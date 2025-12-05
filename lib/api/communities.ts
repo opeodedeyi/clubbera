@@ -277,8 +277,10 @@ export const communityApi = {
         }
     },
 
-    createCommunity: async (data: CreateCommunityRequest): Promise<CommunityResponse> => {
-        return api.post<CommunityResponse>('/communities', data);
+    createCommunity: async (data: CreateCommunityRequest, idempotencyKey?: string): Promise<CommunityResponse> => {
+        return api.post<CommunityResponse>('/communities', data, {
+            ...(idempotencyKey && { 'Idempotency-Key': idempotencyKey })
+        });
     },
 
     getCommunity: async (identifier: string | number): Promise<CommunityResponse> => {

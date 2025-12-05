@@ -97,6 +97,9 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
             }
 
             const apiResponse = await authApi.googleLogin(requestData);
+
+            console.log('Google login API response:', apiResponse); // Add this
+            console.log('User isEmailConfirmed:', apiResponse.data.user.isEmailConfirmed); // Add this
             
             if (apiResponse.status === 'success' && apiResponse.data.token) {
                 login(apiResponse.data.token, apiResponse.data.user);

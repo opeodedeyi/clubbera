@@ -80,6 +80,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             const response = await authApi.getUserProfile()
 
+            console.log('getUserProfile response:', response); // Add this
+            console.log('User isEmailConfirmed from profile:', response.data.isEmailConfirmed); // Add this
+
             if (response.status === 'success') {
                 setUser(response.data)
             }
@@ -93,6 +96,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const login = (token: string, userData: User) => {
+        console.log('Login called with userData:', userData); // Add this
+        console.log('isEmailConfirmed value:', userData.isEmailConfirmed); // Add this
+
         setCookie('authToken', token, {
             maxAge: 60 * 60 * 24 * 60, // 60 days
             httpOnly: false,
