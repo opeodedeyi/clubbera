@@ -7,7 +7,7 @@ export default function ForWho() {
         <div className={styles.container}>
             <div className={styles.containerText}>
                 <h6 className={styles.textTitle}>We believe nobody should feel like a stranger.</h6>
-                <p className={styles.textSubtitle}>Clubbera exists because the best communities in the world shouldn't be the hardest to find.</p>
+                <p className={styles.textSubtitle}>Clubbera exists because the best communities in the world shouldn&apos;t be the hardest to find.</p>
             </div>
 
             <div className={styles.imageWrapper}>
