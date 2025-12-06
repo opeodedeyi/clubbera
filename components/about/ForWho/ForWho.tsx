@@ -6,8 +6,8 @@ export default function ForWho() {
     return (
         <div className={styles.container}>
             <div className={styles.containerText}>
-                <h6 className={styles.textTitle}>New Home for Real-World Communities.</h6>
-                <p className={styles.textSubtitle}>Real people, real connections, real experiences, join a community that brings it all together.</p>
+                <h6 className={styles.textTitle}>We believe nobody should feel like a stranger.</h6>
+                <p className={styles.textSubtitle}>Clubbera exists because the best communities in the world shouldn't be the hardest to find.</p>
             </div>
 
             <div className={styles.imageWrapper}>

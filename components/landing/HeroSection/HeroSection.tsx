@@ -2,7 +2,14 @@ import { IMAGES } from "@/lib/images";
 import Button from "@/components/ui/Button/Button";
 import styles from "./HeroSection.module.css";
 
-export default function HeroSection() {
+
+interface HeroSectionProps {
+    headline?: string;
+    subHeadline?: string;
+    ctaBtnText?: string;
+}
+
+export default function HeroSection({ headline, subHeadline, ctaBtnText }: HeroSectionProps) {
     return (
         <div className={styles.container}>
             <div className={`${styles.heroImage} ${styles.imageOne}`}>
@@ -16,10 +23,10 @@ export default function HeroSection() {
             <div className={styles.heroContent}>
                 <div className={styles.heroText}>
                     <p className={styles.heroTitle}>
-                        Start a community that brings it all together.
+                        {headline}
                     </p>
                     <p className={styles.heroSubText}>
-                        Real people, real connections, real experiences, join a community that brings it all together.
+                        {subHeadline}
                     </p>
                 </div>
 
@@ -28,7 +35,7 @@ export default function HeroSection() {
                     variant="gray"
                     className={styles.heroButton}
                     href="/join">
-                    Join Clubbera
+                    {ctaBtnText}
                 </Button>
             </div>
 

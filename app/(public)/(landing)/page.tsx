@@ -10,20 +10,23 @@ import CommunitiesNear from "@/components/landing/CommunitiesNear/CommunitiesNea
 export default function Landing() {
     return (
         <CenterContainer>
-            <HeroSection/>
+            <HeroSection
+                headline="Start a community that thrives."
+                subHeadline="Right now, book clubs are meeting, runners are training together, and board gamers are arguing about rules. Thousands of communities thriving, every single day. Find yours—it&apos;s free."
+                ctaBtnText="Start for Free"/>
             <CommunitiesNear/>
             <UpcomingEvents/>
             <Billboard
-                title="Start a community that brings it all together."
-                text="Real people, real connections, real experiences, join a community that brings it all together."
-                btnText="Sign up for free"
+                title="Your community deserves a real home."
+                text="Not a Facebook group that nobody sees. Not a WhatsApp chat that gets buried. A proper platform, free forever!"
+                btnText="Create Your Community"
                 direction="right"
                 link="/join"
                 variant="baloon"/>
             <TopCategories />
             <Billboard
-                title="Everything You Need, All in One Place."
-                text="Where Communities Come to Life, Clubbera gives every community a real home to connect, grow, and thrive."
+                title="Everything you need. Nothing you don&apos;t."
+                text="One platform for events, updates, photos, and staying connected - without the chaos."
                 btnText="Sign up for free"
                 direction="left"
                 link="/join"
