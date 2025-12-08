@@ -5,7 +5,6 @@
     gap: var(--spacing-8);
     flex-direction: column;
     justify-content: center;
-    max-width: var(--max-width);
     padding: var(--spacing-3xl) var(--spacing-0);
 }
 
@@ -36,6 +35,24 @@
     font-size: var(--font-size-md);
 }
 
+.cardsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    flex-direction: row;
+    gap: var(--spacing-3);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.cardsContainer::-webkit-scrollbar {
+    display: none;
+}
+
 @media (max-width: 1279px) {
     .container {
         gap: var(--spacing-8);
@@ -61,5 +78,10 @@
 
     .textSubtitle {
         font-size: var(--font-size-base);
+    }
+    
+    .cardsContainer {
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 }

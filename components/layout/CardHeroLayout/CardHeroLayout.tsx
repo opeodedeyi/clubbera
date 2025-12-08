@@ -16,7 +16,9 @@ export default function CardHeroLayout({ title, subtitle, children }: CardHeroLa
                 }
             </div>
 
-            {children}
+            <div className={styles.cardsContainer}>
+                {children}
+            </div>
         </div>
     );
 }

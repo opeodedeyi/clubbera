@@ -1,8 +1,12 @@
 import styles from './CommunityCard.module.css';
 
-export default function CommunityCardSkeleton() {
+interface CommunityCardSkeletonProps {
+    className?: string;
+}
+
+export default function CommunityCardSkeleton({ className }: CommunityCardSkeletonProps) {
     return (
-        <div className={styles.cardLink}>
+        <div className={`${styles.cardLink} ${className || ''}`}>
             <div className={styles.card}>
                 {/* Cover Image Skeleton - Desktop only */}
                 <div className={styles.cardCover}>

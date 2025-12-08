@@ -1,0 +1,25 @@
+.card {
+    width: 380px;
+}
+
+.card:first-child {
+    margin-left: var(--spacing-12);
+}
+
+.card:last-child {
+    margin-right: var(--spacing-12);
+}
+
+@media screen and (max-width: 767px) {
+    .card {
+        width: 320px;
+    }
+
+    .card:first-child {
+        margin-left: var(--spacing-4);
+    }
+
+    .card:last-child {
+        margin-right: var(--spacing-4);
+    }
+}
