@@ -26,13 +26,13 @@
 
 .cardTitle {
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-gray);
     font-size: var(--font-size-lg);
 }
 
 .cardDescription {
     line-height: 1.5;
-    color: var(--color-text-light);
+    color: var(--color-gray-light);
     font-size: var(--font-size-base);
 }
 

@@ -11,36 +11,46 @@ interface HeroSectionProps {
 
 export default function HeroSection({ headline, subHeadline, ctaBtnText }: HeroSectionProps) {
     return (
-        <div className={styles.container}>
-            <div className={`${styles.heroImage} ${styles.imageOne}`}>
-                <img src={IMAGES.vectors.clubberaPurple} alt="Hero" />
-            </div>
-
-            <div className={`${styles.heroImage} ${styles.imageTwo}`}>
-                <img src={IMAGES.vectors.clubberaPink} alt="Hero" />
-            </div>
-
-            <div className={styles.heroContent}>
-                <div className={styles.heroText}>
-                    <p className={styles.heroTitle}>
-                        {headline}
-                    </p>
-                    <p className={styles.heroSubText}>
-                        {subHeadline}
-                    </p>
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <div className={`${styles.heroImage} ${styles.imageOne}`}>
+                    <img src={IMAGES.vectors.clubberaPurpleImage} alt="Hero" />
                 </div>
 
-                <Button
-                    as="link"
-                    variant="gray"
-                    className={styles.heroButton}
-                    href="/join">
-                    {ctaBtnText}
-                </Button>
+                <div className={`${styles.heroImage} ${styles.imageTwo}`}>
+                    <img src={IMAGES.vectors.clubberaPinkImage} alt="Hero" />
+                </div>
+
+                <div className={styles.heroContent}>
+                    <div className={styles.heroText}>
+                        <p className={styles.heroTitle}>
+                            {headline}
+                        </p>
+                        <p className={styles.heroSubText}>
+                            {subHeadline}
+                        </p>
+                    </div>
+
+                    <Button
+                        as="link"
+                        variant="gray"
+                        className={styles.heroButton}
+                        href="/join">
+                        {ctaBtnText}
+                    </Button>
+                </div>
+
+                <div className={`${styles.heroImage} ${styles.imageThree}`}>
+                    <img src={IMAGES.vectors.clubberaYellowImage} alt="Hero" />
+                </div>
             </div>
 
-            <div className={`${styles.heroImage} ${styles.imageThree}`}>
-                <img src={IMAGES.vectors.clubberaYellow} alt="Hero" />
+            <div className={`${styles.heroImageLeft}`}>
+                <img src={IMAGES.pages.landing.heroImageLeft} alt="group of people" />
+            </div>
+
+            <div className={`${styles.heroImageRight}`}>
+                <img src={IMAGES.pages.landing.heroImageRight} alt="group of people" />
             </div>
         </div>
     );

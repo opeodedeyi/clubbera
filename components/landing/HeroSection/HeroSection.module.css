@@ -1,4 +1,14 @@
+.wrapper {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
 .container {
+    align-self: flex-start;
     width: 100%;
     display: flex;
     position: relative;
@@ -16,35 +26,54 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
+    z-index: 2;
 }
 
 .heroImage {
     position: absolute;
 }
 
-.heroImage img {
+.heroImageLeft {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 480px;
+    z-index: 0;
+}
+
+.heroImageRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 354px;
+    z-index: 0;
+}
+
+.heroImage img,
+.heroImageLeft img,
+.heroImageRight img {
     width: 100%;
 }
 
 .imageOne {
     top: 55px;
     left: 80px;
-    width: 140px;
-    z-index: 0;
+    width: 110px;
+    z-index: 1;
 }
 
 .imageTwo {
-    bottom: 55px;
+    bottom: 75px;
     left: 85px;
-    width: 120px;
-    z-index: 0;
+    width: 90px;
+    z-index: 1;
 }
 
 .imageThree {
     bottom: 35%;
     right: 80px;
     width: 140px;
-    z-index: 0;
+    z-index: 1;
 }
 
 .heroText {
@@ -75,6 +104,10 @@
 }
 
 @media (max-width: 1279px) {
+    .wrapper {
+        height: 800px;
+    }
+    
     .container {
         padding: var(--spacing-4xl) var(--spacing-20);
         gap: var(--spacing-32);
@@ -106,24 +139,32 @@
         width: 100%;
         text-align: center;
     }
+    
+    .heroImageLeft {
+        width: 100%;
+    }
+
+    .heroImageRight {
+        display: none;
+    }
 
     .imageOne {
         top: 44px;
         left: 66px;
-        width: 105px;
+        width: 75px;
     }
 
     .imageTwo {
-        bottom: 35px;
+        bottom: 75px;
         left: 34px;
-        width: 90px;
+        width: 70px;
     }
 
     .imageThree {
         bottom: 85px;
         right: 35px;
-        width: 105px;
-        height: 98px;
+        width: 85px;
+        height: 78px;
     }
 
     .heroText {

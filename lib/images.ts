@@ -9,7 +9,8 @@ export const IMAGES = {
             placeholder: '/images/pages/communities/defaultCommunityPlaceholder.png',
         },
         landing: {
-            heroImage: '/images/pages/landing/heroImage.png',
+            heroImageLeft: '/images/pages/landing/heroLeft.png',
+            heroImageRight: '/images/pages/landing/heroRight.png',
             feature1: '/images/pages/landing/feature-1.png',
         },
         // event: {
@@ -19,7 +20,10 @@ export const IMAGES = {
     },
     vectors: {
         clubberaPurple: '/images/ui/purpleClubberaVector.svg',
+        clubberaPurpleImage: '/images/pages/landing/seriousPurple.png',
         clubberaYellow: '/images/ui/yellowClubberaVector.svg',
+        clubberaYellowImage: '/images/pages/landing/smileYellow.png',
         clubberaPink: '/images/ui/pinkClubberaVector.svg',
+        clubberaPinkImage: '/images/pages/landing/sassyPink.png',
     },
 } as const
