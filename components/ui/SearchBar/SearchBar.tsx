@@ -8,6 +8,7 @@ import Icon from '@/components/ui/Icon/Icon';
 
 export default function SearchBar({
     size = 'large',
+    backgroundColor = 'var(--color-default)',
     placeholder = 'Search communities, events...',
     value = '',
     onChange,
@@ -96,13 +97,6 @@ export default function SearchBar({
 
             <form onSubmit={handleSubmit} className={styles.searchForm}>
                 <div ref={searchRef} className={searchClasses}>
-                    <div className={styles.searchIcon}>
-                        <Icon
-                            name="search"
-                            size="sm"
-                            color='var(--color-gray-mute)'  />
-                    </div>
-
                     <input
                         ref={inputRef}
                         type="text"
@@ -114,19 +108,15 @@ export default function SearchBar({
                         onKeyDown={handleKeyDown}
                         className={styles.searchInput}/>
 
-                    {/* Clear button when there's text */}
-                    {/* {value && (
-                        <button
-                            type="button"
-                            onClick={() => onChange?.('')}
-                            className={styles.clearButton}
-                            aria-label="Clear search">
-                            <img 
-                                src="/images/components/ui/icons/close.svg" 
-                                alt="" 
-                                className={styles.icon}/>
-                        </button>
-                    )} */}
+                    <button
+                        type='submit'
+                        className={styles.searchbtn}
+                        style={{ backgroundColor }}>
+                        <Icon
+                            name="search"
+                            size="md"
+                            color='var(--color-white)'  />
+                    </button>
                 </div>
             </form>
         </>

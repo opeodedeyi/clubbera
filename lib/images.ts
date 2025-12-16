@@ -25,5 +25,10 @@ export const IMAGES = {
         clubberaYellowImage: '/images/pages/landing/smileYellow.png',
         clubberaPink: '/images/ui/pinkClubberaVector.svg',
         clubberaPinkImage: '/images/pages/landing/sassyPink.png',
+        business: '/images/ui/business.svg',
+        heart: '/images/ui/heart.svg',
+        marketing: '/images/ui/marketing.svg',
+        sport: '/images/ui/sport.svg',
+        tech: '/images/ui/tech.svg',
     },
 } as const

@@ -14,7 +14,7 @@ interface CommunityCardProps {
     className?: string;
 }
 
-export default function CommunityCard({ url, profile, cover, name, description, member, className }: CommunityCardProps) {
+export default function CommunityCardFixed({ url, profile, cover, name, description, member, className }: CommunityCardProps) {
     const cardContent = (
         <div className={styles.card}>
             <div className={styles.cardCover}>
@@ -29,9 +29,6 @@ export default function CommunityCard({ url, profile, cover, name, description, 
                     <p className={styles.cardTextDescription}>{description}</p>
                 </div>
                 <div className={styles.cardTextMember}><Icon name='group' size='sm' color='var(--color-text-light)'/><span>{`${member} Member${member > 1 ? 's' : ''}`}</span></div>
-            </div>
-            <div className={styles.cardArrow}>
-                <Icon name='arrowRight' size='sm' color='var(--color-text-light)'/>
             </div>
         </div>
     );

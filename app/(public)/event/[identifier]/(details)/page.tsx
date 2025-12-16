@@ -33,19 +33,19 @@ export default async function EventPage({ params }: EventPageProps) {
 
         const response = await getEventById(eventId)
         const { event, userContext, canAccess } = response.data;
-        const attendanceStatus = toAttendanceStatus(userContext.attendanceStatus);
+        const attendanceStatus = toAttendanceStatus(userContext?.attendanceStatus);
 
         if (!canAccess) {
             return <AccessDeniedPage />;
         }
-        
+
         return (
             <div>
                 <Suspense fallback={<EventDetailsContentSkeleton />}>
                     <EventDetailsContent
                         initialEvent={event}
                         attendanceStatus={attendanceStatus}
-                        membership={response.data.userContext.membership} />
+                        membership={userContext?.membership} />
                 </Suspense>
             </div>
         )

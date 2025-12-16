@@ -128,6 +128,7 @@ export interface EventSearchResult {
     uniqueUrl: string;
     description: string;
     startTime: string;
+    startingIn?: string;
     endTime: string;
     timezone: string;
     eventType: string;
@@ -147,13 +148,15 @@ export interface EventSearchResult {
 
 export interface EventSearchResponse {
     status: string;
-    data: EventSearchResult[];
-    pagination: {
-        total: number;
-        limit: number;
-        offset: number;
-        page: number;
-        hasMore: boolean;
+    data: {
+        events: EventSearchResult[];
+        pagination: {
+            total: number;
+            limit: number;
+            offset: number;
+            page: number;
+            hasMore: boolean;
+        };
     };
 }
 
@@ -336,5 +339,22 @@ export const eventApi = {
         }
     ): Promise<ApiSuccessResponse> => {
         return api.put<ApiSuccessResponse>(`/events/${eventId}/cover-image`, data);
+    },
+
+    searchEvents: async (
+        query?: string,
+        limit: number = 20,
+        offset: number = 0,
+        lat?: number,
+        lng?: number
+    ): Promise<EventSearchResponse> => {
+        const params = new URLSearchParams({
+            limit: limit.toString(),
+            offset: offset.toString(),
+            ...(query && { query }),
+            ...(lat !== undefined && { lat: lat.toString() }),
+            ...(lng !== undefined && { lng: lng.toString() })
+        });
+        return api.get<EventSearchResponse>(`/event-search/search?${params}`);
     }
 };

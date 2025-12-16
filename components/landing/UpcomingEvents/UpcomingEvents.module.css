@@ -1,0 +1,7 @@
+.card:first-child {
+    margin-left: var(--spacing-4);
+}
+
+.card:last-child {
+    margin-right: var(--spacing-4);
+}

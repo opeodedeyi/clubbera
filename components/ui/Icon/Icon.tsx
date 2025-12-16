@@ -50,6 +50,7 @@ import {
     LinkIcon,
     LeaveIcon,
     LineArtIcon,
+    MenuIcon,
     MessageIcon,
 } from './icons/';
 import type { IconProps, SimpleIconProps, ComplexIconProps } from '@/types/icon';
@@ -543,6 +544,14 @@ export default function Icon(props: IconProps) {
                     color={messageProps.color}
                     fillColor={messageProps.fillColor}
                     strokeColor={messageProps.strokeColor}
+                    className={iconClasses}/>
+            )
+        case 'menu':
+            const menuProps = props as SimpleIconProps
+            return (
+                <MenuIcon
+                    size={iconSize}
+                    color={menuProps.color}
                     className={iconClasses}/>
             )
         default:

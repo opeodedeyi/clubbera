@@ -21,13 +21,13 @@
 /* Size variants */
 .large {
     height: 62px;
-    padding: 0 var(--spacing-5);
+    padding: 0 var(--spacing-1-5) 0 var(--spacing-5);
     gap: var(--spacing-3);
 }
 
 .small {
     height: 52px;
-    padding: 0 var(--spacing-5);
+    padding: 0 var(--spacing-1-5) 0 var(--spacing-5);
     gap: var(--spacing-3);
 }
 
@@ -39,10 +39,16 @@
 }
 
 /* Search icon */
-.searchIcon {
-    flex-shrink: 0;
+.searchbtn {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
 }
 
 .icon {

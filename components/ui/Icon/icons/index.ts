@@ -52,6 +52,7 @@ export { default as UnderlineIcon } from './UnderlineIcon';
 export { default as VerticalEllipsisIcon } from './VerticalEllipsisIcon';
 export { default as LeaveIcon } from './LeaveIcon';
 export { default as LineArtIcon } from './LineArtIcon';
+export { default as MenuIcon } from './MenuIcon';
 // Complex icons
 export { default as BalloonIcon } from './BalloonIcon';
 export { default as BinIcon } from './BinIcon';
@@ -123,6 +124,8 @@ export type IconName =
     | 'underline'
     | 'verticalEllipsis'
     | 'leave'
+    | 'lineArt'
+    | 'menu'
     // complex
     | 'balloon'
     | 'bin'

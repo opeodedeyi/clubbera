@@ -85,12 +85,12 @@
 }
 
 .heroTitle {
-    font-weight: 700;
+    /* font-weight: 700; */
     line-height: 120%;
     letter-spacing: 0%;
     text-align: center;
     color: var(--color-text);
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-4xl);
 }
 
 .heroSubText {
@@ -172,7 +172,7 @@
     }
 
     .heroTitle {
-        font-size: var(--font-size-2xl);
+        font-size: var(--font-size-3xl);
     }
 
     .heroSubText {

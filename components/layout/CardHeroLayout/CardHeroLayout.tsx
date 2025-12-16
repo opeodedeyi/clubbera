@@ -10,7 +10,7 @@ export default function CardHeroLayout({ title, subtitle, children }: CardHeroLa
     return (
         <div className={styles.container}>
             <div className={styles.containerText}>
-                <p className={styles.textTitle}>{title}</p>
+                <h5 className={styles.textTitle}>{title}</h5>
                 { subtitle && 
                     <p className={styles.textSubtitle}>{subtitle}</p>
                 }

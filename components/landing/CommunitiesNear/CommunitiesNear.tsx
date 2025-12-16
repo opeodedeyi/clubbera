@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CardHeroLayout from "@/components/layout/CardHeroLayout/CardHeroLayout";
-import CommunityCard from "@/components/cards/community/CommunityCard/CommunityCard";
+import CommunityCardFixed from "@/components/cards/community/CommunityCardFixed/CommunityCardFixed";
 import CommunityCardSkeleton from "@/components/cards/community/CommunityCard/CommunityCardSkeleton";
 import { communityApi, type CommunitySearchResult } from "@/lib/api/communities";
 import { locationService } from "@/lib/services/locationService";
@@ -34,7 +34,7 @@ export default function CommunitiesNear() {
     }, []);
 
     return (
-        <CardHeroLayout title="Communites Near You">
+        <CardHeroLayout title="Communities Near You">
             {loading ? (
                 <>
                     <CommunityCardSkeleton className={styles.card} />
@@ -44,7 +44,7 @@ export default function CommunitiesNear() {
                 </>
             ) : (
                 communities.map((community) => (
-                    <CommunityCard
+                    <CommunityCardFixed
                         key={community.uniqueUrl}
                         url={community.uniqueUrl}
                         profile={community.profileImage?.key}

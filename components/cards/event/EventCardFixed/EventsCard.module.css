@@ -1,0 +1,113 @@
+.cardLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    overflow: hidden;
+    align-items: flex-start;
+    padding: var(--spacing-0);
+    justify-content: space-between;
+    border-radius: var(--radius-2xl);
+    background-color: var(--color-background-light);
+}
+
+.containerBody {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: var(--spacing-5) var(--spacing-4) var(--spacing-7);
+    gap: var(--spacing-5);
+}
+
+.containerBodyText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.spaceBetween {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerBodyTime {
+    color: var(--color-event);
+    font-size: var(--font-size-sm);
+}
+
+.containerBodyRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+}
+
+.containerBodyTitle {
+    font-size: var(--font-size-lg);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.containerBodyDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.containerImage {
+    width: 100%;
+    height: 189px;
+    background-color: var(--color-plain-background);
+    overflow: hidden;
+}
+
+.containerImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        width: 320px;
+        padding: var(--spacing-4);
+        gap: var(--spacing-4);
+    }
+
+    .containerImage {
+        height: 158px;
+        border-radius: var(--radius-xl);
+    }
+
+    .containerBody {
+        padding: var(--spacing-0);
+        gap: var(--spacing-3);
+    }
+
+    .containerBodyTime {
+        font-size: var(--font-size-xs);
+    }
+
+    .containerBodyTitle {
+        font-size: var(--font-size-md);
+    }
+
+    .containerBodyDescription {
+        font-size: var(--font-size-sm);
+    }
+}

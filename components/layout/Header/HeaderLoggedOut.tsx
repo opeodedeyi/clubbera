@@ -1,10 +1,23 @@
+'use client'
+
 import Link from 'next/link';
-import Button from '@/components/ui/Button/Button';
+import { useState } from 'react';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
+import LoggedOutMenu from '../loggedOutMenu/loggedOutMenu';
+import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import type { HeaderProps } from '@/types/header';
 import styles from './Header.module.css';
 
-export default function HeaderLoggedOut({ className = '' }: HeaderProps) {
+export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps) {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const config = {
+        showSearch: variant?.showSearch ?? true,
+        showNotifications: variant?.showNotifications ?? true,
+        showNavigation: variant?.showNavigation ?? true,
+        ...variant
+    }
+
     return (
         <header className={`${styles.header} ${styles.loggedOut} ${className}`}>
             <div className={styles.containerlo}>
@@ -14,11 +27,18 @@ export default function HeaderLoggedOut({ className = '' }: HeaderProps) {
                     </Link>
                 </div>
 
-                <div className={`${styles.actions} desktop-only-flex`}>
-                    <Button as="link" href="/join" variant='plain' size='large'>
-                        Join Clubbera
-                    </Button>
-                </div>
+                {config.showSearch && (
+                    <div className={`${styles.search}`}>
+                        <SearchBar
+                            size="small"
+                            className='desktop-only-flex'
+                            placeholder="Search events and locations..."
+                            value={searchQuery}
+                            onChange={setSearchQuery}/>
+                    </div>
+                )}
+
+                <LoggedOutMenu />
             </div>
         </header>
     )

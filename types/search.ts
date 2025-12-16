@@ -3,6 +3,7 @@ export type SearchSize = 'small' | 'large'
 export interface SearchBarProps {
     size?: SearchSize
     placeholder?: string
+    backgroundColor?: string
     value?: string
     onChange?: (value: string) => void
     onSubmit?: (value: string) => void
