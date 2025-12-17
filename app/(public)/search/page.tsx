@@ -84,7 +84,7 @@ export default function SearchPage() {
 
                 {!loading && !error && query && results.length === 0 && (
                     <div className={styles.noResults}>
-                        <p>No results found for "{query}"</p>
+                        <p>No results found for &quot;{query}&quot;</p>
                     </div>
                 )}
 
