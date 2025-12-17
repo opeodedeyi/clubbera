@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
 import LoggedOutMenu from '../loggedOutMenu/loggedOutMenu';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
@@ -10,6 +11,19 @@ import styles from './Header.module.css';
 
 export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps) {
     const [searchQuery, setSearchQuery] = useState('');
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+
+    // Sync searchbar with URL params when on search page
+    useEffect(() => {
+        if (pathname === '/search') {
+            const queryParam = searchParams.get('q') || '';
+            setSearchQuery(queryParam);
+        } else {
+            setSearchQuery('');
+        }
+    }, [pathname, searchParams]);
 
     const config = {
         showSearch: variant?.showSearch ?? true,
@@ -18,11 +32,19 @@ export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps
         ...variant
     }
 
+    const handleSearch = (query: string) => {
+        const searchParams = new URLSearchParams({
+            q: query,
+            type: 'events'
+        });
+        router.push(`/search?${searchParams.toString()}`);
+    }
+
     return (
         <header className={`${styles.header} ${styles.loggedOut} ${className}`}>
             <div className={styles.containerlo}>
                 <div className={styles.left}>
-                    <Link href="/" className={styles.logo}>
+                    <Link href="/" className={styles.logo} style={{outline: 'none'}}>
                         <ClubberaLogo variant="custom" textColor="var(--color-text)" />
                     </Link>
                 </div>
@@ -34,7 +56,8 @@ export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps
                             className='desktop-only-flex'
                             placeholder="Search events and locations..."
                             value={searchQuery}
-                            onChange={setSearchQuery}/>
+                            onChange={setSearchQuery}
+                            onSubmit={handleSearch}/>
                     </div>
                 )}
 

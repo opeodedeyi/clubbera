@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ActionIcon from '@/components/ui/ActionIcon/ActionIcon';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
@@ -35,14 +35,34 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
     const [searchQuery, setSearchQuery] = useState('');
     const [showShareModal, setShowShareModal] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const { unreadCount } = useNotifications();
     // Backend automatically joins users to their Socket.IO rooms on connection
+
+    // Sync searchbar with URL params when on search page
+    useEffect(() => {
+        if (pathname === '/search') {
+            const queryParam = searchParams.get('q') || '';
+            setSearchQuery(queryParam);
+        } else {
+            setSearchQuery('');
+        }
+    }, [pathname, searchParams]);
 
     const isActive = (href: string, exactMatch = false) => {
         if (exactMatch) {
             return pathname === href
         }
         return pathname.startsWith(href)
+    }
+
+    const handleSearch = (query: string) => {
+        const urlSearchParams = new URLSearchParams({
+            q: query,
+            type: 'events'
+        });
+        router.push(`/search?${urlSearchParams.toString()}`);
     }
 
     const config = {
@@ -95,7 +115,8 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                                 className='desktop-only-flex'
                                 placeholder="Events, Communities, People"
                                 value={searchQuery}
-                                onChange={setSearchQuery}/>
+                                onChange={setSearchQuery}
+                                onSubmit={handleSearch}/>
                         </div>
                     )}
 
