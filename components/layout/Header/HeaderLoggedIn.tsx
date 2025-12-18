@@ -66,15 +66,12 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
         router.push(`/search?${urlSearchParams.toString()}`);
     }
 
-    const config = {
-        showSearch: variant?.showSearch ?? true,
-        showNotifications: variant?.showNotifications ?? true,
-        showNavigation: variant?.showNavigation ?? true,
-        ...variant
-    }
-
     const isCommunityPage = !!variant?.communityData;
     const isSearchPage = pathname === '/search';
+    const isHelpPage = pathname.startsWith('/help');
+
+    const showSearch = !isHelpPage;
+    const showNavigation = !isHelpPage;
 
     return (
         <header className={`${styles.header} ${styles.loggedIn} ${className}`}>
@@ -85,7 +82,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                         <ClubberaLogo variant="custom" textColor="var(--color-text)" />
                     </Link>
 
-                    {config.showNavigation && (
+                    {showNavigation && (
                         <nav className={`${styles.nav} desktop-only-flex`}>
                             {navItems.map(({ href, label, exactMatch }) => {
                                 return (
@@ -112,7 +109,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                 {isSearchPage && (
                     <div className={`${styles.mobileOnly} ${styles.fullWidthMobileSearch}`}>
                         <SearchBarMobile
-                            size="small"
+                            size="custom"
                             placeholder="Search events and locations..."
                             value={searchQuery}
                             onChange={setSearchQuery}
@@ -122,7 +119,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
 
                 <div className={styles.actions}>
                     {/* Desktop Actions */}
-                    {config.showSearch && (
+                    {showSearch && (
                         <div className={`${styles.search} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                             <SearchBar
                                 size="small"
@@ -134,8 +131,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                         </div>
                     )}
 
-                    {config.showNotifications && (
-                        <div className={`${styles.notificationWrapper} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
+                    <div className={`${styles.notificationWrapper} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                             <ActionIcon
                                 as="link"
                                 href="/notifications"
@@ -147,11 +143,10 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                                 }}
                                 className={styles.actionIcon}
                                 aria-label="Notifications" />
-                            {unreadCount > 0 && (
-                                <span className={styles.notificationDot} />
-                            )}
-                        </div>
-                    )}
+                        {unreadCount > 0 && (
+                            <span className={styles.notificationDot} />
+                        )}
+                    </div>
 
                     <div className={`${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                         <UserMenu user={user} />

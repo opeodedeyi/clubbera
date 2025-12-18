@@ -1,4 +1,4 @@
-export type SearchSize = 'small' | 'large'
+export type SearchSize = 'small' | 'large' | 'custom';
 
 export interface SearchBarProps {
     size?: SearchSize

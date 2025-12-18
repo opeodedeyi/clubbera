@@ -10,7 +10,7 @@ import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import type { HeaderProps } from '@/types/header';
 import styles from './Header.module.css';
 
-export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps) {
+export default function HeaderLoggedOut({ className = '' }: HeaderProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -26,14 +26,10 @@ export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps
         }
     }, [pathname, searchParams]);
 
-    const config = {
-        showSearch: variant?.showSearch ?? true,
-        showNotifications: variant?.showNotifications ?? true,
-        showNavigation: variant?.showNavigation ?? true,
-        ...variant
-    }
-
     const isSearchPage = pathname === '/search';
+    const isHelpPage = pathname.startsWith('/help');
+
+    const showSearch = !isHelpPage;
 
     const handleSearch = (query: string) => {
         const searchParams = new URLSearchParams({
@@ -56,7 +52,7 @@ export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps
                 {isSearchPage && (
                     <div className={`${styles.mobileOnly} ${styles.fullWidthMobileSearch}`}>
                         <SearchBarMobile
-                            size="small"
+                            size="custom"
                             placeholder="Search events and locations..."
                             value={searchQuery}
                             onChange={setSearchQuery}
@@ -64,7 +60,7 @@ export default function HeaderLoggedOut({ variant, className = '' }: HeaderProps
                     </div>
                 )}
 
-                {config.showSearch && (
+                {showSearch && (
                     <div className={`${styles.search} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                         <SearchBar
                             size="small"

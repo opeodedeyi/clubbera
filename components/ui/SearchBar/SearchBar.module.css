@@ -42,6 +42,12 @@
     gap: var(--spacing-3);
 }
 
+.custom {
+    height: 52px;
+    padding: 0;
+    gap: var(--spacing-3);
+}
+
 /* Mobile override - always 52px */
 .mobile {
     height: 52px !important;

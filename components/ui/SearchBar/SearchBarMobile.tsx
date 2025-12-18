@@ -83,7 +83,6 @@ export default function SearchBarMobile({
     const searchClasses = [
         styles.searchContainerMobile,
         styles[size],
-        isMobile && styles.mobile,
         isFocused && styles.focused,
         className
     ].filter(Boolean).join(' ')
