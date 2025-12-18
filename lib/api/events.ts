@@ -346,14 +346,18 @@ export const eventApi = {
         limit: number = 20,
         offset: number = 0,
         lat?: number,
-        lng?: number
+        lng?: number,
+        eventType?: 'physical' | 'online' | 'hybrid',
+        timeRange?: 'upcoming' | 'this_week' | 'this_month' | 'past'
     ): Promise<EventSearchResponse> => {
         const params = new URLSearchParams({
             limit: limit.toString(),
             offset: offset.toString(),
             ...(query && { query }),
             ...(lat !== undefined && { lat: lat.toString() }),
-            ...(lng !== undefined && { lng: lng.toString() })
+            ...(lng !== undefined && { lng: lng.toString() }),
+            ...(eventType && { eventType }),
+            ...(timeRange && { timeRange })
         });
         return api.get<EventSearchResponse>(`/event-search/search?${params}`);
     }

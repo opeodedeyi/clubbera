@@ -10,6 +10,17 @@
     max-width: 450px;
 }
 
+.searchContainerMobile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--color-background-light);
+    border: none;
+    border-radius: var(--radius-button);
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
 .searchForm {
     flex: 1;
 }

@@ -1,21 +1,65 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { eventApi, type EventSearchResult } from '@/lib/api/events';
 import { locationService } from '@/lib/services/locationService';
 import EventCard from '@/components/cards/event/EventCard/EventCard';
 import EventCardSkeleton from '@/components/cards/event/EventCard/EventCardSkeleton';
+import SearchFilter from '@/components/Form/SearchFilter/SearchFilter';
 import styles from './search.module.css';
+
+type EventType = 'physical' | 'online' | 'hybrid' | null;
+type TimeRange = 'upcoming' | 'this_week' | 'this_month' | 'past' | null;
 
 export default function SearchPage() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const query = searchParams.get('q') || '';
     const type = searchParams.get('type') || 'events';
 
     const [results, setResults] = useState<EventSearchResult[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [eventType, setEventType] = useState<EventType>(
+        (searchParams.get('eventType') as EventType) || null
+    );
+    const [timeRange, setTimeRange] = useState<TimeRange>(
+        (searchParams.get('timeRange') as TimeRange) || null
+    );
+
+    // Update URL when filters change
+    const updateFilters = (newEventType: EventType, newTimeRange: TimeRange) => {
+        const params = new URLSearchParams();
+        params.set('q', query);
+        params.set('type', type);
+        if (newEventType) params.set('eventType', newEventType);
+        if (newTimeRange) params.set('timeRange', newTimeRange);
+        router.push(`/search?${params.toString()}`);
+    };
+
+    const handleEventTypeChange = (value: string | null) => {
+        const newEventType = value as EventType;
+        setEventType(newEventType);
+        updateFilters(newEventType, timeRange);
+    };
+
+    const handleTimeRangeChange = (value: string | null) => {
+        const newTimeRange = value as TimeRange;
+        setTimeRange(newTimeRange);
+        updateFilters(eventType, newTimeRange);
+    };
+
+    const handleResetFilters = () => {
+        setEventType(null);
+        setTimeRange(null);
+        const params = new URLSearchParams();
+        params.set('q', query);
+        params.set('type', type);
+        router.push(`/search?${params.toString()}`);
+    };
+
+    const hasActiveFilters = eventType !== null || timeRange !== null;
 
     useEffect(() => {
         const performSearch = async () => {
@@ -36,7 +80,9 @@ export default function SearchPage() {
                         20,
                         0,
                         location?.lat,
-                        location?.lng
+                        location?.lng,
+                        eventType || undefined,
+                        timeRange || undefined
                     );
                     setResults(response.data.events);
                 }
@@ -50,16 +96,52 @@ export default function SearchPage() {
         };
 
         performSearch();
-    }, [query, type]);
+    }, [query, type, eventType, timeRange]);
+
+    const eventTypeOptions = [
+        { value: null, label: 'All types' },
+        { value: 'physical', label: 'Physical' },
+        { value: 'online', label: 'Online' },
+        { value: 'hybrid', label: 'Hybrid' }
+    ];
+
+    const timeRangeOptions = [
+        { value: null, label: 'All time' },
+        { value: 'upcoming', label: 'Upcoming' },
+        { value: 'this_week', label: 'This week' },
+        { value: 'this_month', label: 'This month' },
+        { value: 'past', label: 'Past events' }
+    ];
 
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <p className={styles.title}>
-                    {query ? `Showing results for "${query}"` : 'Search'}
-                </p>
+                <div className={styles.header}>
+                    <p className={styles.title}>
+                        {query ? `Showing results for "${query}"` : 'Search'}
+                    </p>
 
-                {/* filters go here */}
+                    {/* Filters Bar */}
+                    <div className={styles.filtersBar}>
+                        <SearchFilter
+                            options={eventTypeOptions}
+                            value={eventType}
+                            placeholder="Event type"
+                            onChange={handleEventTypeChange} />
+                        <SearchFilter
+                            options={timeRangeOptions}
+                            value={timeRange}
+                            placeholder="Time range"
+                            onChange={handleTimeRangeChange} />
+                        {hasActiveFilters && (
+                            <button
+                                onClick={handleResetFilters}
+                                className={styles.resetButton}>
+                                Reset filters
+                            </button>
+                        )}
+                    </div>
+                </div>
 
                 {loading && (
                     <div className={styles.results}>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ActionIcon from '@/components/ui/ActionIcon/ActionIcon';
+import SearchBarMobile from '@/components/ui/SearchBar/SearchBarMobile';
 import SearchBar from '@/components/ui/SearchBar/SearchBar';
 import ClubberaLogo from '@/components/ui/Icon/ClubberaLogo';
 import UserMenu from '@/components/layout/UserMenu/UserMenu';
@@ -73,12 +74,13 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
     }
 
     const isCommunityPage = !!variant?.communityData;
+    const isSearchPage = pathname === '/search';
 
     return (
         <header className={`${styles.header} ${styles.loggedIn} ${className}`}>
             <div className={styles.container}>
-                {/* Desktop Content - Always visible on desktop, hidden on mobile for community pages */}
-                <div className={`${styles.left} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
+                {/* Desktop Content - Always visible on desktop, hidden on mobile for community/search pages */}
+                <div className={`${styles.left} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                     <Link href="/home" className={styles.logo}>
                         <ClubberaLogo variant="custom" textColor="var(--color-text)" />
                     </Link>
@@ -106,14 +108,26 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                     </div>
                 )}
 
+                {/* Mobile Search Header - Only visible on mobile for search page */}
+                {isSearchPage && (
+                    <div className={`${styles.mobileOnly} ${styles.fullWidthMobileSearch}`}>
+                        <SearchBarMobile
+                            size="small"
+                            placeholder="Search events and locations..."
+                            value={searchQuery}
+                            onChange={setSearchQuery}
+                            onSubmit={handleSearch} />
+                    </div>
+                )}
+
                 <div className={styles.actions}>
                     {/* Desktop Actions */}
                     {config.showSearch && (
-                        <div className={`${styles.search} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
+                        <div className={`${styles.search} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                             <SearchBar
                                 size="small"
                                 className='desktop-only-flex'
-                                placeholder="Events, Communities, People"
+                                placeholder="Search events and locations..."
                                 value={searchQuery}
                                 onChange={setSearchQuery}
                                 onSubmit={handleSearch}/>
@@ -121,7 +135,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                     )}
 
                     {config.showNotifications && (
-                        <div className={`${styles.notificationWrapper} ${isCommunityPage ? styles.hideOnMobileCommunity : ''}`}>
+                        <div className={`${styles.notificationWrapper} ${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                             <ActionIcon
                                 as="link"
                                 href="/notifications"
@@ -139,7 +153,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                         </div>
                     )}
 
-                    <div className={isCommunityPage ? styles.hideOnMobileCommunity : ''}>
+                    <div className={`${isCommunityPage ? styles.hideOnMobileCommunity : ''} ${isSearchPage ? styles.hideOnMobileSearch : ''}`}>
                         <UserMenu user={user} />
                     </div>
 

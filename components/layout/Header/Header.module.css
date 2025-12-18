@@ -15,8 +15,18 @@
     justify-content: space-between;
 }
 
+.fullWidthMobileSearch {
+    background-color: var(--color-background-light);
+    width: 100%;
+}
+
+/* .containerlo:has(.fullWidthMobileSearch),
+.container:has(.fullWidthMobileSearch) {
+    background-color: var(--color-background-light);
+} */
+
 .container {
-    height: 80px;
+    height: 100px;
 }
 
 .containerlo {
@@ -115,6 +125,11 @@
     display: flex;
 }
 
+/* Hide on mobile for search page only - always visible on desktop */
+.hideOnMobileSearch {
+    display: flex;
+}
+
 /* Community mobile actions */
 .communityMobileActions {
     display: flex;
@@ -151,6 +166,15 @@
 
     .hideOnMobileCommunity {
         display: none !important;
+    }
+
+    .hideOnMobileSearch {
+        display: none !important;
+    }
+
+    .containerlo:has(.fullWidthMobileSearch),
+    .container:has(.fullWidthMobileSearch) {
+        background-color: var(--color-background-light);
     }
 }
   
