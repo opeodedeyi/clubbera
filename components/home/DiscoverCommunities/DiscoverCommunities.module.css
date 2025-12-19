@@ -1,6 +1,6 @@
 .container {
-    width: 100%;
-    max-width: 386px;
+    min-width: 386px;
+    width: 386px;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
@@ -11,4 +11,15 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
+}
+
+@media (max-width: 1279px) {
+    .container {
+        width: 100%;
+        max-width: 486px;
+        padding: 0 var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-8);
+    }
 }

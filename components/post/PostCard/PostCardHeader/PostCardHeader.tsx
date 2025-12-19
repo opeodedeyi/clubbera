@@ -54,6 +54,7 @@ export default function PostCardHeader({
                     ) : (
                         <span className={styles.userName}>{userName}</span>
                     )}
+                    <span className={styles.dotText}>•</span>
                     <p className={styles.postDate}>
                         {formatSmartDate(createdAt)}
                     </p>

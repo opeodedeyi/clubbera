@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { eventApi, type EventSearchResult } from '@/lib/api/events';
-import { locationService } from '@/lib/services/locationService';
 import EventCard from '@/components/cards/event/EventCard/EventCard';
 import EventCardSkeleton from '@/components/cards/event/EventCard/EventCardSkeleton';
 import SearchFilter from '@/components/Form/SearchFilter/SearchFilter';
@@ -74,13 +73,12 @@ export default function SearchPage() {
 
             try {
                 if (type === 'events') {
-                    const location = await locationService.getLocation();
                     const response = await eventApi.searchEvents(
                         query,
                         20,
                         0,
-                        location?.lat,
-                        location?.lng,
+                        undefined,
+                        undefined,
                         eventType || undefined,
                         timeRange || undefined
                     );

@@ -17,6 +17,7 @@ interface coverImage {
 interface EventData {
     id?: number;
     title?: string;
+    description?: string;
     start_time?: string;
     location?: string;
     unique_url: string;
@@ -50,6 +51,7 @@ export default function PostCardContent({
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const getTimeRemaining = (endDate: string | null) => {
         if (!endDate) return null;
@@ -93,7 +95,20 @@ export default function PostCardContent({
 
     return (
         <div className={styles.content}>
-            <p>{content}</p>
+            { content &&
+                <div className={styles.contentTextWrapper}>
+                    <p className={`${styles.contentText} ${!isExpanded ? styles.contentTextClamped : ''}`}>
+                        {content}
+                    </p>
+                    {!isExpanded && (
+                        <span
+                            className={styles.showMoreButton}
+                            onClick={() => setIsExpanded(true)}>
+                            ...more
+                        </span>
+                    )}
+                </div>
+            }
 
             {/* Post type: regular post with optional images */}
             {contentType === 'post' && images && images.length > 0 && (
@@ -189,19 +204,28 @@ export default function PostCardContent({
             {contentType === 'event' && eventData && (
                 <Link href={`/event/${eventData.id}`} className={styles.eventCard}>
                     <div className={styles.eventTextContainer}>
-                        <div className={styles.eventDatenAttendance}>
-                            <p className={styles.eventDate}>{formatEventDate(eventData.start_time)}</p>
-                            <div className={styles.eventAttendance}>
-                                <Icon name="group" size='sm' color='var(--color-event)' />
+                        <div className={styles.eventMainText}>
+                            <p className={styles.eventTitle}>{eventData.title}</p>
+                            
+                            <p className={styles.eventDescription}>{eventData.description}</p>
+                        </div>
+
+                        <div className={styles.eventDetails}>
+                            <div className={styles.eventSameRow}>
+                                <Icon name="calendar" size='sm' color='var(--color-event)' />
+                                <p>Starting {formatEventDate(eventData.start_time)}</p>
+                            </div>
+
+                            <div className={styles.eventSameRow}>
+                                <Icon name="group" size='sm' color='var(--color-community)' />
                                 <p>{eventData.current_attendees}</p>
                             </div>
                         </div>
-                        <div className={styles.eventTitle}>{eventData.title}</div>
                     </div>
 
                     <div className={styles.eventImageContainer}>
                         <img
-                            src={getS3ImageUrl(eventData.cover_image?.key || IMAGES.pages.communities.placeholder)}
+                            src={getS3ImageUrl(eventData.cover_image?.key) || IMAGES.pages.communities.cover}
                             alt="Event"
                             className={styles.eventImage} />
                     </div>

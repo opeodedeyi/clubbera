@@ -350,15 +350,15 @@ export const eventApi = {
         eventType?: 'physical' | 'online' | 'hybrid',
         timeRange?: 'upcoming' | 'this_week' | 'this_month' | 'past'
     ): Promise<EventSearchResponse> => {
-        const params = new URLSearchParams({
-            limit: limit.toString(),
-            offset: offset.toString(),
-            ...(query && { query }),
-            ...(lat !== undefined && { lat: lat.toString() }),
-            ...(lng !== undefined && { lng: lng.toString() }),
-            ...(eventType && { eventType }),
-            ...(timeRange && { timeRange })
-        });
-        return api.get<EventSearchResponse>(`/event-search/search?${params}`);
+        const params = new URLSearchParams();
+        params.set('limit', limit.toString());
+        params.set('offset', offset.toString());
+        if (query) params.set('query', query);
+        if (lat !== undefined) params.set('lat', lat.toString());
+        if (lng !== undefined) params.set('lng', lng.toString());
+        if (eventType) params.set('eventType', eventType);
+        if (timeRange) params.set('timeRange', timeRange);
+        const url = `/event-search/search?${params}`;
+        return api.get<EventSearchResponse>(url);
     }
 };

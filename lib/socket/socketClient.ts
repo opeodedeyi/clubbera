@@ -34,8 +34,6 @@ export const getSocket = (): Socket | null => {
 
         // Remove /api suffix for Socket.IO connection (connects to root)
         const socketUrl = apiUrl.replace(/\/api\/?$/, '');
-
-        console.log('🔌 Creating NEW socket instance');
         socket = io(socketUrl, {
             auth: {
                 token

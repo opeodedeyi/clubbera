@@ -4,6 +4,41 @@
     gap: var(--spacing-8);
 }
 
+.contentTextWrapper {
+    position: relative;
+}
+
+.contentText {
+    white-space: pre-line;
+    margin: 0;
+}
+
+.contentTextClamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.showMoreButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--color-background-light);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding-left: 8px;
+    font-size: inherit;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.showMoreButton:hover {
+    color: var(--color-text);
+}
+
 /* Image Carousel */
 .imageCarousel {
     position: relative;
@@ -207,6 +242,7 @@
 
 /* Event styles */
 .eventCard {
+    width: 100%;
     border: none;
     display: flex;
     flex-direction: row;
@@ -216,51 +252,72 @@
     text-decoration: none;
     padding: var(--spacing-5);
     border-radius: var(--radius-xl);
-    background: var(--color-event-light);
+    background: var(--color-background);
     transition: background-color 0.2s;
 }
 
 .eventTextContainer {
+    flex: 1;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    gap: var(--spacing-6);
+}
+
+.eventMainText {
     flex: 1;
-}
-
-.eventDatenAttendance {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: var(--spacing-4);
-}
-
-.eventDate {
-    color: var(--color-plain-hover);
-}
-
-.eventAttendance {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: var(--spacing-2);
-    color: var(--color-plain-hover);
+    flex-direction: column;
+    gap: var(--spacing-3);
 }
 
 .eventTitle {
-    color: var(--color-gray);
-    font-family: var(--font-boris);
-    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: var(--font-size-md);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.eventDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.eventDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.eventSameRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.eventSameRow p {
+    font-weight: 600;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
 .eventImageContainer {
+    /* width: 272px; */
     width: 100%;
-    max-width: 264px;
-    height: 158px;
+    max-width: 272px;
+    height: 216px;
     overflow: hidden;
     border-radius: var(--radius-xl);
 }
@@ -272,22 +329,23 @@
 }
 
 @media screen and (max-width: 767px) {
+    .showMoreButton {
+        background: var(--color-background);
+    }
+
     /* Event styles */
     .eventCard {
+        background-color: var(--color-background-light);
         flex-direction: column-reverse;
         justify-content: center;
-        gap: var(--spacing-6);
-        padding: var(--spacing-4);
+        gap: var(--spacing-4);
+        padding: var(--spacing-5) var(--spacing-4);
     }
 
     .eventTextContainer {
+        width: 100%;
         align-self: flex-start;
-    }
-
-    .eventTextContainer,
-    .eventDatenAttendance,
-    .eventAttendance {
-        gap: var(--spacing-2);
+        gap: var(--spacing-4);
     }
 
     .eventTitle {
@@ -295,6 +353,6 @@
     }
 
     .eventImageContainer {
-        max-width: 350px;
+        max-width: 550px;
     }
 }

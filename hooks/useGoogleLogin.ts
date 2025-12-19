@@ -83,7 +83,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
     const clearError = () => setError(null);
 
     const handleAuthSuccess = useCallback(async (response: GoogleCredentialResponse | GoogleOAuth2Response) => {
-        console.log('Google auth success');
         authInProgress.current = false;
         setIsLoading(true);
 
@@ -97,10 +96,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
             }
 
             const apiResponse = await authApi.googleLogin(requestData);
-
-            console.log('Google login API response:', apiResponse); // Add this
-            console.log('User isEmailConfirmed:', apiResponse.data.user.isEmailConfirmed); // Add this
-            
             if (apiResponse.status === 'success' && apiResponse.data.token) {
                 login(apiResponse.data.token, apiResponse.data.user);
                 router.push('/home');
@@ -132,7 +127,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
                 setError('Popup blocked. Please allow popups and try again.');
                 break;
             case 'popup_closed':
-                console.log('User closed popup - no error needed');
                 break;
             default:
                 setError('Authentication failed. Please try again.');
@@ -140,8 +134,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
     }, []);
 
     const triggerOAuthFallback = useCallback(() => {
-        console.log('Falling back to OAuth popup');
-        
         const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
         if (!clientId) {
             setError('Google Client ID not configured');
@@ -169,15 +161,12 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
     const handleOneTapPrompt = useCallback((notification: GooglePromptNotification) => {
         // Don't trigger fallback if auth is no longer in progress (user already logged in)
         if (!authInProgress.current) {
-            console.log('Auth already completed, skipping fallback');
             return;
         }
 
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            console.log('One Tap not displayed, using OAuth fallback');
             triggerOAuthFallback();
         } else if (notification.isDismissedMoment()) {
-            console.log('One Tap dismissed by user, using OAuth fallback');
             triggerOAuthFallback();
         }
     }, [triggerOAuthFallback]);
@@ -228,7 +217,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
 
                 oneTapInitialized.current = true;
                 setIsGoogleReady(true);
-                console.log('Google clients initialized');
             } catch (error) {
                 console.error('Failed to initialize Google clients:', error);
                 setError('Failed to initialize Google authentication');
@@ -272,7 +260,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
 
     const handleGoogleLogin = useCallback(() => {
         if (authInProgress.current || isLoading) {
-            console.log('Authentication already in progress');
             return;
         }
 
@@ -281,7 +268,6 @@ export const useGoogleLogin = (): UseGoogleLoginReturn => {
             return;
         }
 
-        console.log('Starting Google authentication with One Tap...');
         authInProgress.current = true;
         setIsLoading(true);
         clearError();

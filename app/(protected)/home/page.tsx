@@ -21,9 +21,7 @@ export default function HomePage() {
                     <Feed/>
                 </div>
 
-                {isDesktop && (
-                    <DiscoverCommunities/>
-                )}
+                <DiscoverCommunities/>
             </div>
         </CenterContainer>
     );

@@ -11,7 +11,6 @@ class ApiClient {
         
         try {
             const token = getCookie('authToken')?.toString()
-            console.log('Client API: Getting token:', !!token) // Debug log
             return token
         } catch (error) {
             console.warn('Failed to get auth token:', error)
@@ -24,13 +23,6 @@ class ApiClient {
         options: RequestInit = {}
     ): Promise<T> {
         const token = this.getAuthToken()
-
-        console.log('Client API request:', {
-            endpoint,
-            hasToken: !!token,
-            method: options.method || 'GET'
-        })
-
         const config: RequestInit = {
             ...options,
             headers: {
@@ -39,8 +31,6 @@ class ApiClient {
                 ...options.headers,
             },
         }
-
-        console.log('Request headers:', config.headers)
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, config)
         
