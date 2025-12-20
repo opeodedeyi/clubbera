@@ -75,20 +75,36 @@
     .header {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-1);
+        gap: var(--spacing-0);
     }
 
     .userInfo {
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--spacing-1);
     }
 
     .userDetails {
         flex-direction: row;
     }
+    .userName {
+        font-size: var(--font-size-sm);
+    }
 
     .communityInfo  {
         max-width: 240px;
-        padding-left: var(--spacing-7);
+        padding-left: var(--spacing-6);
+    }
+
+    .communityInfo svg {
+        width: 12px;
+    }
+
+    .userImage {
+        width: 20px;
+        height: 20px;
+    }
+
+    .communityName {
+        font-size: var(--font-size-xs);
     }
 }

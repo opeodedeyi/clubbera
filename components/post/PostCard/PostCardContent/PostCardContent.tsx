@@ -95,7 +95,7 @@ export default function PostCardContent({
 
     return (
         <div className={styles.content}>
-            { content &&
+            { content && contentType !== 'event' &&
                 <div className={styles.contentTextWrapper}>
                     <p className={`${styles.contentText} ${!isExpanded ? styles.contentTextClamped : ''}`}>
                         {content}
