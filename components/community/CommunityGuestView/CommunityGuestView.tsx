@@ -3,7 +3,6 @@
 import { CommunityData } from '@/lib/api/communities';
 import { defaultCommunityGuidelines } from '@/lib/data/communityGuidelines';
 import ExpandableTextSection from '../ExpandableTextSection/ExpandableTextSection';
-import BackButton from '@/components/ui/BackButton/BackButton';
 import CommunityHeader from '../CommunityHeader/CommunityHeader';
 import GuestUpcomingEvent from '../GuestUpcomingEvent/GuestUpcomingEvent';
 import styles from './CommunityGuestView.module.css';
