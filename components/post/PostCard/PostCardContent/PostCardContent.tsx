@@ -53,6 +53,13 @@ export default function PostCardContent({
     const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
     const [isExpanded, setIsExpanded] = useState(false);
 
+    const isPollEnded = (endDate: string | null) => {
+        if (!endDate) return false;
+        const now = new Date().getTime();
+        const end = new Date(endDate).getTime();
+        return end - now <= 0;
+    };
+
     const getTimeRemaining = (endDate: string | null) => {
         if (!endDate) return null;
 
@@ -165,22 +172,37 @@ export default function PostCardContent({
                             const totalVotes = pollData.options.reduce((sum, opt) => sum + (opt.votes || 0), 0);
                             const percentage = totalVotes > 0 ? ((option.votes || 0) / totalVotes * 100).toFixed(1) : 0;
                             const isVoted = userVote?.optionIndices.includes(index);
+                            const pollEnded = isPollEnded(pollData.settings.endDate);
+                            const showResults = userHasVoted || pollEnded;
+
+                            // Determine state class
+                            let stateClass = styles.pollOptionNotVoted;
+                            if (pollEnded) {
+                                stateClass = styles.pollOptionEnded;
+                            } else if (userHasVoted) {
+                                stateClass = styles.pollOptionVotedActive;
+                            }
+
+                            // Set minimum bar width for visibility
+                            const barWidth = showResults && Number(percentage) === 0 ? 3 : percentage;
 
                             return (
                                 <div
                                     key={index}
-                                    className={`${styles.pollOption} ${isVoted ? styles.pollOptionVoted : ''} ${isPollSubmitting ? styles.pollOptionDisabled : ''}`}
+                                    className={`${styles.pollOption} ${stateClass} ${isPollSubmitting ? styles.pollOptionDisabled : ''}`}
                                     onClick={() => onPollOptionClick(index)}
-                                    style={{ cursor: userHasVoted || isPollSubmitting ? 'default' : 'pointer' }}>
-                                    <div className={styles.pollOptionBar} style={{ width: `${percentage}%` }} />
+                                    style={{ cursor: userHasVoted || isPollSubmitting || pollEnded ? 'default' : 'pointer' }}>
+                                    {showResults && <div className={styles.pollOptionBar} style={{ width: `${barWidth}%` }} />}
                                     <div className={styles.pollOptionContent}>
                                         <div className={styles.pollOptionLeft}>
                                             <span className={styles.pollOptionText}>{option.text}</span>
-                                            {isVoted && <Icon name="check" size="sm" color="var(--color-text)" />}
+                                            {isVoted && userHasVoted && <Icon name="check" size="sm" color="var(--color-text)" />}
                                         </div>
-                                        <span className={styles.pollOptionVotes}>
-                                            {percentage}%
-                                        </span>
+                                        {showResults && (
+                                            <span className={styles.pollOptionVotes}>
+                                                {percentage}%
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             );

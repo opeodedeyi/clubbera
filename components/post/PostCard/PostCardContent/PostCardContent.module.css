@@ -181,24 +181,29 @@
 
 .pollOption {
     padding: 12px;
-    border: 2px dashed var(--color-background-dark);
     border-radius: 6px;
-    background: none;
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
 }
 
-.pollOption:hover:not(.pollOptionVoted):not(.pollOptionDisabled) {
+.pollOptionNotVoted {
+    /* Customize not voted state here */
+    border: 2px dashed var(--color-text-light);
+    opacity: 0.7;
+    background: none;
+}
+
+.pollOptionNotVoted:hover:not(.pollOptionDisabled) {
     border-color: var(--color-text-light);
 }
 
-.pollOptionVoted {
+/* State 2: User has voted */
+.pollOptionVotedActive,
+.pollOptionEnded {
     border: none;
-    background: var(--color-background-dark);
-}
-
-.pollOptionVoted:hover {
-    background: var(--color-background-dark);
+    background: transparent;
 }
 
 .pollOptionDisabled {
@@ -207,10 +212,22 @@
     pointer-events: none;
 }
 
+.pollOptionBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--color-background);
+    z-index: 0;
+    transition: width 0.3s ease;
+}
+
 .pollOptionContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .pollOptionLeft {
@@ -394,5 +411,8 @@
     .pollOptions {
         gap: var(--spacing-1-5);
     }
-
+    
+    .pollOptionBar {
+        background: var(--color-background-light);
+    }
 }
