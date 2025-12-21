@@ -16,11 +16,6 @@ export default function CommunityGuestView({ community }: CommunityGuestViewProp
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <BackButton
-                    className='self-start' />
-            </div>
-
-            <div className={styles.content}>
                 <CommunityHeader
                     community={community} />
             </div>

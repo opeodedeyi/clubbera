@@ -133,7 +133,7 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
             { variant === 'admin' ? (
                 <div className={styles.eventsAdmin}>
                     <div className={styles.eventsAdminTop}>
-                        <h3 className={styles.title}>Events</h3>
+                        <h3 className={styles.title}>Next event</h3>
 
                         <Link className={styles.createLink} href={`/community/${community.id}/createevent`}>Create Event</Link>
                     </div>
@@ -145,9 +145,9 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                                     <div className={styles.eventAdminItem}>
                                         <div className={styles.eventAdminDnT}>
                                             <p>{formatSmartDateWithTimezone(events[0].startTime, events[0].timezone)}</p>
-                                            <p><Icon name='group' color='var(--color-event)'/> {events[0].currentAttendees}</p>
+                                            <p className={styles.eventAdminDnTAtt}><Icon name='group' color='var(--color-event)'/> {events[0].currentAttendees}</p>
                                         </div>
-                                        <h4>{events[0].title}</h4>
+                                        <h4 className={styles.eventAdminDnTTit}>{events[0].title}</h4>
                                     </div>
                                 )}
                             </div>
@@ -166,36 +166,36 @@ export default function UpcomingEvents({ community, variant, className }: Upcomi
                 </div>
             ) : (
                 <div className={styles.eventsMember}>
-                    <h3 className={styles.title}>Upcoming Events</h3>
+                    <h3 className={styles.title}>Next Event</h3>
 
                     {Array.isArray(events) && events.length > 0 && events[0] && (
                         <Link href={`/event/${events[0].id}`} className={styles.eventlink}>
-                        <div className={styles.eventsMemberMain}>
-                            <div className={styles.memberImg}>
-                                {events.length > 0 && (
-                                    <img 
-                                        src={getS3ImageUrl(events[0]?.coverImage?.key) || IMAGES.pages.communities.cover}
-                                        alt={events[0]?.coverImage?.altText || `Cover image for ${events[0].title}`} />
-                                )}
+                            <div className={styles.eventsMemberMain}>
+                                <div className={styles.memberImg}>
+                                    {events.length > 0 && (
+                                        <img 
+                                            src={getS3ImageUrl(events[0]?.coverImage?.key) || IMAGES.pages.communities.cover}
+                                            alt={events[0]?.coverImage?.altText || `Cover image for ${events[0].title}`} />
+                                    )}
+                                </div>
+
+                                <div className={styles.memberBody}>
+                                    <div className={styles.sameLine}>
+                                        <Icon name='calendar' className='desktop-only-flex' color='var(--color-event)' />
+                                        <p className={styles.memberStartingIn}>Starting {formatSmartDateWithTimezone(events[0]?.startTime, events[0]?.timezone)}</p>
+                                    </div>
+
+                                    <div className={styles.memberBodyText}>
+                                        <h4 className={styles.eventMemberDnTTit}>{events[0]?.title}</h4>
+                                        <p>{events[0]?.description}</p>
+                                    </div>
+
+                                    <div className={`${styles.sameLine} ${styles.attendees} ${styles.eventDnTAtt}`}>
+                                        <Icon name='group' size='sm' color='var(--color-gray)' />
+                                        <p>{events[0]?.attendeeCount} <span>Attendees</span></p>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div className={styles.memberBody}>
-                                <div className={styles.sameLine}>
-                                    <Icon name='calendar' className='desktop-only-flex' color='var(--color-event)' />
-                                    <p className={styles.memberStartingIn}>Starting {formatSmartDateWithTimezone(events[0]?.startTime, events[0]?.timezone)}</p>
-                                </div>
-
-                                <div className={styles.memberBodyText}>
-                                    <h4>{events[0]?.title}</h4>
-                                    <p>{events[0]?.description}</p>
-                                </div>
-
-                                <div className={`${styles.sameLine} ${styles.attendees}`}>
-                                    <Icon name='group' size='sm' color='var(--color-gray)' />
-                                    <p>{events[0]?.attendeeCount} <span>Attendees</span></p>
-                                </div>
-                            </div>
-                        </div>
                         </Link>
                     )}
 

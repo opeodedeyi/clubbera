@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { CommunityData } from '@/lib/api/communities';
 import { useHeaderVariant } from '@/components/providers/HeaderVariantProvider';
-import BackButton from '@/components/ui/BackButton/BackButton';
 import CommunityHeader from '../CommunityHeader/CommunityHeader';
 import CommunityPosts from '../CommunityPosts/CommunityPosts';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
@@ -37,8 +36,6 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
 
     return (
         <div className={styles.container}>
-            <BackButton className='self-start desktop-only-flex'/>
-            
             <div className={styles.content}>
                 <CommunityHeader community={community}/>
 
@@ -47,7 +44,7 @@ export default function CommunityMemberView({ community }: CommunityMemberViewPr
                         { community.user.isAdmin && (
                             <UpcomingEvents
                                 community={community}
-                                variant='admin'/>
+                                variant='admin' />
                         )}
 
                         <CommunityPosts community={community}/>
