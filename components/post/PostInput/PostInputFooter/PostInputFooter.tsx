@@ -52,7 +52,7 @@ export default function PostInputFooter({
             </div>
 
             <Button
-                variant='gray'
+                variant='default'
                 size="small"
                 onClick={onSubmit}
                 disabled={!canSubmit}>

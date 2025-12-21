@@ -3,10 +3,10 @@
 }
 
 .dropdownButton {
-    padding: var(--spacing-2) var(--spacing-4);
-    border: 1px solid var(--color-border);
+    padding: var(--spacing-2) var(--spacing-7) var(--spacing-2) var(--spacing-8);
     border-radius: var(--radius-button);
-    background: transparent;
+    border: none;
+    background: var(--color-background);
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -18,8 +18,29 @@
 .dropdownText {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
+    justify-content: center;
+    gap: var(--spacing-1);
     font-size: var(--font-size-sm);
+}
+
+.dropdownButtonGlobe {
+    width: 14px;
+    position: absolute;
+    left: var(--spacing-2-5);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdownButtonArrow {
+    width: 10px;
+    position: absolute;
+    right: var(--spacing-2-5);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dropdownText svg {
+    width: 14px;
 }
 
 .dropdownMenu {

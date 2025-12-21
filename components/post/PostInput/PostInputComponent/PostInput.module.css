@@ -4,8 +4,8 @@
     border: none;
     display: flex;
     background: var(--color-background-light);
-    border-radius: var(--radius-card);
-    padding: var(--spacing-6);
+    border-radius: var(--radius-3xl);
+    padding: var(--spacing-3) var(--spacing-5) var(--spacing-3);
 }
 
 .postInputContent {

@@ -55,12 +55,14 @@ export default function PostInput({ communities, onSubmit, className }: PostInpu
                         onSelect={handleCommunitySelect} />
                 </div>
 
-                <textarea
-                    ref={textareaRef}
-                    className={styles.textarea}
-                    placeholder={isPollMode ? "Add a description for your poll" : "What's on your mind?"}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)} />
+                { !isPollMode &&
+                    <textarea
+                        ref={textareaRef}
+                        className={styles.textarea}
+                        placeholder="Share an event experience"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)} />
+                }
 
                 <PostInputImagePreview
                     uploadedImages={uploadedImages}

@@ -70,7 +70,7 @@ export default function PostInputPollFields({
             <SelectInput
                 label="Duration"
                 options={durationOptions}
-                backgroundColor="var(--color-background-dark)"
+                backgroundColor="var(--color-background)"
                 value={String(pollDuration || 24)}
                 onChange={(value) => onDurationChange(value ? parseInt(value) : 24)}
                 placeholder="Select duration" />

@@ -29,10 +29,12 @@ export default function CommunityDropdown({
     return (
         <div className={styles.dropdownWrapper}>
             <button className={styles.dropdownButton} onClick={onToggle}>
+                <Icon className={styles.dropdownButtonGlobe} name="globe" size='sm' />
                 <div className={styles.dropdownText}>
-                    <Icon name="globe" size='sm' />
                     <span>{selectedCommunity ? truncateText(selectedCommunity.name) : 'Select community'}</span>
                 </div>
+
+                <Icon className={styles.dropdownButtonArrow} name="arrowDown" size='sm' />
             </button>
 
             {isOpen && (

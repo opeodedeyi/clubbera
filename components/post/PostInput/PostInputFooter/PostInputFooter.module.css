@@ -22,17 +22,18 @@
     flex-direction: row;
     align-items: center;
     gap: var(--spacing-1);
-    color: var(--color-text);
+    color: var(--color-text-light);
     font-size: var(--font-size-xs);
     border-radius: var(--radius-lg);
-    background: var(--color-background-dark);
+    background: var(--color-background);
     padding: var(--spacing-1-5);
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .formButtons:hover:not(:disabled) {
-    background: var(--color-background-hover);
+    background: var(--color-background-dark);
+    color: var(--color-text);
 }
 
 .formButtons:disabled {

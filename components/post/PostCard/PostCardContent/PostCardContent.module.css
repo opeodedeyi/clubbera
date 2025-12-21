@@ -169,6 +169,10 @@
     gap: var(--spacing-4);
 }
 
+.pollQuestion {
+    white-space: pre-line;
+}
+
 .pollOptions {
     display: flex;
     flex-direction: column;
@@ -376,4 +380,19 @@
         height: 160px;
         max-width: 550px;
     }
+
+    /* poll styles */
+    .pollContainer {
+        gap: var(--spacing-3);
+    }
+
+    .pollQuestion,
+    .pollOption {
+        font-size: var(--font-size-sm);
+    }
+
+    .pollOptions {
+        gap: var(--spacing-1-5);
+    }
+
 }
