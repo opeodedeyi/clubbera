@@ -20,6 +20,7 @@ export { default as ArrowRightIcon } from './ArrowRightIcon';
 export { default as ArrowUpIcon } from './ArrowUpIcon';
 export { default as BoldIcon } from './BoldIcon';
 export { default as CalendarIcon } from './CalendarIcon';
+export { default as CancelIcon } from './CancelIcon';
 export { default as CautionIcon } from './CautionIcon';
 export { default as ChatIcon } from './ChatIcon';
 export { default as CheckIcon } from './CheckIcon';
@@ -94,6 +95,7 @@ export type IconName =
     | 'arrowUp'
     | 'bold'
     | 'calendar'
+    | 'cancel'
     | 'caution'
     | 'chat'
     | 'check'

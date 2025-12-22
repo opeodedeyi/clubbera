@@ -19,6 +19,7 @@ export type IconName =
     | 'arrowRight'
     | 'arrowUp'
     | 'calendar'
+    | 'cancel'
     | 'caution'
     | 'chat'
     | 'check'
@@ -82,7 +83,7 @@ interface BaseIconProps {
 }
   
 export interface SimpleIconProps extends BaseIconProps {
-    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'caution' | 'chat' | 'check' | 'comment' | 'copy' | 'createPost' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'image' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'menu' | 'metric' | 'poll' | 'profile' | 'search' | 'share' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline' | 'leave' | 'lineArt'
+    name: 'arrowDown' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'calendar' | 'cancel' | 'caution' | 'chat' | 'check' | 'comment' | 'copy' | 'createPost' | 'edit' | 'editProfile' | 'emojiHappy' | 'gallery' | 'globe' | 'group' | 'heading' | 'home' | 'image' | 'info' | 'like' | 'liked' | 'loadingEllipsis' | 'locationMark' | 'lock' | 'mail' | 'menu' | 'metric' | 'poll' | 'profile' | 'search' | 'share' | 'tickStylish' | 'verticalEllipsis' | 'bold' | 'italic' | 'list' | 'underline' | 'leave' | 'lineArt'
     color?: string
 }
   

@@ -4,6 +4,7 @@ import {
     ArrowLeftIcon,
     ArrowRightIcon,
     CalendarIcon,
+    CancelIcon,
     CautionIcon,
     ChatIcon,
     CheckIcon,
@@ -140,6 +141,14 @@ export default function Icon(props: IconProps) {
                 <CalendarIcon
                     size={iconSize}
                     color={calendarProps.color}
+                    className={iconClasses}/>
+            )
+        case 'cancel':
+            const cancelProps = props as SimpleIconProps
+            return (
+                <CancelIcon
+                    size={iconSize}
+                    color={cancelProps.color}
                     className={iconClasses}/>
             )
         case 'caution':

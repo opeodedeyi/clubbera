@@ -5,6 +5,8 @@ import CommunityDropdown from '../CommunityDropdown/CommunityDropdown';
 import PostInputImagePreview from '../PostInputImagePreview/PostInputImagePreview';
 import PostInputPollFields from '../PostInputPollFields/PostInputPollFields';
 import PostInputFooter from '../PostInputFooter/PostInputFooter';
+import PostInputMobileHeader from '../PostInputMobileHeader/PostInputMobileHeader';
+import PostInputMobileFooter from '../PostInputMobileFooter/PostInputMobileFooter';
 import { usePostInput, Community, PollData, UploadedImage } from '@/hooks/usePostInput';
 import styles from './PostInputPopup.module.css';
 
@@ -64,12 +66,10 @@ export default function PostInputPopup({ communities, isOpen, onClose, onSubmit,
             <div className={styles.overlay} onClick={handleCancel} />
             <div className={`${styles.postInputContainer} ${isOpen ? styles.open : ''}`}>
                 {/* Mobile header */}
-                <div className={styles.mobileHeader}>
-                    <button className={styles.mobileCloseButton} onClick={handleCancel}>
-                        Cancel
-                    </button>
-                    <div className={styles.mobilePlaceholder}></div>
-                </div>
+                <PostInputMobileHeader
+                    onCancel={handleCancel}
+                    onSubmit={handleSubmit}
+                    canSubmit={canSubmit} />
 
                 <div className={styles.postInputContent}>
                     <div className={styles.header}>
@@ -84,12 +84,14 @@ export default function PostInputPopup({ communities, isOpen, onClose, onSubmit,
                         </button>
                     </div>
 
-                    <textarea
-                        ref={textareaRef}
-                        className={styles.textarea}
-                        placeholder={isPollMode ? "Add a description for your poll" : "What's on your mind?"}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)} />
+                    { !isPollMode &&
+                        <textarea
+                            ref={textareaRef}
+                            className={styles.textarea}
+                            placeholder="Share an event experience"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)} />
+                    }
 
                     <PostInputImagePreview
                         uploadedImages={uploadedImages}
@@ -119,6 +121,17 @@ export default function PostInputPopup({ communities, isOpen, onClose, onSubmit,
                         onTogglePollMode={togglePollMode}
                         onSubmit={handleSubmit} />
                 </div>
+
+                {/* Mobile footer */}
+                <PostInputMobileFooter
+                    isPollMode={isPollMode}
+                    uploadedImagesCount={uploadedImages.length}
+                    isUploadingImages={isUploadingImages}
+                    fileInputRef={fileInputRef}
+                    onImageClick={handleImageClick}
+                    onImageChange={handleImageChange}
+                    onTogglePollMode={togglePollMode}
+                />
             </div>
         </OverlayPortal>
     );
