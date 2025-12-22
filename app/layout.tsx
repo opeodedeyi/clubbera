@@ -3,10 +3,12 @@ import { headers } from "next/headers";
 import { AuthProvider } from '@/hooks/useAuth';
 import QueryProvider from '@/components/providers/QueryProvider';
 import { HeaderVariantProvider } from '@/components/providers/HeaderVariantProvider';
+import { PostCreationProvider } from '@/components/providers/PostCreationProvider';
 import Header from "@/components/layout/Header/Header";
 import ConditionalFooter from "@/components/layout/Footer/ConditionalFooter";
 import ConditionalBottomNav from "@/components/layout/BottomNav/ConditionalBottomNav";
 import EmailVerificationWrapper from "@/components/ui/EmailVerificationModal/EmailVerificationWrapper";
+import PostCreationWrapper from "@/components/post/PostCreation/PostCreationWrapper";
 import TopLoadingBar from "@/components/ui/TopLoadingBar/TopLoadingBar";
 import { ThemeProvider } from 'next-themes';
 import { boris, nunito } from "@/fonts/fonts";
@@ -55,12 +57,15 @@ export default async function RootLayout({
                         <QueryProvider>
                             <AuthProvider>
                                 <HeaderVariantProvider>
-                                    <TopLoadingBar />
-                                    <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
-                                    <main>{children}</main>
-                                    <ConditionalFooter />
-                                    <EmailVerificationWrapper />
-                                    <ConditionalBottomNav />
+                                    <PostCreationProvider>
+                                        <TopLoadingBar />
+                                        <Header className={isCommunityManage ? "desktop-only-flex" : ""} />
+                                        <main>{children}</main>
+                                        <ConditionalFooter />
+                                        <EmailVerificationWrapper />
+                                        <PostCreationWrapper />
+                                        <ConditionalBottomNav />
+                                    </PostCreationProvider>
                                 </HeaderVariantProvider>
                             </AuthProvider>
                         </QueryProvider>

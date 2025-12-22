@@ -13,9 +13,10 @@ interface PostInputPopupProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (communityId: string, content: string, pollData?: PollData, uploadedImages?: UploadedImage[]) => void;
+    initialCommunityId?: string;
 }
 
-export default function PostInputPopup({ communities, isOpen, onClose, onSubmit }: PostInputPopupProps) {
+export default function PostInputPopup({ communities, isOpen, onClose, onSubmit, initialCommunityId }: PostInputPopupProps) {
     const {
         selectedCommunity,
         content,
@@ -44,7 +45,7 @@ export default function PostInputPopup({ communities, isOpen, onClose, onSubmit 
         durationOptions,
         resetForm,
         canSubmit
-    } = usePostInput({ communities, onSubmit });
+    } = usePostInput({ communities, onSubmit, initialCommunityId });
 
     const handleSubmit = () => {
         hookHandleSubmit();
@@ -62,6 +63,14 @@ export default function PostInputPopup({ communities, isOpen, onClose, onSubmit 
         <OverlayPortal>
             <div className={styles.overlay} onClick={handleCancel} />
             <div className={`${styles.postInputContainer} ${isOpen ? styles.open : ''}`}>
+                {/* Mobile header */}
+                <div className={styles.mobileHeader}>
+                    <button className={styles.mobileCloseButton} onClick={handleCancel}>
+                        Cancel
+                    </button>
+                    <div className={styles.mobilePlaceholder}></div>
+                </div>
+
                 <div className={styles.postInputContent}>
                     <div className={styles.header}>
                         <CommunityDropdown

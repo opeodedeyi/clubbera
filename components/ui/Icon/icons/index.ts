@@ -25,6 +25,7 @@ export { default as ChatIcon } from './ChatIcon';
 export { default as CheckIcon } from './CheckIcon';
 export { default as CommentIcon } from './CommentIcon';
 export { default as CopyIcon } from './CopyIcon';
+export { default as CreatePostIcon } from './CreatePostIcon';
 export { default as EditIcon } from './EditIcon';
 export { default as EditProfileIcon } from './EditProfileIcon';
 export { default as EmojiHappyIcon } from './EmojiHappyIcon';
@@ -98,6 +99,7 @@ export type IconName =
     | 'check'
     | 'comment'
     | 'copy'
+    | 'createPost'
     | 'edit'
     | 'editProfile'
     | 'emojiHappy'

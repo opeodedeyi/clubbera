@@ -9,6 +9,7 @@ import {
     CheckIcon,
     CommentIcon,
     CopyIcon,
+    CreatePostIcon,
     EditIcon,
     EditProfileIcon,
     EmojiHappyIcon,
@@ -179,6 +180,14 @@ export default function Icon(props: IconProps) {
                 <CopyIcon
                     size={iconSize}
                     color={copyProps.color}
+                    className={iconClasses}/>
+            )
+        case 'createPost':
+            const createPostProps = props as SimpleIconProps
+            return (
+                <CreatePostIcon
+                    size={iconSize}
+                    color={createPostProps.color}
                     className={iconClasses}/>
             )
         case 'edit':

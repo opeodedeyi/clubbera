@@ -30,7 +30,7 @@ export default function BackButtonMobile({
             className={`${className} ${styles.backButtonMobile}`}
             onClick={handleBack}
             aria-label="Go back to previous page">
-            <Icon name='arrowLeft' color='var(--color-text-light)' size='md' />
+            <Icon name='arrowLeft' color='var(--color-text)' size='sm' />
         </button>
     )
 }

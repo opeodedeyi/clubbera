@@ -10,6 +10,7 @@ import ShareModal from '@/components/ui/ShareModal/ShareModal';
 import { formatDate } from '@/lib/utils/dateFormatter';
 import { CommunityData, communityApi } from '@/lib/api/communities';
 import CommunityDropdown from '@/components/community/CommunityDropdown/CommunityDropdown';
+import { usePostCreation } from '@/components/providers/PostCreationProvider';
 import styles from './CommunityHeader.module.css';
 
 interface CommunityProfileProps {
@@ -18,6 +19,7 @@ interface CommunityProfileProps {
 
 export default function CommunityHeader({ community }: CommunityProfileProps) {
     const router = useRouter();
+    const { openCreatePost } = usePostCreation();
     const [isJoining, setIsJoining] = useState(false);
     const [requestSent, setRequestSent] = useState(community.user?.joinRequestStatus=='pending' || false);
     const [error, setError] = useState<string | null>(null);
@@ -96,7 +98,7 @@ export default function CommunityHeader({ community }: CommunityProfileProps) {
                         </div>
                     ) :
                         <div className={`${styles.profileButtons} desktop-only-flex`}>
-                            <Button variant='community'>Create Post</Button>
+                            <Button variant='community' onClick={() => openCreatePost(community.id.toString())}>Create Post</Button>
                             {
                                 isAdmin ? (
                                     <Button as='link' href={`/community/${community.id}/manage`} variant='plain'>Manage Community</Button>

@@ -184,7 +184,7 @@ export default function PostCardContent({
                             }
 
                             // Set minimum bar width for visibility
-                            const barWidth = showResults && Number(percentage) === 0 ? 3 : percentage;
+                            const barWidth = showResults && Number(percentage) === 0 ? 1 : percentage;
 
                             return (
                                 <div

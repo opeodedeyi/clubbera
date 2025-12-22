@@ -28,12 +28,17 @@ export interface UploadedImage {
 interface UsePostInputProps {
     communities: Community[];
     onSubmit: (communityId: string, content: string, pollData?: PollData, uploadedImages?: UploadedImage[]) => void;
+    initialCommunityId?: string;
 }
 
-export const usePostInput = ({ communities, onSubmit }: UsePostInputProps) => {
+export const usePostInput = ({ communities, onSubmit, initialCommunityId }: UsePostInputProps) => {
     // State
+    const initialCommunity = initialCommunityId
+        ? communities.find(c => c.id === initialCommunityId) || communities[0]
+        : communities[0];
+
     const [selectedCommunity, setSelectedCommunity] = useState<Community | null>(
-        communities[0] || null
+        initialCommunity || null
     );
     const [content, setContent] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);

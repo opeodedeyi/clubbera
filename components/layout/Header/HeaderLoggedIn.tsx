@@ -160,7 +160,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                                     className={styles.communityActionButton}
                                     onClick={() => setShowShareModal(true)}
                                     aria-label="share community">
-                                    <Icon name='share' color='var(--color-text-light)' size='sm' />
+                                    <Icon name='share' color='var(--color-text)' size='sm' />
                                 </button>
 
                                 <CommunityDropdown
@@ -169,7 +169,7 @@ export default function HeaderLoggedIn({ user, variant, className = '' }: Header
                                         <button
                                             className={styles.communityActionButton}
                                             aria-label="community options">
-                                            <Icon name='verticalEllipsis' color='var(--color-text-light)' size='sm' />
+                                            <Icon name='verticalEllipsis' color='var(--color-text)' size='sm' />
                                         </button>
                                     } />
                             </div>

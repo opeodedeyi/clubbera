@@ -12,28 +12,59 @@
 /* Popup Container */
 .postInputContainer {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background: var(--color-background-light);
-    border-top-left-radius: var(--radius-xl);
-    border-top-right-radius: var(--radius-xl);
     padding: var(--spacing-6);
     transform: translateY(100%);
     transition: transform 0.3s ease-out;
     z-index: 1000;
-    max-height: 80vh;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .postInputContainer.open {
     transform: translateY(0);
 }
 
+/* Mobile Header */
+.mobileHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--color-background-dark);
+    margin-bottom: var(--spacing-4);
+}
+
+.mobileCloseButton {
+    background: none;
+    border: none;
+    color: var(--color-danger);
+    font-size: 14px;
+    cursor: pointer;
+    padding: var(--spacing-2);
+}
+
+.mobileTitle {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0;
+}
+
+.mobilePlaceholder {
+    width: 60px; /* Same width as close button to center title */
+}
+
 .postInputContent {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-5);
+    flex: 1;
+    overflow-y: auto;
 }
 
 .header {
@@ -88,18 +119,31 @@
 }
 
 @media (min-width: 768px) {
+    .mobileHeader {
+        display: none;
+    }
+
     .postInputContainer {
-        bottom: 50%;
+        top: 80px;
+        bottom: auto;
         left: 50%;
         right: auto;
-        transform: translate(-50%, 50%) scale(0.9);
+        transform: translate(-50%, -20px) scale(0.95);
+        opacity: 0;
         border-radius: var(--radius-xl);
-        max-width: 500px;
+        max-width: 700px;
         width: 90%;
-        max-height: 80vh;
+        max-height: calc(100vh - 120px);
     }
 
     .postInputContainer.open {
-        transform: translate(-50%, 50%) scale(1);
+        transform: translate(-50%, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 767px) {
+    .cancelButton {
+        display: none;
     }
 }
