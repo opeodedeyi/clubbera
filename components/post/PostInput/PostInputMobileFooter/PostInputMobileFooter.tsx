@@ -28,7 +28,10 @@ export default function PostInputMobileFooter({
     useEffect(() => {
         // Enable VirtualKeyboard API for Chromium browsers
         if ('virtualKeyboard' in navigator) {
-            (navigator as any).virtualKeyboard.overlaysContent = true;
+            const nav = navigator as Navigator & { virtualKeyboard?: { overlaysContent: boolean } };
+            if (nav.virtualKeyboard) {
+                nav.virtualKeyboard.overlaysContent = true;
+            }
         }
 
         // Visual Viewport API fallback for iOS
