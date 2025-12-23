@@ -185,6 +185,17 @@ export default function UserMenu({ className = '' }: UserMenuProps) {
                             </Link>
                         </div>
                     </div>
+
+                    <Link 
+                        href="/community/create" 
+                        className={styles.menuItem}
+                        onClick={closeMenu}>
+                        <Icon
+                            name="createPost"
+                            size='sm'
+                            color="var(--color-text)" />
+                        <span>Create free Community</span>
+                    </Link>
                     
                     <Link
                         href={`/profile/${user.uniqueUrl}`} 

@@ -75,3 +75,9 @@
     background-color: var(--color-background-selected);
     font-weight: 500;
 }
+
+@media (max-width: 768px) {
+    .dropdownButton {
+        background: var(--color-background-light);
+    }
+}

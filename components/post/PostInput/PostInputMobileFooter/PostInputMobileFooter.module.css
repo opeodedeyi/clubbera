@@ -13,7 +13,7 @@
     color: var(--color-text-light);
     font-size: var(--font-size-xs);
     border-radius: var(--radius-lg);
-    background: var(--color-background);
+    background: var(--color-background-light);
     padding: var(--spacing-1-5);
     cursor: pointer;
     transition: background-color 0.2s;
@@ -41,12 +41,19 @@
         flex-direction: row;
         align-items: center;
         gap: var(--spacing-3);
-        position: sticky;
+        position: fixed;
+        left: 0;
+        right: 0;
         bottom: 0;
-        background: var(--color-background-light);
+        background: var(--color-background);
         padding: var(--spacing-4);
-        padding-bottom: calc(env(safe-area-inset-bottom) + var(--spacing-4));
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--spacing-4));
         border-top: 1px solid var(--color-background-dark);
-        margin-top: auto;
+        z-index: 100;
+        /* VirtualKeyboard API support for modern browsers */
+        margin-bottom: env(keyboard-inset-height, 0px);
+        /* Smooth transitions for keyboard appearance */
+        transition: transform 0.3s ease-out;
+        will-change: transform;
     }
 }

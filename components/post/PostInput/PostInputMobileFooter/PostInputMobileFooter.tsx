@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Icon from '@/components/ui/Icon/Icon';
 import styles from './PostInputMobileFooter.module.css';
 
@@ -20,8 +23,49 @@ export default function PostInputMobileFooter({
     onImageChange,
     onTogglePollMode
 }: PostInputMobileFooterProps) {
+    const footerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Enable VirtualKeyboard API for Chromium browsers
+        if ('virtualKeyboard' in navigator) {
+            (navigator as any).virtualKeyboard.overlaysContent = true;
+        }
+
+        // Visual Viewport API fallback for iOS
+        const handleViewportResize = () => {
+            if (!footerRef.current) return;
+
+            const visualViewport = window.visualViewport;
+            if (visualViewport) {
+                const viewportHeight = visualViewport.height;
+                const windowHeight = window.innerHeight;
+                const keyboardHeight = windowHeight - viewportHeight;
+
+                if (keyboardHeight > 0) {
+                    // Keyboard is visible
+                    footerRef.current.style.transform = `translateY(-${keyboardHeight}px)`;
+                } else {
+                    // Keyboard is hidden
+                    footerRef.current.style.transform = 'translateY(0)';
+                }
+            }
+        };
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', handleViewportResize);
+            window.visualViewport.addEventListener('scroll', handleViewportResize);
+        }
+
+        return () => {
+            if (window.visualViewport) {
+                window.visualViewport.removeEventListener('resize', handleViewportResize);
+                window.visualViewport.removeEventListener('scroll', handleViewportResize);
+            }
+        };
+    }, []);
+
     return (
-        <div className={styles.footer}>
+        <div ref={footerRef} className={styles.footer}>
             <input
                 ref={fileInputRef}
                 type="file"
